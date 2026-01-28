@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Digital Finance</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;background:#f6f8fa;color:#24292e;font-size:11px;line-height:1.4}
+a{color:#0366d6;text-decoration:none}
+.nav{background:#24292e;padding:6px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.nav-title{color:#fff;font-weight:600;font-size:14px}
+.nav-links{display:flex;gap:16px}
+.nav-links a{color:#fff;font-size:11px;opacity:0.8}
+.nav-links a:hover{opacity:1}
+.wrap{display:flex;max-width:1800px;margin:0 auto}
+.side{width:180px;background:#ffffff;border-right:1px solid #e1e4e8;height:calc(100vh - 38px);overflow-y:auto;position:sticky;top:38px;flex-shrink:0}
+.side-head{padding:8px 10px;background:#f6f8fa;border-bottom:1px solid #e1e4e8;font-weight:600;font-size:11px}
+.side details{border-bottom:1px solid #f0f0f0}
+.side summary{padding:6px 10px;font-size:10px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.side summary::-webkit-details-marker{display:none}
+.side summary::after{content:"+";color:#586069;font-size:12px}
+.side details[open] summary::after{content:"-"}
+.side a{display:block;padding:4px 10px 4px 18px;color:#586069;font-size:10px}
+.side a:hover{background:#f6f8fa;color:#0366d6}
+.d1 summary{border-left:3px solid #3b82f6}
+.d2 summary{border-left:3px solid #14b8a6}
+.d3 summary{border-left:3px solid #6366f1}
+.d4 summary{border-left:3px solid #8b5cf6}
+.d5 summary{border-left:3px solid #f43f5e}
+.d6 summary{border-left:3px solid #f59e0b}
+.main{flex:1;min-width:0;padding:10px}
+.hero{background:linear-gradient(135deg, #24292e 0%, #3b82f6 100%);color:#fff;padding:12px 16px;border-radius:6px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.hero-left h1{font-size:18px;font-weight:700}
+.hero-left p{font-size:11px;opacity:0.8;margin-top:2px}
+.hero-stats{display:flex;gap:24px}
+.hero-stats span{text-align:center}
+.hero-stats b{display:block;font-size:20px}
+.hero-stats small{font-size:9px;opacity:0.7}
+.section{margin-bottom:16px}
+.section-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:6px 0;border-bottom:2px solid #e1e4e8}
+.section-head span{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700}
+.section-head.d1 span{background:#3b82f6}
+.section-head.d2 span{background:#14b8a6}
+.section-head.d3 span{background:#6366f1}
+.section-head.d4 span{background:#8b5cf6}
+.section-head.d5 span{background:#f43f5e}
+.section-head.d6 span{background:#f59e0b}
+.section-head.pillars span{background:#6366f1}
+.section-head.notebooks span{background:#22c55e}
+.section-head h2{font-size:13px;color:#24292e}
+.pillar-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.pillar-card{background:#fff;border:1px solid #e1e4e8;border-radius:4px;padding:8px 10px;flex:1;min-width:200px;border-left:3px solid;transition:all 0.15s}
+.pillar-card:hover{box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.p1{border-left-color:#3b82f6}
+.p2{border-left-color:#14b8a6}
+.p3{border-left-color:#6366f1}
+.p4{border-left-color:#8b5cf6}
+.p5{border-left-color:#f43f5e}
+.pillar-num{font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;margin-right:6px;display:inline-block}
+.p1 .pillar-num{background:#dbeafe;color:#3b82f6}
+.p2 .pillar-num{background:#f0fdfa;color:#14b8a6}
+.p3 .pillar-num{background:#eef2ff;color:#6366f1}
+.p4 .pillar-num{background:#f5f3ff;color:#8b5cf6}
+.p5 .pillar-num{background:#fff1f2;color:#f43f5e}
+.pillar-title{font-size:11px;font-weight:600;color:#24292e;margin-bottom:4px}
+.pillar-desc{font-size:10px;color:#586069;line-height:1.3}
+.lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.lcard{display:block;background:#fff;border:1px solid #e1e4e8;border-radius:4px;padding:8px 10px;cursor:pointer;transition:all 0.15s}
+.lcard:hover{border-color:#0366d6;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.lcard-top{display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.lcard-num{font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px}
+.d1 .lcard-num{background:#dbeafe;color:#3b82f6}
+.d2 .lcard-num{background:#f0fdfa;color:#14b8a6}
+.d3 .lcard-num{background:#eef2ff;color:#6366f1}
+.d4 .lcard-num{background:#f5f3ff;color:#8b5cf6}
+.d5 .lcard-num{background:#fff1f2;color:#f43f5e}
+.d6 .lcard-num{background:#fffbeb;color:#f59e0b}
+.type-badge{font-size:9px;font-weight:600;padding:2px 4px;border-radius:2px;margin-left:auto}
+.type-lecture{background:#dbeafe;color:#3b82f6}
+.type-lecture-disc{background:#ede9fe;color:#8b5cf6}
+.type-hybrid{background:#dcfce7;color:#22c55e}
+.type-discussion{background:#fef3c7;color:#f59e0b}
+.lcard-title{font-size:11px;font-weight:500;color:#24292e;margin-bottom:3px}
+.lcard-comp{font-size:9px;color:#586069;line-height:1.3}
+.nb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.nb-card{display:block;background:#fff;border:1px solid #e1e4e8;border-radius:4px;padding:8px 10px;cursor:pointer;transition:all 0.15s;border-left:3px solid #22c55e}
+.nb-card:hover{border-color:#0366d6;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.nb-num{font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;margin-right:4px;background:#dcfce7;color:#22c55e}
+.nb-title{font-size:11px;font-weight:500;color:#24292e;margin-bottom:2px}
+.nb-meta{font-size:9px;color:#586069}
+.foot{text-align:center;padding:12px;font-size:10px;color:#586069;margin-top:12px}
+.foot a{margin:0 8px}
+@media(max-width:1400px){.lgrid{grid-template-columns:repeat(3,1fr)}.nb-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1000px){.lgrid{grid-template-columns:repeat(2,1fr)}.side{width:160px}}
+@media(max-width:800px){.wrap{flex-direction:column}.side{width:100%;height:auto;max-height:200px;position:relative;top:0}.lgrid{grid-template-columns:repeat(2,1fr)}.pillar-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav class="nav">
+<span class="nav-title">Digital Finance</span>
+<div class="nav-links"><a href="#days">Days</a><a href="#topics">Topics</a><a href="#notebooks">Notebooks</a><a href="#">GitHub</a></div>
+</nav>
+<div class="wrap">
+<aside class="side">
+<div class="side-head">Navigation</div>
+<details class="d1" open><summary>Day 1: Why Digital Finance?</summary>
+<a href="#t1-1">1.1 What Is Money, Really?</a>
+<a href="#t1-2">1.2 Financial System Pain Points</a>
+<a href="#t1-3">1.3 FinTech vs. Crypto/DeFi</a>
+<a href="#t1-4">1.4 Landscape Overview</a>
+</details>
+<details class="d2" open><summary>Day 2: Platform Finance</summary>
+<a href="#t2-1">2.1 Digital Payments</a>
+<a href="#t2-2">2.2 API Economy & BaaS</a>
+<a href="#t2-3">2.3 Data-Driven Finance</a>
+<a href="#t2-4">2.4 Platform Economics</a>
+</details>
+<details class="d3" open><summary>Day 3: Cryptographic Foundations</summary>
+<a href="#t3-1">3.1 Cryptographic Building Blocks</a>
+<a href="#t3-2">3.2 Blockchain Mechanics</a>
+<a href="#t3-3">3.3 Wallets & Transactions</a>
+<a href="#t3-4">3.4 Bitcoin vs. Ethereum</a>
+</details>
+<details class="d4" open><summary>Day 4: Programmable Finance</summary>
+<a href="#t4-1">4.1 Smart Contracts</a>
+<a href="#t4-2">4.2 DeFi Primitives</a>
+<a href="#t4-3">4.3 Stablecoins</a>
+<a href="#t4-4">4.4 Tokenization & CBDCs</a>
+</details>
+<details class="d5" open><summary>Day 5: Risk, Regulation & Dark Side</summary>
+<a href="#t5-1">5.1 What Goes Wrong</a>
+<a href="#t5-2">5.2 Regulatory Landscapes</a>
+<a href="#t5-3">5.3 DAO Governance</a>
+<a href="#t5-4">5.4 Privacy & Inclusion</a>
+</details>
+<details class="d6" open><summary>Day 6: Convergence & Future</summary>
+<a href="#t6-1">6.1 The Convergence Thesis</a>
+<a href="#t6-2">6.2 AI & Digital Finance</a>
+<a href="#t6-3">6.3 Synthesis Framework</a>
+<a href="#t6-4">6.4 What's Next?</a>
+</details>
+</aside>
+<main class="main">
+<div class="hero">
+<div class="hero-left"><h1>Digital Finance</h1><p>BSC Intensive Course — FinTech & Crypto/DeFi</p></div>
+<div class="hero-stats"><span><b>6</b><small>Days</small></span><span><b>24</b><small>Topics</small></span><span><b>14</b><small>Notebooks</small></span></div>
+</div>
+
+<section class="section">
+<div class="section-head pillars"><span>5</span><h2>Foundational Pillars</h2></div>
+<div class="pillar-row">
+<div class="pillar-card p1">
+<div class="pillar-title"><span class="pillar-num">P1</span>Money & Trust</div>
+<div class="pillar-desc">What money is, how trust works, why digital money is hard</div>
+</div>
+<div class="pillar-card p2">
+<div class="pillar-title"><span class="pillar-num">P2</span>Platform Finance</div>
+<div class="pillar-desc">How FinTech unbundles and rebundles financial services</div>
+</div>
+<div class="pillar-card p3">
+<div class="pillar-title"><span class="pillar-num">P3</span>Cryptographic Trust</div>
+<div class="pillar-desc">How blockchains solve trust without institutions</div>
+</div>
+<div class="pillar-card p4">
+<div class="pillar-title"><span class="pillar-num">P4</span>Tokenization</div>
+<div class="pillar-desc">How tokenization bridges FinTech and DeFi worlds</div>
+</div>
+<div class="pillar-card p5">
+<div class="pillar-title"><span class="pillar-num">P5</span>Governance & Risk</div>
+<div class="pillar-desc">Who decides what's allowed, what can go wrong</div>
+</div>
+</div>
+</section>
+
+<section class="section d1" id="days">
+<div class="section-head d1"><span>1</span><h2>Day 1: Why Digital Finance?</h2></div>
+<div class="lgrid" id="topics">
+<a href="#" class="lcard" id="t1-1">
+<div class="lcard-top">
+<span class="lcard-num">1.1</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">What Is Money, Really?</div>
+<div class="lcard-comp">Explain double-spending and account-based vs token-based money</div>
+</a>
+<a href="#" class="lcard" id="t1-2">
+<div class="lcard-top">
+<span class="lcard-num">1.2</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">Financial System Pain Points</div>
+<div class="lcard-comp">Identify core frictions in traditional finance infrastructure</div>
+</a>
+<a href="#" class="lcard" id="t1-3">
+<div class="lcard-top">
+<span class="lcard-num">1.3</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">FinTech vs. Crypto/DeFi</div>
+<div class="lcard-comp">Classify innovations as FinTech or Crypto/DeFi with tradeoffs</div>
+</a>
+<a href="#" class="lcard" id="t1-4">
+<div class="lcard-top">
+<span class="lcard-num">1.4</span>
+<span class="type-badge type-lecture">Lecture</span>
+</div>
+<div class="lcard-title">Landscape Overview</div>
+<div class="lcard-comp">Sketch the digital finance landscape and place innovation categories</div>
+</a>
+</div>
+</section>
+
+<section class="section d2">
+<div class="section-head d2"><span>2</span><h2>Day 2: Platform Finance</h2></div>
+<div class="lgrid">
+<a href="#" class="lcard" id="t2-1">
+<div class="lcard-top">
+<span class="lcard-num">2.1</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Digital Payments</div>
+<div class="lcard-comp">Trace a digital payment from initiation to settlement</div>
+</a>
+<a href="#" class="lcard" id="t2-2">
+<div class="lcard-top">
+<span class="lcard-num">2.2</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">API Economy & BaaS</div>
+<div class="lcard-comp">Explain how APIs enable non-banks to offer financial services</div>
+</a>
+<a href="#" class="lcard" id="t2-3">
+<div class="lcard-top">
+<span class="lcard-num">2.3</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Data-Driven Finance</div>
+<div class="lcard-comp">Explain how alt data and ML change credit decisions</div>
+</a>
+<a href="#" class="lcard" id="t2-4">
+<div class="lcard-top">
+<span class="lcard-num">2.4</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">Platform Economics</div>
+<div class="lcard-comp">Analyze FinTech business model sustainability</div>
+</a>
+</div>
+</section>
+
+<section class="section d3">
+<div class="section-head d3"><span>3</span><h2>Day 3: Cryptographic Foundations</h2></div>
+<div class="lgrid">
+<a href="#" class="lcard" id="t3-1">
+<div class="lcard-top">
+<span class="lcard-num">3.1</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Cryptographic Building Blocks</div>
+<div class="lcard-comp">Explain hashing, public-key crypto, and verify digital signatures</div>
+</a>
+<a href="#" class="lcard" id="t3-2">
+<div class="lcard-top">
+<span class="lcard-num">3.2</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Blockchain Mechanics</div>
+<div class="lcard-comp">Explain consensus, compare PoW vs PoS, articulate trilemma</div>
+</a>
+<a href="#" class="lcard" id="t3-3">
+<div class="lcard-top">
+<span class="lcard-num">3.3</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Wallets & Transactions</div>
+<div class="lcard-comp">Explain transaction anatomy, wallet types, and UX challenges</div>
+</a>
+<a href="#" class="lcard" id="t3-4">
+<div class="lcard-top">
+<span class="lcard-num">3.4</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">Bitcoin vs. Ethereum</div>
+<div class="lcard-comp">Compare design philosophies and explain programmable money</div>
+</a>
+</div>
+</section>
+
+<section class="section d4">
+<div class="section-head d4"><span>4</span><h2>Day 4: Programmable Finance</h2></div>
+<div class="lgrid">
+<a href="#" class="lcard" id="t4-1">
+<div class="lcard-top">
+<span class="lcard-num">4.1</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Smart Contracts</div>
+<div class="lcard-comp">Explain smart contract execution, limitations, oracle problem</div>
+</a>
+<a href="#" class="lcard" id="t4-2">
+<div class="lcard-top">
+<span class="lcard-num">4.2</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">DeFi Primitives</div>
+<div class="lcard-comp">Explain AMMs, lending pools, calculate impermanent loss</div>
+</a>
+<a href="#" class="lcard" id="t4-3">
+<div class="lcard-top">
+<span class="lcard-num">4.3</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Stablecoins</div>
+<div class="lcard-comp">Classify stablecoin designs and assess de-peg risk</div>
+</a>
+<a href="#" class="lcard" id="t4-4">
+<div class="lcard-top">
+<span class="lcard-num">4.4</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">Tokenization & CBDCs</div>
+<div class="lcard-comp">Explain RWA tokenization and compare CBDC designs</div>
+</a>
+</div>
+</section>
+
+<section class="section d5">
+<div class="section-head d5"><span>5</span><h2>Day 5: Risk, Regulation & Dark Side</h2></div>
+<div class="lgrid">
+<a href="#" class="lcard" id="t5-1">
+<div class="lcard-top">
+<span class="lcard-num">5.1</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">What Goes Wrong</div>
+<div class="lcard-comp">Categorize digital finance failures and explain exploit mechanics</div>
+</a>
+<a href="#" class="lcard" id="t5-2">
+<div class="lcard-top">
+<span class="lcard-num">5.2</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">Regulatory Landscapes</div>
+<div class="lcard-comp">Compare major regulatory frameworks (US, EU/MiCA, Asia)</div>
+</a>
+<a href="#" class="lcard" id="t5-3">
+<div class="lcard-top">
+<span class="lcard-num">5.3</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">DAO Governance</div>
+<div class="lcard-comp">Explain DAO mechanisms and identify governance attack vectors</div>
+</a>
+<a href="#" class="lcard" id="t5-4">
+<div class="lcard-top">
+<span class="lcard-num">5.4</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">Privacy & Inclusion</div>
+<div class="lcard-comp">Articulate privacy-transparency tradeoff, evaluate inclusion claims</div>
+</a>
+</div>
+</section>
+
+<section class="section d6">
+<div class="section-head d6"><span>6</span><h2>Day 6: Convergence & Future</h2></div>
+<div class="lgrid">
+<a href="#" class="lcard" id="t6-1">
+<div class="lcard-top">
+<span class="lcard-num">6.1</span>
+<span class="type-badge type-lecture-disc">Lecture+Disc</span>
+</div>
+<div class="lcard-title">The Convergence Thesis</div>
+<div class="lcard-comp">Identify FinTech-DeFi convergence examples and drivers</div>
+</a>
+<a href="#" class="lcard" id="t6-2">
+<div class="lcard-top">
+<span class="lcard-num">6.2</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">AI & Digital Finance</div>
+<div class="lcard-comp">Explain 3 major AI applications and assess AI-driven risks</div>
+</a>
+<a href="#" class="lcard" id="t6-3">
+<div class="lcard-top">
+<span class="lcard-num">6.3</span>
+<span class="type-badge type-hybrid">Hybrid</span>
+</div>
+<div class="lcard-title">Synthesis Framework</div>
+<div class="lcard-comp">Apply structured evaluation framework to any innovation</div>
+</a>
+<a href="#" class="lcard" id="t6-4">
+<div class="lcard-top">
+<span class="lcard-num">6.4</span>
+<span class="type-badge type-discussion">Discussion</span>
+</div>
+<div class="lcard-title">What's Next?</div>
+<div class="lcard-comp">Identify open questions and articulate future hypotheses</div>
+</a>
+</div>
+</section>
+
+<section class="section" id="notebooks">
+<div class="section-head notebooks"><span>14</span><h2>Interactive Notebooks</h2></div>
+<div class="nb-grid">
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB01</span><span class="nb-title">Money & Ledgers Simulation</span></div>
+<div class="nb-meta">Day 1 • Topic 1.1</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB02</span><span class="nb-title">Payment Transaction Analysis</span></div>
+<div class="nb-meta">Day 2 • Topic 2.1</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB03</span><span class="nb-title">Open Banking API Explorer</span></div>
+<div class="nb-meta">Day 2 • Topic 2.2</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB04</span><span class="nb-title">Credit Scoring with Alt Data</span></div>
+<div class="nb-meta">Day 2 • Topic 2.3</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB05</span><span class="nb-title">Hashing, Keys & Signatures</span></div>
+<div class="nb-meta">Day 3 • Topic 3.1</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB06</span><span class="nb-title">Mini-Blockchain Simulator</span></div>
+<div class="nb-meta">Day 3 • Topic 3.2</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB07</span><span class="nb-title">Blockchain Transactions on Testnet</span></div>
+<div class="nb-meta">Day 3 • Topic 3.3</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB08</span><span class="nb-title">Smart Contract Interaction</span></div>
+<div class="nb-meta">Day 4 • Topic 4.1</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB09</span><span class="nb-title">AMM & Impermanent Loss Sim</span></div>
+<div class="nb-meta">Day 4 • Topic 4.2</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB10</span><span class="nb-title">Stablecoin Stability Analysis</span></div>
+<div class="nb-meta">Day 4 • Topic 4.3</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB11</span><span class="nb-title">DeFi Exploit Anatomy</span></div>
+<div class="nb-meta">Day 5 • Topic 5.1</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB12</span><span class="nb-title">DAO Governance Simulation</span></div>
+<div class="nb-meta">Day 5 • Topic 5.3</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB13</span><span class="nb-title">Robo-Advisor Portfolio Model</span></div>
+<div class="nb-meta">Day 6 • Topic 6.2</div>
+</a>
+<a href="#" class="nb-card">
+<div><span class="nb-num">NB14</span><span class="nb-title">Innovation Scorecard (Capstone)</span></div>
+<div class="nb-meta">Day 6 • Topic 6.3</div>
+</a>
+</div>
+</section>
+
+<footer class="foot">
+<div>Joerg Osterrieder, 2025</div>
+<div><a href="#">GitHub</a><a href="#">Download Slides</a></div>
+</footer>
+</main>
+</div>
+<script>
+document.querySelectorAll('.side a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
