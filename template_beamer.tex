@@ -1,0 +1,218 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+
+% ======================= PACKAGES =======================
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% ======================= COLOR DEFINITIONS =======================
+% Primary color scheme: Blue/Teal for Digital Finance
+\definecolor{dfblue}{RGB}{0,102,204}
+\definecolor{dfteal}{RGB}{0,153,153}
+\definecolor{dfcyan}{RGB}{51,187,204}
+\definecolor{dflightblue}{RGB}{153,204,255}
+\definecolor{dflightblue2}{RGB}{173,214,255}
+\definecolor{dflightblue3}{RGB}{193,224,255}
+\definecolor{dflightblue4}{RGB}{213,234,255}
+
+% Accent colors for finance applications
+\definecolor{dfgreen}{RGB}{44, 160, 44}
+\definecolor{dfred}{RGB}{214, 39, 40}
+\definecolor{dforange}{RGB}{255, 127, 14}
+\definecolor{dfgray}{RGB}{127, 127, 127}
+
+% Utility colors
+\definecolor{lightgray}{RGB}{240, 240, 240}
+\definecolor{midgray}{RGB}{180, 180, 180}
+\definecolor{codebg}{RGB}{245, 245, 245}
+
+% ======================= THEME CUSTOMIZATION =======================
+% Apply Digital Finance color scheme to Madrid theme
+\setbeamercolor{palette primary}{bg=dflightblue3,fg=dfblue}
+\setbeamercolor{palette secondary}{bg=dflightblue2,fg=dfblue}
+\setbeamercolor{palette tertiary}{bg=dfteal,fg=white}
+\setbeamercolor{palette quaternary}{bg=dfblue,fg=white}
+
+\setbeamercolor{structure}{fg=dfblue}
+\setbeamercolor{section in toc}{fg=dfblue}
+\setbeamercolor{subsection in toc}{fg=dfteal}
+\setbeamercolor{title}{fg=dfblue}
+\setbeamercolor{frametitle}{fg=dfblue,bg=dflightblue3}
+\setbeamercolor{block title}{bg=dflightblue2,fg=dfblue}
+\setbeamercolor{block body}{bg=dflightblue4,fg=black}
+
+% Remove navigation symbols for cleaner look
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Margins for readability
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+
+% ======================= LISTINGS CONFIGURATION =======================
+% Python code style
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{dfblue}\bfseries,
+    stringstyle=\color{dforange},
+    commentstyle=\color{dfgray}\itshape,
+    numberstyle=\tiny\color{dfgray},
+    numbers=left,
+    numbersep=5pt,
+    backgroundcolor=\color{codebg},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    rulecolor=\color{midgray},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    escapeinside={(*@}{@*)},
+    xleftmargin=10pt,
+    xrightmargin=10pt
+}
+
+% Solidity code style
+\lstdefinestyle{soliditystyle}{
+    language=Java, % closest approximation
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{dfteal}\bfseries,
+    stringstyle=\color{dforange},
+    commentstyle=\color{dfgray}\itshape,
+    numberstyle=\tiny\color{dfgray},
+    numbers=left,
+    numbersep=5pt,
+    backgroundcolor=\color{codebg},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    rulecolor=\color{midgray},
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    escapeinside={(*@}{@*)},
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    morekeywords={pragma, contract, function, returns, public, private, view, pure, payable, address, uint256, mapping, event, modifier}
+}
+
+% Inline code command
+\newcommand{\code}[1]{\texttt{\color{dfblue}#1}}
+
+% ======================= CUSTOM COMMANDS =======================
+% Bottom annotation (Madrid-style)
+\newcommand{\bottomnote}[1]{%
+\vfill
+\vspace{-2mm}
+\textcolor{dflightblue2}{\rule{\textwidth}{0.4pt}}
+\vspace{1mm}
+\footnotesize
+\textbf{#1}
+}
+
+% Compact list spacing
+\newcommand{\compactlist}{%
+\setlength{\itemsep}{0pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+% Chart placeholder
+\newcommand{\chartplaceholder}[2][5cm]{%
+\begin{center}
+\begin{adjustbox}{max width=0.95\textwidth, max height=#1}
+\framebox[\textwidth][c]{%
+\rule{0pt}{#1}%
+\textcolor{midgray}{[#2]}%
+}
+\end{adjustbox}
+\end{center}
+}
+
+% ======================= FINANCE NOTATION MACROS =======================
+% Probability and statistics
+\newcommand{\E}{\mathbb{E}} % Expected value
+\newcommand{\Var}{\mathrm{Var}} % Variance
+\newcommand{\Cov}{\mathrm{Cov}} % Covariance
+\newcommand{\Prob}{\mathbb{P}} % Probability
+
+% Distributions
+\newcommand{\Normal}{\mathcal{N}} % Normal distribution
+\newcommand{\Uniform}{\mathcal{U}} % Uniform distribution
+
+% Returns and prices
+\newcommand{\Ret}{R} % Return
+\newcommand{\LogRet}{r} % Log return
+\newcommand{\Price}{S} % Price/Stock price
+\newcommand{\Strike}{K} % Strike price
+
+% Options and derivatives
+\newcommand{\CallPrice}{C} % Call option price
+\newcommand{\PutPrice}{P} % Put option price
+\newcommand{\Greeks}[1]{\mathit{#1}} % Greek letters
+
+% Risk measures
+\newcommand{\VaR}{\mathrm{VaR}} % Value at Risk
+\newcommand{\CVaR}{\mathrm{CVaR}} % Conditional VaR
+\newcommand{\Sharpe}{\mathrm{SR}} % Sharpe Ratio
+
+% Time series
+\newcommand{\AR}{\mathrm{AR}} % Autoregressive
+\newcommand{\MA}{\mathrm{MA}} % Moving average
+\newcommand{\GARCH}{\mathrm{GARCH}} % GARCH
+
+% Blockchain/Crypto
+\newcommand{\Hash}{\mathrm{Hash}} % Hash function
+\newcommand{\Block}{\mathcal{B}} % Block
+\newcommand{\Chain}{\mathcal{C}} % Chain
+
+% Real numbers, integers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+
+% ======================= TIKZ STYLES =======================
+% Styles for finance-related diagrams
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=dfblue, fill=dflightblue4, thick]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=dfteal, fill=dflightblue4, thick]
+\tikzstyle{arrow} = [thick,->,>=stealth,color=dfblue]
+\tikzstyle{blockchain} = [rectangle, rounded corners, minimum width=2.5cm, minimum height=1cm, text centered, draw=dfteal, fill=dflightblue3, thick]
+\tikzstyle{transaction} = [circle, minimum size=0.8cm, text centered, draw=dforange, fill=dflightblue4, thick]
+
+% ======================= FOOTER TEMPLATE =======================
+\setbeamertemplate{footline}{
+    \hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1ex,leftskip=.5em,rightskip=.5em]{author in head/foot}
+    \tiny
+    \textbf{Digital Finance} \hfill
+    Joerg Osterrieder \hfill
+    \insertdate \hfill
+    Page \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}
+}
+
+% ======================= SECTION DIVIDER TEMPLATE =======================
+\AtBeginSection[]{
+\begin{frame}[plain]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=12pt,center]{title}
+\usebeamerfont{title}\LARGE\insertsection\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}

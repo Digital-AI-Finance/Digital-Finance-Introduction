@@ -1,0 +1,51 @@
+name: Compile LaTeX Documents
+
+on:
+  push:
+    paths:
+      - 'slides/**/*.tex'
+      - '**/*.tex'
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tectonic
+        uses: wtfjoke/setup-tectonic@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compile LaTeX files
+        run: |
+          echo "Compiling LaTeX documents..."
+          mkdir -p compiled-pdfs
+
+          for texfile in $(find . -name "*.tex" -not -path "*/.*"); do
+            echo "Compiling: $texfile"
+            filename=$(basename "$texfile" .tex)
+            dirname=$(dirname "$texfile")
+
+            cd "$dirname"
+            if tectonic "$(basename $texfile)"; then
+              echo "✓ Success: $texfile"
+              # Move PDF to artifacts directory
+              if [ -f "${filename}.pdf" ]; then
+                cp "${filename}.pdf" "$GITHUB_WORKSPACE/compiled-pdfs/${filename}.pdf"
+              fi
+            else
+              echo "✗ Failed: $texfile"
+            fi
+            cd "$GITHUB_WORKSPACE"
+          done
+
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdfs
+          path: compiled-pdfs/*.pdf
+          if-no-files-found: warn
+          retention-days: 30

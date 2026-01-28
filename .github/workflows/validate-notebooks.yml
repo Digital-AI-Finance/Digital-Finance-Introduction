@@ -1,0 +1,47 @@
+name: Validate Jupyter Notebooks
+
+on:
+  push:
+    paths:
+      - '**.ipynb'
+  pull_request:
+    paths:
+      - '**.ipynb'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install nbformat
+        run: pip install nbformat
+
+      - name: Validate notebooks
+        run: |
+          echo "Validating Jupyter notebooks..."
+          EXIT_CODE=0
+
+          for notebook in $(find . -name "*.ipynb" -not -path "*/.*"); do
+            echo "Checking: $notebook"
+            if python -m nbformat.validator "$notebook"; then
+              echo "✓ Valid: $notebook"
+            else
+              echo "✗ Invalid: $notebook"
+              EXIT_CODE=1
+            fi
+          done
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "All notebooks are valid!"
+          else
+            echo "Some notebooks failed validation."
+            exit 1
+          fi

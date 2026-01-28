@@ -1,0 +1,65 @@
+name: Spell Check
+
+on:
+  push:
+    paths:
+      - '**.md'
+      - '**.tex'
+  pull_request:
+    paths:
+      - '**.md'
+      - '**.tex'
+  workflow_dispatch:
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install cspell
+        run: npm install -g cspell
+
+      - name: Create custom dictionary
+        run: |
+          cat > .cspell-custom.txt << 'EOF'
+          # Finance terms
+          fintech
+          defi
+          stablecoin
+          stablecoins
+          tokenization
+          CBDC
+          CBDCs
+          # Crypto terms
+          blockchain
+          cryptocurrency
+          cryptocurrencies
+          ethereum
+          bitcoin
+          solidity
+          testnet
+          mainnet
+          wei
+          gwei
+          # DeFi terms
+          AMM
+          AMMs
+          DEX
+          DEXs
+          DAO
+          DAOs
+          TVL
+          # Technical
+          hashlib
+          ipynb
+          pdflatex
+          Colab
+          Jupyter
+          EOF
+
+      - name: Run spell check
+        run: |
+          cspell "**/*.md" --words-only --unique --config .cspell-custom.txt || true
+          echo "Spell check complete - review output for potential issues"
