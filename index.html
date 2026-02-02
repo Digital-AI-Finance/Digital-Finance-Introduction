@@ -50,6 +50,7 @@ a{color:#0366d6;text-decoration:none}
 .section-head.d6 span{background:#f59e0b}
 .section-head.pillars span{background:#6366f1}
 .section-head.notebooks span{background:#22c55e}
+.section-head.quizzes span{background:#8b5cf6}
 .section-head h2{font-size:13px;color:#24292e}
 .pillar-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .pillar-card{background:#fff;border:1px solid #e1e4e8;border-radius:4px;padding:8px 10px;flex:1;min-width:200px;border-left:3px solid;transition:all 0.15s}
@@ -91,17 +92,23 @@ a{color:#0366d6;text-decoration:none}
 .nb-num{font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;margin-right:4px;background:#dcfce7;color:#22c55e}
 .nb-title{font-size:11px;font-weight:500;color:#24292e;margin-bottom:2px}
 .nb-meta{font-size:9px;color:#586069}
+.quiz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.quiz-card{display:block;background:#fff;border:1px solid #e1e4e8;border-radius:4px;padding:8px 10px;cursor:pointer;transition:all 0.15s;border-left:3px solid #8b5cf6}
+.quiz-card:hover{border-color:#0366d6;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.quiz-num{font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;margin-right:4px;background:#f5f3ff;color:#8b5cf6}
+.quiz-title{font-size:11px;font-weight:500;color:#24292e;margin-bottom:2px}
+.quiz-meta{font-size:9px;color:#586069}
 .foot{text-align:center;padding:12px;font-size:10px;color:#586069;margin-top:12px}
 .foot a{margin:0 8px}
-@media(max-width:1400px){.lgrid{grid-template-columns:repeat(3,1fr)}.nb-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:1000px){.lgrid{grid-template-columns:repeat(2,1fr)}.side{width:160px}}
+@media(max-width:1400px){.lgrid{grid-template-columns:repeat(3,1fr)}.nb-grid{grid-template-columns:repeat(3,1fr)}.quiz-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1000px){.lgrid{grid-template-columns:repeat(2,1fr)}.nb-grid{grid-template-columns:repeat(2,1fr)}.quiz-grid{grid-template-columns:repeat(2,1fr)}.side{width:160px}}
 @media(max-width:800px){.wrap{flex-direction:column}.side{width:100%;height:auto;max-height:200px;position:relative;top:0}.lgrid{grid-template-columns:repeat(2,1fr)}.pillar-row{flex-direction:column}}
 </style>
 </head>
 <body>
 <nav class="nav">
 <span class="nav-title">Digital Finance</span>
-<div class="nav-links"><a href="#days">Days</a><a href="#topics">Topics</a><a href="#notebooks">Notebooks</a><a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction">GitHub</a></div>
+<div class="nav-links"><a href="#days">Days</a><a href="#topics">Topics</a><a href="#notebooks">Notebooks</a><a href="#quizzes">Quizzes</a><a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction">GitHub</a></div>
 </nav>
 <div class="wrap">
 <aside class="side">
@@ -146,7 +153,7 @@ a{color:#0366d6;text-decoration:none}
 <main class="main">
 <div class="hero">
 <div class="hero-left"><h1>Digital Finance</h1><p>BSC Intensive Course — FinTech & Crypto/DeFi</p></div>
-<div class="hero-stats"><span><b>6</b><small>Days</small></span><span><b>24</b><small>Topics</small></span><span><b>14</b><small>Notebooks</small></span></div>
+<div class="hero-stats"><span><b>6</b><small>Days</small></span><span><b>24</b><small>Topics</small></span><span><b>14</b><small>Notebooks</small></span><span><b>280</b><small>Quiz Qs</small></span></div>
 </div>
 
 <section class="section">
@@ -461,6 +468,68 @@ a{color:#0366d6;text-decoration:none}
 <a href="https://colab.research.google.com/github/Digital-AI-Finance/Digital-Finance-Introduction/blob/master/day_06/notebooks/NB14_Innovation_Scorecard.ipynb" class="nb-card">
 <div><span class="nb-num">NB14</span><span class="nb-title">Innovation Scorecard (Capstone)</span></div>
 <div class="nb-meta">Day 6 • Topic 6.3</div>
+</a>
+</div>
+</section>
+
+<section class="section" id="quizzes">
+<div class="section-head quizzes"><span>14</span><h2>Interactive Quizzes (280 Questions)</h2></div>
+<div class="quiz-grid">
+<a href="quiz/quiz1.html" class="quiz-card">
+<div><span class="quiz-num">Q01</span><span class="quiz-title">Money & Ledgers</span></div>
+<div class="quiz-meta">20 questions • Day 1</div>
+</a>
+<a href="quiz/quiz2.html" class="quiz-card">
+<div><span class="quiz-num">Q02</span><span class="quiz-title">Payment Analysis</span></div>
+<div class="quiz-meta">20 questions • Day 2</div>
+</a>
+<a href="quiz/quiz3.html" class="quiz-card">
+<div><span class="quiz-num">Q03</span><span class="quiz-title">Open Banking API</span></div>
+<div class="quiz-meta">20 questions • Day 2</div>
+</a>
+<a href="quiz/quiz4.html" class="quiz-card">
+<div><span class="quiz-num">Q04</span><span class="quiz-title">Credit Scoring</span></div>
+<div class="quiz-meta">20 questions • Day 2</div>
+</a>
+<a href="quiz/quiz5.html" class="quiz-card">
+<div><span class="quiz-num">Q05</span><span class="quiz-title">Cryptographic Operations</span></div>
+<div class="quiz-meta">20 questions • Day 3</div>
+</a>
+<a href="quiz/quiz6.html" class="quiz-card">
+<div><span class="quiz-num">Q06</span><span class="quiz-title">Blockchain Simulation</span></div>
+<div class="quiz-meta">20 questions • Day 3</div>
+</a>
+<a href="quiz/quiz7.html" class="quiz-card">
+<div><span class="quiz-num">Q07</span><span class="quiz-title">Blockchain Transactions</span></div>
+<div class="quiz-meta">20 questions • Day 3</div>
+</a>
+<a href="quiz/quiz8.html" class="quiz-card">
+<div><span class="quiz-num">Q08</span><span class="quiz-title">Smart Contracts</span></div>
+<div class="quiz-meta">20 questions • Day 4</div>
+</a>
+<a href="quiz/quiz9.html" class="quiz-card">
+<div><span class="quiz-num">Q09</span><span class="quiz-title">AMM Simulation</span></div>
+<div class="quiz-meta">20 questions • Day 4</div>
+</a>
+<a href="quiz/quiz10.html" class="quiz-card">
+<div><span class="quiz-num">Q10</span><span class="quiz-title">Stablecoin Analysis</span></div>
+<div class="quiz-meta">20 questions • Day 4</div>
+</a>
+<a href="quiz/quiz11.html" class="quiz-card">
+<div><span class="quiz-num">Q11</span><span class="quiz-title">DeFi Exploits</span></div>
+<div class="quiz-meta">20 questions • Day 5</div>
+</a>
+<a href="quiz/quiz12.html" class="quiz-card">
+<div><span class="quiz-num">Q12</span><span class="quiz-title">DAO Governance</span></div>
+<div class="quiz-meta">20 questions • Day 5</div>
+</a>
+<a href="quiz/quiz13.html" class="quiz-card">
+<div><span class="quiz-num">Q13</span><span class="quiz-title">Robo-Advisor</span></div>
+<div class="quiz-meta">20 questions • Day 6</div>
+</a>
+<a href="quiz/quiz14.html" class="quiz-card">
+<div><span class="quiz-num">Q14</span><span class="quiz-title">Innovation Scorecard</span></div>
+<div class="quiz-meta">20 questions • Day 6</div>
 </a>
 </div>
 </section>
