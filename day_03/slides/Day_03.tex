@@ -73,6 +73,41 @@
 \tableofcontents
 \end{frame}
 
+% ======================= PEDAGOGICAL BRIDGE =======================
+\begin{frame}{Connecting to Day 1: The Trust Problem}
+\textbf{Remember from Day 1:}
+\begin{itemize}
+\item Financial systems require \textbf{trust} between parties
+\item Traditional solution: Trusted intermediaries (banks, clearinghouses)
+\item Digital alternative: Mathematical/cryptographic guarantees
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Today we explore HOW cryptography provides trust:}
+\begin{itemize}
+\item Hash functions $\rightarrow$ Data integrity verification
+\item Digital signatures $\rightarrow$ Identity and authorization
+\item Blockchain $\rightarrow$ Tamper-evident, distributed ledgers
+\end{itemize}
+
+\vspace{3mm}
+\textit{Note: This material is more technical than Days 1-2. Take your time with the concepts.}
+\end{frame}
+
+\begin{frame}{Key Technical Terms}
+\textbf{Definitions you'll encounter today:}
+
+\begin{description}
+\item[Turing-complete] A system that can compute anything computable (like a general-purpose computer). Ethereum is Turing-complete; Bitcoin is not.
+\item[Byzantine fault tolerant] A system that works correctly even when some participants are malicious or fail. Named after the ``Byzantine Generals Problem.''
+\item[Nonce] ``Number used once'' -- a value that changes to produce different hash outputs.
+\item[Gas] Ethereum's unit for measuring computational work. More complex operations cost more gas.
+\end{description}
+
+\vspace{3mm}
+\textit{Don't worry if these feel abstract now---they'll make more sense as we work through examples.}
+\end{frame}
+
 % =======================================================================
 % SECTION 3.1: CRYPTOGRAPHIC BUILDING BLOCKS
 % =======================================================================

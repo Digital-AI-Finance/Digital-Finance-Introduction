@@ -288,7 +288,7 @@ pip install -r requirements.txt
 
 The course has a dedicated website for navigation and additional resources:
 
-**[Visit the course website](https://joerg-osterrieder.github.io/Digital-Finance-Introduction/)**
+**[Visit the course website](https://digital-ai-finance.github.io/Digital-Finance-Introduction/)**
 
 The website provides:
 - Course overview and navigation

@@ -126,7 +126,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 ### Industry Reports
 
-- **McKinsey.** (2023). *Global Fintech Report*. [[Link](https://www.mckinsey.com/industries/financial-services/)]
+- **McKinsey.** (2023). *Global Fintech Report*. [[Link](https://www.mckinsey.com/industries/financial-services/our-insights)]
   - Annual report on fintech market size, trends, and investment
   - Data on payment systems, lending, and BaaS growth
 
@@ -188,7 +188,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 **On Bitcoin and Ethereum Design**
 
-- **Buterin, V.** (2014). *Ethereum White Paper*. [[GitHub](https://github.com/ethereum/wiki/wiki/White-Paper)]
+- **Buterin, V.** (2014). *Ethereum White Paper*. [[GitHub](https://ethereum.org/en/whitepaper/)]
   - Explains smart contracts and how Ethereum extends Bitcoin's model
   - 28 pages; read sections 1-5
 
@@ -228,7 +228,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 ### Essential Reading
 
-⭐ **Buterin, V.** (2014). *Ethereum White Paper*. [[GitHub](https://github.com/ethereum/wiki/wiki/White-Paper)]
+⭐ **Buterin, V.** (2014). *Ethereum White Paper*. [[GitHub](https://ethereum.org/en/whitepaper/)]
 - Sections 1-5: Smart contracts as an extension of Bitcoin
 - 28 pages; focus on conceptual understanding, not implementation
 
@@ -236,7 +236,7 @@ This document provides curated readings to deepen your understanding of topics c
 - Chapters 1-6: Ethereum design and smart contract basics
 - Chapter 12: DeFi applications (if available)
 
-⭐ **Wood, G.** (2014). *Ethereum Yellow Paper*. [[GitHub](https://ethereum.org/en/developers/docs/whitepapers/)]
+⭐ **Wood, G.** (2014). *Ethereum Yellow Paper*. [[GitHub](https://ethereum.org/en/whitepaper/)]
 - Optional advanced reading; formal specification of Ethereum
 - Focus on sections defining smart contract execution
 
@@ -244,7 +244,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 **On Smart Contracts**
 
-- **Szabo, N.** (1994). "Smart Contracts." [[Blog Post](https://www.fon.hum.uva.nl/rob/Courses/InformationInSociety/Articles/Szabo_1994.html)]
+- **Szabo, N.** (1994). "Smart Contracts." [[Blog Post](https://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html)]
   - Original vision of smart contracts (pre-blockchain)
   - 5 pages; foundational thinking
 
@@ -265,11 +265,11 @@ This document provides curated readings to deepen your understanding of topics c
   - How lending protocols work and their governance
   - Understand collateral, liquidation, and incentives
 
-- **MakerDAO.** *Maker Protocol Whitepaper*. [[Link](https://makerdao.com/en/docs/)]
+- **MakerDAO.** *Maker Protocol Whitepaper*. [[Link](https://docs.sky.money/)]
   - Stablecoin design and governance
   - How DAOs manage decentralized protocols
 
-- **Shi, E.** (2022). "The Architecture of a Cryptocurrency Exchange." *ACM SIGACT News*, 53(1), 35-48. [[PDF](https://www.eprint.iacr.org/2022/1269.pdf)]
+- **Shi, E.** (2022). "The Architecture of a Cryptocurrency Exchange." *ACM SIGACT News*, 53(1), 35-48. [[PDF](https://eprint.iacr.org/2022/1269.pdf)]
   - How DEXes and AMMs differ from traditional order-book exchanges
 
 **On Stablecoins**
@@ -293,7 +293,7 @@ This document provides curated readings to deepen your understanding of topics c
 - **Kshetri, N.** (2021). "Blockchain's Roles in Meeting Key Supply Chain Management Objectives." *International Journal of Information Management*, 54, 102133.
   - Real-world asset tokenization in supply chains
 
-- **ECB.** (2023). *Digital Euro: Key Findings from the Investigation Phase*. [[Link](https://www.ecb.europa.eu/pub/pdf/pubfin/ecb.digital_euro_investigation.202310~en.pdf)]
+- **ECB.** (2023). *Digital Euro: Key Findings from the Investigation Phase*. [[Link](https://www.ecb.europa.eu/euro/digital_euro/html/index.en.html)]
   - Central bank digital currencies (CBDCs)
   - Policy and technical considerations
 
@@ -305,7 +305,7 @@ This document provides curated readings to deepen your understanding of topics c
 - **Aave.** *Developer Documentation*. [[Link](https://docs.aave.com/)]
   - How lending protocols work in practice
 
-- **MakerDAO.** *Docs*. [[Link](https://makerdao.com/en/docs/)]
+- **MakerDAO.** *Docs*. [[Link](https://docs.sky.money/)]
   - Stablecoin protocol design and governance
 
 - **OpenZeppelin.** *Smart Contract Standards (ERC-20, ERC-721)*. [[Link](https://docs.openzeppelin.com/contracts/)]
@@ -339,7 +339,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 **On DeFi Failures and Hacks**
 
-- **Aasvogel, B., Akst, A., & Parhi, A.** (2021). "CertiK DeFi Safety: Comprehensive Analysis of DeFi Security." [[Report](https://research.certik.org/)]
+- **Aasvogel, B., Akst, A., & Parhi, A.** (2021). "CertiK DeFi Safety: Comprehensive Analysis of DeFi Security." [[Report](https://www.certik.com/resources)]
   - Taxonomy of DeFi exploits and vulnerabilities
   - Learn from historical failures
 
@@ -441,7 +441,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 **On FinTech-DeFi Convergence**
 
-- **Houben, R., & Snyers, T.** (2020). *Crypto-Assets: Key Developments, Regulatory Concerns and Search for Regulatory Solutions*. [[PDF](https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/652410/EPRS_BRI(2020)652410_EN.pdf)]
+- **Houben, R., & Snyers, T.** (2020). *Crypto-Assets: Key Developments, Regulatory Concerns and Search for Regulatory Solutions*. [[PDF](https://www.europarl.europa.eu/thinktank/en/document/EPRS_BRI(2020)652410)]
   - How FinTech platforms and crypto projects are converging
   - Competitive and regulatory implications
 
@@ -467,7 +467,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 **On CBDCs and Digital Innovation**
 
-- **ECB.** (2023). *Digital Euro: Key Findings from the Investigation Phase*. [[Link](https://www.ecb.europa.eu/pub/pdf/pubfin/ecb.digital_euro_investigation.202310~en.pdf)]
+- **ECB.** (2023). *Digital Euro: Key Findings from the Investigation Phase*. [[Link](https://www.ecb.europa.eu/euro/digital_euro/html/index.en.html)]
   - How central banks are digitizing currency
   - Policy and design considerations
 
@@ -481,7 +481,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 **On Future Trends and Open Questions**
 
-- **Narayanan, A.** (2015). "Bitcoin's Academic Pedigree." *Communications of the ACM*, 60(12), 36-45. [[PDF](https://freedom-to-tinker.com/2015/07/13/bitcoins-academic-pedigree/)]
+- **Narayanan, A.** (2015). "Bitcoin's Academic Pedigree." *Communications of the ACM*, 60(12), 36-45. [[PDF](https://www.cs.princeton.edu/~arvindn/publications/bitcoin-market-currency.pdf)]
   - How academic research informs blockchain development
   - What's next in the research frontier
 
@@ -512,7 +512,7 @@ This document provides curated readings to deepen your understanding of topics c
 
 ### Reports and Horizon Scanning
 
-- **McKinsey.** (2023). *The Future of Finance*. [[Link](https://www.mckinsey.com/industries/financial-services/)]
+- **McKinsey.** (2023). *The Future of Finance*. [[Link](https://www.mckinsey.com/industries/financial-services/our-insights)]
   - Industry forecasts and trend analysis
 
 - **World Economic Forum.** (2023). *Digital Financial Inclusion*. [[Link](https://www.weforum.org/)]
