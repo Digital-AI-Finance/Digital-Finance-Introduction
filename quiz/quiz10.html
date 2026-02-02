@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 10: Stablecoin Analysis | Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 10: Stablecoin Analysis</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 10: Stablecoin Analysis</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "What is the primary purpose of stablecoins in the cryptocurrency ecosystem?",
+                                "options": {
+                                                "A": "To maximize investment returns through high volatility",
+                                                "B": "To maintain a stable value, typically pegged to $1 USD, providing a reliable store of value and medium of exchange",
+                                                "C": "To replace central bank digital currencies",
+                                                "D": "To eliminate the need for blockchain technology"
+                                },
+                                "correct": "B",
+                                "explanation": "Stablecoins are designed to maintain a stable value (usually $1) to serve as a volatility hedge and reliable building block for DeFi applications. Unlike volatile cryptocurrencies like Bitcoin, stablecoins provide predictable value for transactions, savings, and as collateral in DeFi protocols.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 2,
+                                "question": "Why are stablecoins essential for DeFi applications?",
+                                "options": {
+                                                "A": "They generate higher yields than traditional banking",
+                                                "B": "They provide a stable unit of account and medium of exchange, enabling lending, borrowing, and trading without exposure to crypto volatility",
+                                                "C": "They are required by blockchain regulations",
+                                                "D": "They eliminate transaction fees"
+                                },
+                                "correct": "B",
+                                "explanation": "Stablecoins serve as the foundation for DeFi by providing a stable asset that users can rely on for pricing, lending, and trading. Without stablecoins, DeFi users would face constant volatility risk when holding positions, making many financial applications impractical. They act as a 'safe haven' within the crypto ecosystem.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 3,
+                                "question": "What are the three main categories of stablecoins?",
+                                "options": {
+                                                "A": "Bitcoin-backed, Ethereum-backed, and Altcoin-backed",
+                                                "B": "Fiat-backed (centralized), Crypto-backed (over-collateralized), and Algorithmic (supply-based)",
+                                                "C": "Government-issued, Bank-issued, and Private-issued",
+                                                "D": "Gold-backed, Silver-backed, and Oil-backed"
+                                },
+                                "correct": "B",
+                                "explanation": "The three fundamental stablecoin designs are: (1) Fiat-backed (like USDC/USDT) where each token is backed 1:1 by USD reserves, (2) Crypto-backed (like DAI) which use over-collateralization with crypto assets, and (3) Algorithmic (like failed UST) which attempt to maintain pegs through algorithmic supply adjustments. Each makes different trade-offs between decentralization, stability, and capital efficiency.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 4,
+                                "question": "How do fiat-backed stablecoins like USDC and USDT maintain their peg?",
+                                "options": {
+                                                "A": "Through algorithmic supply adjustments",
+                                                "B": "By holding 1:1 reserves of USD (or equivalent assets like T-bills) with a central custodian",
+                                                "C": "By over-collateralizing with Bitcoin",
+                                                "D": "Through community voting on price"
+                                },
+                                "correct": "B",
+                                "explanation": "Fiat-backed stablecoins maintain their peg through direct backing: for every stablecoin token in circulation, the issuer holds $1 (or equivalent assets like Treasury bills and commercial paper) in reserve. Users can redeem tokens for dollars, which keeps the price anchored at $1. This requires trust in the centralized issuer to actually hold these reserves.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 5,
+                                "question": "What is the difference between reserve attestation and a full audit for fiat-backed stablecoins?",
+                                "options": {
+                                                "A": "Attestation and audit are exactly the same thing",
+                                                "B": "Attestation is a snapshot verification that reserves exist at a point in time, while a full audit comprehensively examines financial statements, internal controls, and ongoing processes",
+                                                "C": "Attestation is more thorough than a full audit",
+                                                "D": "Neither attestation nor audit provides any meaningful verification"
+                                },
+                                "correct": "B",
+                                "explanation": "Reserve attestation (used by USDC) is a limited procedure where an accountant verifies that reserves exist at a specific moment, like taking a photograph. A full audit (rarely done for stablecoins) is much more comprehensive, examining historical records, internal controls, and procedures over time. Attestation is cheaper and faster but provides less assurance about ongoing practices or potential issues between attestation dates.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 6,
+                                "question": "How do crypto-backed stablecoins like DAI maintain their peg?",
+                                "options": {
+                                                "A": "By holding equivalent USD in bank accounts",
+                                                "B": "Through over-collateralization: users deposit crypto assets (like ETH) worth more than the stablecoins they mint, creating a buffer against volatility",
+                                                "C": "By mining new tokens when price drops",
+                                                "D": "Through government guarantees"
+                                },
+                                "correct": "B",
+                                "explanation": "Crypto-backed stablecoins use over-collateralization to absorb volatility. A user deposits $150 worth of ETH to mint $100 of DAI (150% collateralization ratio). If ETH price drops 20%, the collateral is still worth $120, keeping the system solvent. This approach maintains decentralization but is capital inefficient since users must lock up more value than they can borrow.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 7,
+                                "question": "Why is over-collateralization necessary for crypto-backed stablecoins?",
+                                "options": {
+                                                "A": "To generate profits for the protocol",
+                                                "B": "To provide a safety buffer against collateral price volatility; if collateral value drops, the position remains solvent",
+                                                "C": "To comply with banking regulations",
+                                                "D": "To increase transaction speed"
+                                },
+                                "correct": "B",
+                                "explanation": "Crypto collateral (like ETH) is volatile, so protocols require over-collateralization as a safety cushion. If you could mint $100 of stablecoins with exactly $100 of ETH, any price drop would make the system undercollateralized. The over-collateralization ratio (typically 150%+) ensures that even after significant price drops, there's still enough collateral value to back all minted stablecoins, protecting the peg.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 8,
+                                "question": "What is the collateral ratio in a crypto-backed stablecoin system?",
+                                "options": {
+                                                "A": "The interest rate charged on borrowed stablecoins",
+                                                "B": "The ratio of collateral value to debt value, calculated as (Collateral Value / Debt Value), expressed as a percentage",
+                                                "C": "The number of different cryptocurrencies accepted as collateral",
+                                                "D": "The percentage of stablecoins that can be redeemed daily"
+                                },
+                                "correct": "B",
+                                "explanation": "The collateral ratio measures how well-backed a position is: Collateral Ratio = (Collateral Value in USD) / (Debt in Stablecoins). If you have $150 of ETH backing $100 of DAI debt, your ratio is 150%. This metric is crucial for determining liquidation risk - when it falls below the minimum (often 150%), the position can be liquidated to protect the system's solvency.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 9,
+                                "question": "What triggers a liquidation in a crypto-backed stablecoin system?",
+                                "options": {
+                                                "A": "When the user requests to close their position",
+                                                "B": "When the collateralization ratio falls below the liquidation threshold (typically 150%) due to collateral price decline",
+                                                "C": "After a fixed time period expires",
+                                                "D": "When transaction fees exceed a certain amount"
+                                },
+                                "correct": "B",
+                                "explanation": "Liquidation is automatically triggered when the collateral ratio drops below the minimum threshold (e.g., 150%). This happens when the price of the collateral (like ETH) falls. For example, if ETH drops 35% and your ratio falls from 150% to 145%, liquidators can seize your collateral, repay your debt, and collect a penalty fee. This mechanism protects the protocol from becoming undercollateralized.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 10,
+                                "question": "What is a CDP (Collateralized Debt Position) in the context of systems like MakerDAO?",
+                                "options": {
+                                                "A": "A type of blockchain consensus mechanism",
+                                                "B": "A smart contract vault where users deposit collateral and mint stablecoins against it, creating debt that must be repaid to withdraw collateral",
+                                                "C": "A trading strategy for maximizing returns",
+                                                "D": "A government bond issued on blockchain"
+                                },
+                                "correct": "B",
+                                "explanation": "A CDP (now called a 'Vault' in MakerDAO) is a smart contract that holds your collateral and tracks your debt. You deposit ETH, mint DAI against it, and the CDP ensures you can't withdraw collateral unless you've repaid the debt. It enforces collateralization requirements and enables automated liquidations if your ratio becomes unsafe. Think of it as a decentralized, automated collateral management system.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 11,
+                                "question": "How do algorithmic stablecoins attempt to maintain their peg?",
+                                "options": {
+                                                "A": "By holding physical gold reserves",
+                                                "B": "Through programmatic supply adjustments and arbitrage mechanisms, often involving a two-token system (like UST/LUNA) without external collateral",
+                                                "C": "By government price controls",
+                                                "D": "Through manual intervention by the development team"
+                                },
+                                "correct": "B",
+                                "explanation": "Algorithmic stablecoins use smart contracts to automatically adjust supply based on price. In Terra's design, if UST traded below $1, users could burn UST to mint $1 worth of LUNA (profit incentive), reducing UST supply and pushing price up. If UST traded above $1, users could burn LUNA to mint UST, increasing supply and pushing price down. This relies purely on arbitrage incentives without external collateral, making it capital efficient but risky.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 12,
+                                "question": "What is seigniorage in the context of algorithmic stablecoins?",
+                                "options": {
+                                                "A": "The transaction fee charged by the protocol",
+                                                "B": "The profit generated when creating new money; the difference between the face value of newly minted stablecoins and the cost to produce them",
+                                                "C": "The liquidation penalty charged to undercollateralized positions",
+                                                "D": "The interest earned on deposited collateral"
+                                },
+                                "correct": "B",
+                                "explanation": "Seigniorage is the profit from money creation. In algorithmic stablecoins, when demand increases and tokens mint above $1, the protocol captures seigniorage - the difference between the $1 face value and the near-zero cost of minting. Many protocols distribute this profit to token holders or use it to build reserves. However, this only works during expansion; during contraction, the system must absorb losses, which is where many algorithms fail.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 13,
+                                "question": "What is a 'death spiral' scenario in algorithmic stablecoins?",
+                                "options": {
+                                                "A": "A planned shutdown procedure for the protocol",
+                                                "B": "A reflexive feedback loop where loss of peg triggers redemptions, increasing token supply, further crushing price, triggering more redemptions in an accelerating collapse",
+                                                "C": "A security vulnerability that allows hackers to steal funds",
+                                                "D": "A regulatory action that forces the stablecoin to shut down"
+                                },
+                                "correct": "B",
+                                "explanation": "A death spiral occurs when the peg-maintenance mechanism becomes the cause of collapse. As UST depegged, users burned UST for LUNA, massively inflating LUNA supply. More LUNA supply crashed LUNA price, reducing its ability to absorb UST sales, causing more depegging, triggering more redemptions. This reflexive loop accelerated until both tokens became worthless. The mechanism designed to maintain the peg instead amplified the crisis - classic death spiral dynamics.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 14,
+                                "question": "What were the key factors that led to the Terra/Luna collapse in May 2022?",
+                                "options": {
+                                                "A": "Government regulation and legal action",
+                                                "B": "Large withdrawals from Anchor Protocol triggering UST selling pressure, combined with unsustainable 19.5% yields, reflexive token dynamics, and insufficient market depth to absorb redemptions",
+                                                "C": "A smart contract bug that allowed hackers to mint unlimited tokens",
+                                                "D": "Competition from other blockchain platforms"
+                                },
+                                "correct": "B",
+                                "explanation": "The Terra collapse was a perfect storm: (1) Anchor's unsustainable 19.5% APY attracted huge deposits that eventually needed to withdraw, (2) Large UST sales caused initial depegging, (3) The redemption mechanism forced massive LUNA minting, destroying LUNA value, (4) Lower LUNA price reduced the system's ability to absorb UST sales, creating a death spiral. The ~$40B system collapsed in about 72 hours, demonstrating the fragility of under-collateralized algorithmic designs.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 15,
+                                "question": "How did UST's de-peg mechanics work during the Terra collapse?",
+                                "options": {
+                                                "A": "The Federal Reserve intervened to support the peg",
+                                                "B": "As UST fell below $1, arbitrageurs burned UST to mint LUNA at the $1 redemption rate, but this massively increased LUNA supply, crashing LUNA price and making it unable to absorb further UST selling",
+                                                "C": "Smart contracts automatically restored the peg by limiting trading",
+                                                "D": "The Terra Foundation purchased all UST at market price"
+                                },
+                                "correct": "B",
+                                "explanation": "The depegging followed a destructive cycle: UST dropped to $0.98, triggering 'arbitrage' where users burned UST for $1 of LUNA (2% profit). However, minting billions of LUNA diluted existing holders and crashed LUNA from $80 to under $1. As LUNA crashed, it took exponentially more LUNA to absorb each dollar of UST, accelerating the supply inflation. Eventually, LUNA supply went from 350M to over 6 trillion tokens, making both tokens worthless. The 'stabilizing' mechanism became the destruction mechanism.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 16,
+                                "question": "How does arbitrage help maintain a stablecoin's peg to $1?",
+                                "options": {
+                                                "A": "Arbitrageurs petition regulators to enforce the peg",
+                                                "B": "If price drops below $1, arbitrageurs buy cheap stablecoins and redeem for $1, profiting while increasing demand and restoring the peg; if above $1, they mint at $1 and sell, profiting while increasing supply",
+                                                "C": "Arbitrage has no effect on stablecoin prices",
+                                                "D": "Only the protocol team can perform arbitrage"
+                                },
+                                "correct": "B",
+                                "explanation": "Arbitrage creates automatic price correction: When USDC trades at $0.99, arbitrageurs buy it and redeem from Circle for $1.00, earning $0.01 per token. This buying pressure pushes price back toward $1. When USDC trades at $1.01, arbitrageurs buy $1 from Circle and sell for $1.01, earning $0.01 profit while increasing supply. This profit-seeking behavior continuously pushes price toward $1. The mechanism only works if redemption is reliable - when it's not (like in Terra), arbitrage can't stabilize the peg.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 17,
+                                "question": "What mechanisms do crypto-backed stablecoins use to maintain peg stability?",
+                                "options": {
+                                                "A": "Government guarantees and insurance",
+                                                "B": "Over-collateralization ratios, liquidation mechanisms, stability fees (interest), and market arbitrage between stablecoin price and collateral value",
+                                                "C": "Manual price adjustments by administrators",
+                                                "D": "Fixed exchange rates with traditional currencies"
+                                },
+                                "correct": "B",
+                                "explanation": "Multiple complementary mechanisms maintain the peg: (1) Over-collateralization ensures solvency even during volatility, (2) Liquidations remove risky positions before they become insolvent, (3) Stability fees (interest on debt) discourage excessive minting and generate revenue for reserves, (4) Arbitrageurs exploit price differences, buying when below $1 and minting/selling when above $1. This multi-layered approach makes crypto-backed stablecoins more resilient than purely algorithmic designs.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 18,
+                                "question": "Why are stablecoins challenging to classify for regulators?",
+                                "options": {
+                                                "A": "They are clearly defined as traditional securities",
+                                                "B": "They exhibit characteristics of multiple financial instruments (currency, securities, commodities) depending on their design, making existing regulatory frameworks inadequate",
+                                                "C": "They are explicitly excluded from all financial regulations",
+                                                "D": "Regulators have already established clear global standards"
+                                },
+                                "correct": "B",
+                                "explanation": "Stablecoins don't fit neatly into existing categories. Fiat-backed stablecoins resemble money market funds or bank deposits but aren't banks. Crypto-backed stablecoins involve complex derivatives-like positions. Algorithmic stablecoins share characteristics with securities and currencies. Each type raises different regulatory concerns: consumer protection, systemic risk, money transmission, securities law. This ambiguity creates regulatory uncertainty and varies by jurisdiction.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 19,
+                                "question": "What systemic risks do large stablecoins pose to the financial system?",
+                                "options": {
+                                                "A": "They pose no risks since they are backed by reserves",
+                                                "B": "Concentration of reserves in commercial paper and T-bills could trigger redemption runs affecting traditional markets; also 'digital bank runs' can happen at blockchain speed, faster than traditional finance can respond",
+                                                "C": "They only pose risks to individual users, not the broader system",
+                                                "D": "The main risk is excessive transaction fees"
+                                },
+                                "correct": "B",
+                                "explanation": "Large stablecoins (like Tether's $80B+ market cap) pose several systemic risks: (1) Reserve concentration - if USDT holds significant commercial paper, mass redemptions could disrupt those markets, (2) Contagion - a major stablecoin failure could trigger panic across DeFi and crypto markets, (3) Speed - blockchain enables instant mass withdrawals, potentially faster than reserves can be liquidated, (4) Interconnection - stablecoins are deeply embedded in DeFi protocols, making failures cascade through the ecosystem. These risks are why regulators are increasingly focused on stablecoin oversight.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 20,
+                                "question": "How do CBDCs (Central Bank Digital Currencies) differ from private stablecoins?",
+                                "options": {
+                                                "A": "They are identical in design and function",
+                                                "B": "CBDCs are direct central bank liabilities (like digital cash) with sovereign backing and potential policy control, while private stablecoins are issued by companies and may lack full reserve backing or regulatory oversight",
+                                                "C": "CBDCs are only used for international payments",
+                                                "D": "Private stablecoins have government insurance while CBDCs do not"
+                                },
+                                "correct": "B",
+                                "explanation": "CBDCs are fundamentally different from private stablecoins: (1) Issuance - CBDCs are issued directly by central banks as sovereign currency, while private stablecoins are created by companies, (2) Backing - CBDCs are backed by the full faith of governments, private stablecoins by reserves (if at all), (3) Control - CBDCs enable monetary policy implementation and potentially programmable money, while private stablecoins operate within existing frameworks, (4) Privacy - CBDCs may enable more surveillance, while some private stablecoins offer more privacy. The competition between CBDCs and private stablecoins will shape the future of digital money.",
+                                "difficulty": "hard"
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

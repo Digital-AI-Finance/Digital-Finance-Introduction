@@ -1,0 +1,266 @@
+{
+  "lesson": "NB08",
+  "title": "Smart Contracts Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the fundamental definition of a smart contract?",
+      "options": {
+        "A": "A legal agreement written in computer code that can be read by lawyers",
+        "B": "Self-executing code stored on a blockchain that automatically enforces contract terms without intermediaries",
+        "C": "A digital document that requires manual verification by network validators",
+        "D": "An AI-powered system that negotiates contract terms between parties"
+      },
+      "correct": "B",
+      "explanation": "A smart contract is self-executing code stored on a blockchain that automatically enforces the terms of a contract without requiring trusted intermediaries. Nick Szabo's vision (1994) described it as 'a computerized transaction protocol that executes the terms of a contract' - like a vending machine that enforces rules automatically.",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "Nick Szabo (1994) used which everyday example to illustrate the concept of smart contracts?",
+      "options": {
+        "A": "An ATM machine that dispenses cash",
+        "B": "A traffic light that automatically changes colors",
+        "C": "A vending machine that exchanges coins for products",
+        "D": "A thermostat that regulates room temperature"
+      },
+      "correct": "C",
+      "explanation": "Szabo used a vending machine as the simplest example of a smart contract: you insert coins (input), select a product (function call), receive the product (output) - all without requiring trust between buyer and seller. The machine itself enforces the rules automatically.",
+      "difficulty": "easy"
+    },
+    {
+      "id": 3,
+      "question": "What does the 'code is law' principle mean in the context of smart contracts?",
+      "options": {
+        "A": "Smart contracts must comply with all local and international regulations",
+        "B": "The code's logic is the absolute and final arbiter of the contract - whatever the code does is what happens, regardless of intent",
+        "C": "All smart contracts must be approved by legal authorities before deployment",
+        "D": "Programmers who write smart contracts are legally responsible for any bugs"
+      },
+      "correct": "B",
+      "explanation": "The 'code is law' principle means that the contract's actual code execution determines outcomes, not human interpretation or intent. This makes smart contracts deterministic and automatic, but it also means bugs can have catastrophic consequences (like the DAO hack), since the code executes exactly as written, not as intended.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 4,
+      "question": "What is the primary purpose of the Ethereum Virtual Machine (EVM)?",
+      "options": {
+        "A": "To mine Ethereum blocks faster than traditional mining",
+        "B": "To execute smart contract bytecode in a deterministic, isolated environment across all network nodes",
+        "C": "To convert Solidity code into machine-readable assembly language",
+        "D": "To provide a graphical interface for deploying smart contracts"
+      },
+      "correct": "B",
+      "explanation": "The EVM is a runtime environment that executes smart contract bytecode. It ensures that the same code produces identical results on every node in the network (deterministic execution), which is critical for consensus. The EVM is isolated (sandboxed) to prevent contracts from accessing the underlying system.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "Which programming language is primarily used to write smart contracts on Ethereum?",
+      "options": {
+        "A": "JavaScript",
+        "B": "Python",
+        "C": "Solidity",
+        "D": "Rust"
+      },
+      "correct": "C",
+      "explanation": "Solidity is a high-level, statically-typed programming language designed specifically for writing smart contracts on Ethereum. It compiles to EVM bytecode and has syntax similar to JavaScript/C++. While other languages exist (Vyper, etc.), Solidity is the most widely used for Ethereum smart contracts.",
+      "difficulty": "easy"
+    },
+    {
+      "id": 6,
+      "question": "What is 'gas' in the context of Ethereum smart contracts?",
+      "options": {
+        "A": "A physical resource consumed by mining hardware during block validation",
+        "B": "A unit measuring computational effort required to execute operations on the EVM",
+        "C": "The fuel token used to power Ethereum's consensus mechanism",
+        "D": "A type of cryptocurrency alternative to Ether"
+      },
+      "correct": "B",
+      "explanation": "Gas is a unit that measures computational effort. Every operation in a smart contract costs a specific amount of gas (e.g., addition costs ~3 gas, storage write costs 20,000 gas). Gas prevents infinite loops and spam by making users pay for computation, and it incentivizes efficient code.",
+      "difficulty": "easy"
+    },
+    {
+      "id": 7,
+      "question": "What is the difference between gas price and gas limit in an Ethereum transaction?",
+      "options": {
+        "A": "Gas price is the maximum gas allowed; gas limit is the cost per unit",
+        "B": "Gas price is how much you're willing to pay per gas unit (in Gwei); gas limit is the maximum gas units you're willing to consume",
+        "C": "Gas price applies to simple transfers; gas limit applies to contract calls",
+        "D": "Gas price is set by miners; gas limit is set by the protocol"
+      },
+      "correct": "B",
+      "explanation": "Gas price (in Gwei) is how much you're willing to pay per unit of gas - higher prices get faster inclusion by miners. Gas limit is the maximum gas units you allow the transaction to consume. Total cost = gas used × gas price. If the transaction exceeds the gas limit, it reverts but still consumes gas.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 8,
+      "question": "What happens during the contract deployment process on Ethereum?",
+      "options": {
+        "A": "The contract code is stored on IPFS and referenced by a hash on-chain",
+        "B": "A special transaction sends bytecode to address 0x0; the EVM creates a new contract address and stores the code on-chain",
+        "C": "The contract is registered in a centralized registry maintained by the Ethereum Foundation",
+        "D": "Validators vote to approve or reject the contract before it becomes active"
+      },
+      "correct": "B",
+      "explanation": "Contract deployment is a special transaction where the recipient is address 0x0 (or null). The transaction data contains the compiled bytecode. The EVM executes the constructor, then stores the runtime bytecode at a new deterministic address (derived from deployer address and nonce). The contract's code becomes immutable.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 9,
+      "question": "What is the key difference between state variables and local variables in Solidity?",
+      "options": {
+        "A": "State variables are public; local variables are private",
+        "B": "State variables are stored permanently on the blockchain and cost gas to modify; local variables exist only during function execution in memory",
+        "C": "State variables can only hold integers; local variables can hold any type",
+        "D": "State variables are immutable; local variables can be changed"
+      },
+      "correct": "B",
+      "explanation": "State variables are permanently stored on the blockchain (in contract storage) and persist between function calls - modifying them costs significant gas (20,000 for new writes). Local variables exist only in memory during function execution and are discarded afterward, making them much cheaper to use.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 10,
+      "question": "A function marked as 'external' in Solidity means:",
+      "options": {
+        "A": "It can only be called from outside the contract (by transactions or other contracts), not internally",
+        "B": "It can access external APIs and off-chain data sources",
+        "C": "It is publicly visible on blockchain explorers",
+        "D": "It can modify the state of other contracts"
+      },
+      "correct": "A",
+      "explanation": "The 'external' visibility modifier means the function can only be called from outside the contract (via transactions or other contracts calling it). It cannot be called internally within the same contract (unlike 'public' functions). External functions are slightly more gas-efficient for external calls because arguments aren't copied to memory.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 11,
+      "question": "What is the difference between 'view' and 'pure' functions in Solidity?",
+      "options": {
+        "A": "'view' functions can read state but not modify it; 'pure' functions cannot read or modify state at all",
+        "B": "'view' functions are free to call; 'pure' functions cost gas",
+        "C": "'view' functions return a value; 'pure' functions don't return anything",
+        "D": "'view' functions can emit events; 'pure' functions cannot"
+      },
+      "correct": "A",
+      "explanation": "'view' functions promise not to modify state but can read from it (e.g., return a balance). 'pure' functions are even more restrictive - they can't read OR modify state, only work with their input parameters (e.g., pure math functions). Both are free when called externally, but cost gas when called by another transaction.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 12,
+      "question": "What is the primary purpose of events in Solidity smart contracts?",
+      "options": {
+        "A": "To trigger automatic execution of other contracts when conditions are met",
+        "B": "To emit logs to the blockchain that can be efficiently searched by off-chain applications, cheaper than storage",
+        "C": "To schedule future transactions at specific timestamps",
+        "D": "To create notifications that appear in user wallets automatically"
+      },
+      "correct": "B",
+      "explanation": "Events emit logs to the blockchain's transaction receipt. They're much cheaper than storage (375 gas base vs 20,000 for storage) and are indexed for efficient searching by off-chain applications (like dApps monitoring Transfer events). Events don't trigger code execution - they're purely informational logs for external observers.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 13,
+      "question": "What is the purpose of modifiers in Solidity?",
+      "options": {
+        "A": "To modify the return value of functions automatically",
+        "B": "To create reusable access control and validation logic that runs before function execution",
+        "C": "To adjust gas prices based on network congestion",
+        "D": "To convert function outputs to different data types"
+      },
+      "correct": "B",
+      "explanation": "Modifiers are reusable code snippets that run before (and optionally after) function execution. They're commonly used for access control (e.g., 'onlyOwner' checks if msg.sender is the owner). The underscore '_' in the modifier indicates where the function body executes. This creates cleaner, more maintainable code by avoiding repetitive checks.",
+      "difficulty": "hard"
+    },
+    {
+      "id": 14,
+      "question": "What is unique about the constructor function in a Solidity contract?",
+      "options": {
+        "A": "It can be called multiple times to reinitialize the contract state",
+        "B": "It runs exactly once during contract deployment and sets up the initial state",
+        "C": "It is automatically called every time a new block is mined",
+        "D": "It can only be called by the contract owner for upgrades"
+      },
+      "correct": "B",
+      "explanation": "The constructor is a special function that executes exactly once when the contract is deployed. It's typically used to set the contract owner, initialize state variables, and mint initial token supplies. After deployment, the constructor code is not stored with the contract - only the runtime code remains. It cannot be called again.",
+      "difficulty": "easy"
+    },
+    {
+      "id": 15,
+      "question": "What does the 'payable' keyword mean when applied to a function in Solidity?",
+      "options": {
+        "A": "The function will automatically charge a fee to the caller",
+        "B": "The function can receive Ether (ETH) along with the function call; without it, sending ETH will revert",
+        "C": "The function returns Ether to the caller",
+        "D": "The function executes faster if paid a higher gas price"
+      },
+      "correct": "B",
+      "explanation": "The 'payable' modifier allows a function to receive Ether. If you try to send ETH to a non-payable function, the transaction will revert. Common uses include deposit() functions, buying items with ETH, or accepting payments. The received amount is accessible via msg.value (in Wei).",
+      "difficulty": "easy"
+    },
+    {
+      "id": 16,
+      "question": "What do msg.sender and msg.value represent in a Solidity function?",
+      "options": {
+        "A": "msg.sender is the contract address; msg.value is the gas price",
+        "B": "msg.sender is the address that called the function; msg.value is the amount of Wei sent with the transaction",
+        "C": "msg.sender is the transaction hash; msg.value is the block number",
+        "D": "msg.sender is the function name; msg.value is the return value"
+      },
+      "correct": "B",
+      "explanation": "msg.sender is a global variable containing the address of the account that called the function (could be an EOA or another contract). msg.value contains the amount of Wei (10^-18 ETH) sent along with the transaction. These are critical for access control (checking who's calling) and payment handling.",
+      "difficulty": "easy"
+    },
+    {
+      "id": 17,
+      "question": "In the reentrancy vulnerability, what is the core problem that attackers exploit?",
+      "options": {
+        "A": "The contract uses too much gas and runs out during execution",
+        "B": "The contract updates its state (like setting balance to 0) AFTER making an external call, allowing recursive calls before state changes",
+        "C": "The contract doesn't validate the caller's address properly",
+        "D": "The contract allows multiple users to call the same function simultaneously"
+      },
+      "correct": "B",
+      "explanation": "Reentrancy exploits contracts that make external calls (like sending ETH) before updating their internal state. The attacker's contract receives the ETH, then immediately calls the withdraw function again - since the balance hasn't been set to 0 yet, it passes the check and sends more ETH. This continues recursively, draining the contract. The DAO hack (2016, $60M) used this vulnerability.",
+      "difficulty": "hard"
+    },
+    {
+      "id": 18,
+      "question": "What is the main implication of smart contract immutability after deployment?",
+      "options": {
+        "A": "The contract runs faster because the code doesn't need to be recompiled",
+        "B": "Bugs cannot be fixed directly - the code executes exactly as written forever, making security critical before deployment",
+        "C": "The contract automatically becomes more secure over time",
+        "D": "Users cannot interact with the contract after 30 days"
+      },
+      "correct": "B",
+      "explanation": "Once deployed, smart contract code cannot be changed. This is a double-edged sword: it creates trust (the rules can't be changed arbitrarily), but it means bugs are permanent. A contract with a vulnerability will execute that buggy code forever. This is why thorough audits, testing, and formal verification are critical before deployment.",
+      "difficulty": "medium"
+    },
+    {
+      "id": 19,
+      "question": "What is the purpose of proxy patterns in smart contract development?",
+      "options": {
+        "A": "To hide the contract's source code from public view for security",
+        "B": "To enable contract upgradability by separating storage (proxy) from logic (implementation), allowing logic changes while preserving state",
+        "C": "To automatically distribute tokens to multiple addresses at once",
+        "D": "To reduce gas costs by compressing transaction data"
+      },
+      "correct": "B",
+      "explanation": "Proxy patterns work around immutability by separating storage from logic. The proxy contract (unchangeable) holds the state and delegates calls to an implementation contract (upgradeable). To upgrade, you deploy new logic and point the proxy to it - the state persists. This enables bug fixes and feature additions while maintaining the same contract address.",
+      "difficulty": "hard"
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is NOT a common smart contract development tool mentioned in the notebook?",
+      "options": {
+        "A": "Remix - browser-based IDE for writing and testing Solidity",
+        "B": "Hardhat - development environment with testing and deployment tools",
+        "C": "Foundry - fast Solidity testing framework written in Rust",
+        "D": "Truffle Suite - automated code optimization and gas reduction tool"
+      },
+      "correct": "D",
+      "explanation": "Truffle is actually a development framework (like Hardhat), not primarily an optimization tool. The notebook mentions Remix (browser IDE), Hardhat (Node.js development environment), and Foundry (Rust-based testing framework) as the main development tools. While Truffle Suite exists and is used for development, it's not described as an 'automated code optimization' tool - that's a mischaracterization.",
+      "difficulty": "hard"
+    }
+  ]
+}

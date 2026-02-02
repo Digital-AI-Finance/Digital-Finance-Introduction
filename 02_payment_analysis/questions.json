@@ -1,0 +1,246 @@
+{
+  "lesson": "NB02",
+  "title": "Payment Transaction Analysis",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What are the six payment methods analyzed in the NB02 Payment Analysis notebook?",
+      "options": {
+        "A": "Wire Transfer, ACH, SEPA, Check, Cash, Bitcoin",
+        "B": "Wire Transfer, ACH, Credit Card, Debit Card, Digital Wallet, Cryptocurrency",
+        "C": "SWIFT, FedWire, PayPal, Venmo, Cash App, Stripe",
+        "D": "RTGS, DNS, Credit Card, Prepaid Card, Money Order, Check"
+      },
+      "correct": "B",
+      "explanation": "The notebook analyzes six payment methods: Wire Transfer (traditional bank-to-bank transfers with higher fees), ACH (Automated Clearing House batch processing), Credit Card (instant with merchant fees), Debit Card (direct bank account access with lower fees), Digital Wallet (services like PayPal/Venmo), and Cryptocurrency (blockchain-based transfers). Each has distinct characteristics in terms of speed, cost, and settlement time."
+    },
+    {
+      "id": 2,
+      "question": "Based on the fee structure analysis, which payment method is most cost-effective for small transactions under $500?",
+      "options": {
+        "A": "Wire Transfer",
+        "B": "Credit Card",
+        "C": "ACH (Automated Clearing House)",
+        "D": "Digital Wallet"
+      },
+      "correct": "C",
+      "explanation": "ACH is the most cost-effective for small transactions because it has a very low percentage fee (0.1%) and minimal fixed fee ($0.50). Wire transfers have a high fixed fee ($25) making them expensive for small amounts. Credit cards charge 2.5% plus $0.30, and digital wallets charge 2.9% plus $0.30. ACH's low fee structure makes it ideal for transactions under $500."
+    },
+    {
+      "id": 3,
+      "question": "What is the typical settlement time range for Wire Transfer transactions according to the notebook?",
+      "options": {
+        "A": "0-1 hours (instant)",
+        "B": "1-3 days",
+        "C": "5-7 days",
+        "D": "30 days"
+      },
+      "correct": "B",
+      "explanation": "Wire transfers typically settle in 1-3 days. While faster than historical methods, they are not instant. Digital wallets settle in 0-1 hours (often instantly), credit and debit cards settle in 0-1 days, and ACH also takes 1-3 days. Settlement time is crucial for liquidity management and working capital planning."
+    },
+    {
+      "id": 4,
+      "question": "What is the effective fee rate for Credit Card transactions in the payment system simulation?",
+      "options": {
+        "A": "0.5% fixed rate",
+        "B": "2.5% percentage fee plus $0.30 fixed fee",
+        "C": "1% percentage fee plus $25 fixed fee",
+        "D": "2.9% percentage fee with no fixed fee"
+      },
+      "correct": "B",
+      "explanation": "Credit cards in the simulation charge 2.5% of the transaction amount plus a $0.30 fixed fee. This blended fee structure is typical for card payments - combining a percentage (to capture value from larger transactions) with a fixed amount (to cover processing overhead). This makes credit cards expensive for merchants, especially on larger transactions."
+    },
+    {
+      "id": 5,
+      "question": "What is the primary purpose of visualizing payment networks as graphs in the notebook?",
+      "options": {
+        "A": "To make the data look more attractive for presentations",
+        "B": "To identify key players (hubs), detect fraud patterns, understand money flow, and assess systemic risks from interconnections",
+        "C": "To calculate the exact settlement time for each transaction",
+        "D": "To determine the optimal exchange rate for international transfers"
+      },
+      "correct": "B",
+      "explanation": "Payment network visualization serves critical analytical purposes: identifying major hubs (parties with many connections), detecting fraud (unusual network patterns), understanding money flow concentrations, and assessing systemic risk from interconnections. Network analysis can reveal business ecosystems, supply chains, or potential fraud rings through clustering and centrality measures."
+    },
+    {
+      "id": 6,
+      "question": "In network analysis, what does 'degree centrality' measure in a payment network?",
+      "options": {
+        "A": "The total dollar value flowing through a party",
+        "B": "How quickly payments settle for that party",
+        "C": "The number of direct connections (other parties) a node has in the network",
+        "D": "The credit rating of the party"
+      },
+      "correct": "C",
+      "explanation": "Degree centrality measures the number of direct connections a node has - essentially counting how many other parties a given party transacts with. High degree centrality indicates a party is highly active in the network. This is different from betweenness centrality (measuring how often a node lies on paths between other nodes) or PageRank (measuring importance based on who connects to you)."
+    },
+    {
+      "id": 7,
+      "question": "What is 'betweenness centrality' and why is it important in payment network analysis?",
+      "options": {
+        "A": "It measures the average transaction amount for a party",
+        "B": "It identifies parties that act as bridges between different groups, making them critical for network connectivity",
+        "C": "It calculates the total fees earned by payment processors",
+        "D": "It determines the fastest route for payment settlement"
+      },
+      "correct": "B",
+      "explanation": "Betweenness centrality identifies nodes that frequently appear on the shortest paths between other nodes - essentially acting as bridges or intermediaries. High betweenness centrality indicates a party that connects otherwise separate groups. These parties are critical for network connectivity but also represent potential bottlenecks or systemic risks. They may be correspondent banks, payment processors, or major distributors."
+    },
+    {
+      "id": 8,
+      "question": "Why do Wire Transfers have the highest fixed fee ($25) among the payment methods analyzed?",
+      "options": {
+        "A": "Because they are the fastest payment method available",
+        "B": "Because they involve manual processing, compliance checks (AML/KYC), SWIFT network fees, and correspondent banking overhead",
+        "C": "Because governments require high fees to track large transactions",
+        "D": "Because wire transfers can only be used for international payments"
+      },
+      "correct": "B",
+      "explanation": "Wire transfers have high fixed fees ($25+) due to multiple cost factors: manual processing by bank staff, mandatory compliance checks (Anti-Money Laundering and Know Your Customer requirements), SWIFT network messaging fees, and correspondent banking relationships that each take a cut. Unlike automated systems like ACH, wire transfers often require human verification and multiple intermediaries, especially for international transfers."
+    },
+    {
+      "id": 9,
+      "question": "What pattern does the notebook reveal about transaction frequency throughout the day?",
+      "options": {
+        "A": "Transactions are evenly distributed across all 24 hours",
+        "B": "Most transactions occur during late night hours (midnight to 6 AM)",
+        "C": "Transactions show a bias toward business hours (8 AM to 6 PM)",
+        "D": "Transaction frequency is highest during weekends"
+      },
+      "correct": "C",
+      "explanation": "The notebook's synthetic data is generated with a business hours bias (8 AM to 6 PM), reflecting real-world patterns where most commercial and consumer transactions occur during waking business hours. This pattern is important for capacity planning (servers must handle peak loads), fraud detection (unusual hour transactions may be suspicious), and liquidity management (banks need funds available during high-activity periods)."
+    },
+    {
+      "id": 10,
+      "question": "What is the purpose of calculating percentiles (P50, P75, P90, P95, P99) for settlement times?",
+      "options": {
+        "A": "To determine the average transaction amount",
+        "B": "To understand Service Level Agreement (SLA) compliance and set customer expectations for settlement timing",
+        "C": "To calculate total fee revenue for payment processors",
+        "D": "To identify which payment method is most popular"
+      },
+      "correct": "B",
+      "explanation": "Settlement time percentiles are critical for SLA design and customer expectations. P50 (median) shows typical experience, P90-P95 show what 'most' customers experience, and P99 captures worst-case scenarios. For example, if P95 for ACH is 72 hours, a business can promise '95% of ACH payments settle within 3 days' in their SLA. This helps manage customer expectations and identify outliers that need investigation."
+    },
+    {
+      "id": 11,
+      "question": "In the fee comparison analysis, at what approximate transaction size do wire transfers become more cost-effective than other methods?",
+      "options": {
+        "A": "They are never cost-effective due to the high fixed fee",
+        "B": "Around $100",
+        "C": "Around $5,000-$10,000 and above",
+        "D": "Around $50"
+      },
+      "correct": "A",
+      "explanation": "According to the notebook's analysis, wire transfers are generally not the most cost-effective choice at any transaction size due to their high fixed fee ($25) and percentage fee (0.5%). ACH remains cheaper even for large transactions. Wire transfers are used not for cost efficiency but for speed, certainty, and regulatory requirements in certain contexts (like real estate transactions). The high fee is the cost of the manual processing, compliance, and guaranteed settlement."
+    },
+    {
+      "id": 12,
+      "question": "What does the notebook identify as the four key business intelligence uses of payment volume analysis?",
+      "options": {
+        "A": "Marketing, Sales, HR, and Legal compliance",
+        "B": "Capacity Planning, Fraud Detection, Business Intelligence, and Revenue Forecasting",
+        "C": "Customer Acquisition, Retention, Expansion, and Churn Analysis",
+        "D": "Product Development, Pricing Strategy, Distribution, and Promotion"
+      },
+      "correct": "B",
+      "explanation": "The notebook emphasizes four critical uses of payment volume analysis: (1) Capacity Planning - ensuring systems can handle peak loads; (2) Fraud Detection - identifying unusual patterns that may indicate fraud; (3) Business Intelligence - understanding customer behavior and transaction patterns; (4) Revenue Forecasting - predicting fee income based on volume trends. These insights drive operational and strategic decisions."
+    },
+    {
+      "id": 13,
+      "question": "What is the transaction status distribution simulated in the dataset, and why does it matter?",
+      "options": {
+        "A": "100% completed - all transactions succeed",
+        "B": "92% completed, 5% pending, 3% failed - reflecting real-world failure rates for operational planning",
+        "C": "50% completed, 50% failed - to test error handling",
+        "D": "80% completed, 20% cancelled by users"
+      },
+      "correct": "B",
+      "explanation": "The simulation uses realistic distributions: 92% completed, 5% pending, 3% failed. This matters because: (1) failure rates affect revenue projections (failed transactions don't generate fees), (2) pending transactions require liquidity reserves, (3) high failure rates may indicate system issues or fraud, (4) customer satisfaction depends on successful transaction completion. Understanding and managing these rates is critical for payment system operations."
+    },
+    {
+      "id": 14,
+      "question": "Why does the notebook use a log-normal distribution to generate transaction amounts?",
+      "options": {
+        "A": "Because all transactions are exactly the same amount",
+        "B": "Because transaction amounts in real financial data tend to be right-skewed with many small transactions and few large ones",
+        "C": "Because regulators require payments to follow this distribution",
+        "D": "Because it makes calculations easier"
+      },
+      "correct": "B",
+      "explanation": "Log-normal distributions model real-world transaction patterns where most transactions are small (many people buy coffee, groceries, etc.) but a few transactions are very large (business purchases, real estate, etc.). This creates a right-skewed distribution with a long tail. Using log-normal makes the synthetic data realistic, which is important for accurate analysis of percentiles, outlier detection, and fee revenue calculations."
+    },
+    {
+      "id": 15,
+      "question": "What does 'settlement time' mean in the context of payment systems?",
+      "options": {
+        "A": "The time it takes to type in payment information",
+        "B": "The period between when a payment is initiated and when funds are actually, irrevocably transferred and available to the recipient",
+        "C": "The time it takes to print a receipt",
+        "D": "The amount of time a customer has to dispute a charge"
+      },
+      "correct": "B",
+      "explanation": "Settlement time is the critical period from payment initiation to final, irrevocable transfer of funds. This matters immensely for: liquidity management (businesses need to know when funds will be available), working capital (cash flow planning), customer experience (faster is better), and regulatory compliance (some regulations mandate specific settlement windows). 'Instant' settlement (like digital wallets) versus 1-3 day settlement (like ACH) has major business implications."
+    },
+    {
+      "id": 16,
+      "question": "According to the fee analysis, which payment method has the highest effective fee rate as a percentage of transaction volume?",
+      "options": {
+        "A": "ACH at 0.1%",
+        "B": "Wire Transfer at 0.5%",
+        "C": "Digital Wallet at 2.9%",
+        "D": "Debit Card at 1.5%"
+      },
+      "correct": "C",
+      "explanation": "Digital wallets have the highest percentage fee at 2.9% (plus $0.30 fixed fee), followed by credit cards at 2.5%. This high fee covers the cost of instant settlement, fraud protection, dispute resolution, and platform maintenance. ACH is cheapest at 0.1%, wire transfers are 0.5%, and debit cards are 1.5%. The trade-off is speed and convenience versus cost - digital wallets are instant but expensive."
+    },
+    {
+      "id": 17,
+      "question": "What is PageRank in the context of payment network analysis?",
+      "options": {
+        "A": "The number of payments a party sends",
+        "B": "A measure of importance based on who connects to you - parties receiving payments from important parties score higher",
+        "C": "The average size of transactions",
+        "D": "The speed at which payments are processed"
+      },
+      "correct": "B",
+      "explanation": "PageRank (originally from Google's search algorithm) measures importance based on the quality and quantity of incoming connections. In payment networks, a party with high PageRank receives payments from other important parties. This identifies influential nodes differently than simple transaction count - it's not just how many connections you have, but who those connections are. High PageRank may indicate trusted vendors, major suppliers, or critical service providers."
+    },
+    {
+      "id": 18,
+      "question": "Why does the notebook analyze both transaction count share AND volume share separately for payment methods?",
+      "options": {
+        "A": "Because they always show identical patterns",
+        "B": "Because transaction count shows usage frequency while volume reveals where money actually flows - a method could have many small transactions (high count) but low total value (low volume)",
+        "C": "Because regulators require both metrics",
+        "D": "Because one metric is for customers and one is for merchants"
+      },
+      "correct": "B",
+      "explanation": "Transaction count and volume tell different stories. A payment method might handle 30% of transactions (high count share) but only 10% of dollar volume (low volume share) - indicating it's used for small payments. Conversely, wire transfers might be 5% of transaction count but 40% of volume - few transactions but large amounts. Both metrics matter: count affects system capacity planning, while volume drives revenue and risk exposure."
+    },
+    {
+      "id": 19,
+      "question": "What does the 'net flow' metric reveal about a party in the payment network?",
+      "options": {
+        "A": "How fast they process transactions",
+        "B": "Whether they are primarily a recipient (positive net flow) or sender (negative net flow) of funds in the network",
+        "C": "Their credit score",
+        "D": "Which payment method they prefer"
+      },
+      "correct": "B",
+      "explanation": "Net flow = incoming_value - outgoing_value. Positive net flow indicates a party receives more than they send (like a retailer or service provider collecting revenue). Negative net flow indicates a party sends more than receives (like a customer or buyer). Understanding net flows helps identify business roles, concentration of funds, liquidity needs, and potential systemic risks in the payment network."
+    },
+    {
+      "id": 20,
+      "question": "What are the three main applications of payment analysis highlighted in the notebook's real-world applications section?",
+      "options": {
+        "A": "Marketing, Sales, and Customer Service",
+        "B": "Fraud Detection, Liquidity Management, and Cost Optimization",
+        "C": "Product Development, Pricing, and Distribution",
+        "D": "Hiring, Training, and Performance Management"
+      },
+      "correct": "B",
+      "explanation": "The notebook emphasizes three critical real-world applications: (1) Fraud Detection - identifying unusual patterns and network anomalies that may indicate fraudulent activity; (2) Liquidity Management - predicting settlement times and managing working capital based on when funds will be available; (3) Cost Optimization - selecting the right payment method for each transaction size to minimize fees. These directly impact profitability, risk management, and operational efficiency."
+    }
+  ]
+}
