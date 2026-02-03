@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 6.3: Synthesis Framework | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 6.3: Synthesis Framework</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 6.3: Synthesis Framework</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "What is the primary purpose of the Innovation Scorecard framework presented in NB14?",
+                                "options": {
+                                                "A": "To rank cryptocurrencies by market capitalization",
+                                                "B": "To systematically evaluate digital finance innovations across multiple dimensions",
+                                                "C": "To predict stock prices of fintech companies",
+                                                "D": "To calculate the profitability of DeFi protocols"
+                                },
+                                "correct": "B",
+                                "explanation": "The Innovation Scorecard is a comprehensive framework that evaluates digital finance innovations across six dimensions derived from each day of the course: trust architecture, platform dynamics, technical soundness, programmability, risk profile, and future potential. It provides a systematic approach to assessing innovations rather than focusing on a single metric.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 2,
+                                "question": "According to the notebook, which trust model does Stripe employ?",
+                                "options": {
+                                                "A": "Decentralized",
+                                                "B": "Federated",
+                                                "C": "Centralized",
+                                                "D": "Hybrid"
+                                },
+                                "correct": "C",
+                                "explanation": "Stripe operates under a centralized trust model where users trust Stripe Inc. as a single entity to process payments correctly. This contrasts with decentralized models (like Uniswap) where trust is placed in code and algorithms, or federated models (like the Digital Euro proposal) where multiple parties share trust responsibility.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 3,
+                                "question": "Which innovation type received the highest score in 'Programmability' dimension?",
+                                "options": {
+                                                "A": "Stripe (FinTech)",
+                                                "B": "Digital Euro (CBDC)",
+                                                "C": "Uniswap (DeFi)",
+                                                "D": "All scored equally"
+                                },
+                                "correct": "C",
+                                "explanation": "Uniswap scored 5.0/5.0 in programmability, the highest among the case studies. This is because DeFi protocols like Uniswap are built on smart contracts that enable features like atomic swaps, flash loans, and composability with other protocols. Stripe scored only 3.8/5.0 (limited to API programmability), and Digital Euro scored 3.0/5.0 (minimal programmability by design).",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 4,
+                                "question": "How many evaluation dimensions does the Innovation Scorecard framework include?",
+                                "options": {
+                                                "A": "4 dimensions",
+                                                "B": "5 dimensions",
+                                                "C": "6 dimensions",
+                                                "D": "8 dimensions"
+                                },
+                                "correct": "C",
+                                "explanation": "The Innovation Scorecard includes 6 dimensions, each corresponding to one day of the Digital Finance course: (1) Trust Architecture, (2) Platform Dynamics, (3) Technical Soundness, (4) Programmability, (5) Risk Profile, and (6) Future Potential. Each dimension contains 5 criteria for a total of 30 evaluation points.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 5,
+                                "question": "What scoring scale is used for each criterion in the Innovation Scorecard?",
+                                "options": {
+                                                "A": "Binary (pass/fail)",
+                                                "B": "3-point scale (low/medium/high)",
+                                                "C": "5-point scale (1=Poor to 5=Excellent)",
+                                                "D": "10-point scale"
+                                },
+                                "correct": "C",
+                                "explanation": "The scorecard uses a 5-point scale where 1 = Poor (major deficiencies), 2 = Below Average (significant gaps), 3 = Average (meets basic requirements), 4 = Good (above average, minor gaps), and 5 = Excellent (industry-leading). This provides sufficient granularity while remaining easy to use.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 6,
+                                "question": "Which trust model is associated with the Digital Euro proposal?",
+                                "options": {
+                                                "A": "Centralized (single trusted party)",
+                                                "B": "Federated (consortium of parties)",
+                                                "C": "Decentralized (trustless/algorithmic)",
+                                                "D": "Fully distributed peer-to-peer"
+                                },
+                                "correct": "B",
+                                "explanation": "The Digital Euro uses a federated trust model where the European Central Bank (ECB) serves as the ultimate trust anchor, but commercial banks act as intermediaries for distribution. This creates a hybrid structure with central issuance but distributed access, combining institutional trust with broader participation.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 7,
+                                "question": "What is Uniswap's core innovation in decentralized finance?",
+                                "options": {
+                                                "A": "Proof-of-stake consensus mechanism",
+                                                "B": "Automated market maker (AMM) for token swaps",
+                                                "C": "Cross-chain bridge technology",
+                                                "D": "Zero-knowledge proof implementation"
+                                },
+                                "correct": "B",
+                                "explanation": "Uniswap pioneered the automated market maker (AMM) model in DeFi, using the constant product formula (x*y=k) to enable permissionless token swaps without traditional order books. Later innovations include concentrated liquidity (V3) and hooks for customization (V4). This fundamentally changed how decentralized exchanges operate.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 8,
+                                "question": "In the scorecard framework, what does 'composability' primarily refer to?",
+                                "options": {
+                                                "A": "The ability to combine different protocols and smart contracts together",
+                                                "B": "The visual design of user interfaces",
+                                                "C": "The speed of transaction processing",
+                                                "D": "The number of supported cryptocurrencies"
+                                },
+                                "correct": "A",
+                                "explanation": "Composability refers to the ability of different protocols and smart contracts to interact and combine with each other, often described as 'money legos' in DeFi. This allows developers to build on existing protocols without permission, creating complex financial products by combining simple primitives. It's a key advantage of blockchain-based systems over traditional siloed financial infrastructure.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 9,
+                                "question": "Which innovation scored highest in the 'Platform Dynamics' dimension?",
+                                "options": {
+                                                "A": "Stripe, due to strong two-sided network effects and developer ecosystem",
+                                                "B": "Uniswap, due to liquidity network effects",
+                                                "C": "Digital Euro, due to mandatory adoption",
+                                                "D": "They all scored equally in this dimension"
+                                },
+                                "correct": "A",
+                                "explanation": "Stripe scored 4.8/5.0 in Platform Dynamics, the highest among the case studies. This reflects its powerful two-sided marketplace (merchants and payment rails), extensive API integrations, best-in-class developer experience, and millions of business users. Uniswap scored 4.2/5.0 (strong liquidity effects but low switching costs), while Digital Euro scored 2.8/5.0 (not yet launched).",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 10,
+                                "question": "What is the primary regulatory advantage of CBDCs like the Digital Euro?",
+                                "options": {
+                                                "A": "They operate outside all regulatory frameworks",
+                                                "B": "They are issued by the regulator itself, ensuring compliance",
+                                                "C": "They can avoid taxation requirements",
+                                                "D": "They have no regulatory oversight"
+                                },
+                                "correct": "B",
+                                "explanation": "CBDCs have a unique regulatory position because they are issued by central banks, which are themselves regulators. This means CBDCs achieve 5/5 on regulatory compliance by design—they don't need to comply with regulations because they are created by the regulatory authority. This contrasts sharply with DeFi protocols like Uniswap (2/5 on regulatory compliance) that face uncertain regulatory status.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 11,
+                                "question": "According to the notebook, what is 'impermanent loss' in the context of Uniswap?",
+                                "options": {
+                                                "A": "A technical bug that causes permanent fund loss",
+                                                "B": "An economic risk for liquidity providers when token prices diverge",
+                                                "C": "A regulatory penalty for operating DeFi protocols",
+                                                "D": "Network congestion that delays transactions"
+                                },
+                                "correct": "B",
+                                "explanation": "Impermanent loss is an economic risk faced by liquidity providers in AMMs like Uniswap. When the prices of tokens in a liquidity pool diverge from their initial ratio, liquidity providers may end up with less value than if they had simply held the tokens. It's called 'impermanent' because it can reverse if prices return to the original ratio, but becomes permanent when liquidity is withdrawn. This is mentioned in the notebook as a key risk (counterparty risk score: 4/5).",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 12,
+                                "question": "Why does the Digital Euro have limited programmability by design?",
+                                "options": {
+                                                "A": "Due to insufficient technical expertise at the ECB",
+                                                "B": "To prioritize stability over innovation and maintain regulatory control",
+                                                "C": "Because blockchain technology is inherently unprogrammable",
+                                                "D": "To save on computational costs"
+                                },
+                                "correct": "B",
+                                "explanation": "The Digital Euro intentionally limits programmability to focus on payments rather than programmable money. The rationale includes prioritizing financial stability over innovation, maintaining regulatory control, and preventing unintended use cases. This is a deliberate policy choice, not a technical limitation. The notebook notes the Digital Euro scored only 2/5 on smart contracts and composability, reflecting this design philosophy.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 13,
+                                "question": "What does the 'constant product formula' (x*y=k) represent in Uniswap?",
+                                "options": {
+                                                "A": "The fee structure for liquidity providers",
+                                                "B": "The mathematical relationship that maintains liquidity pool balance during swaps",
+                                                "C": "The consensus mechanism for validating transactions",
+                                                "D": "The formula for calculating token prices from external oracles"
+                                },
+                                "correct": "B",
+                                "explanation": "The constant product formula (x*y=k) is the core mathematical principle behind Uniswap V2's AMM. It ensures that the product of the quantities of two tokens in a pool remains constant during swaps. When someone buys token X, they add token Y to the pool, and the formula automatically adjusts the price to maintain the constant k. This eliminates the need for order books and enables permissionless, algorithmic market making.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 14,
+                                "question": "Which statement best describes network effects in the context of Stripe?",
+                                "options": {
+                                                "A": "More miners increase blockchain security",
+                                                "B": "More merchants using Stripe makes it more valuable for payment rails, and more integrations increase developer lock-in",
+                                                "C": "More tokens in a liquidity pool reduce slippage",
+                                                "D": "More nodes improve decentralization"
+                                },
+                                "correct": "B",
+                                "explanation": "Stripe exhibits strong two-sided network effects: as more merchants adopt Stripe, it becomes more valuable for payment processors and banks to integrate with it (supply-side effect). Simultaneously, as more integrations and tools are built on Stripe's API, it becomes harder for developers to switch platforms (demand-side lock-in). The notebook notes this contributed to Stripe's perfect 5/5 score on network effects and 5/5 on developer ecosystem.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 15,
+                                "question": "What is the primary trade-off that Uniswap faces according to the scorecard analysis?",
+                                "options": {
+                                                "A": "High programmability and composability versus regulatory uncertainty and compliance challenges",
+                                                "B": "Fast transactions versus high security",
+                                                "C": "Low fees versus high liquidity",
+                                                "D": "Decentralization versus user-friendly interface"
+                                },
+                                "correct": "A",
+                                "explanation": "The scorecard reveals Uniswap's core trade-off: it excels in programmability (5.0/5.0) and composability, offering DeFi-native advantages, but scores poorly on regulatory compliance (2/5) and faces high regulatory risk (2/5). This reflects the fundamental tension between permissionless innovation and regulatory acceptance. The notebook explicitly notes Uniswap's weakness is 'regulatory uncertainty' while its strength is 'decentralization and composability.'",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 16,
+                                "question": "How does the scorecard framework define 'Technical Soundness'?",
+                                "options": {
+                                                "A": "Only the programming languages used in development",
+                                                "B": "Quality of technology, security, and scalability including architecture, audit history, reliability, code quality, and team expertise",
+                                                "C": "The number of GitHub stars a project has",
+                                                "D": "Whether the project uses blockchain technology"
+                                },
+                                "correct": "B",
+                                "explanation": "Technical Soundness (Day 3 framework) is evaluated across five criteria: (1) security architecture and audit history, (2) scalability (TPS, latency, cost), (3) reliability and uptime track record, (4) code quality and documentation, and (5) technical team expertise. This comprehensive assessment goes far beyond single metrics to evaluate the overall technical quality and robustness of the innovation.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 17,
+                                "question": "What is 'concentrated liquidity' in Uniswap V3, and why is it significant?",
+                                "options": {
+                                                "A": "A feature that locks liquidity for a minimum time period",
+                                                "B": "A mechanism that allows liquidity providers to specify price ranges, improving capital efficiency up to 100x",
+                                                "C": "A centralized custody solution for institutional investors",
+                                                "D": "A cross-chain bridge for concentrated trading"
+                                },
+                                "correct": "B",
+                                "explanation": "Concentrated liquidity, introduced in Uniswap V3, allows liquidity providers to specify custom price ranges for their capital rather than distributing it across the entire price curve (0 to infinity). This innovation can improve capital efficiency up to 100x compared to V2, as liquidity is concentrated where most trading occurs. The notebook specifically mentions this as a key innovation, noting 'V3 concentrated liquidity (100x capital efficiency)' in the detailed analysis section.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 18,
+                                "question": "Why does the Digital Euro propose holding limits, and what problem does this address?",
+                                "options": {
+                                                "A": "To generate revenue through account fees",
+                                                "B": "To prevent bank disintermediation and systemic risk to commercial banks",
+                                                "C": "To comply with international money laundering regulations",
+                                                "D": "To reduce computational costs of maintaining accounts"
+                                },
+                                "correct": "B",
+                                "explanation": "The Digital Euro proposes holding limits to prevent excessive migration of deposits from commercial banks to the central bank, which could destabilize the banking system. If unlimited amounts could be held in Digital Euro, people might move deposits away from commercial banks (which use deposits for lending), causing systemic risk. The notebook notes: 'Must coexist with commercial bank deposits' and 'Holding limits to prevent bank disintermediation' as key challenges.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 19,
+                                "question": "In comparing all three case studies, what pattern emerges regarding the trade-off between programmability and regulatory risk?",
+                                "options": {
+                                                "A": "There is no relationship between these two dimensions",
+                                                "B": "Higher programmability generally correlates with lower regulatory clarity and higher regulatory risk",
+                                                "C": "All innovations score equally on both dimensions",
+                                                "D": "Lower programmability always means higher regulatory risk"
+                                },
+                                "correct": "B",
+                                "explanation": "The case studies reveal an inverse relationship: Uniswap (high programmability: 4.8/5.0, low regulatory score in risk: 2/5) versus Digital Euro (low programmability: 3.0/5.0, maximum regulatory score: 5/5), with Stripe in between (moderate programmability: 3.8/5.0, good regulatory: 4/5). This reflects a fundamental tension: more programmable and permissionless systems face greater regulatory uncertainty, while regulated systems intentionally limit programmability to maintain control and stability.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 20,
+                                "question": "According to the notebook's conclusion, what is the key principle for evaluating digital finance innovations?",
+                                "options": {
+                                                "A": "Always choose the innovation with the highest overall score",
+                                                "B": "Only invest in decentralized technologies",
+                                                "C": "No innovation is perfect—every innovation makes trade-offs, and context matters for different use cases",
+                                                "D": "Centralized systems are always superior to decentralized ones"
+                                },
+                                "correct": "C",
+                                "explanation": "The notebook's Summary section explicitly states 'No perfect solution: Every innovation makes trade-offs' and 'Context matters: Different use cases favor different models.' It emphasizes that Stripe optimizes for user experience and market penetration, Uniswap for decentralization and composability, and Digital Euro for financial stability and inclusion. The framework is designed to help understand these trade-offs systematically rather than declare a single 'winner.' This reflects the sophisticated reality of digital finance innovation.",
+                                "difficulty": "hard"
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

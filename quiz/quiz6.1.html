@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 6.1: Convergence Thesis | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 6.1: Convergence Thesis</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 6.1: Convergence Thesis</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "What is the fundamental concept of the Convergence Thesis?",
+                                "options": {
+                                                "A": "All cryptocurrencies will eventually merge into a single blockchain",
+                                                "B": "The traditional divide between FinTech and DeFi is dissolving as both adopt features from the other",
+                                                "C": "Banks will completely replace blockchain technology",
+                                                "D": "Cryptocurrency will become illegal worldwide"
+                                },
+                                "correct": "B",
+                                "explanation": "The Convergence Thesis describes how the once-clear distinction between FinTech (centralized, regulated, institution-based) and DeFi (decentralized, permissionless, code-based) is dissolving in practice. FinTech companies are adopting crypto features for efficiency and customer demand, while DeFi protocols are adding compliance layers to access institutional capital and regulatory acceptance. This convergence creates hybrid systems that blend the best of both worlds.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 2,
+                                "question": "Which of the following is NOT a reason why FinTech companies are moving toward DeFi?",
+                                "options": {
+                                                "A": "24/7 settlement efficiency",
+                                                "B": "Customer demand for crypto features",
+                                                "C": "Yield opportunities through staking and lending",
+                                                "D": "Complete elimination of regulatory oversight"
+                                },
+                                "correct": "D",
+                                "explanation": "FinTech companies are adopting DeFi for practical benefits: cost efficiency (24/7 settlement), yield opportunities, programmable money features, and competitive pressure from customer demand. However, they are NOT seeking to eliminate regulatory oversight—most FinTech companies remain committed to compliance. In fact, they often implement hybrid solutions that maintain regulatory compliance while gaining blockchain efficiency.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 3,
+                                "question": "Why are DeFi protocols moving toward FinTech-like features?",
+                                "options": {
+                                                "A": "To increase transaction fees",
+                                                "B": "To comply with regulations, access institutional capital, and improve user experience",
+                                                "C": "To eliminate all anonymous transactions",
+                                                "D": "To slow down transaction processing"
+                                },
+                                "correct": "B",
+                                "explanation": "DeFi protocols are adopting FinTech characteristics for several pragmatic reasons: regulatory survival (avoiding enforcement actions), accessing institutional capital (institutions require compliance), meeting user experience expectations (wallets, recovery, support), enabling fiat on/off ramps, and fulfilling compliance requirements like KYC/AML. This evolution recognizes that pure permissionless DeFi faces scalability and adoption barriers without some institutional integration.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 4,
+                                "question": "PayPal's integration of cryptocurrency is an example of:",
+                                "options": {
+                                                "A": "DeFi moving toward FinTech",
+                                                "B": "FinTech moving toward DeFi features",
+                                                "C": "The complete replacement of traditional payments",
+                                                "D": "A failed convergence attempt"
+                                },
+                                "correct": "B",
+                                "explanation": "PayPal integrating cryptocurrency (allowing users to buy, sell, and hold crypto within PayPal accounts) is a prime example of FinTech adopting DeFi features. PayPal remains a centralized, regulated FinTech platform but has added crypto capabilities to meet customer demand and remain competitive. This demonstrates how traditional finance companies are incorporating blockchain assets while maintaining their licensed, compliant operational model.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 5,
+                                "question": "What does 'Aave Arc' represent in the convergence landscape?",
+                                "options": {
+                                                "A": "A new cryptocurrency that combines Bitcoin and Ethereum",
+                                                "B": "A permissioned version of Aave designed for institutions with KYC/AML compliance",
+                                                "C": "A tool for converting stablecoins to fiat currency",
+                                                "D": "An arcade game based on DeFi protocols"
+                                },
+                                "correct": "B",
+                                "explanation": "Aave Arc is a permissioned version of the Aave lending protocol designed specifically for institutional participants. It maintains the same smart contracts and DeFi mechanics as standard Aave but requires KYC/AML verification and whitelisted wallet addresses. This represents DeFi moving toward FinTech by adding a compliance layer that allows institutional capital to participate. It's a perfect example of convergence—same technology, restricted access model.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 6,
+                                "question": "What are tokenized deposits?",
+                                "options": {
+                                                "A": "Cryptocurrencies issued by individuals",
+                                                "B": "Bank deposits represented as tokens on a blockchain, combining bank liability with blockchain programmability",
+                                                "C": "Gaming tokens used in online casinos",
+                                                "D": "Loyalty points that can be exchanged for crypto"
+                                },
+                                "correct": "B",
+                                "explanation": "Tokenized deposits represent traditional bank deposits as blockchain tokens. Crucially, they remain bank liabilities (backed by FDIC insurance if applicable), but operate on blockchain rails. This differs from stablecoins—tokenized deposits are direct bank obligations, not claims on separate reserves. Major banks like JPMorgan (JPM Coin), Citi, and Wells Fargo are experimenting with this, combining the safety of bank deposits with blockchain's programmability and 24/7 settlement.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 7,
+                                "question": "How do tokenized deposits differ from stablecoins?",
+                                "options": {
+                                                "A": "Tokenized deposits are bank liabilities; stablecoins are claims on reserves held by a separate issuer",
+                                                "B": "Stablecoins are more stable than tokenized deposits",
+                                                "C": "Tokenized deposits cannot be transferred between accounts",
+                                                "D": "Stablecoins are issued by governments"
+                                },
+                                "correct": "A",
+                                "explanation": "The key difference is the nature of the liability. Tokenized deposits are direct bank liabilities—when you hold a tokenized deposit, you have a claim directly on the issuing bank, just like a traditional deposit but in tokenized form. Stablecoins like USDC are claims on reserves held by a separate issuer (Circle for USDC). Tokenized deposits typically have FDIC insurance (if applicable), while most stablecoins do not. Both use blockchain rails, but the legal and risk structure differs fundamentally.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 8,
+                                "question": "What is 'Institutional DeFi'?",
+                                "options": {
+                                                "A": "DeFi protocols used only by banks",
+                                                "B": "DeFi protocols or pools designed for institutions with KYC/AML, permissioned access, and regulatory compliance",
+                                                "C": "Traditional finance with no blockchain involvement",
+                                                "D": "Cryptocurrency exchanges for retail investors"
+                                },
+                                "correct": "B",
+                                "explanation": "Institutional DeFi refers to DeFi protocols adapted for institutional participants through compliance layers. These systems maintain DeFi's core smart contract mechanics and on-chain execution but add KYC/AML requirements, whitelisted wallet addresses, and compliance verification (on-chain or off-chain). Examples include Aave Arc, Compound Treasury, Maple Finance, and Centrifuge. The technology is the same, but access is restricted to verified institutional participants.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 9,
+                                "question": "Visa's strategy of settling transactions in USDC stablecoin represents:",
+                                "options": {
+                                                "A": "Visa abandoning traditional payment rails entirely",
+                                                "B": "A convergence move where a traditional payment network integrates blockchain for settlement efficiency",
+                                                "C": "A marketing gimmick with no practical implementation",
+                                                "D": "Visa becoming a cryptocurrency exchange"
+                                },
+                                "correct": "B",
+                                "explanation": "Visa settling transactions in USDC is a significant convergence milestone. Visa remains a traditional, regulated payment network but has integrated stablecoin settlement on blockchain rails to gain efficiency benefits (24/7 settlement, reduced costs, programmability). This demonstrates how major financial infrastructure can adopt blockchain features while maintaining their core business model. Mastercard has pursued similar strategies, showing industry-wide recognition of blockchain's practical benefits.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 10,
+                                "question": "What is 'Embedded Finance' in the context of convergence?",
+                                "options": {
+                                                "A": "Coins physically embedded in devices",
+                                                "B": "Financial services seamlessly integrated into non-financial platforms and workflows",
+                                                "C": "Cryptocurrencies that are buried underground",
+                                                "D": "Banking services that require in-person visits"
+                                },
+                                "correct": "B",
+                                "explanation": "Embedded Finance refers to financial services (payments, lending, insurance, investing, banking) integrated directly into non-financial platforms. Examples include Shopify Capital (e-commerce lending), Uber instant pay, Apple Pay Later, and Amazon lending to sellers. The crypto angle involves embedding DeFi features like crypto payouts, yield opportunities, or NFT financing directly into apps and platforms. This convergence makes financial services invisible and contextual rather than destination-based.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 11,
+                                "question": "Which example demonstrates a 'Hybrid Protocol' in the convergence landscape?",
+                                "options": {
+                                                "A": "Bitcoin's proof-of-work consensus",
+                                                "B": "MakerDAO allocating over $2B to real-world assets like US Treasuries and corporate bonds",
+                                                "C": "A traditional bank with no blockchain technology",
+                                                "D": "A cryptocurrency exchange listing only one token"
+                                },
+                                "correct": "B",
+                                "explanation": "MakerDAO allocating $2B+ to real-world assets (RWA) like US Treasuries is a perfect hybrid protocol example. MakerDAO is a DeFi protocol that issues DAI stablecoin, but it now backs DAI with traditional financial assets alongside crypto collateral. This combines on-chain execution with off-chain compliance, decentralized protocol with real-world asset integration, and crypto with TradFi. Other examples include Ondo Finance (tokenized treasuries), Backed Finance (tokenized ETFs), and Goldfinch (credit to emerging markets).",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 12,
+                                "question": "What characterizes a 'hybrid custody model'?",
+                                "options": {
+                                                "A": "Users having sole control of private keys with zero institutional involvement",
+                                                "B": "A combination of user control and institutional safeguards, blending self-custody with recovery and compliance features",
+                                                "C": "Only institutions having access to user funds",
+                                                "D": "Government agencies controlling all cryptocurrency"
+                                },
+                                "correct": "B",
+                                "explanation": "Hybrid custody models balance the security and control of self-custody with the convenience and safety nets of institutional custody. They might use multi-signature wallets requiring both user and institution approval, social recovery mechanisms, or tiered access where small amounts allow self-custody but larger amounts require additional verification. This addresses the reality that pure self-custody is risky for many users (key loss, no recovery), while pure institutional custody contradicts crypto's ethos. Hybrid models represent convergence thinking.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 13,
+                                "question": "According to the convergence framework, which innovations are MOST likely to achieve mainstream adoption?",
+                                "options": {
+                                                "A": "Privacy coins and fully anonymous DeFi",
+                                                "B": "Payments, lending, and asset tokenization with regulatory clarity",
+                                                "C": "Unregistered securities offerings",
+                                                "D": "Protocols that explicitly avoid all compliance"
+                                },
+                                "correct": "B",
+                                "explanation": "The framework suggests convergence likelihood depends on regulatory clarity, institutional demand, user experience parity, understood risk profile, and clear value proposition. Payments, lending, and asset tokenization score high on these factors—they have clear efficiency gains, strong institutional demand, manageable risks, and paths to regulatory compliance. Privacy coins and anonymous DeFi face fundamental regulatory conflicts. Innovations that balance innovation with compliance are most likely to scale.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 14,
+                                "question": "What is 'compliance-friendly DeFi'?",
+                                "options": {
+                                                "A": "DeFi protocols that completely eliminate all rules",
+                                                "B": "DeFi systems designed with regulatory requirements in mind, incorporating KYC/AML without sacrificing core blockchain benefits",
+                                                "C": "Traditional banks that refuse to adopt any blockchain technology",
+                                                "D": "Protocols that only operate in unregulated jurisdictions"
+                                },
+                                "correct": "B",
+                                "explanation": "Compliance-friendly DeFi designs protocols with regulatory requirements from the start rather than treating compliance as an afterthought. This includes incorporating KYC/AML verification layers, implementing transaction monitoring, enabling regulatory reporting, restricting access to non-sanctioned jurisdictions, and maintaining transparent governance. The goal is preserving blockchain benefits (efficiency, transparency, programmability) while meeting legal requirements. This represents a maturation of DeFi toward sustainable, scalable systems.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 15,
+                                "question": "What does 'Technology Stack Blending' mean in the convergence context?",
+                                "options": {
+                                                "A": "Using only blockchain technology for all operations",
+                                                "B": "Combining traditional financial infrastructure with blockchain layers for optimal efficiency",
+                                                "C": "Stacking physical servers in data centers",
+                                                "D": "Avoiding any integration between old and new systems"
+                                },
+                                "correct": "B",
+                                "explanation": "Technology stack blending refers to architectures that strategically combine traditional infrastructure with blockchain layers. For example, using traditional databases for non-critical data while putting settlement on-chain, or using centralized front-ends with decentralized back-ends. Banks might use private blockchains for internal settlement but public blockchains for certain asset classes. The insight is that not everything needs to be on-chain—optimal systems blend technologies based on what each does best.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 16,
+                                "question": "What are the primary trade-offs LOST in the convergence process?",
+                                "options": {
+                                                "A": "Transaction speed and security",
+                                                "B": "Permissionlessness, censorship resistance, privacy, trustlessness, and decentralization purity",
+                                                "C": "User interface quality and customer support",
+                                                "D": "Profitability and market share"
+                                },
+                                "correct": "B",
+                                "explanation": "Convergence involves significant trade-offs. As DeFi protocols add compliance layers and permissioned access, they sacrifice key crypto-native properties: permissionlessness (anyone can use it), censorship resistance (no one can stop transactions), privacy/pseudonymity (identity verification required), trustlessness (must trust compliance gatekeepers), and decentralization purity (centralized elements introduced). The convergence debate centers on whether these sacrifices are acceptable for mainstream adoption, regulatory acceptance, and institutional capital.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 17,
+                                "question": "What is gained through convergence between FinTech and DeFi?",
+                                "options": {
+                                                "A": "Complete anonymity for all transactions",
+                                                "B": "Regulatory acceptance, institutional capital, consumer protection, mainstream adoption, and integration with existing systems",
+                                                "C": "Elimination of all transaction fees",
+                                                "D": "Guaranteed profits for all participants"
+                                },
+                                "correct": "B",
+                                "explanation": "Convergence offers pragmatic benefits: regulatory acceptance (avoiding enforcement actions and enabling legal operation), institutional capital (trillions from traditional finance), consumer protection (recourse, insurance, regulation), mainstream adoption (easier onboarding, familiar interfaces), and integration with existing financial systems (fiat on-ramps, interoperability). While these benefits come at the cost of some crypto-native properties, they may enable scale and sustainability that pure DeFi cannot achieve alone.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 18,
+                                "question": "What is the significance of cross-chain interoperability in convergence?",
+                                "options": {
+                                                "A": "It's irrelevant to convergence",
+                                                "B": "It enables different blockchains and traditional systems to communicate and transfer value, breaking down silos",
+                                                "C": "It prevents any blockchain communication",
+                                                "D": "It only applies to Bitcoin"
+                                },
+                                "correct": "B",
+                                "explanation": "Cross-chain interoperability is critical for convergence because it enables value transfer and communication between different blockchain networks and between blockchain and traditional systems. Without interoperability, the ecosystem remains fragmented with isolated liquidity pools and poor user experience. Convergence requires seamless movement between chains (Ethereum, Solana, etc.), between layers (L1 to L2), and between blockchain and TradFi. Solutions include bridges (though vulnerable), chain abstraction layers, and standardized protocols.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 19,
+                                "question": "What are the primary barriers to convergence?",
+                                "options": {
+                                                "A": "Too much regulatory clarity",
+                                                "B": "Regulatory uncertainty, technical complexity, cultural resistance, security risks, and conflicting incentives",
+                                                "C": "Excessive user adoption",
+                                                "D": "Too many banking licenses available"
+                                },
+                                "correct": "B",
+                                "explanation": "Multiple barriers slow convergence: regulatory uncertainty (unclear legal status creates risk), technical complexity (integrating legacy systems with blockchain is difficult), cultural resistance (traditional finance distrusts crypto; crypto natives resist centralization), security risks (bridges vulnerable, new attack vectors), and conflicting incentives (some benefit from fragmentation). Overcoming these barriers requires time, regulatory evolution, technical maturation, successful case studies, and aligned incentives across stakeholder groups.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 20,
+                                "question": "The discussion question 'Is permissioned DeFi still DeFi?' highlights what fundamental tension in convergence?",
+                                "options": {
+                                                "A": "Whether blockchain technology works properly",
+                                                "B": "Whether systems that add compliance layers and access restrictions still embody DeFi's core values of openness and decentralization",
+                                                "C": "Whether banks should exist",
+                                                "D": "Whether cryptocurrency has any value"
+                                },
+                                "correct": "B",
+                                "explanation": "This question captures the philosophical core of the convergence debate. DeFi's original promise was permissionless access, censorship resistance, and decentralization—anyone, anywhere could participate without gatekeepers. When systems add KYC/AML, whitelisted addresses, and compliance layers, are they still 'DeFi' or just 'traditional finance on blockchain'? Some argue the technology matters more than the access model; others say restricting access negates the entire point. This tension defines convergence—pragmatism versus principles, adoption versus ideology.",
+                                "difficulty": "hard"
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

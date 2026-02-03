@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 4.4: Tokenization Cbdcs | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 4.4: Tokenization Cbdcs</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 4.4: Tokenization Cbdcs</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "What is real-world asset (RWA) tokenization?",
+                                "options": {
+                                                "A": "Converting physical cash into digital currency",
+                                                "B": "The process of creating a digital representation of a real-world asset on a blockchain, enabling programmable ownership and trading",
+                                                "C": "Encrypting asset information for security purposes",
+                                                "D": "Transferring ownership of assets to blockchain companies"
+                                },
+                                "correct": "B",
+                                "explanation": "RWA tokenization creates digital representations of physical or traditional financial assets on a blockchain. This enables features like 24/7 trading, fractional ownership, instant settlement, and programmability through smart contracts. Assets like real estate, bonds, art, and commodities can be tokenized to unlock new forms of liquidity and accessibility.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 2,
+                                "question": "What is the key difference between securities tokens and utility tokens?",
+                                "options": {
+                                                "A": "Securities tokens represent ownership or economic rights in an asset and are subject to securities laws, while utility tokens provide access to a product or service",
+                                                "B": "Securities tokens are always cheaper than utility tokens",
+                                                "C": "Utility tokens are issued by governments while securities tokens are private",
+                                                "D": "There is no meaningful difference between them"
+                                },
+                                "correct": "A",
+                                "explanation": "Securities tokens are digital representations of traditional securities (stocks, bonds, investment contracts) and must comply with securities regulations. They typically provide ownership rights, dividends, or profit sharing. Utility tokens provide access to a specific product or service within a blockchain ecosystem and generally don't represent investment contracts, though the line can be blurry and subject to regulatory interpretation.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 3,
+                                "question": "What is the primary benefit of fractional ownership through tokenization?",
+                                "options": {
+                                                "A": "It eliminates all investment risk",
+                                                "B": "It lowers barriers to entry by allowing investors to own small portions of high-value assets, democratizing access to investments previously limited to wealthy individuals",
+                                                "C": "It guarantees higher returns on investment",
+                                                "D": "It removes the need for legal contracts"
+                                },
+                                "correct": "B",
+                                "explanation": "Fractional ownership enables multiple investors to own portions of high-value assets like real estate, art, or private equity. Instead of needing $1 million to buy a property, tokenization allows investors to purchase tokens representing $100 or $1,000 of ownership. This democratizes access to asset classes previously only available to institutional or high-net-worth investors, while maintaining liquidity through secondary trading.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 4,
+                                "question": "How do tokenized bonds differ from traditional bonds?",
+                                "options": {
+                                                "A": "Tokenized bonds have no interest payments",
+                                                "B": "Tokenized bonds enable 24/7 trading, instant settlement, programmable interest payments, and fractional ownership, while maintaining the same economic rights as traditional bonds",
+                                                "C": "Tokenized bonds are only available to institutional investors",
+                                                "D": "Tokenized bonds eliminate credit risk"
+                                },
+                                "correct": "B",
+                                "explanation": "Tokenized bonds represent the same economic instrument as traditional bonds (debt securities with interest payments and maturity dates) but leverage blockchain infrastructure for operational improvements. Benefits include instant settlement (vs T+2), 24/7 trading, automated coupon payments via smart contracts, fractional ownership, and reduced intermediary costs. The Franklin Templeton OnChain U.S. Government Money Fund is a real-world example demonstrating institutional adoption.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 5,
+                                "question": "What advantages does real estate tokenization offer compared to traditional real estate investment?",
+                                "options": {
+                                                "A": "Complete elimination of property management responsibilities",
+                                                "B": "Fractional ownership, increased liquidity through secondary markets, lower transaction costs, instant settlement, and global accessibility while receiving proportional rental income",
+                                                "C": "Guaranteed appreciation in property values",
+                                                "D": "Tax-free investment returns"
+                                },
+                                "correct": "B",
+                                "explanation": "Real estate tokenization addresses traditional pain points: high capital requirements (enabling fractional ownership), illiquidity (tokens can trade 24/7 on secondary markets), slow transactions (blockchain enables instant settlement), geographic restrictions (global access), and high friction costs (reduced intermediaries). Platforms like RealT and Lofty demonstrate how tokenization can provide proportional rental income to small investors holding fractions of properties.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 6,
+                                "question": "What is a Central Bank Digital Currency (CBDC)?",
+                                "options": {
+                                                "A": "A cryptocurrency created by private companies",
+                                                "B": "A digital form of central bank money, denominated in the national unit of account and representing a direct liability of the central bank",
+                                                "C": "A stablecoin backed by commercial banks",
+                                                "D": "A blockchain-based version of commercial bank deposits"
+                                },
+                                "correct": "B",
+                                "explanation": "A CBDC is digital sovereign currency issued directly by a central bank, equivalent to physical cash but in digital form. It represents a direct claim on the central bank (unlike commercial bank deposits which are claims on commercial banks). CBDCs maintain the same legal tender status as physical currency and are denominated in the national unit (dollars, euros, yuan). As of 2024, over 130 countries are exploring CBDCs.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 7,
+                                "question": "What is the difference between wholesale and retail CBDCs?",
+                                "options": {
+                                                "A": "Wholesale CBDCs are more expensive than retail CBDCs",
+                                                "B": "Wholesale CBDCs are designed for financial institutions and interbank settlements, while retail CBDCs are for general public use as digital cash replacement",
+                                                "C": "Retail CBDCs are only available in developing countries",
+                                                "D": "Wholesale CBDCs use blockchain while retail CBDCs do not"
+                                },
+                                "correct": "B",
+                                "explanation": "Wholesale CBDCs are restricted to financial institutions for interbank settlements and wholesale transactions, essentially digitizing central bank reserves. They're less disruptive to the existing banking system. Retail CBDCs are designed for the general public to use for everyday payments, potentially replacing physical cash and competing with commercial bank deposits. Retail CBDCs raise more complex questions about privacy, bank disintermediation, and monetary policy implementation.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 8,
+                                "question": "What is a two-tier CBDC architecture?",
+                                "options": {
+                                                "A": "A system with two different interest rates",
+                                                "B": "A model where the central bank issues CBDC to commercial banks or payment service providers (first tier), who then distribute it to end users (second tier)",
+                                                "C": "A blockchain with two consensus mechanisms",
+                                                "D": "A currency that operates in two different countries"
+                                },
+                                "correct": "B",
+                                "explanation": "Two-tier architecture preserves the existing financial system structure: the central bank issues CBDC to intermediaries (commercial banks, payment providers) who handle customer relationships, KYC/AML, and distribution to end users. This is similar to how physical cash works today. It allows the central bank to maintain monetary policy control while leveraging private sector innovation for customer service, avoiding the central bank becoming a retail bank and disrupting the commercial banking system.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 9,
+                                "question": "What is the key distinction between direct and intermediated CBDC models?",
+                                "options": {
+                                                "A": "Direct models require internet while intermediated models work offline",
+                                                "B": "In direct models, citizens hold accounts directly with the central bank; in intermediated models, commercial banks or PSPs manage customer relationships and accounts",
+                                                "C": "Direct models use blockchain while intermediated models use traditional databases",
+                                                "D": "Intermediated models are only for wholesale transactions"
+                                },
+                                "correct": "B",
+                                "explanation": "Direct CBDC models create a direct relationship between citizens and the central bank, with the central bank managing accounts and all customer interactions. This gives maximum control but requires massive operational capability. Intermediated models (preferred by most central banks) use existing financial institutions to handle customer-facing operations while CBDC remains a central bank liability. The intermediated approach preserves the banking system's role while modernizing the monetary infrastructure.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 10,
+                                "question": "What are programmable money features that CBDCs could enable?",
+                                "options": {
+                                                "A": "Ability to change currency denomination at will",
+                                                "B": "Conditional payments, automatic tax withholding, expiration dates, geographic restrictions, and smart contract integration for policy implementation",
+                                                "C": "Unlimited money printing without inflation",
+                                                "D": "Anonymous transactions without any oversight"
+                                },
+                                "correct": "B",
+                                "explanation": "Programmable CBDCs can embed policy rules directly into currency: stimulus payments that expire to encourage spending, automatic tax collection at transaction point, payments restricted to specific merchants or categories (e.g., food assistance), conditional transfers based on recipient attributes, and smart contract integration for supply chain financing. While these features offer efficiency and policy effectiveness, they raise significant concerns about financial surveillance, autonomy, and potential for discriminatory or authoritarian control.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 11,
+                                "question": "What are the main privacy considerations with CBDCs?",
+                                "options": {
+                                                "A": "CBDCs provide complete anonymity like physical cash",
+                                                "B": "CBDCs could enable complete government surveillance of all transactions, creating tension between preventing illicit activity (requiring transparency) and protecting citizen financial privacy",
+                                                "C": "Privacy is not a concern since all transactions are already public",
+                                                "D": "Only commercial banks can see transaction data"
+                                },
+                                "correct": "B",
+                                "explanation": "CBDCs create a fundamental privacy dilemma: physical cash provides anonymity, while digital CBDCs could enable unprecedented transaction surveillance. Design choices matter enormously—some architectures could allow governments to see every purchase, blocking transactions or freezing accounts instantly. Solutions being explored include privacy-preserving cryptography (zero-knowledge proofs), tiered privacy (small transactions anonymous, large ones tracked), and hardware-based solutions. The choice between privacy and surveillance capability is political, not just technical.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 12,
+                                "question": "Why is offline functionality important for CBDCs?",
+                                "options": {
+                                                "A": "To reduce internet bandwidth costs",
+                                                "B": "To ensure payment capability during network outages, natural disasters, or in areas with poor connectivity, maintaining the reliability of physical cash",
+                                                "C": "To avoid transaction fees",
+                                                "D": "To enable faster international transfers"
+                                },
+                                "correct": "B",
+                                "explanation": "Physical cash works without infrastructure—no internet, electricity, or banking systems needed. For CBDCs to truly replace cash, they must function offline. Use cases include disaster scenarios (hurricanes, earthquakes), rural areas with poor connectivity, vulnerable populations without smartphones, and national security concerns. Technical approaches include hardware wallets with local balance storage, peer-to-peer token transfer, and eventual synchronization when reconnected. China's e-CNY pilots include offline payment capabilities.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 13,
+                                "question": "What is interoperability in the context of CBDCs and tokenization?",
+                                "options": {
+                                                "A": "The ability to convert CBDC to physical cash",
+                                                "B": "The ability of different digital currency systems, blockchains, and payment networks to communicate and transact with each other seamlessly across borders and platforms",
+                                                "C": "The requirement that all CBDCs use the same blockchain",
+                                                "D": "The process of backing tokens with gold"
+                                },
+                                "correct": "B",
+                                "explanation": "Interoperability addresses fragmentation: if every country creates incompatible CBDCs, we recreate existing frictions. Technical interoperability enables different blockchains to communicate (wrapped tokens, bridges, atomic swaps). Regulatory interoperability aligns AML/KYC standards. Payment system interoperability connects CBDCs with existing rails. Projects like mBridge demonstrate how multiple central banks can collaborate on interoperable wholesale CBDC infrastructure for cross-border settlements, reducing costs and settlement time.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 14,
+                                "question": "What is mBridge and what problem does it aim to solve?",
+                                "options": {
+                                                "A": "A private stablecoin for retail payments",
+                                                "B": "A multi-CBDC platform enabling direct cross-border payments between central banks of China, Hong Kong, Thailand, UAE, and Saudi Arabia, reducing reliance on correspondent banking and USD dominance",
+                                                "C": "A blockchain for tokenizing real estate",
+                                                "D": "A European payment card system"
+                                },
+                                "correct": "B",
+                                "explanation": "mBridge (Multiple CBDC Bridge) is a groundbreaking project by the BIS Innovation Hub with participating central banks from China, Hong Kong, Thailand, UAE, and Saudi Arabia. It enables instant, 24/7 cross-border wholesale payments using CBDCs on a common distributed ledger platform, bypassing traditional correspondent banking networks. This addresses high costs, slow settlement (days), and USD intermediation in international payments. The project demonstrates how CBDC interoperability could reshape international monetary architecture.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 15,
+                                "question": "What is the current status of the Digital Euro development?",
+                                "options": {
+                                                "A": "The Digital Euro has been fully launched and is in widespread use",
+                                                "B": "The ECB is in the investigation and preparation phase, examining design choices including privacy protection, offline capability, and two-tier distribution through banks, with potential launch in late 2020s",
+                                                "C": "The Digital Euro project has been permanently cancelled",
+                                                "D": "Only Germany is developing a Digital Euro, not the entire Eurozone"
+                                },
+                                "correct": "B",
+                                "explanation": "The ECB launched a formal Digital Euro investigation phase in 2021, followed by a preparation phase in 2023. Key design priorities include: privacy protection (transactions not visible to ECB or intermediaries beyond what's legally required), offline capability, coexistence with cash, two-tier distribution preserving bank roles, and limits on holdings to prevent bank disintermediation. The ECB aims for a potential launch in the late 2020s, though timeline depends on political approval and technical readiness. This careful approach contrasts with China's more aggressive rollout.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 16,
+                                "question": "What makes China's e-CNY (digital yuan) rollout significant?",
+                                "options": {
+                                                "A": "It's the first CBDC created by any country",
+                                                "B": "China has conducted extensive pilots with over 260 million wallets created, testing retail use cases, offline payments, cross-border integration, and programmable features in a major economy",
+                                                "C": "The e-CNY completely replaced physical cash in China",
+                                                "D": "It operates on a fully decentralized blockchain"
+                                },
+                                "correct": "B",
+                                "explanation": "China's e-CNY is the most advanced major economy CBDC implementation. As of 2024, pilots have created over 260 million digital wallets with billions in transactions. Tests include: integration with Alipay/WeChat Pay, offline hardware wallet cards, programmable red packet gifts, cross-border pilots with Hong Kong/Thailand, and 2022 Olympics distribution. The e-CNY uses a centralized architecture with controlled anonymity and demonstrates how CBDCs can coexist with existing digital payment ecosystems while giving the central bank ultimate monetary control.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 17,
+                                "question": "What is the Federal Reserve's position on CBDC development?",
+                                "options": {
+                                                "A": "The Fed has fully committed to launching a digital dollar by 2025",
+                                                "B": "The Fed is in research and public consultation phase, cautious about privacy, financial stability, and bank disintermediation concerns, with no commitment to issue a CBDC",
+                                                "C": "The Fed has officially rejected developing any form of CBDC",
+                                                "D": "The Fed is letting private companies create the digital dollar"
+                                },
+                                "correct": "B",
+                                "explanation": "The Federal Reserve has taken a deliberately cautious approach. Their 2022 discussion paper outlined potential benefits (financial inclusion, payment system efficiency) and risks (bank disintermediation, privacy concerns, cybersecurity). The Fed emphasizes that any U.S. CBDC would require Congressional authorization and broad stakeholder support. Key concerns include preserving the role of commercial banks, protecting privacy, and ensuring the dollar's global reserve status isn't undermined. Unlike China's aggressive rollout, the U.S. prioritizes careful deliberation over speed.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 18,
+                                "question": "What role do platforms like Securitize and Polymath play in tokenization?",
+                                "options": {
+                                                "A": "They mine cryptocurrency for investors",
+                                                "B": "They provide infrastructure and compliance tools for issuing, managing, and trading security tokens in compliance with securities regulations",
+                                                "C": "They operate as traditional stock exchanges",
+                                                "D": "They only handle real estate tokenization"
+                                },
+                                "correct": "B",
+                                "explanation": "Securitize and Polymath are tokenization platforms providing end-to-end infrastructure for security token offerings. Services include: compliance automation (investor accreditation, KYC/AML), token issuance smart contracts, cap table management, automated dividend distributions, regulatory reporting, and secondary trading platforms. They bridge traditional securities regulations with blockchain technology, enabling companies to tokenize equity, debt, real estate, and funds while maintaining compliance with SEC regulations and securities laws globally.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 19,
+                                "question": "What are the key legal and regulatory challenges for asset tokenization?",
+                                "options": {
+                                                "A": "Tokenization eliminates all legal requirements for asset ownership",
+                                                "B": "Tokens are claims on assets requiring legal enforceability; challenges include securities law compliance, cross-border regulation, custody standards, investor protection, and reconciling 'code is law' with real-world legal systems",
+                                                "C": "There are no regulatory challenges since blockchain is decentralized",
+                                                "D": "Only tax compliance is required for tokenized assets"
+                                },
+                                "correct": "B",
+                                "explanation": "Tokenization creates a dual reality: blockchain state and legal reality must align. Challenges include: (1) Securities classification—determining when tokens are securities requiring registration, (2) Legal enforceability—smart contracts can't seize physical real estate; courts must enforce, (3) Cross-jurisdictional issues—tokens trade globally but assets/laws are local, (4) Custody and settlement finality—who controls private keys and what happens if they're lost, (5) Investor protection—ensuring tokens represent genuine asset claims, not fraud. 'Code is law' fails when real-world assets require real-world legal systems.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 20,
+                                "question": "How could CBDCs impact monetary policy implementation?",
+                                "options": {
+                                                "A": "CBDCs would eliminate the need for monetary policy",
+                                                "B": "CBDCs could enable direct interest rate application to currency holdings, targeted stimulus distribution, negative interest rates, programmable fiscal policy, and more precise transmission of monetary policy decisions",
+                                                "C": "CBDCs have no impact on monetary policy effectiveness",
+                                                "D": "Only commercial banks would control monetary policy with CBDCs"
+                                },
+                                "correct": "B",
+                                "explanation": "CBDCs could revolutionize monetary policy transmission: (1) Direct interest on CBDC holdings bypasses banks, (2) Targeted stimulus can be programmed (e.g., payments that expire to encourage spending), (3) Negative interest rates become enforceable (can't hoard cash), (4) Helicopter money directly to citizens without intermediaries, (5) Real-time economic data from transaction patterns. However, this power raises concerns about bank disintermediation (if CBDC interest is too attractive), privacy invasion, and potential for political manipulation of programmable money. The tool is powerful but requires careful governance.",
+                                "difficulty": "hard"
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 6.4: Whats Next | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 6.4: Whats Next</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 6.4: Whats Next</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "According to the course, what are the three most likely financial services to achieve FinTech-DeFi convergence?",
+                                "options": {
+                                                "A": "Privacy coins, anonymous DeFi, unregistered securities",
+                                                "B": "Gaming tokens, metaverse currency, NFT financing",
+                                                "C": "Payments, lending, asset tokenization",
+                                                "D": "Social media coins, decentralized advertising, Web3 domains"
+                                },
+                                "correct": "C",
+                                "difficulty": "easy",
+                                "explanation": "The slides identify payments, lending, and asset tokenization as the financial services most likely to achieve convergence between FinTech and DeFi, based on regulatory clarity, institutional demand, and clear value propositions."
+                },
+                {
+                                "id": 2,
+                                "question": "What is the global stablecoin market capitalization mentioned in the slides for 2024?",
+                                "options": {
+                                                "A": "$50B+",
+                                                "B": "$150B+",
+                                                "C": "$500B+",
+                                                "D": "$1T+"
+                                },
+                                "correct": "B",
+                                "difficulty": "easy",
+                                "explanation": "The slides indicate that stablecoin market capitalization reached $150B+ in 2024, demonstrating significant adoption of private digital money alongside CBDC development."
+                },
+                {
+                                "id": 3,
+                                "question": "How many countries are currently exploring Central Bank Digital Currencies (CBDCs) according to the course?",
+                                "options": {
+                                                "A": "50+ countries",
+                                                "B": "80+ countries",
+                                                "C": "130+ countries",
+                                                "D": "200+ countries"
+                                },
+                                "correct": "C",
+                                "difficulty": "easy",
+                                "explanation": "The slides state that 130+ countries are exploring CBDCs, with China, Nigeria, and Bahamas having already launched live implementations."
+                },
+                {
+                                "id": 4,
+                                "question": "What is the primary cryptographic vulnerability that quantum computing poses to current blockchain systems?",
+                                "options": {
+                                                "A": "Breaking hash functions like SHA-256",
+                                                "B": "Breaking ECDSA and RSA encryption used for digital signatures",
+                                                "C": "Breaking consensus mechanisms like Proof of Work",
+                                                "D": "Breaking smart contract execution"
+                                },
+                                "correct": "B",
+                                "difficulty": "medium",
+                                "explanation": "Quantum computing threatens ECDSA (used by Bitcoin and Ethereum) and RSA encryption. The slides note that hash-based signatures are already quantum-resistant, and most blockchain systems can upgrade their signature schemes."
+                },
+                {
+                                "id": 5,
+                                "question": "What does the 'harvest now, decrypt later' threat refer to in the context of quantum computing?",
+                                "options": {
+                                                "A": "Stealing cryptocurrency immediately and holding it",
+                                                "B": "Mining cryptocurrencies now to sell later",
+                                                "C": "Adversaries storing encrypted data now to break it when quantum computers become available",
+                                                "D": "Accumulating computing power to attack blockchains in the future"
+                                },
+                                "correct": "C",
+                                "difficulty": "hard",
+                                "explanation": "The 'harvest now, decrypt later' threat describes adversaries collecting encrypted data today with the intention of breaking the encryption once quantum computers become sufficiently powerful, which could compromise historical blockchain transactions and communications."
+                },
+                {
+                                "id": 6,
+                                "question": "What is Account Abstraction (ERC-4337)?",
+                                "options": {
+                                                "A": "A method for hiding blockchain transaction details",
+                                                "B": "A standard that makes blockchain accounts programmable with features like social recovery and batched transactions",
+                                                "C": "A privacy protocol for anonymous transactions",
+                                                "D": "A cross-chain bridge protocol"
+                                },
+                                "correct": "B",
+                                "difficulty": "medium",
+                                "explanation": "Account Abstraction (ERC-4337) is a standard that transforms blockchain accounts into programmable smart contracts, enabling features like social recovery of wallets, gasless transactions, multi-signature requirements, and batched operations, improving user experience significantly."
+                },
+                {
+                                "id": 7,
+                                "question": "According to the convergence thesis, which cryptographic advancement offers the most promise for scaling and privacy?",
+                                "options": {
+                                                "A": "Larger block sizes",
+                                                "B": "Faster consensus algorithms",
+                                                "C": "Zero-knowledge proofs (ZK-SNARKs/ZK-STARKs)",
+                                                "D": "Multi-party computation"
+                                },
+                                "correct": "C",
+                                "difficulty": "medium",
+                                "explanation": "Zero-knowledge proofs, particularly ZK-SNARKs and ZK-STARKs, are highlighted as enabling both scaling (through ZK-rollups) and privacy (proving statements without revealing underlying data), making them a key technology for the future of digital finance."
+                },
+                {
+                                "id": 8,
+                                "question": "What is Decentralized Physical Infrastructure (DePIN)?",
+                                "options": {
+                                                "A": "Traditional data centers running blockchain nodes",
+                                                "B": "Blockchain protocols that coordinate real-world infrastructure like wireless networks, storage, or energy grids through token incentives",
+                                                "C": "Physical security systems for cryptocurrency exchanges",
+                                                "D": "Hardware wallets and physical key storage devices"
+                                },
+                                "correct": "B",
+                                "difficulty": "hard",
+                                "explanation": "DePIN refers to blockchain protocols that use token incentives to coordinate the deployment and operation of physical infrastructure such as wireless networks (Helium), decentralized storage (Filecoin), or energy grids, creating decentralized alternatives to traditional infrastructure providers."
+                },
+                {
+                                "id": 9,
+                                "question": "Which of the following is identified as a key barrier to decentralized identity adoption?",
+                                "options": {
+                                                "A": "Lack of cryptographic standards",
+                                                "B": "Blockchain transaction fees",
+                                                "C": "Key management for average users and recovery when keys are lost",
+                                                "D": "Insufficient blockchain scalability"
+                                },
+                                "correct": "C",
+                                "difficulty": "medium",
+                                "explanation": "The slides identify key management for non-technical users and the recovery problem when keys are lost as major challenges for decentralized identity adoption. If users lose their private keys, they lose access to their identity with no recovery mechanism."
+                },
+                {
+                                "id": 10,
+                                "question": "What is the 'Coexistence Hypothesis' regarding the future of money?",
+                                "options": {
+                                                "A": "All currencies will merge into a single global currency",
+                                                "B": "CBDCs for domestic retail, regulated stablecoins for crypto/DeFi, and continued competition between payment systems",
+                                                "C": "Only decentralized cryptocurrencies will survive",
+                                                "D": "Traditional fiat will completely replace digital currencies"
+                                },
+                                "correct": "B",
+                                "difficulty": "medium",
+                                "explanation": "The Coexistence Hypothesis suggests that multiple forms of digital money will coexist: CBDCs for domestic retail transactions, regulated stablecoins for crypto and DeFi applications, and ongoing competition between various payment systems rather than a single winner."
+                },
+                {
+                                "id": 11,
+                                "question": "What is the estimated timeline for quantum computers posing a practical threat to current blockchain cryptography?",
+                                "options": {
+                                                "A": "1-5 years",
+                                                "B": "5-10 years",
+                                                "C": "10-30 years",
+                                                "D": "50-100 years"
+                                },
+                                "correct": "C",
+                                "difficulty": "easy",
+                                "explanation": "The slides indicate timeline uncertainty of 10-30 years for quantum computers to pose practical threats to current cryptographic systems, though the exact timing is uncertain and depends on technological breakthroughs."
+                },
+                {
+                                "id": 12,
+                                "question": "How much value has been lost to bridge hacks according to the slides?",
+                                "options": {
+                                                "A": "$100M+",
+                                                "B": "$500M+",
+                                                "C": "$2B+",
+                                                "D": "$10B+"
+                                },
+                                "correct": "C",
+                                "difficulty": "easy",
+                                "explanation": "The slides mention that over $2B+ has been lost to bridge vulnerabilities, highlighting cross-chain security as a major challenge for blockchain interoperability and the future of multi-chain ecosystems."
+                },
+                {
+                                "id": 13,
+                                "question": "What distinguishes institutional DeFi from traditional DeFi?",
+                                "options": {
+                                                "A": "It uses different blockchain technology",
+                                                "B": "It has whitelisted addresses, KYC/AML requirements, and permissioned access while using the same smart contracts",
+                                                "C": "It offers higher yields",
+                                                "D": "It operates entirely off-chain"
+                                },
+                                "correct": "B",
+                                "difficulty": "medium",
+                                "explanation": "Institutional DeFi uses the same DeFi protocols and smart contracts but adds permissioned access layers with whitelisted wallet addresses, mandatory identity verification, and compliance requirements. Examples include Aave Arc and Compound Treasury."
+                },
+                {
+                                "id": 14,
+                                "question": "What is the key difference between tokenized deposits and stablecoins?",
+                                "options": {
+                                                "A": "Tokenized deposits are backed by gold, stablecoins by fiat",
+                                                "B": "Tokenized deposits are bank liabilities with FDIC insurance, while stablecoins are claims on reserves held by a separate issuer",
+                                                "C": "Tokenized deposits use proof-of-work, stablecoins use proof-of-stake",
+                                                "D": "There is no difference"
+                                },
+                                "correct": "B",
+                                "difficulty": "hard",
+                                "explanation": "Tokenized deposits represent direct bank liabilities with FDIC insurance on blockchain rails (e.g., JPM Coin), while stablecoins are typically issued by non-banks and represent claims on reserves held by the issuer without direct deposit insurance."
+                },
+                {
+                                "id": 15,
+                                "question": "Which Layer 2 scaling solutions are specifically mentioned in the course?",
+                                "options": {
+                                                "A": "Lightning Network and Raiden",
+                                                "B": "Arbitrum, Optimism, and Base",
+                                                "C": "Polygon and BSC",
+                                                "D": "Cosmos and Polkadot"
+                                },
+                                "correct": "B",
+                                "difficulty": "easy",
+                                "explanation": "The slides specifically mention Arbitrum, Optimism, and Base as examples of Layer 2 scaling solutions, which help address Ethereum's scalability challenges while maintaining security guarantees from the base layer."
+                },
+                {
+                                "id": 16,
+                                "question": "According to the convergence framework, what factors indicate HIGH likelihood of FinTech-DeFi convergence?",
+                                "options": {
+                                                "A": "Unclear regulation, weak demand, worse UX, novel risks",
+                                                "B": "Clear regulatory path, strong institutional demand, comparable UX, understood risks, clear efficiency gains",
+                                                "C": "Ideological appeal, retail-only focus, privacy features",
+                                                "D": "High transaction fees, complex technology, limited adoption"
+                                },
+                                "correct": "B",
+                                "difficulty": "hard",
+                                "explanation": "The framework presented identifies high convergence likelihood when there's regulatory clarity, strong institutional demand, user experience comparable to traditional finance, manageable and understood risks, and clear efficiency gains beyond ideological appeal."
+                },
+                {
+                                "id": 17,
+                                "question": "What role will AI agents potentially play in future digital finance according to the course?",
+                                "options": {
+                                                "A": "Only replacing customer service representatives",
+                                                "B": "Autonomously holding assets, executing transactions, making financial decisions, and potentially managing DAOs",
+                                                "C": "Simply analyzing data for human decision-makers",
+                                                "D": "Only improving fraud detection systems"
+                                },
+                                "correct": "B",
+                                "difficulty": "medium",
+                                "explanation": "The slides explore the possibility of AI agents autonomously holding assets in their own wallets, executing transactions, making financial decisions independently, and potentially managing DAOs, raising novel legal and ethical questions about AI agency in finance."
+                },
+                {
+                                "id": 18,
+                                "question": "Which emerging career skills are most valuable for the future of digital finance?",
+                                "options": {
+                                                "A": "Only traditional finance knowledge",
+                                                "B": "Only blockchain programming skills",
+                                                "C": "Cross-disciplinary knowledge combining technical understanding, economic reasoning, regulatory awareness, and critical evaluation",
+                                                "D": "Only AI and machine learning expertise"
+                                },
+                                "correct": "C",
+                                "difficulty": "medium",
+                                "explanation": "The course emphasizes developing cross-disciplinary competencies: technical understanding of blockchain and smart contracts, economic reasoning about incentives and markets, regulatory awareness, and critical evaluation frameworks that can be applied to any innovation."
+                },
+                {
+                                "id": 19,
+                                "question": "What does the course identify as the most likely future for blockchain interoperability?",
+                                "options": {
+                                                "A": "One chain will definitely win and dominate all others",
+                                                "B": "The future is uncertain: possibilities include one chain winning, chain abstraction hiding complexity, specialized chains for different uses, or traditional banks not needing public chains",
+                                                "C": "All blockchains will merge into a single network",
+                                                "D": "Blockchain technology will be abandoned entirely"
+                                },
+                                "correct": "B",
+                                "difficulty": "hard",
+                                "explanation": "The slides present multiple possible futures for interoperability without declaring one definitive answer: network effects could lead to one dominant chain, chain abstraction could make the underlying chain irrelevant to users, different chains could specialize, or traditional institutions might use private chains."
+                },
+                {
+                                "id": 20,
+                                "question": "According to the Innovation Scorecard framework, which question helps identify whether an innovation is a 'solution looking for a problem'?",
+                                "options": {
+                                                "A": "MECHANISM: How does it work technically?",
+                                                "B": "PROBLEM: What real problem does this solve, and for whom?",
+                                                "C": "REGULATORY STATUS: Where does it fit in the regulatory landscape?",
+                                                "D": "WHO BENEFITS: Who captures value?"
+                                },
+                                "correct": "B",
+                                "difficulty": "hard",
+                                "explanation": "The PROBLEM question in the Innovation Scorecard specifically asks what real problem is being solved and for whom. Red flags include vague problem statements and solving problems only crypto enthusiasts have, which indicates a 'solution looking for a problem' rather than addressing genuine user needs."
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

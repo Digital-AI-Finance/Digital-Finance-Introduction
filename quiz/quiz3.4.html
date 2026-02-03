@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 3.4: Bitcoin Vs Ethereum | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 3.4: Bitcoin Vs Ethereum</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 3.4: Bitcoin Vs Ethereum</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "What is the primary design philosophy of Bitcoin?",
+                                "options": {
+                                                "A": "To create a platform for decentralized applications",
+                                                "B": "To function as digital gold and store of value",
+                                                "C": "To enable programmable smart contracts",
+                                                "D": "To maximize transaction throughput"
+                                },
+                                "correct": "B",
+                                "explanation": "Bitcoin's core philosophy is to serve as 'digital gold' - a sound money system that no one can inflate or censor. It prioritizes being a store of value with a fixed supply of 21 million BTC. Its design is minimalist and conservative, focused on security and immutability rather than programmability or speed.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 2,
+                                "question": "What is Ethereum's primary design goal?",
+                                "options": {
+                                                "A": "To replace gold as a store of value",
+                                                "B": "To function as a 'world computer' capable of running any application",
+                                                "C": "To maximize energy efficiency in mining",
+                                                "D": "To achieve faster transaction speeds than Visa"
+                                },
+                                "correct": "B",
+                                "explanation": "Ethereum was designed as a 'world computer' - a decentralized platform for any application. Vitalik Buterin's insight was that Bitcoin's scripting language was too limited. Ethereum provides a Turing-complete programming language that can run arbitrary code, enabling smart contracts, DeFi, NFTs, and other applications beyond simple value transfer.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 3,
+                                "question": "What is the main difference between Bitcoin Script and Ethereum's EVM?",
+                                "options": {
+                                                "A": "Bitcoin Script is faster than the EVM",
+                                                "B": "Bitcoin Script is limited and not Turing-complete, while the EVM is Turing-complete",
+                                                "C": "The EVM can only handle simple transactions",
+                                                "D": "Bitcoin Script uses more gas than the EVM"
+                                },
+                                "correct": "B",
+                                "explanation": "Bitcoin Script is intentionally limited and not Turing-complete - it can answer simple yes/no questions like 'Is this a valid payment?' The Ethereum Virtual Machine (EVM) is Turing-complete, meaning it can run any computable program. This fundamental difference reflects their design philosophies: Bitcoin prioritizes security through simplicity, while Ethereum prioritizes programmability.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 4,
+                                "question": "What is Bitcoin's maximum supply cap?",
+                                "options": {
+                                                "A": "No cap - supply can grow indefinitely",
+                                                "B": "100 million BTC",
+                                                "C": "21 million BTC",
+                                                "D": "Dynamic based on mining difficulty"
+                                },
+                                "correct": "C",
+                                "explanation": "Bitcoin has a hard cap of 21 million BTC that can never be exceeded. This fixed supply is a core property of Bitcoin's 'sound money' thesis. The supply approaches this limit asymptotically through halvings every 210,000 blocks (roughly every 4 years), making Bitcoin deflationary and positioning it as 'digital gold' - scarce and durable.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 5,
+                                "question": "What is Ethereum's supply model?",
+                                "options": {
+                                                "A": "Fixed cap of 21 million ETH",
+                                                "B": "Fixed cap of 100 million ETH",
+                                                "C": "No hard cap, with dynamic issuance that can be deflationary",
+                                                "D": "Unlimited inflationary issuance"
+                                },
+                                "correct": "C",
+                                "explanation": "Ethereum has no hard supply cap. Its issuance is dynamic and has changed over time. After transitioning to Proof of Stake in 2022, Ethereum's issuance rate decreased significantly, and with EIP-1559 burning transaction fees, it can even be deflationary at times when usage is high. This flexible approach reflects Ethereum's philosophy of progressive development and optimization.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 6,
+                                "question": "How long does it take, on average, for Bitcoin to produce a new block?",
+                                "options": {
+                                                "A": "Approximately 12 seconds",
+                                                "B": "Approximately 1 minute",
+                                                "C": "Approximately 10 minutes",
+                                                "D": "Approximately 1 hour"
+                                },
+                                "correct": "C",
+                                "explanation": "Bitcoin's block time is approximately 10 minutes. This relatively long block time is a deliberate design choice that prioritizes security and decentralization over speed. The longer time allows blocks to propagate across the global network, reducing orphan blocks and giving all miners a fair chance to participate, supporting decentralization.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 7,
+                                "question": "What is Ethereum's approximate block time?",
+                                "options": {
+                                                "A": "10 minutes",
+                                                "B": "1 minute",
+                                                "C": "12 seconds",
+                                                "D": "1 second"
+                                },
+                                "correct": "C",
+                                "explanation": "Ethereum's block time is approximately 12 seconds, about 50 times faster than Bitcoin. This faster block time provides quicker transaction confirmations and is necessary for Ethereum's smart contract platform where applications need more responsive interactions. However, it also requires more sophisticated consensus mechanisms to handle the increased block production rate.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 8,
+                                "question": "What consensus mechanism does Bitcoin currently use?",
+                                "options": {
+                                                "A": "Proof of Stake",
+                                                "B": "Proof of Work",
+                                                "C": "Delegated Proof of Stake",
+                                                "D": "Proof of Authority"
+                                },
+                                "correct": "B",
+                                "explanation": "Bitcoin uses Proof of Work (PoW), where miners compete to find nonces that produce block hashes below a target value. This requires massive computational power and energy expenditure. Bitcoin has used PoW since its creation in 2009 and the community is conservative about changing this consensus mechanism, as it has proven secure for over 15 years.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 9,
+                                "question": "What major consensus transition did Ethereum undergo in September 2022?",
+                                "options": {
+                                                "A": "From Proof of Stake to Proof of Work",
+                                                "B": "From Proof of Work to Proof of Stake (The Merge)",
+                                                "C": "From Proof of Work to Delegated Proof of Stake",
+                                                "D": "From Proof of Authority to Proof of Work"
+                                },
+                                "correct": "B",
+                                "explanation": "Ethereum transitioned from Proof of Work to Proof of Stake in September 2022, an event called 'The Merge'. This reduced Ethereum's energy consumption by approximately 99.9%. Instead of miners competing with computational power, validators now stake 32 ETH as collateral. This change reflects Ethereum's progressive philosophy of continuous improvement and willingness to make major protocol changes.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 10,
+                                "question": "What is the purpose of 'gas' in Ethereum?",
+                                "options": {
+                                                "A": "To measure and price computational work, preventing infinite loops and compensating validators",
+                                                "B": "To encrypt transaction data for privacy",
+                                                "C": "To generate random numbers for smart contracts",
+                                                "D": "To compress blockchain data for efficient storage"
+                                },
+                                "correct": "A",
+                                "explanation": "Gas in Ethereum measures computational work. Each operation has a gas cost, and users pay gas price × gas used. Gas serves multiple purposes: (1) prevents infinite loops by limiting computation, (2) compensates validators for processing transactions, (3) prioritizes transactions via a fee market, and (4) allocates scarce block space. This is necessary because Ethereum is Turing-complete and needs to prevent abuse of computational resources.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 11,
+                                "question": "How does Bitcoin's conservative approach to changes differ from Ethereum's?",
+                                "options": {
+                                                "A": "Bitcoin has no way to make protocol changes",
+                                                "B": "Bitcoin follows 'don't break what works' with minimal changes; Ethereum follows 'move fast, iterate' with active development",
+                                                "C": "Ethereum never makes protocol changes",
+                                                "D": "Both make changes at exactly the same rate"
+                                },
+                                "correct": "B",
+                                "explanation": "Bitcoin's philosophy is 'don't break what works' - it makes minimal, conservative changes to preserve security and stability. Changes are rare and carefully considered. Ethereum's philosophy is 'move fast, iterate' - it actively develops new features and improvements. This difference reflects their goals: Bitcoin prioritizes immutability and predictability as sound money, while Ethereum prioritizes innovation and adaptability as a platform.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 12,
+                                "question": "What is a smart contract?",
+                                "options": {
+                                                "A": "A legal document stored on the blockchain",
+                                                "B": "Code stored on a blockchain that automatically executes when predetermined conditions are met",
+                                                "C": "An encrypted message between two parties",
+                                                "D": "A type of cryptocurrency wallet"
+                                },
+                                "correct": "B",
+                                "explanation": "A smart contract is code stored on a blockchain that automatically executes when predetermined conditions are met. Unlike traditional contracts that require human interpretation and court enforcement, smart contracts execute automatically with guaranteed outcomes. Once deployed, the code cannot be changed - 'code is law'. Smart contracts are Ethereum's key innovation, enabling DeFi, NFTs, DAOs, and more.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 13,
+                                "question": "What does 'Turing-complete' mean in the context of Ethereum?",
+                                "options": {
+                                                "A": "The system can only perform addition and subtraction",
+                                                "B": "The system can compute anything that is computable, like a general-purpose computer",
+                                                "C": "The system can only process financial transactions",
+                                                "D": "The system has passed security testing"
+                                },
+                                "correct": "B",
+                                "explanation": "Turing-complete means a system can compute anything that is computable - it has the power of a general-purpose computer. Ethereum's EVM is Turing-complete, allowing it to run any program. Bitcoin is intentionally not Turing-complete; its scripting language is limited to prevent potential security issues and keep the system simple and predictable. This is the fundamental technical difference between the platforms.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 14,
+                                "question": "What was the approximate transaction throughput (TPS) comparison presented for Bitcoin and Ethereum?",
+                                "options": {
+                                                "A": "Bitcoin ~7 TPS, Ethereum ~15-30 TPS",
+                                                "B": "Bitcoin ~15-30 TPS, Ethereum ~7 TPS",
+                                                "C": "Bitcoin ~100 TPS, Ethereum ~200 TPS",
+                                                "D": "Both have identical TPS of ~50"
+                                },
+                                "correct": "A",
+                                "explanation": "Bitcoin processes approximately 7 transactions per second, while Ethereum processes approximately 15-30 TPS. Both are much slower than traditional systems like Visa (24,000 TPS), reflecting the blockchain trilemma - they sacrifice scalability for decentralization and security. These Layer 1 limitations have driven the development of Layer 2 scaling solutions for both platforms.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 15,
+                                "question": "What type of Layer 2 scaling solution is associated with Bitcoin?",
+                                "options": {
+                                                "A": "Rollups",
+                                                "B": "Lightning Network",
+                                                "C": "Plasma",
+                                                "D": "State channels with smart contracts"
+                                },
+                                "correct": "B",
+                                "explanation": "The Lightning Network is Bitcoin's primary Layer 2 solution. It allows users to open payment channels and conduct many transactions off-chain, only settling final balances on the main chain. This provides instant, low-fee transactions while inheriting Bitcoin's security. Bitcoin's Layer 2 focus is primarily on payment scaling, reflecting its use case as a currency.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 16,
+                                "question": "What types of Layer 2 solutions are commonly used with Ethereum?",
+                                "options": {
+                                                "A": "Only Lightning Network",
+                                                "B": "Rollups (Optimism, Arbitrum) and sidechains (Polygon)",
+                                                "C": "Bitcoin Script extensions",
+                                                "D": "Ethereum has no Layer 2 solutions"
+                                },
+                                "correct": "B",
+                                "explanation": "Ethereum's Layer 2 ecosystem includes rollups (Optimism, Arbitrum) that batch transactions and submit proofs to Layer 1, and sidechains like Polygon that process transactions with their own consensus while periodically checkpointing to Ethereum. These solutions provide much higher throughput while inheriting Ethereum's security. The variety reflects Ethereum's broader use cases beyond simple payments.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 17,
+                                "question": "How did Bitcoin's energy consumption compare in the lecture materials?",
+                                "options": {
+                                                "A": "Less than a small city",
+                                                "B": "Approximately 150 TWh/year, more than Argentina",
+                                                "C": "About the same as Ethereum after The Merge",
+                                                "D": "Negligible compared to traditional banking"
+                                },
+                                "correct": "B",
+                                "explanation": "Bitcoin's Proof of Work consensus uses approximately 150 TWh/year, which is more electricity than entire countries like Argentina. This enormous energy consumption is a deliberate security feature - attacks require controlling 51% of this computing power, making attacks economically infeasible. However, it's also a major criticism from environmental perspectives.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 18,
+                                "question": "What was the approximate impact of Ethereum's transition to Proof of Stake on energy consumption?",
+                                "options": {
+                                                "A": "Reduced by about 50%",
+                                                "B": "Reduced by about 75%",
+                                                "C": "Reduced by approximately 99.9%",
+                                                "D": "Energy consumption increased"
+                                },
+                                "correct": "C",
+                                "explanation": "Ethereum's transition from Proof of Work to Proof of Stake reduced energy consumption by approximately 99.9%. PoS replaces energy-intensive mining with staking, where validators lock up 32 ETH as collateral. This massive reduction addresses environmental concerns while maintaining security through economic incentives rather than computational work. This demonstrates a fundamental difference in security models between Bitcoin and modern Ethereum.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 19,
+                                "question": "What is the key tradeoff between Bitcoin's limited scripting and Ethereum's Turing-completeness?",
+                                "options": {
+                                                "A": "Bitcoin is faster than Ethereum",
+                                                "B": "Bitcoin's simplicity provides fewer attack vectors and easier security; Ethereum's complexity enables more capabilities but more potential bugs",
+                                                "C": "Ethereum cannot process simple payments",
+                                                "D": "Bitcoin has no tradeoffs"
+                                },
+                                "correct": "B",
+                                "explanation": "Bitcoin's intentionally limited scripting means fewer things can go wrong - it has never had a major protocol hack in 15+ years. Ethereum's Turing-complete programmability enables powerful applications but creates more attack surface - there have been many smart contract hacks including The DAO ($60M in 2016) and ongoing DeFi exploits. This reflects the fundamental tradeoff: more programmability = more capability = more things that can go wrong.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 20,
+                                "question": "What best describes the relationship between Bitcoin and Ethereum as presented in the lecture?",
+                                "options": {
+                                                "A": "Direct competitors fighting to be the only blockchain",
+                                                "B": "Different tools for different jobs - Bitcoin as sound money, Ethereum as programmable platform",
+                                                "C": "Identical systems with different branding",
+                                                "D": "Ethereum is just an upgraded version of Bitcoin"
+                                },
+                                "correct": "B",
+                                "explanation": "The lecture emphasized that Bitcoin and Ethereum are 'not competitors - different tools for different jobs.' Bitcoin optimizes for security and immutability as sound money and a store of value. Ethereum optimizes for programmability and flexibility as a platform for applications. They have different design philosophies, use cases, and tradeoffs. Understanding both is essential for understanding digital finance - they represent fundamentally different visions of what blockchain technology should accomplish.",
+                                "difficulty": "medium"
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

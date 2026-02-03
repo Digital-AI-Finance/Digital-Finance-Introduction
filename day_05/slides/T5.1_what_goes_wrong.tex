@@ -1,0 +1,1556 @@
+% Topic T5.1: What Goes Wrong
+% Self-contained Beamer slides for Digital Finance course
+\input{../../template_beamer.tex}
+
+\title[T5.1: What Goes Wrong]{Topic 5.1: What Goes Wrong}
+\subtitle{Failures, Hacks, and Systemic Risk in Digital Finance}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{2025}
+
+\begin{document}
+
+% =============================================================================
+% Frame 1: Title Slide
+% =============================================================================
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% =============================================================================
+% Frame 2: Learning Objectives
+% =============================================================================
+\begin{frame}{Learning Objectives}
+\begin{center}
+\textbf{\Large What You Will Learn in This Topic}
+\end{center}
+
+\vspace{5mm}
+By the end of this session, you will be able to:
+
+\begin{enumerate}
+\item \textbf{Categorize} types of digital finance failures (technical, economic, human)
+\item \textbf{Explain} mechanics of major exploit types (reentrancy, flash loans, oracle manipulation)
+\item \textbf{Analyze} case studies of historical DeFi hacks
+\item \textbf{Assess} systemic risk implications of protocol interconnection
+\item \textbf{Develop} genuine risk awareness for evaluating digital finance systems
+\end{enumerate}
+
+\vspace{5mm}
+\begin{block}{Hands-On Component}
+Colab notebook (NB11) analyzing on-chain data from historical DeFi exploits---trace the anatomy of an attack through transaction data.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 3: Prerequisites/Background I
+% =============================================================================
+\begin{frame}{Prerequisites: What You Should Know}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Required Background:}
+\begin{itemize}
+\item Basic understanding of smart contracts
+\item Familiarity with DeFi concepts (lending, DEXs)
+\item Understanding of blockchain transactions
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Helpful but not required:}
+\begin{itemize}
+\item Basic Solidity syntax
+\item Knowledge of token standards (ERC-20)
+\item Experience with DeFi protocols
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tikzpicture}[scale=0.7, transform shape]
+% Risk pyramid
+\draw[thick, dfred, fill=dfred!10] (0,0) -- (4,0) -- (2,3) -- cycle;
+\node at (2,0.5) {\footnotesize Human Failures};
+\node at (2,1.3) {\footnotesize Economic Attacks};
+\node at (2,2.1) {\footnotesize Technical Bugs};
+\draw[dfblue, thick, ->] (4.5,1.5) -- (3.2,1.5);
+\node[right, text width=2cm] at (4.5,1.5) {\footnotesize \textcolor{dfblue}{All can drain funds}};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{alertblock}{Key Mindset}
+``Code is law'' until something goes wrong. Then we discover the limits of trustless systems.
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 4: Prerequisites/Background II
+% =============================================================================
+\begin{frame}{The Big Picture: Why Failures Matter}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape]
+% Timeline of major events
+\draw[thick, dfblue, ->] (0,0) -- (12,0);
+
+% Milestones
+\node[above] at (2,0.3) {\footnotesize The DAO};
+\node[above] at (2,0.7) {\footnotesize 2016};
+\draw[thick, dfred] (2,0) -- (2,0.2);
+
+\node[above] at (5,0.3) {\footnotesize Flash Loan};
+\node[above] at (5,0.7) {\footnotesize Era 2020};
+\draw[thick, dfred] (5,0) -- (5,0.2);
+
+\node[above] at (8,0.3) {\footnotesize UST/LUNA};
+\node[above] at (8,0.7) {\footnotesize 2022};
+\draw[thick, dfred] (8,0) -- (8,0.2);
+
+\node[above] at (11,0.3) {\footnotesize FTX};
+\node[above] at (11,0.7) {\footnotesize 2022};
+\draw[thick, dfred] (11,0) -- (11,0.2);
+
+% Loss amounts
+\node[below] at (2,-0.3) {\textcolor{dfred}{\footnotesize \$60M}};
+\node[below] at (5,-0.3) {\textcolor{dfred}{\footnotesize \$100M+}};
+\node[below] at (8,-0.3) {\textcolor{dfred}{\footnotesize \$40B}};
+\node[below] at (11,-0.3) {\textcolor{dfred}{\footnotesize \$8B+}};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Cumulative losses in DeFi/crypto exceed \$100 billion.}
+
+\vspace{2mm}
+\begin{itemize}
+\item Understanding failures is essential for building secure systems
+\item Each exploit category teaches different lessons
+\item Risk assessment requires knowing what can go wrong
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{Course Context}
+Day 5 examines the ``dark side''---failures, regulation, governance, and privacy. This topic focuses on what goes wrong technically and economically.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 5: A Taxonomy of Failures
+% =============================================================================
+\begin{frame}{A Taxonomy of Failures}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape]
+% Main categories
+\node (failures) [blockchain, minimum width=3cm, fill=dfred!20] {\textbf{Digital Finance Failures}};
+
+\node (technical) [blockchain, below left of=failures, node distance=3cm, xshift=-1cm, minimum width=2.2cm] {Technical};
+\node (economic) [blockchain, below of=failures, node distance=2.5cm, minimum width=2.2cm] {Economic};
+\node (human) [blockchain, below right of=failures, node distance=3cm, xshift=1cm, minimum width=2.2cm] {Human};
+
+% Arrows
+\draw[->, thick, dfred] (failures) -- (technical);
+\draw[->, thick, dfred] (failures) -- (economic);
+\draw[->, thick, dfred] (failures) -- (human);
+
+% Sub-categories
+\node[below of=technical, node distance=1.5cm, font=\footnotesize, text width=2.5cm, align=center] {Smart contract bugs\\Oracle manipulation\\Key compromise};
+
+\node[below of=economic, node distance=1.5cm, font=\footnotesize, text width=2.5cm, align=center] {Flash loan attacks\\Stablecoin de-pegs\\Bank runs};
+
+\node[below of=human, node distance=1.5cm, font=\footnotesize, text width=2.5cm, align=center] {Fraud\\Rug pulls\\Social engineering};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Key Insight:} All three categories can result in total loss of funds, but they require different defenses.
+\end{frame}
+
+% =============================================================================
+% Frame 6: Category 1: Technical Failures
+% =============================================================================
+\begin{frame}{Category 1: Technical Failures}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Smart Contract Bugs:}
+\begin{itemize}
+\item Reentrancy attacks
+\item Integer overflow/underflow
+\item Logic errors
+\item Access control flaws
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Infrastructure Failures:}
+\begin{itemize}
+\item Oracle manipulation
+\item Bridge vulnerabilities
+\item Consensus bugs
+\item Key management failures
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{The DAO Hack (2016)}
+\textbf{Loss:} \$60M (3.6M ETH)\\
+\textbf{Cause:} Reentrancy bug\\
+\textbf{Result:} Ethereum hard fork\\
+\textbf{Lesson:} Code is NOT always law
+\end{alertblock}
+
+\vspace{3mm}
+\begin{block}{Wormhole Bridge (2022)}
+\textbf{Loss:} \$320M\\
+\textbf{Cause:} Signature verification bug\\
+Attacker minted unbacked tokens
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 7: Deep Dive: Reentrancy Attack
+% =============================================================================
+\begin{frame}{Deep Dive: Reentrancy Attack}
+\begin{center}
+\begin{tikzpicture}[scale=0.8, transform shape, node distance=2cm]
+% Victim contract
+\node (victim) [blockchain, minimum width=2.5cm, minimum height=1.5cm] {
+\begin{tabular}{c}
+\textbf{Victim}\\
+\footnotesize Balance: 100 ETH
+\end{tabular}
+};
+
+% Attacker contract
+\node (attacker) [blockchain, right of=victim, node distance=5cm, minimum width=2.5cm, minimum height=1.5cm, fill=dfred!20] {
+\begin{tabular}{c}
+\textbf{Attacker}\\
+\footnotesize Balance: 1 ETH
+\end{tabular}
+};
+
+% Steps
+\draw[->, thick, dfblue] (attacker.west) -- node[above, font=\footnotesize] {1. withdraw()} (victim.east);
+\draw[->, thick, dfred] ([yshift=-5mm]victim.east) -- node[below, font=\footnotesize] {2. send ETH} ([yshift=-5mm]attacker.west);
+\draw[->, thick, dfred, dashed] ([yshift=-10mm]attacker.west) -- node[below, font=\footnotesize] {3. fallback calls withdraw() again!} ([yshift=-10mm]victim.east);
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{The Problem:}
+\begin{enumerate}
+\item Victim sends ETH \textit{before} updating balance
+\item Attacker's fallback function calls withdraw() again
+\item Balance not yet updated, so check passes again
+\item Repeat until contract drained
+\end{enumerate}
+
+\begin{block}{Prevention}
+Check-Effects-Interactions pattern: Update state BEFORE external calls.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 8: Solidity: Vulnerable vs. Safe
+% =============================================================================
+\begin{frame}{Solidity: Vulnerable vs. Safe}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Vulnerable Code:}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+function withdraw() public {
+    uint balance = balances[msg.sender];
+    require(balance > 0);
+
+    // DANGER: External call before
+    // state update!
+    (bool success, ) = msg.sender
+        .call{value: balance}("");
+    require(success);
+
+    // State updated AFTER call
+    balances[msg.sender] = 0;
+}
+\end{lstlisting}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Safe Code:}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+function withdraw() public {
+    uint balance = balances[msg.sender];
+    require(balance > 0);
+
+    // State updated BEFORE call
+    balances[msg.sender] = 0;
+
+    // External call AFTER state update
+    (bool success, ) = msg.sender
+        .call{value: balance}("");
+    require(success);
+}
+\end{lstlisting}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{alertblock}{Check-Effects-Interactions Pattern}
+\begin{enumerate}
+\item \textbf{Check:} Validate conditions
+\item \textbf{Effects:} Update state
+\item \textbf{Interactions:} External calls last
+\end{enumerate}
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 9: Integer Overflow and Underflow
+% =============================================================================
+\begin{frame}{Integer Overflow and Underflow}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\textbf{The Problem (Pre-Solidity 0.8):}
+\begin{itemize}
+\item uint256 max = $2^{256} - 1$
+\item Adding 1 to max wraps to 0
+\item Subtracting 1 from 0 wraps to max
+\item No automatic error!
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Example Attack:}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+// balance = 0
+balance -= 1;
+// balance now = 2^256 - 1
+// Attacker has "infinite" tokens!
+\end{lstlisting}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{tikzpicture}[scale=0.7, transform shape]
+% Number line wrapping
+\draw[thick, dfblue] (0,0) circle (1.5cm);
+\node at (0,1.8) {\footnotesize 0};
+\node at (1.8,0) {\footnotesize 64};
+\node at (0,-1.8) {\footnotesize 128};
+\node at (-1.8,0) {\footnotesize 192};
+
+% Arrows showing wrap
+\draw[->, thick, dfred] (0.15,1.65) arc (80:-10:1.6);
+\node[right, text width=2cm] at (2,1) {\footnotesize \textcolor{dfred}{Overflow: wraps around}};
+\end{tikzpicture}
+
+\vspace{3mm}
+\begin{block}{Solution}
+\textbf{Solidity 0.8+:} Built-in checks\\
+\textbf{Earlier:} SafeMath library
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 10: Access Control Vulnerabilities
+% =============================================================================
+\begin{frame}{Access Control Vulnerabilities}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Common Mistakes:}
+\begin{itemize}
+\item Missing \texttt{onlyOwner} modifier
+\item Public functions that should be internal
+\item Hardcoded addresses that can be changed
+\item Unprotected initialization
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Vulnerable:}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+// Anyone can call!
+function setOwner(address _new)
+    public {
+    owner = _new;
+}
+\end{lstlisting}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Safe:}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+modifier onlyOwner() {
+    require(msg.sender == owner,
+        "Not owner");
+    _;
+}
+
+function setOwner(address _new)
+    public onlyOwner {
+    owner = _new;
+}
+\end{lstlisting}
+
+\vspace{3mm}
+\begin{alertblock}{Best Practice}
+Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 11: Category 2: Economic Attacks
+% =============================================================================
+\begin{frame}{Category 2: Economic Attacks}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Flash Loan Attacks:}
+\begin{itemize}
+\item Borrow millions, attack, repay---all in one transaction
+\item No collateral needed
+\item Exploit price discrepancies
+\item Manipulate governance votes
+\end{itemize}
+
+\vspace{3mm}
+\textbf{How Flash Loans Work:}
+\begin{enumerate}
+\item Borrow \$100M (uncollateralized)
+\item Execute attack strategy
+\item Repay \$100M + fee
+\item If any step fails, entire tx reverts
+\end{enumerate}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tikzpicture}[scale=0.65, transform shape, node distance=1.8cm]
+% Flash loan cycle
+\node (borrow) [blockchain, minimum width=1.8cm] {Borrow};
+\node (attack) [blockchain, below of=borrow, minimum width=1.8cm, fill=dfred!20] {Attack};
+\node (profit) [blockchain, below of=attack, minimum width=1.8cm, fill=dfgreen!20] {Profit};
+\node (repay) [blockchain, below of=profit, minimum width=1.8cm] {Repay};
+
+\draw[arrow] (borrow) -- (attack);
+\draw[arrow] (attack) -- (profit);
+\draw[arrow] (profit) -- (repay);
+\draw[arrow, dashed] (repay.east) -- ++(0.8,0) |- (borrow.east);
+
+\node[right of=attack, node distance=2.5cm, font=\footnotesize, text width=2.5cm] {All in ONE atomic transaction};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 12: Flash Loan Attack Example: bZx (2020)
+% =============================================================================
+\begin{frame}{Flash Loan Attack Example: bZx (2020)}
+\begin{center}
+\begin{tikzpicture}[scale=0.7, transform shape, node distance=2.5cm]
+% Steps
+\node (step1) [process, minimum width=2.8cm, minimum height=1cm] {
+\begin{tabular}{c}
+\footnotesize 1. Flash borrow\\
+\footnotesize 10K ETH from dYdX
+\end{tabular}
+};
+
+\node (step2) [process, right of=step1, minimum width=2.8cm, minimum height=1cm] {
+\begin{tabular}{c}
+\footnotesize 2. Use 5K ETH\\
+\footnotesize as collateral
+\end{tabular}
+};
+
+\node (step3) [process, right of=step2, minimum width=2.8cm, minimum height=1cm, fill=dfred!20] {
+\begin{tabular}{c}
+\footnotesize 3. Short ETH\\
+\footnotesize on Fulcrum
+\end{tabular}
+};
+
+\node (step4) [process, below of=step1, minimum width=2.8cm, minimum height=1cm] {
+\begin{tabular}{c}
+\footnotesize 6. Repay flash\\
+\footnotesize loan + profit
+\end{tabular}
+};
+
+\node (step5) [process, below of=step2, minimum width=2.8cm, minimum height=1cm, fill=dfgreen!20] {
+\begin{tabular}{c}
+\footnotesize 5. Price moves,\\
+\footnotesize profit \$350K
+\end{tabular}
+};
+
+\node (step6) [process, below of=step3, minimum width=2.8cm, minimum height=1cm, fill=dfred!20] {
+\begin{tabular}{c}
+\footnotesize 4. Dump 5K ETH\\
+\footnotesize on Uniswap
+\end{tabular}
+};
+
+% Arrows
+\draw[arrow] (step1) -- (step2);
+\draw[arrow] (step2) -- (step3);
+\draw[arrow] (step3) -- (step6);
+\draw[arrow] (step6) -- (step5);
+\draw[arrow] (step5) -- (step4);
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Key insight:} Capital requirement to manipulate markets dropped from millions to \textbf{zero}.
+\end{frame}
+
+% =============================================================================
+% Frame 13: The Atomic Property of Flash Loans
+% =============================================================================
+\begin{frame}{The Atomic Property of Flash Loans}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{What ``atomic'' means:}
+\begin{itemize}
+\item All operations must complete in ONE transaction
+\item Either everything succeeds, or nothing happens
+\item Loan + use + repay = single block
+\item No collateral at risk (tx reverts if unpaid)
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Why this enables attacks:}
+\begin{itemize}
+\item Zero capital requirement
+\item No personal funds at risk
+\item Can borrow unlimited amounts
+\item Only pay small fee if attack succeeds
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}[scale=0.7, transform shape]
+% Transaction box
+\draw[thick, dfblue, fill=dflightblue4] (0,0) rectangle (4,4);
+\node at (2,3.7) {\footnotesize \textbf{Single Transaction}};
+\draw[dfblue] (0,3.4) -- (4,3.4);
+
+% Steps inside
+\node at (2,3) {\tiny Borrow \$100M};
+\node at (2,2.5) {\tiny Manipulate prices};
+\node at (2,2) {\tiny Exploit protocol};
+\node at (2,1.5) {\tiny Take profit};
+\node at (2,1) {\tiny Repay \$100M + fee};
+
+% Success/fail
+\draw[->, thick, dfgreen] (4.2,2) -- (5.5,3);
+\node[right] at (5.5,3) {\footnotesize \textcolor{dfgreen}{Success}};
+
+\draw[->, thick, dfred] (4.2,2) -- (5.5,1);
+\node[right] at (5.5,1) {\footnotesize \textcolor{dfred}{Revert all}};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Democratization of Capital}
+Flash loans ``democratize'' access to large capital---for both legitimate arbitrage AND attacks.
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 14: Oracle Manipulation
+% =============================================================================
+\begin{frame}{Oracle Manipulation}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{The Problem:}
+\begin{itemize}
+\item DeFi protocols need external price data
+\item Oracles provide this data on-chain
+\item If oracle can be manipulated, protocol is vulnerable
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Attack Pattern:}
+\begin{enumerate}
+\item Flash borrow large amount
+\item Trade on DEX to move spot price
+\item Protocol reads manipulated price
+\item Exploit (borrow more, liquidate others)
+\item Restore price, repay loan
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}[scale=0.65, transform shape]
+% Normal price
+\draw[thick, dfblue] (0,0) -- (0,3);
+\node[left] at (0,0) {\footnotesize \$100};
+\node[left] at (0,1.5) {\footnotesize Price};
+\node[left] at (0,3) {\footnotesize \$200};
+
+% Price line
+\draw[thick, dfgreen] (0.5,1.5) -- (2,1.5);
+\draw[thick, dfred] (2,1.5) -- (2.5,2.8);
+\draw[thick, dfred] (2.5,2.8) -- (3.5,2.8);
+\draw[thick, dfgreen] (3.5,2.8) -- (4,1.5);
+\draw[thick, dfgreen] (4,1.5) -- (5,1.5);
+
+% Labels
+\node[below] at (1.25,1.3) {\tiny Normal};
+\node[above] at (3,2.9) {\tiny Manipulated};
+\node[below] at (4.5,1.3) {\tiny Restored};
+\end{tikzpicture}
+
+\vspace{5mm}
+\begin{block}{Defense}
+Use TWAP (Time-Weighted Average Price) or decentralized oracles like Chainlink.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 15: Spot Price vs. TWAP Oracles
+% =============================================================================
+\begin{frame}{Spot Price vs. TWAP Oracles}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Spot Price Oracle:}
+\begin{itemize}
+\item Current instant price
+\item Single data source (one DEX)
+\item Easy to manipulate with one trade
+\item Cheap and simple
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Vulnerability:}
+\begin{itemize}
+\item Flash loan can move price
+\item Manipulation in single block
+\item No historical context
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{TWAP Oracle:}
+\begin{itemize}
+\item Time-Weighted Average Price
+\item Average over time window (e.g., 30 min)
+\item Resistant to short-term manipulation
+\item More expensive to attack
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Why it's safer:}
+\begin{itemize}
+\item Attacker must sustain manipulation
+\item Across many blocks
+\item Capital locked (not flash loan)
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{alertblock}{Best Practice}
+Use decentralized oracles (Chainlink) with multiple data sources and TWAP for price-sensitive operations.
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 16: Category 3: Stablecoin Failures
+% =============================================================================
+\begin{frame}{Category 3: Stablecoin Failures}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{UST/LUNA Collapse (May 2022):}
+\begin{itemize}
+\item Algorithmic stablecoin
+\item Market cap: \$18B at peak
+\item De-pegged from \$1 to \$0.10
+\item LUNA: \$80 to \$0.0001
+\item Total value destroyed: \$40B+
+\end{itemize}
+
+\vspace{3mm}
+\textbf{The Death Spiral:}
+\begin{enumerate}
+\item Large UST sell-off
+\item Peg breaks, panic ensues
+\item LUNA minted to defend peg
+\item LUNA hyperinflates
+\item Both collapse to zero
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}[scale=0.7, transform shape]
+% Death spiral
+\draw[thick, dfred, ->] (0,3) .. controls (1,2.5) and (-0.5,2) .. (0,1.5) .. controls (0.5,1) and (-0.5,0.5) .. (0,0);
+
+\node[right] at (0.5,3) {\footnotesize UST de-pegs};
+\node[right] at (0.5,2.3) {\footnotesize LUNA minted};
+\node[right] at (0.5,1.5) {\footnotesize LUNA dumps};
+\node[right] at (0.5,0.7) {\footnotesize More UST sold};
+\node[right] at (0.5,0) {\footnotesize \textcolor{dfred}{Collapse}};
+
+% Spiral arrow indicating loop
+\draw[thick, dfred, ->] (0.3,2.7) arc (0:-270:0.3);
+\end{tikzpicture}
+
+\vspace{3mm}
+\begin{alertblock}{Lesson}
+Algorithmic stability requires robust mechanisms---``code'' alone is insufficient.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 17: Category 4: Centralized Exchange Collapses
+% =============================================================================
+\begin{frame}{Category 4: Centralized Exchange Collapses}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{FTX Collapse (Nov 2022):}
+\begin{itemize}
+\item 2nd largest crypto exchange
+\item \$32B valuation
+\item Customer funds misappropriated
+\item \$8B+ missing
+\item CEO convicted of fraud
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Mt. Gox (2014):}
+\begin{itemize}
+\item 70\% of Bitcoin trading
+\item 850,000 BTC ``lost''
+\item Combination of hack + fraud
+\item 10+ years to partial recovery
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Common Patterns:}
+\begin{enumerate}
+\item Opaque operations
+\item Commingled funds
+\item Lack of proof of reserves
+\item Regulatory arbitrage
+\item Charismatic founders
+\end{enumerate}
+
+\vspace{3mm}
+\begin{alertblock}{Not Your Keys, Not Your Coins}
+Centralized custodians reintroduce the trust problems DeFi was designed to solve.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 18: Category 5: Rug Pulls and Fraud
+% =============================================================================
+\begin{frame}{Category 5: Rug Pulls and Fraud}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{Types of Rug Pulls:}
+\begin{itemize}
+\item \textbf{Liquidity pull:} Developers drain LP tokens
+\item \textbf{Limiting sell orders:} Hidden code prevents selling
+\item \textbf{Dumping:} Team sells massive holdings
+\item \textbf{Exit scam:} Project disappears with funds
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Red Flags:}
+\begin{itemize}
+\item Anonymous team
+\item Unlocked liquidity
+\item No audit
+\item Unrealistic promises
+\item FOMO marketing
+\item Celebrity endorsements
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}[scale=0.7, transform shape]
+% Rug pull diagram
+\draw[thick, dfblue] (0,0) -- (0,3) -- (3,3) -- (3,0) -- cycle;
+\node at (1.5,2.5) {\footnotesize Liquidity Pool};
+
+% Users depositing
+\draw[->, thick, dfgreen] (-1,1.5) -- (0,1.5);
+\node[left, font=\footnotesize] at (-1,1.5) {Users};
+
+% Rug pull
+\draw[->, ultra thick, dfred] (3,1.5) -- (4.5,1.5);
+\node[right, font=\footnotesize, text width=1.5cm] at (4.5,1.5) {Developer drains};
+
+% Money icons
+\node at (1.5,1.5) {\Large \$\$\$};
+\end{tikzpicture}
+
+\vspace{5mm}
+\textbf{2021 Stats:}\\
+\$2.8B lost to rug pulls\\
+(Chainalysis)
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 19: Bridge Exploits - The Biggest Target
+% =============================================================================
+\begin{frame}{Bridge Exploits - The Biggest Target}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{Why bridges are vulnerable:}
+\begin{itemize}
+\item Hold massive TVL (locked assets)
+\item Complex multi-chain logic
+\item Multiple attack surfaces
+\item Validator key management
+\item Novel, less-tested code
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Common attack vectors:}
+\begin{itemize}
+\item Validator key compromise
+\item Signature verification bugs
+\item Fake deposit proofs
+\item Message replay attacks
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+\textbf{Major Bridge Hacks:}
+
+\vspace{2mm}
+\begin{tabular}{lr}
+\hline
+\textbf{Bridge} & \textbf{Loss} \\
+\hline
+Ronin & \$625M \\
+Poly Network & \$611M \\
+Wormhole & \$320M \\
+Nomad & \$190M \\
+Harmony & \$100M \\
+\hline
+\end{tabular}
+
+\vspace{5mm}
+\begin{alertblock}{2022 Pattern}
+Bridges accounted for 69\% of crypto stolen in 2022.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 20: Systemic Risk in Digital Finance
+% =============================================================================
+\begin{frame}{Systemic Risk in Digital Finance}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape]
+% Interconnected protocols
+\node (aave) [blockchain, minimum width=1.8cm] {Aave};
+\node (compound) [blockchain, right of=aave, node distance=3cm, minimum width=1.8cm] {Compound};
+\node (maker) [blockchain, below of=aave, node distance=2.5cm, minimum width=1.8cm] {Maker};
+\node (uniswap) [blockchain, below of=compound, node distance=2.5cm, minimum width=1.8cm] {Uniswap};
+\node (curve) [blockchain, right of=uniswap, node distance=3cm, minimum width=1.8cm] {Curve};
+
+% Connections
+\draw[thick, dfblue, <->] (aave) -- (compound);
+\draw[thick, dfblue, <->] (aave) -- (maker);
+\draw[thick, dfblue, <->] (compound) -- (uniswap);
+\draw[thick, dfblue, <->] (maker) -- (uniswap);
+\draw[thick, dfblue, <->] (uniswap) -- (curve);
+\draw[thick, dfblue, <->] (aave) -- (uniswap);
+\draw[thick, dfblue, <->] (compound) -- (curve);
+
+% Stablecoins at center
+\node (usdc) [transaction, below right of=maker, node distance=1.8cm, fill=dfred!30] {USDC};
+\draw[thick, dfred] (usdc) -- (aave);
+\draw[thick, dfred] (usdc) -- (compound);
+\draw[thick, dfred] (usdc) -- (maker);
+\draw[thick, dfred] (usdc) -- (uniswap);
+\draw[thick, dfred] (usdc) -- (curve);
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{DeFi Composability = Systemic Risk:}
+\begin{itemize}
+\item Protocols depend on each other (``money legos'')
+\item Stablecoins are systemic (USDC freeze = cascade)
+\item Oracle failure affects ALL dependent protocols
+\item Smart contract bug can propagate through ecosystem
+\end{itemize}
+\end{frame}
+
+% =============================================================================
+% Frame 21: Largest DeFi Exploits (2020-2024)
+% =============================================================================
+\begin{frame}{Largest DeFi Exploits (2020-2024)}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|r|l|l|}
+\hline
+\textbf{Protocol} & \textbf{Loss} & \textbf{Type} & \textbf{Year} \\
+\hline
+Ronin Bridge & \$625M & Bridge exploit & 2022 \\
+\hline
+Poly Network & \$611M & Bridge exploit & 2021 \\
+\hline
+FTX & \$477M & Hack post-bankruptcy & 2022 \\
+\hline
+Wormhole & \$320M & Bridge exploit & 2022 \\
+\hline
+Nomad Bridge & \$190M & Bridge exploit & 2022 \\
+\hline
+Beanstalk & \$182M & Flash loan governance & 2022 \\
+\hline
+Wintermute & \$160M & Key compromise & 2022 \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{alertblock}{Pattern Recognition}
+\textbf{Bridges are the weakest link.} Cross-chain bridges hold massive TVL but have complex attack surfaces.
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 22: Defense Patterns: ReentrancyGuard
+% =============================================================================
+\begin{frame}{Defense Patterns: ReentrancyGuard}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\textbf{The Mutex Pattern:}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+bool private locked;
+
+modifier noReentrant() {
+    require(!locked, "No reentrancy");
+    locked = true;
+    _;
+    locked = false;
+}
+
+function withdraw() public noReentrant {
+    uint balance = balances[msg.sender];
+    balances[msg.sender] = 0;
+
+    (bool success, ) = msg.sender
+        .call{value: balance}("");
+    require(success);
+}
+\end{lstlisting}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{How it works:}
+\begin{enumerate}
+\item Set lock at function entry
+\item If reentrant call attempts entry...
+\item Lock is still set, call reverts
+\item Lock released only on normal exit
+\end{enumerate}
+
+\vspace{3mm}
+\begin{block}{Best Practice}
+Use OpenZeppelin's \texttt{ReentrancyGuard} contract---battle-tested and audited.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 23: Defense Patterns: Pull vs. Push
+% =============================================================================
+\begin{frame}{Defense Patterns: Pull vs. Push Payments}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Push Pattern (Risky):}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+// Contract sends to users
+function distribute() public {
+    for (uint i = 0; i < users.length; i++) {
+        // If one fails, all fail
+        users[i].transfer(amounts[i]);
+    }
+}
+\end{lstlisting}
+
+\textbf{Problems:}
+\begin{itemize}
+\item One bad recipient blocks all
+\item Reentrancy risk
+\item Gas limit issues
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Pull Pattern (Safe):}
+\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
+// Users withdraw themselves
+mapping(address => uint) owed;
+
+function withdraw() public {
+    uint amount = owed[msg.sender];
+    owed[msg.sender] = 0;
+    payable(msg.sender)
+        .transfer(amount);
+}
+\end{lstlisting}
+
+\textbf{Benefits:}
+\begin{itemize}
+\item Isolates failures
+\item User controls timing
+\item Easier to secure
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{alertblock}{Rule of Thumb}
+Let users ``pull'' funds rather than ``pushing'' to them.
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 24: Defense in Depth
+% =============================================================================
+\begin{frame}{Defense in Depth}
+\begin{center}
+\begin{tikzpicture}[scale=0.8, transform shape]
+% Concentric circles representing layers
+\draw[thick, dflightblue4, fill=dflightblue4] (0,0) circle (3.5cm);
+\draw[thick, dflightblue3, fill=dflightblue3] (0,0) circle (2.8cm);
+\draw[thick, dflightblue2, fill=dflightblue2] (0,0) circle (2.1cm);
+\draw[thick, dfblue, fill=dflightblue] (0,0) circle (1.4cm);
+\draw[thick, dfteal, fill=dfteal!30] (0,0) circle (0.7cm);
+
+% Labels
+\node at (0,0) {\footnotesize \textbf{Funds}};
+\node at (0,1.05) {\footnotesize CEI Pattern};
+\node at (0,1.75) {\footnotesize Reentrancy Guard};
+\node at (0,2.45) {\footnotesize Access Control};
+\node at (0,3.15) {\footnotesize Audits + Bug Bounty};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Defense in Depth Principle:}
+\begin{itemize}
+\item Multiple independent security layers
+\item If one layer fails, others still protect
+\item No single point of failure
+\end{itemize}
+\end{frame}
+
+% =============================================================================
+% Frame 25: Hands-On Exercise I
+% =============================================================================
+\begin{frame}{Hands-On: Analyzing an Exploit (NB11)}
+\begin{center}
+\textbf{\Large Trace an Attack Through On-Chain Data}
+\end{center}
+
+\vspace{5mm}
+\textbf{In the Colab notebook, we will:}
+\begin{enumerate}
+\item Fetch transaction data from a historical exploit
+\item Trace the flow of funds step-by-step
+\item Identify the attack pattern
+\item Calculate attacker profit
+\item Discuss what could have prevented it
+\end{enumerate}
+
+\vspace{5mm}
+\begin{block}{Access the Notebook}
+\texttt{day\_05/notebooks/NB11\_exploit\_analysis.ipynb}
+
+\vspace{2mm}
+\footnotesize We'll analyze a real flash loan attack using Etherscan data.
+\end{block}
+
+\bottomnote{Time: 20-25 minutes for guided exploration}
+\end{frame}
+
+% =============================================================================
+% Frame 26: Hands-On Exercise II - What You'll Learn
+% =============================================================================
+\begin{frame}{Notebook Objectives}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Part 1: Data Retrieval}
+\begin{itemize}
+\item Query Etherscan API for transaction data
+\item Parse transaction traces
+\item Identify contract interactions
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Part 2: Attack Analysis}
+\begin{itemize}
+\item Map the attack flow
+\item Identify flash loan source
+\item Track fund movements
+\item Calculate profit margins
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Part 3: Lessons Learned}
+\begin{itemize}
+\item What vulnerability was exploited?
+\item How could it have been prevented?
+\item What defenses would help?
+\end{itemize}
+
+\vspace{3mm}
+\begin{alertblock}{Key Takeaway}
+On-chain data is transparent---every attack leaves a trail that can be analyzed and learned from.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 27: Discussion: Risk Awareness
+% =============================================================================
+\begin{frame}{Discussion: Risk Awareness}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Questions to Consider:}
+\begin{enumerate}
+\item Should smart contracts be audited before deployment?
+\item Who is liable when code fails?
+\item Is ``code is law'' a feature or a bug?
+\item How do we balance innovation with safety?
+\end{enumerate}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Key Takeaways:}
+\begin{itemize}
+\item Failures are inevitable---design for them
+\item Technical, economic, and human risks compound
+\item Transparency enables post-mortem but not prevention
+\item Systemic risk grows with interconnection
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{5mm}
+\begin{alertblock}{Risk Framework}
+For any protocol: What can go wrong technically? Economically? Who has the keys? What happens when it fails?
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 28: The Security Audit Process
+% =============================================================================
+\begin{frame}{The Security Audit Process}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape, node distance=2.8cm]
+\node (code) [process, minimum width=2cm] {Code Review};
+\node (auto) [process, right of=code, minimum width=2cm] {Automated Tools};
+\node (manual) [process, right of=auto, minimum width=2cm] {Manual Analysis};
+\node (report) [process, right of=manual, minimum width=2cm] {Report};
+
+\draw[arrow] (code) -- (auto);
+\draw[arrow] (auto) -- (manual);
+\draw[arrow] (manual) -- (report);
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Audit Severity Levels:}
+\begin{itemize}
+\item \textbf{Critical:} Direct loss of funds---MUST fix before deployment
+\item \textbf{High:} Significant risk---should fix
+\item \textbf{Medium:} Moderate risk---recommended to fix
+\item \textbf{Low:} Minor issues---consider fixing
+\item \textbf{Informational:} Suggestions for improvement
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{Important Caveat}
+Audits are NOT guarantees. Many exploited protocols had multiple audits. Audits reduce risk but don't eliminate it.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 29: Bug Bounty Programs
+% =============================================================================
+\begin{frame}{Bug Bounty Programs}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{How Bug Bounties Work:}
+\begin{itemize}
+\item Protocols offer rewards for finding vulnerabilities
+\item Ethical hackers report bugs instead of exploiting
+\item Rewards scale with severity
+\item Continuous security testing
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Major Platforms:}
+\begin{itemize}
+\item Immunefi (DeFi-focused)
+\item HackerOne
+\item Code4rena (audit competitions)
+\end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+\textbf{Typical Rewards:}
+
+\vspace{2mm}
+\begin{tabular}{lr}
+\hline
+\textbf{Severity} & \textbf{Reward} \\
+\hline
+Critical & \$50K-\$10M \\
+High & \$10K-\$50K \\
+Medium & \$1K-\$10K \\
+Low & \$100-\$1K \\
+\hline
+\end{tabular}
+
+\vspace{5mm}
+\begin{alertblock}{Incentive Alignment}
+Good bounties make ethical disclosure more profitable than exploitation.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 30: Responsible Disclosure
+% =============================================================================
+\begin{frame}{Responsible Disclosure}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Ethical Discovery Process:}
+\begin{enumerate}
+\item Find vulnerability
+\item Document the issue thoroughly
+\item Contact protocol team privately
+\item Give reasonable time to fix
+\item Coordinate public disclosure
+\end{enumerate}
+
+\vspace{3mm}
+\textbf{DO NOT:}
+\begin{itemize}
+\item Exploit for personal gain
+\item Disclose publicly before fix
+\item Demand excessive payment
+\item Threaten the protocol
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{White Hat vs. Black Hat:}
+
+\vspace{3mm}
+\textbf{White Hat:}
+\begin{itemize}
+\item Reports vulnerabilities
+\item Helps fix issues
+\item Collects bounty legally
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Black Hat:}
+\begin{itemize}
+\item Exploits for profit
+\item Causes financial harm
+\item Faces legal consequences
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{Gray Area}
+Some hackers exploit then return funds---legally and ethically ambiguous.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 31: Executive Summary
+% =============================================================================
+\begin{frame}{Executive Summary}
+\begin{center}
+\textbf{\Large Key Takeaways from Topic 5.1}
+\end{center}
+
+\vspace{3mm}
+\begin{enumerate}
+\item \textbf{Failures fall into three categories:} technical bugs, economic attacks, and human fraud
+
+\item \textbf{Technical exploits} (reentrancy, overflow, access control) can be prevented with secure coding patterns
+
+\item \textbf{Economic attacks} (flash loans, oracle manipulation) exploit protocol design assumptions
+
+\item \textbf{Bridges are the biggest target}---69\% of 2022 crypto theft involved bridges
+
+\item \textbf{Defense in depth:} Multiple security layers (CEI, guards, audits, bounties) reduce but don't eliminate risk
+\end{enumerate}
+
+\vspace{3mm}
+\begin{block}{The Big Idea}
+Understanding how things fail is essential for building secure systems. ``Code is law'' only works when the code is correct.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 32: Concept Map
+% =============================================================================
+\begin{frame}{Concept Map: Digital Finance Failures}
+\begin{center}
+\begin{tikzpicture}[scale=0.6, transform shape,
+    concept/.style={rectangle, rounded corners, draw=dfblue, fill=dflightblue4, minimum width=1.8cm, minimum height=0.7cm, font=\footnotesize},
+    relationship/.style={->, thick, dfteal}]
+
+% Central concept
+\node[concept, fill=dfred!20, minimum width=2.5cm] (failures) at (0,0) {\textbf{FAILURES}};
+
+% Main branches
+\node[concept] (technical) at (-5,2) {Technical};
+\node[concept] (economic) at (0,3) {Economic};
+\node[concept] (human) at (5,2) {Human};
+\node[concept] (defense) at (0,-3) {Defenses};
+
+% Technical sub
+\node[concept, minimum width=1.5cm] (reentrancy) at (-7,0) {Reentrancy};
+\node[concept, minimum width=1.5cm] (overflow) at (-5.5,-1) {Overflow};
+\node[concept, minimum width=1.5cm] (access) at (-4,0) {Access Ctrl};
+
+% Economic sub
+\node[concept, minimum width=1.5cm] (flash) at (-2,4.5) {Flash Loans};
+\node[concept, minimum width=1.5cm] (oracle) at (2,4.5) {Oracle Manip};
+
+% Human sub
+\node[concept, minimum width=1.5cm] (rugpull) at (6.5,0) {Rug Pulls};
+\node[concept, minimum width=1.5cm] (fraud) at (5,-1) {Fraud};
+
+% Defense sub
+\node[concept, minimum width=1.5cm] (cei) at (-2.5,-4.5) {CEI Pattern};
+\node[concept, minimum width=1.5cm] (audit) at (2.5,-4.5) {Audits};
+
+% Connections
+\draw[relationship] (failures) -- (technical);
+\draw[relationship] (failures) -- (economic);
+\draw[relationship] (failures) -- (human);
+\draw[relationship] (failures) -- (defense);
+
+\draw[relationship] (technical) -- (reentrancy);
+\draw[relationship] (technical) -- (overflow);
+\draw[relationship] (technical) -- (access);
+
+\draw[relationship] (economic) -- (flash);
+\draw[relationship] (economic) -- (oracle);
+
+\draw[relationship] (human) -- (rugpull);
+\draw[relationship] (human) -- (fraud);
+
+\draw[relationship] (defense) -- (cei);
+\draw[relationship] (defense) -- (audit);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% =============================================================================
+% Frame 33: Key Terms & Definitions I
+% =============================================================================
+\begin{frame}{Key Terms \& Definitions (I)}
+\begin{description}
+\item[Reentrancy Attack] An exploit where a malicious contract calls back into the victim contract before the first execution completes, allowing repeated withdrawals.
+
+\item[Flash Loan] An uncollateralized loan that must be borrowed and repaid within a single atomic blockchain transaction.
+
+\item[Oracle Manipulation] Artificially moving market prices to deceive protocols that rely on external price data for decision-making.
+
+\item[Check-Effects-Interactions (CEI)] A secure coding pattern: validate conditions (check), update state (effects), then make external calls (interactions).
+
+\item[TWAP] Time-Weighted Average Price---an oracle mechanism that averages prices over time to resist short-term manipulation.
+\end{description}
+\end{frame}
+
+% =============================================================================
+% Frame 34: Key Terms & Definitions II
+% =============================================================================
+\begin{frame}{Key Terms \& Definitions (II)}
+\begin{description}
+\item[Rug Pull] A type of fraud where project developers drain funds from a liquidity pool or abandon a project after collecting investments.
+
+\item[Bridge Exploit] An attack targeting cross-chain bridges, which hold large amounts of locked assets and have complex security surfaces.
+
+\item[Defense in Depth] A security strategy using multiple independent layers of protection, so failure of one layer doesn't compromise the system.
+
+\item[Bug Bounty] A program offering rewards to ethical hackers who discover and responsibly disclose security vulnerabilities.
+
+\item[Systemic Risk] The risk that failure of one protocol cascades through interconnected systems, affecting the entire ecosystem.
+\end{description}
+\end{frame}
+
+% =============================================================================
+% Frame 35: Common Misconceptions
+% =============================================================================
+\begin{frame}{Common Misconceptions}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{\textcolor{dfred}{Misconception}}
+
+\vspace{2mm}
+``Audited means safe''
+
+\vspace{5mm}
+``DeFi eliminates all trust''
+
+\vspace{5mm}
+``Smart contracts are always correct''
+
+\vspace{5mm}
+``Flash loans are inherently malicious''
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{\textcolor{dfgreen}{Reality}}
+
+\vspace{2mm}
+Many exploited protocols had multiple audits; audits reduce but don't eliminate risk
+
+\vspace{2mm}
+Trust shifts from institutions to code, oracles, and governance---different trust, not zero trust
+
+\vspace{2mm}
+Code can have bugs, logic errors, and unforeseen interactions just like any software
+
+\vspace{2mm}
+Flash loans have many legitimate uses (arbitrage, collateral swaps); they're tools that can be misused
+\end{column}
+\end{columns}
+
+\vspace{5mm}
+\begin{alertblock}{Critical Thinking}
+Always ask: What are the assumptions? What happens if they're wrong? Who holds the keys?
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 36: Self-Assessment Question 1
+% =============================================================================
+\begin{frame}{Self-Assessment: Question 1}
+\begin{block}{Question}
+What is a reentrancy attack in the context of smart contracts?
+\end{block}
+
+\vspace{3mm}
+\begin{enumerate}[A.]
+\item When a contract calls the same function multiple times in sequence
+\item When an external contract calls back into the original contract before the first execution completes
+\item When multiple users try to access a contract simultaneously
+\item When a contract fails to execute and automatically retries
+\end{enumerate}
+
+\vspace{5mm}
+\pause
+\textbf{Answer: B}
+
+\vspace{2mm}
+\textbf{Explanation:} A reentrancy attack occurs when a contract makes an external call (e.g., sending ETH) and that external address calls back into the original contract before the first execution completes. This allows attackers to exploit state that hasn't been updated yet, potentially draining funds.
+\end{frame}
+
+% =============================================================================
+% Frame 37: Self-Assessment Questions 2-3
+% =============================================================================
+\begin{frame}{Self-Assessment: Questions 2-3}
+\begin{block}{Question 2}
+What does ``atomic property'' mean in the context of flash loans?
+\end{block}
+\textbf{Answer:} All operations (borrow, use, repay) must happen in a single transaction or everything reverts. This all-or-nothing property is what allows flash loans to be uncollateralized---if repayment fails, the entire transaction is rolled back as if it never happened.
+
+\vspace{5mm}
+\begin{block}{Question 3}
+What is the difference between pull and push payment patterns, and why does it matter for security?
+\end{block}
+\textbf{Answer:} In push pattern, the contract sends funds to recipients; in pull pattern, users withdraw funds themselves. Pull is safer against DoS (one bad recipient doesn't block others) and reentrancy (user controls when external calls happen, easier to apply CEI pattern).
+\end{frame}
+
+% =============================================================================
+% Frame 38: What's Next - Preview T5.2
+% =============================================================================
+\begin{frame}{What's Next: Topic 5.2}
+\begin{center}
+\textbf{\Large Preview: Regulatory Landscapes}
+\end{center}
+
+\vspace{5mm}
+\textbf{In Topic 5.2, we'll explore:}
+\begin{itemize}
+\item How \textbf{governments respond} to digital finance failures
+\item Comparison of \textbf{regulatory frameworks} (US, EU, Asia)
+\item The \textbf{securities law} question: When is a token a security?
+\item \textbf{AML/KYC requirements} and their implications
+\item Emerging \textbf{stablecoin regulations}
+\end{itemize}
+
+\vspace{5mm}
+\begin{block}{Connection}
+Topic 5.1 examined \textit{what goes wrong} technically and economically.\\
+Topic 5.2 examines \textit{how regulators respond} to these failures.
+\end{block}
+
+\vspace{3mm}
+\textbf{Preparation:} Consider how the failures we discussed today might influence regulatory approaches.
+\end{frame}
+
+% =============================================================================
+% Frame 39: Resources
+% =============================================================================
+\begin{frame}{Resources for Further Learning}
+\textbf{Essential Reading:}
+\begin{itemize}
+\item Rekt News (\url{rekt.news})---detailed post-mortems of DeFi exploits
+\item ``Smart Contract Security Best Practices'' (ConsenSys Diligence)
+\item Chainalysis Crypto Crime Reports (annual)
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Online Resources:}
+\begin{itemize}
+\item Course notebook: \texttt{NB11\_exploit\_analysis.ipynb}
+\item DeFiLlama Hacks Dashboard (\url{defillama.com/hacks})
+\item Immunefi Bug Bounty Platform (\url{immunefi.com})
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Technical Deep Dives:}
+\begin{itemize}
+\item SWC Registry (Smart Contract Weakness Classification)
+\item OpenZeppelin Security Blog
+\item Samczsun's Blog (security researcher)
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{Course Materials}
+All slides and notebooks available on the course website.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 40: Questions?
+% =============================================================================
+\begin{frame}{Questions?}
+\begin{center}
+\textbf{\LARGE Questions \& Discussion}
+
+\vspace{10mm}
+\begin{tikzpicture}[scale=0.8, transform shape]
+% Warning sign with question
+\draw[thick, dfred, fill=dfred!10] (0,0) -- (2,3.5) -- (4,0) -- cycle;
+\node at (2,1.2) {\Huge \textbf{?}};
+\node at (2,2.5) {\footnotesize \textbf{RISK}};
+\node[below] at (2,-0.5) {\Large What Goes Wrong?};
+\end{tikzpicture}
+
+\vspace{10mm}
+\textbf{Contact:} joerg.osterrieder@gmail.com
+
+\vspace{3mm}
+\textbf{Next Topic:} T5.2 --- Regulatory Landscapes
+\end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 5.2: Regulatory Landscapes | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 5.2: Regulatory Landscapes</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 5.2: Regulatory Landscapes</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "question": "What are the four criteria of the Howey Test used to determine if a token is a security?",
+                                "options": {
+                                                "A": "Investment of money, in a common enterprise, with profits from others' efforts, and SEC approval",
+                                                "B": "Investment of money, in a common enterprise, with expectation of profits, derived from others' efforts",
+                                                "C": "Public sale, token utility, whitepaper disclosure, and community governance",
+                                                "D": "Decentralization, proof of stake, community voting, and open source code"
+                                },
+                                "correct": "B",
+                                "explanation": "The Howey Test, established by the U.S. Supreme Court, defines a security as an investment of money in a common enterprise with the expectation of profits derived primarily from the efforts of others. All four criteria must be met. This test is the primary framework the SEC uses to determine whether crypto tokens are securities requiring registration.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 2,
+                                "question": "What is the main jurisdictional difference between the SEC and CFTC in U.S. crypto regulation?",
+                                "options": {
+                                                "A": "SEC regulates all cryptocurrencies while CFTC regulates only stablecoins",
+                                                "B": "SEC has jurisdiction over securities while CFTC oversees commodities like Bitcoin",
+                                                "C": "CFTC regulates exchanges while SEC regulates token issuers",
+                                                "D": "There is no difference; they share identical jurisdictions"
+                                },
+                                "correct": "B",
+                                "explanation": "The SEC and CFTC have overlapping but distinct jurisdictions. The SEC regulates securities (most tokens, especially ICOs) while the CFTC has jurisdiction over commodities (like Bitcoin and Ethereum, which are not considered securities). This fragmentation creates regulatory uncertainty as the agencies sometimes have conflicting views on how to classify and regulate crypto assets.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 3,
+                                "question": "What does MiCA stand for and what is its significance?",
+                                "options": {
+                                                "A": "Markets in Crypto-Assets; the EU's first comprehensive crypto regulation framework",
+                                                "B": "Monetary Integration and Crypto Administration; a global treaty on digital currencies",
+                                                "C": "Multi-Industry Crypto Association; a self-regulatory body for exchanges",
+                                                "D": "Market Intelligence for Crypto Analytics; an EU data collection initiative"
+                                },
+                                "correct": "A",
+                                "explanation": "MiCA (Markets in Crypto-Assets) is the European Union's comprehensive regulatory framework for crypto assets, effective 2024-2025. It harmonizes crypto regulation across all 27 EU member states, providing clear licensing requirements for crypto-asset service providers (CASPs), stablecoin reserve requirements, and consumer protection rules. It represents the first major jurisdiction-wide comprehensive crypto legislation.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 4,
+                                "question": "Under MiCA, what are the reserve requirements for stablecoin issuers?",
+                                "options": {
+                                                "A": "Stablecoins are banned entirely in the EU",
+                                                "B": "Issuers must hold adequate reserves, with stricter rules for 'significant' stablecoins",
+                                                "C": "Only fractional reserves of 10% are required",
+                                                "D": "No reserve requirements; only whitepaper disclosure is needed"
+                                },
+                                "correct": "B",
+                                "explanation": "MiCA requires stablecoin issuers to hold adequate reserves backing their tokens. For Asset-Referenced Tokens (ARTs) and E-Money Tokens (EMTs), issuers must maintain proper reserves with segregation and redemption rights. 'Significant' stablecoins (over 10M holders or €5B market cap) face even stricter capital requirements and oversight. This directly impacts major stablecoins like USDT and USDC operating in the EU.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 5,
+                                "question": "What thresholds determine if a stablecoin is considered 'significant' under MiCA?",
+                                "options": {
+                                                "A": "1M+ holders OR €1B+ market cap",
+                                                "B": "5M+ holders OR €2B+ market cap",
+                                                "C": "10M+ holders OR €5B+ market cap OR 2.5M+ daily transactions OR €500M+ daily value",
+                                                "D": "50M+ holders OR €10B+ market cap"
+                                },
+                                "correct": "C",
+                                "explanation": "Under MiCA, a stablecoin is deemed 'significant' if it meets any of these thresholds: 10 million or more holders, €5 billion or more in market capitalization, 2.5 million or more daily transactions, or €500 million or more in daily transaction value. Significant stablecoins face higher capital requirements and stricter regulatory oversight due to their systemic importance.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 6,
+                                "question": "What is Singapore's MAS (Monetary Authority of Singapore) approach to crypto regulation?",
+                                "options": {
+                                                "A": "Complete ban on all cryptocurrency activities like China",
+                                                "B": "Innovation hub with clear licensing framework for payment service providers",
+                                                "C": "No regulation; completely permissionless environment",
+                                                "D": "Only allows government-issued digital currencies"
+                                },
+                                "correct": "B",
+                                "explanation": "Singapore's MAS has positioned the country as an innovation hub with a clear, risk-based regulatory framework. Crypto service providers must obtain licenses under the Payment Services Act, meeting strict AML/CFT requirements. The approach balances fostering innovation with consumer protection and financial stability, making Singapore attractive for compliant crypto businesses while maintaining high regulatory standards.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 7,
+                                "question": "How does Hong Kong's regulatory approach to crypto differ from mainland China's?",
+                                "options": {
+                                                "A": "Hong Kong has a complete ban identical to mainland China",
+                                                "B": "Hong Kong allows licensed crypto exchanges for professional investors while China bans crypto entirely",
+                                                "C": "Hong Kong has no crypto regulation while China is highly regulated",
+                                                "D": "Both jurisdictions have identical permissive regulations"
+                                },
+                                "correct": "B",
+                                "explanation": "Despite being part of China, Hong Kong maintains a distinct regulatory approach under its 'one country, two systems' framework. While mainland China has completely banned cryptocurrency trading, mining, and services, Hong Kong's Securities and Futures Commission (SFC) allows licensed crypto exchanges to operate, primarily serving professional investors. This creates a stark regulatory contrast within the same country.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 8,
+                                "question": "What is the Travel Rule (FATF Recommendation 16)?",
+                                "options": {
+                                                "A": "A requirement that crypto transactions cannot cross international borders",
+                                                "B": "A requirement that VASPs share sender/receiver information for crypto transfers above certain thresholds",
+                                                "C": "A rule requiring all crypto users to register their travel plans",
+                                                "D": "A prohibition on using crypto for tourism-related payments"
+                                },
+                                "correct": "B",
+                                "explanation": "The Travel Rule, based on FATF (Financial Action Task Force) Recommendation 16, requires Virtual Asset Service Providers (VASPs) to obtain, hold, and transmit information about the originator and beneficiary for crypto transfers above certain thresholds (e.g., $1,000 for FATF guidance, €0 in EU). This mirrors traditional banking requirements and aims to prevent money laundering and terrorist financing.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 9,
+                                "question": "What information must be shared under the Travel Rule?",
+                                "options": {
+                                                "A": "Only the transaction amount and blockchain address",
+                                                "B": "Sender name, account number, address/ID, beneficiary name and account number",
+                                                "C": "Just the sender's email address and recipient wallet",
+                                                "D": "Only government-issued ID numbers for both parties"
+                                },
+                                "correct": "B",
+                                "explanation": "The Travel Rule requires VASPs to share comprehensive identifying information: sender's name, account number (wallet address), physical address or national ID; and beneficiary's name and account number. This creates a significant challenge for crypto's pseudonymous nature and raises questions about applying these requirements to non-custodial wallets and decentralized exchanges.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 10,
+                                "question": "What are the core components of AML/KYC requirements for crypto exchanges?",
+                                "options": {
+                                                "A": "Only requiring email addresses for all users",
+                                                "B": "Customer identification, verification, transaction monitoring, and suspicious activity reporting",
+                                                "C": "Collecting passport information but no ongoing monitoring",
+                                                "D": "Anonymous trading with voluntary disclosure"
+                                },
+                                "correct": "B",
+                                "explanation": "AML (Anti-Money Laundering) and KYC (Know Your Customer) requirements for crypto exchanges typically include: customer identification and verification (collecting government ID, proof of address), ongoing transaction monitoring, risk assessment, suspicious activity reporting (SARs) to authorities, and record keeping. These requirements mirror traditional financial institutions and aim to prevent illicit finance.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 11,
+                                "question": "What fundamental challenge does DeFi present to traditional regulation?",
+                                "options": {
+                                                "A": "DeFi protocols are too small to regulate",
+                                                "B": "There is often no identifiable operator, location, or central party to regulate",
+                                                "C": "DeFi uses different programming languages than traditional finance",
+                                                "D": "DeFi transactions happen too quickly for regulators to monitor"
+                                },
+                                "correct": "B",
+                                "explanation": "DeFi's decentralized nature creates a fundamental regulatory challenge: smart contracts execute autonomously without a central operator, protocols may have no legal entity or headquarters, and governance is often distributed across token holders globally. This makes it unclear who to regulate, where jurisdiction applies, and how to enforce compliance with traditional regulatory frameworks designed for centralized intermediaries.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 12,
+                                "question": "What is regulatory arbitrage in the crypto context?",
+                                "options": {
+                                                "A": "Trading price differences between regulated and unregulated exchanges",
+                                                "B": "Projects strategically choosing jurisdictions with favorable regulations to minimize compliance burden",
+                                                "C": "Arbitrating legal disputes between regulators in different countries",
+                                                "D": "Using arbitration clauses in smart contracts to avoid regulation"
+                                },
+                                "correct": "B",
+                                "explanation": "Regulatory arbitrage occurs when crypto projects strategically select jurisdictions with lighter, clearer, or more favorable regulations to minimize compliance costs and legal risk. For example, a project might incorporate in the Cayman Islands, operate from Singapore, and serve global users while avoiding jurisdictions with uncertain or hostile regulations. This 'jurisdiction shopping' exploits differences in regulatory approaches across countries.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 13,
+                                "question": "What is a regulatory sandbox in the context of crypto regulation?",
+                                "options": {
+                                                "A": "A physical testing facility for blockchain technology",
+                                                "B": "A framework allowing limited testing of innovative products under regulatory supervision with relaxed rules",
+                                                "C": "An online platform where regulators discuss cryptocurrency",
+                                                "D": "A banned area where no crypto activity is permitted"
+                                },
+                                "correct": "B",
+                                "explanation": "A regulatory sandbox is a controlled environment where fintech and crypto firms can test innovative products and services under regulatory supervision, often with certain regulatory requirements relaxed or waived temporarily. Countries like Singapore, the UK, and Switzerland have used sandboxes to encourage innovation while managing risk, allowing regulators to learn about new technologies before creating permanent rules.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 14,
+                                "question": "What is New York's BitLicense?",
+                                "options": {
+                                                "A": "A professional certification for Bitcoin developers",
+                                                "B": "A comprehensive license required for crypto businesses operating in New York, known for strict requirements",
+                                                "C": "A driver's license that can be purchased with Bitcoin",
+                                                "D": "A federal license required for all U.S. crypto exchanges"
+                                },
+                                "correct": "B",
+                                "explanation": "New York's BitLicense is a comprehensive regulatory framework introduced in 2015 requiring any entity engaged in virtual currency business activity involving New York residents to obtain a license. It has strict requirements for capital reserves, cybersecurity, AML compliance, and consumer protection. The BitLicense is known for being one of the most stringent state-level crypto regulations, causing some companies to exit the New York market rather than comply.",
+                                "difficulty": "easy"
+                },
+                {
+                                "id": 15,
+                                "question": "What is FinCEN's role in U.S. crypto regulation?",
+                                "options": {
+                                                "A": "Setting monetary policy for digital currencies",
+                                                "B": "Enforcing anti-money laundering and Bank Secrecy Act requirements for crypto businesses",
+                                                "C": "Providing insurance for cryptocurrency deposits",
+                                                "D": "Approving all new cryptocurrency token launches"
+                                },
+                                "correct": "B",
+                                "explanation": "FinCEN (Financial Crimes Enforcement Network) enforces anti-money laundering (AML) and counter-terrorist financing (CFT) regulations under the Bank Secrecy Act for crypto businesses. It requires crypto exchanges and certain other service providers to register as Money Services Businesses (MSBs), implement KYC/AML programs, file Suspicious Activity Reports (SARs), and maintain transaction records. FinCEN has been particularly active in enforcement actions against non-compliant exchanges.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 16,
+                                "question": "How does the Bank Secrecy Act apply to cryptocurrency businesses?",
+                                "options": {
+                                                "A": "It requires all crypto transactions to be kept completely secret",
+                                                "B": "It mandates reporting of transactions above certain thresholds and suspicious activities to government agencies",
+                                                "C": "It prohibits banks from having any relationship with crypto companies",
+                                                "D": "It only applies to traditional banks, not crypto businesses"
+                                },
+                                "correct": "B",
+                                "explanation": "The Bank Secrecy Act (BSA) requires crypto businesses classified as Money Services Businesses to report certain transactions and maintain records to help detect money laundering. This includes filing Currency Transaction Reports (CTRs) for transactions over $10,000, Suspicious Activity Reports (SARs) for potentially illicit activity, and maintaining comprehensive transaction records. FinCEN enforces BSA compliance for crypto businesses.",
+                                "difficulty": "medium"
+                },
+                {
+                                "id": 17,
+                                "question": "What are common securities registration exemptions used by crypto projects?",
+                                "options": {
+                                                "A": "No exemptions exist; all securities must be fully registered",
+                                                "B": "Regulation D (private placements), Regulation A+ (mini-IPO), and Regulation S (non-U.S. offerings)",
+                                                "C": "Projects can self-declare exemption without filing anything",
+                                                "D": "All crypto tokens are automatically exempt as utility tokens"
+                                },
+                                "correct": "B",
+                                "explanation": "Crypto projects determined to be selling securities often use exemptions to avoid full SEC registration: Regulation D (Rule 506) allows private placements to accredited investors; Regulation A+ allows offerings up to $75M with lighter disclosure; Regulation S allows sales outside the U.S. to non-U.S. persons. However, these exemptions have specific requirements and limitations on resale, and misusing them can result in enforcement actions.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 18,
+                                "question": "What licensing requirements typically apply to crypto exchanges?",
+                                "options": {
+                                                "A": "No licenses are required; exchanges operate freely worldwide",
+                                                "B": "Money transmitter licenses, securities dealer licenses (if trading securities), and AML/KYC compliance",
+                                                "C": "Only a business registration certificate is needed",
+                                                "D": "Exchanges only need approval from blockchain developers"
+                                },
+                                "correct": "B",
+                                "explanation": "Crypto exchanges typically need multiple licenses depending on their services and jurisdiction: money transmitter licenses in each U.S. state they serve, broker-dealer registration if trading securities (per SEC), registration as a Money Services Business with FinCEN, and compliance with AML/KYC requirements. In other jurisdictions like the EU (under MiCA) or Singapore (MAS), they need specific crypto service provider licenses. The multi-layered requirements create significant compliance costs.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 19,
+                                "question": "What are the main custody regulation challenges for crypto assets?",
+                                "options": {
+                                                "A": "Custodians must physically store crypto in vaults like gold",
+                                                "B": "Determining who can legally custody crypto, key management standards, and insurance requirements",
+                                                "C": "Custody is completely unregulated with no requirements",
+                                                "D": "Only government entities can custody crypto assets"
+                                },
+                                "correct": "B",
+                                "explanation": "Crypto custody faces unique regulatory challenges: determining which entities can legally custody crypto assets (banks, qualified custodians, trust companies); establishing security standards for private key management and storage; insurance requirements to protect against theft or loss; and segregation of customer assets. Regulatory frameworks vary by jurisdiction, with the U.S. SEC, OCC, and state regulators all having different requirements and guidance.",
+                                "difficulty": "hard"
+                },
+                {
+                                "id": 20,
+                                "question": "What trend characterizes the future of crypto regulation globally?",
+                                "options": {
+                                                "A": "Complete global deregulation and elimination of all rules",
+                                                "B": "Movement toward comprehensive, coordinated frameworks with focus on stablecoins and consumer protection",
+                                                "C": "All countries adopting identical crypto bans like China",
+                                                "D": "Regulation remaining completely fragmented with no harmonization efforts"
+                                },
+                                "correct": "B",
+                                "explanation": "The regulatory trend is toward more comprehensive frameworks (like MiCA) rather than patchwork enforcement, with particular focus on stablecoins (seen as systemically important), consumer protection, and AML/CFT compliance. International coordination through bodies like FATF and G20 is increasing, though significant jurisdictional differences remain. The challenge is creating clear rules that enable innovation while protecting consumers and financial stability. DeFi regulation remains the most uncertain frontier.",
+                                "difficulty": "medium"
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

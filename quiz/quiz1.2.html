@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 1.2: Financial System Pain Points | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 1.2: Financial System Pain Points</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 1.2: Financial System Pain Points</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                                "id": 1,
+                                "difficulty": "easy",
+                                "question": "As of May 2024, how long does it typically take for a stock trade to settle in the United States?",
+                                "options": {
+                                                "A": "Same day (T+0)",
+                                                "B": "One business day (T+1)",
+                                                "C": "Two business days (T+2)",
+                                                "D": "Five business days (T+5)"
+                                },
+                                "correct": "B",
+                                "explanation": "Since May 2024, stock trades settle in T+1 (one business day), reduced from the previous T+2 standard. This improvement reduces counterparty risk but settlement still takes time due to multiple intermediaries and batch processing systems."
+                },
+                {
+                                "id": 2,
+                                "difficulty": "easy",
+                                "question": "Approximately how many adults globally have no bank account?",
+                                "options": {
+                                                "A": "500 million",
+                                                "B": "1.4 billion",
+                                                "C": "3 billion",
+                                                "D": "5 billion"
+                                },
+                                "correct": "B",
+                                "explanation": "1.4 billion adults globally are unbanked, with an additional 1+ billion who are underbanked. This represents a massive financial exclusion problem where those who need financial services most have the least access to them."
+                },
+                {
+                                "id": 3,
+                                "difficulty": "easy",
+                                "question": "What is the estimated annual value of the global remittance market?",
+                                "options": {
+                                                "A": "$100 billion",
+                                                "B": "$250 billion",
+                                                "C": "$700+ billion",
+                                                "D": "$1.5 trillion"
+                                },
+                                "correct": "C",
+                                "explanation": "The global remittance market exceeds $700 billion annually, with over $50 billion lost to fees. This disproportionately affects migrant workers sending money home to their families."
+                },
+                {
+                                "id": 4,
+                                "difficulty": "medium",
+                                "question": "Which of the following is NOT a primary reason why traditional financial settlement is slow?",
+                                "options": {
+                                                "A": "Multiple intermediaries in the transaction chain",
+                                                "B": "Batch processing rather than real-time systems",
+                                                "C": "Timezone differences between countries",
+                                                "D": "Blockchain consensus mechanisms"
+                                },
+                                "correct": "D",
+                                "explanation": "Blockchain consensus mechanisms are actually part of newer solutions, not causes of traditional system slowness. Traditional settlement is slow due to multiple intermediaries, batch processing cycles, timezone mismatches, manual compliance checks, and legacy systems from the 1970s."
+                },
+                {
+                                "id": 5,
+                                "difficulty": "medium",
+                                "question": "According to the course material, what is a typical cost to send $200 internationally via traditional bank wire?",
+                                "options": {
+                                                "A": "$5-10",
+                                                "B": "$10-20",
+                                                "C": "$35-50",
+                                                "D": "$75-100"
+                                },
+                                "correct": "C",
+                                "explanation": "Traditional bank wires for $200 international transfers typically cost $35-50, making them the most expensive option compared to services like Western Union ($20-30), Wise ($5-10), or cryptocurrency ($0.50-2)."
+                },
+                {
+                                "id": 6,
+                                "difficulty": "medium",
+                                "question": "What does 'information asymmetry' in finance refer to?",
+                                "options": {
+                                                "A": "Different time zones causing information delays",
+                                                "B": "One party having more information than the other",
+                                                "C": "Asymmetric encryption methods used in security",
+                                                "D": "Unequal distribution of computing power"
+                                },
+                                "correct": "B",
+                                "explanation": "Information asymmetry occurs when one party in a transaction knows more than the other. In finance, this typically favors institutions over retail customers, who often don't know the true costs, risks, pricing mechanisms, or algorithmic decisions affecting their financial products."
+                },
+                {
+                                "id": 7,
+                                "difficulty": "easy",
+                                "question": "During what hours do traditional banks typically operate?",
+                                "options": {
+                                                "A": "24/7 including weekends",
+                                                "B": "9am-5pm weekdays only",
+                                                "C": "8am-8pm seven days a week",
+                                                "D": "6am-10pm weekdays only"
+                                },
+                                "correct": "B",
+                                "explanation": "Traditional banks typically operate 9am-5pm on weekdays only, creating significant friction for global commerce that operates 24/7. This limited operating schedule causes delays, cash flow problems, and misalignment with international business needs."
+                },
+                {
+                                "id": 8,
+                                "difficulty": "hard",
+                                "question": "Why are friction costs in traditional finance considered 'regressive'?",
+                                "options": {
+                                                "A": "They decrease over time as technology improves",
+                                                "B": "They hurt those with less money more than those with more",
+                                                "C": "They cause the financial system to move backward",
+                                                "D": "They only affect developing countries"
+                                },
+                                "correct": "B",
+                                "explanation": "Friction costs are regressive because they disproportionately impact people with less money. For example, a $30 fee on a $200 remittance represents 15% of the transaction for a low-income worker, while the same fee is negligible for a high-net-worth individual making a $50,000 transfer."
+                },
+                {
+                                "id": 9,
+                                "difficulty": "medium",
+                                "question": "What percentage of US adults are considered 'underbanked' according to the course?",
+                                "options": {
+                                                "A": "3%",
+                                                "B": "6%",
+                                                "C": "12%",
+                                                "D": "18%"
+                                },
+                                "correct": "D",
+                                "explanation": "In the US, 6% are unbanked and 18% are underbanked. Being underbanked means having limited access to financial services, often relying on alternative financial services like check cashing services, payday loans, or prepaid cards."
+                },
+                {
+                                "id": 10,
+                                "difficulty": "hard",
+                                "question": "Which friction point is primarily addressed by the development of 24/7 digital infrastructure?",
+                                "options": {
+                                                "A": "High cross-border fees",
+                                                "B": "Information asymmetry",
+                                                "C": "Limited operating hours",
+                                                "D": "Financial exclusion"
+                                },
+                                "correct": "C",
+                                "explanation": "24/7 digital infrastructure directly addresses the friction of limited banking hours. Traditional finance operates only during business hours with batch processing cycles, creating delays for global businesses. Digital systems can operate continuously without timezone constraints."
+                },
+                {
+                                "id": 11,
+                                "difficulty": "medium",
+                                "question": "What is a correspondent bank's role in international wire transfers?",
+                                "options": {
+                                                "A": "It stores encrypted copies of all transactions",
+                                                "B": "It acts as an intermediary between banks that don't have direct relationships",
+                                                "C": "It provides insurance for failed transactions",
+                                                "D": "It converts between different blockchain protocols"
+                                },
+                                "correct": "B",
+                                "explanation": "Correspondent banks act as intermediaries in the international payment chain, facilitating transfers between banks that don't have direct relationships. This adds time, cost, and complexity to cross-border payments, which is why transfers can take 3-5 days."
+                },
+                {
+                                "id": 12,
+                                "difficulty": "hard",
+                                "question": "Why does system fragmentation in traditional finance slow innovation?",
+                                "options": {
+                                                "A": "Too many cryptocurrencies compete with each other",
+                                                "B": "New solutions must integrate with incompatible legacy systems",
+                                                "C": "Blockchain consensus requires all nodes to agree",
+                                                "D": "Regulators prohibit cross-system integration"
+                                },
+                                "correct": "B",
+                                "explanation": "System fragmentation means different payment networks (Visa, Mastercard, ACH, SWIFT, Fedwire, SEPA) are incompatible with each other. Moving money between systems is expensive, data doesn't flow smoothly, and innovations must work with legacy systems, creating lock-in effects and slowing progress."
+                },
+                {
+                                "id": 13,
+                                "difficulty": "easy",
+                                "question": "Which of the following is an example of opacity in financial services?",
+                                "options": {
+                                                "A": "Public disclosure of bank earnings reports",
+                                                "B": "Transparent blockchain transaction histories",
+                                                "C": "Hidden fees in mutual fund expense ratios",
+                                                "D": "Open-source smart contract code"
+                                },
+                                "correct": "C",
+                                "explanation": "Hidden fees in mutual fund expense ratios exemplify opacity in finance. Customers often don't know the true costs of financial products, where their money goes, how prices are determined, or what risks they're taking. Other examples include payment for order flow and insurance pricing algorithms."
+                },
+                {
+                                "id": 14,
+                                "difficulty": "medium",
+                                "question": "According to the course, how long does an international wire transfer typically take?",
+                                "options": {
+                                                "A": "Instant to a few minutes",
+                                                "B": "1-5 business days",
+                                                "C": "7-10 business days",
+                                                "D": "2-4 weeks"
+                                },
+                                "correct": "B",
+                                "explanation": "International wire transfers typically take 1-5 business days to complete. This extended timeline results from multiple intermediaries (your bank, correspondent banks, SWIFT network, recipient's correspondent bank, recipient's bank), timezone differences, and manual compliance checks."
+                },
+                {
+                                "id": 15,
+                                "difficulty": "hard",
+                                "question": "What is the primary reason why ACH transfers take 2-3 business days despite appearing 'instant' to users?",
+                                "options": {
+                                                "A": "Government regulations require a waiting period",
+                                                "B": "Banks hold funds to earn interest",
+                                                "C": "Batch processing cycles run behind the scenes",
+                                                "D": "Blockchain confirmation times are slow"
+                                },
+                                "correct": "C",
+                                "explanation": "ACH transfers take 2-3 business days because they use batch processing rather than real-time settlement. Although the user interface may show an immediate transfer, the actual movement of funds happens through scheduled batch cycles, typically processed overnight or at specific intervals."
+                },
+                {
+                                "id": 16,
+                                "difficulty": "medium",
+                                "question": "Which group bears the primary cost of slow settlement in financial markets?",
+                                "options": {
+                                                "A": "Retail consumers making small purchases",
+                                                "B": "Businesses and traders with tied-up capital",
+                                                "C": "Government regulatory agencies",
+                                                "D": "Technology infrastructure providers"
+                                },
+                                "correct": "B",
+                                "explanation": "Businesses and traders bear the primary cost of slow settlement through tied-up capital and missed opportunities. When funds are in settlement limbo for days, companies cannot use that capital for other purposes, creating opportunity costs and requiring larger cash reserves."
+                },
+                {
+                                "id": 17,
+                                "difficulty": "hard",
+                                "question": "What innovation category is described as the solution to 'friction as opportunity' for financial exclusion?",
+                                "options": {
+                                                "A": "Real-time payment systems and instant settlement",
+                                                "B": "Transparent protocols and open data",
+                                                "C": "Mobile money and neobanks",
+                                                "D": "APIs and interoperability standards"
+                                },
+                                "correct": "C",
+                                "explanation": "Mobile money and neobanks are innovations specifically targeting financial exclusion. They reduce barriers like minimum balances, geographic distance, and documentation requirements, making financial services accessible to previously excluded populations through mobile-first approaches."
+                },
+                {
+                                "id": 18,
+                                "difficulty": "easy",
+                                "question": "What does the course identify as moving $9.6 trillion daily?",
+                                "options": {
+                                                "A": "The cryptocurrency market",
+                                                "B": "The global financial system",
+                                                "C": "The US stock market alone",
+                                                "D": "International remittances"
+                                },
+                                "correct": "B",
+                                "explanation": "The global financial system moves $9.6 trillion daily, serving billions of people and rarely failing catastrophically. Despite its impressive scale and reliability, the system still has significant frictions that create opportunities for innovation."
+                },
+                {
+                                "id": 19,
+                                "difficulty": "hard",
+                                "question": "Which friction point do transparent protocols and open data primarily address?",
+                                "options": {
+                                                "A": "Slow settlement speeds",
+                                                "B": "High cross-border fees",
+                                                "C": "Opacity and information asymmetry",
+                                                "D": "Limited operating hours"
+                                },
+                                "correct": "C",
+                                "explanation": "Transparent protocols and open data directly address opacity and information asymmetry in traditional finance. By making transaction logic, pricing mechanisms, and system operations visible and auditable, these solutions help level the informational playing field between institutions and users."
+                },
+                {
+                                "id": 20,
+                                "difficulty": "medium",
+                                "question": "What percentage of the $700 billion global remittance market is lost to fees annually?",
+                                "options": {
+                                                "A": "$10 billion (1.4%)",
+                                                "B": "$25 billion (3.6%)",
+                                                "C": "$50+ billion (7%+)",
+                                                "D": "$100 billion (14%)"
+                                },
+                                "correct": "C",
+                                "explanation": "Over $50 billion is lost to fees annually from the $700+ billion remittance market, representing more than 7% of the total. This substantial cost burden falls primarily on migrant workers sending money to support their families, making it a significant target for cost-reducing innovations."
+                }
+]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>
