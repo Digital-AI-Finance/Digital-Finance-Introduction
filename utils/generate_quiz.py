@@ -694,12 +694,12 @@ class QuizGenerator:
 
         # Auto-generate title from path if not provided
         if not title:
-            # Extract from folder name: 01_introduction -> Quiz 1: Introduction
+            # Extract from folder name: T1.1_introduction -> Quiz 1.1: Introduction
             folder_name = json_path.parent.name
-            match = re.match(r'(\d+)_(.+)', folder_name)
-            if match:
-                num, name = match.groups()
-                title = f"Quiz {int(num)}: {name.replace('_', ' ').title()}"
+            topic_match = re.match(r'T(\d+\.\d+)_(.+)', folder_name)
+            if topic_match:
+                num, name = topic_match.groups()
+                title = f"Quiz {num}: {name.replace('_', ' ').title()}"
             else:
                 title = f"Quiz: {folder_name.replace('_', ' ').title()}"
 
@@ -724,9 +724,9 @@ def find_question_files(course_dir: Path) -> list:
     """Find all questions.json files in a course directory."""
     question_files = []
 
-    # Pattern: XX_topic_name/questions.json
+    # Pattern: TN.N_topic_name/questions.json
     for folder in sorted(course_dir.iterdir()):
-        if folder.is_dir() and re.match(r'(\d{2}|A[0-3])_', folder.name):
+        if folder.is_dir() and re.match(r'T\d+\.\d+_', folder.name):
             json_path = folder / 'questions.json'
             if json_path.exists():
                 question_files.append(json_path)
@@ -745,16 +745,12 @@ def generate_all_quizzes(
     generated = []
 
     for json_path in question_files:
-        # Determine output path: quiz/quiz1.html, quiz/quiz2.html, etc.
+        # Determine output path: quiz/quiz1.1.html, quiz/quiz2.3.html, etc.
         folder_name = json_path.parent.name
-        match = re.match(r'(\d+)_', folder_name)
-        adv_match = re.match(r'(A[0-3])_', folder_name)
-        if match:
-            num = int(match.group(1))
-            output_path = output_dir / f'quiz{num}.html'
-        elif adv_match:
-            module = adv_match.group(1)
-            output_path = output_dir / f'quiz{module}.html'
+        topic_match = re.match(r'T(\d+\.\d+)_', folder_name)
+        if topic_match:
+            topic_num = topic_match.group(1)  # e.g., "1.1", "2.3"
+            output_path = output_dir / f'quiz{topic_num}.html'
         else:
             output_path = output_dir / f'{folder_name}_quiz.html'
 
