@@ -29,17 +29,18 @@
 \begin{frame}{Learning Objectives}
 \begin{block}{By the end of this topic, you will be able to:}
 \begin{enumerate}
-    \item \textbf{Explain} how Automated Market Makers (AMMs) price assets using the constant product formula $x \cdot y = k$
+    \item \textbf{Explain} how Automated Market Makers (AMMs) price assets using the constant product formula $x \cdot y = k$ (think of a see-saw: when one side goes down, the other must go up to stay balanced)
     \item \textbf{Calculate} price impact and slippage for trades of different sizes
     \item \textbf{Understand} algorithmic interest rate mechanisms in DeFi lending protocols
     \item \textbf{Compute} impermanent loss for various price change scenarios
+    \item[]{\footnotesize \textit{Impermanent Loss = temporary loss from prices changing while you're providing liquidity---like selling low and buying high automatically}}
     \item \textbf{Analyze} the composability of DeFi protocols (``money legos'')
     \item \textbf{Evaluate} flash loans as both innovation and attack vector
 \end{enumerate}
 \end{block}
 
 \vspace{0.3cm}
-\textbf{Key Skills:} AMM mathematics, LP token mechanics, risk assessment
+\textbf{Key Skills:} AMM mathematics, LP token mechanics (LP = Liquidity Provider), risk assessment
 
 \bottomnote{Prerequisite: Understanding of smart contracts from T4.1}
 \end{frame}
@@ -51,6 +52,16 @@
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{From Topic 4.1 -- Key Concepts:}
+
+\vspace{0.2cm}
+\begin{alertblock}{Quick Check: Do You Remember?}
+\begin{itemize}
+    \item What is a smart contract?
+    \item Why can't you change code after deployment?
+\end{itemize}
+\end{alertblock}
+
+\vspace{0.2cm}
 \begin{itemize}
     \item Smart contracts are self-executing programs on blockchain
     \item \textbf{Deterministic}: Same input $\rightarrow$ same output
@@ -132,6 +143,9 @@ How do we build trading, lending, and yield generation using only smart contract
 \begin{column}{0.55\textwidth}
 \begin{block}{Definition}
 \textbf{Decentralized Finance (DeFi)} refers to financial services built on public blockchains that operate without traditional intermediaries.
+
+\vspace{0.2cm}
+\textit{Concrete Example:} Imagine borrowing money directly from strangers worldwide with no bank in the middle. The smart contract automatically manages collateral, interest rates, and repayment.
 \end{block}
 
 \vspace{0.3cm}
@@ -147,7 +161,8 @@ How do we build trading, lending, and yield generation using only smart contract
 \begin{column}{0.42\textwidth}
 \textbf{DeFi Ecosystem (2024):}
 \begin{itemize}
-    \item Total Value Locked: \$50B+
+    \item Total Value Locked (TVL = Total Value Locked = money deposited in DeFi protocols): \$50B+
+    \item[]{\footnotesize \textcolor{dfgray}{\textit{That's more than the GDP of some countries!}}}
     \item Daily trading volume: \$2B+
     \item Active protocols: 500+
     \item Supported chains: 50+
@@ -174,8 +189,8 @@ How do we build trading, lending, and yield generation using only smart contract
 \toprule
 \textbf{Feature} & \textbf{Traditional Finance} & \textbf{DeFi} \\
 \midrule
-Access & KYC, credit checks & Wallet address only \\
-Hours & Business hours, T+2 settlement & 24/7/365, instant \\
+Access & KYC (Know Your Customer = proving you are who you say you are), credit checks & Wallet address only \\
+Hours & Business hours, T+2 settlement (2 days to finalize) & 24/7/365, instant \\
 Custody & Institutions hold assets & User self-custody \\
 Transparency & Private ledgers & Public blockchain \\
 Innovation & Regulatory approval needed & Permissionless deployment \\
@@ -228,7 +243,7 @@ DeFi protocols are like ``money legos''---they can be combined in ways their cre
 \begin{column}{0.48\textwidth}
 \textbf{Traditional Exchange:}
 \begin{itemize}
-    \item Order book with bids/asks
+    \item Order book with bids/asks (like an auction where buyers and sellers post their desired prices)
     \item Market makers provide liquidity
     \item Requires active management
     \item Centralized matching engine
@@ -269,11 +284,48 @@ DeFi protocols are like ``money legos''---they can be combined in ways their cre
 \end{columns}
 
 \vspace{0.2cm}
-\textbf{Key Protocols:} Uniswap, SushiSwap, Curve, Balancer
+\textbf{Key Protocols:}
+\begin{itemize}
+    \item \textbf{Uniswap}: Most popular AMM, simple constant product formula
+    \item \textbf{SushiSwap}: Uniswap fork with community governance
+    \item \textbf{Curve}: Optimized for stablecoin swaps (low slippage)
+    \item \textbf{Balancer}: Multi-token pools with custom weights
+\end{itemize}
 \end{frame}
 
 % =====================================================================
-% SLIDE 9: THE CONSTANT PRODUCT FORMULA
+% SLIDE 9: FOLLOW THE MONEY WALKTHROUGH
+% =====================================================================
+\begin{frame}{Follow the Money: How AMMs Work (Step-by-Step)}
+\begin{block}{Scenario: You Want to Swap 1 ETH for USDC}
+\textbf{Initial Pool State:}
+\begin{itemize}
+    \item Pool has: 100 ETH + 300,000 USDC
+    \item Current price: 1 ETH = 3,000 USDC
+\end{itemize}
+\end{block}
+
+\textbf{Step 1:} You deposit 1 ETH into the pool
+\begin{itemize}
+    \item Pool now has: \textcolor{dfblue}{101 ETH} + 300,000 USDC
+\end{itemize}
+
+\textbf{Step 2:} The pool removes USDC to keep the product constant
+\begin{itemize}
+    \item Before: $100 \times 300,000 = 30,000,000$
+    \item After: $101 \times ? = 30,000,000$
+    \item Solve: $? = 30,000,000 \div 101 = 297,030$ USDC
+\end{itemize}
+
+\textbf{Step 3:} You receive the difference
+\begin{itemize}
+    \item USDC removed: $300,000 - 297,030 = \textcolor{dfgreen}{2,970 USDC}$
+    \item You get slightly less than 3,000 USDC due to price impact!
+\end{itemize}
+\end{frame}
+
+% =====================================================================
+% SLIDE 10: THE CONSTANT PRODUCT FORMULA
 % =====================================================================
 \begin{frame}{The Constant Product Formula: $x \cdot y = k$}
 \begin{columns}[T]
@@ -333,7 +385,7 @@ Larger trades move further along the curve, resulting in worse prices. This is c
 \end{frame}
 
 % =====================================================================
-% SLIDE 10: AMM NUMERICAL EXAMPLE
+% SLIDE 11: AMM NUMERICAL EXAMPLE
 % =====================================================================
 \begin{frame}{AMM Numerical Example}
 \begin{block}{Initial Pool State}
@@ -362,25 +414,28 @@ Larger trades move further along the curve, resulting in worse prices. This is c
 \end{frame}
 
 % =====================================================================
-% SLIDE 11: WHY SLIPPAGE GROWS NON-LINEARLY
+% SLIDE 12: WHY SLIPPAGE GROWS NON-LINEARLY
 % =====================================================================
 \begin{frame}{Why Larger Trades Have More Slippage}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Trade Size vs. Slippage:}
 \begin{center}
-\begin{tabular}{cc}
+\begin{tabular}{ccc}
 \toprule
-\textbf{Trade Size} & \textbf{Slippage} \\
+\textbf{Trade} & \textbf{Slippage} & \textbf{Cost} \\
 \midrule
-1 ETH (1\%) & 0.99\% \\
-5 ETH (5\%) & 4.76\% \\
-10 ETH (10\%) & 9.09\% \\
-20 ETH (20\%) & 16.67\% \\
-50 ETH (50\%) & 33.33\% \\
+1 ETH & 0.99\% & \$30 \\
+5 ETH & 4.76\% & \$714 \\
+10 ETH & 9.09\% & \$2,727 \\
+20 ETH & 16.67\% & \$10,000 \\
+50 ETH & 33.33\% & \$50,000 \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\vspace{0.2cm}
+{\footnotesize \textcolor{dfgray}{\textit{What This Costs You: Dollar amounts lost compared to no slippage (at \$3,000/ETH)}}}
 
 \vspace{0.3cm}
 \textbf{Key Insight:}
@@ -423,7 +478,7 @@ Deep liquidity pools (high TVL) have less slippage for the same trade size. Alwa
 \end{frame}
 
 % =====================================================================
-% SLIDE 12: LIQUIDITY POOL MECHANICS
+% SLIDE 13: LIQUIDITY POOL MECHANICS
 % =====================================================================
 \begin{frame}{Liquidity Pool Mechanics}
 \begin{center}
@@ -469,7 +524,7 @@ Deep liquidity pools (high TVL) have less slippage for the same trade size. Alwa
 \end{frame}
 
 % =====================================================================
-% SLIDE 13: LP TOKENS DEEP DIVE
+% SLIDE 14: LP TOKENS DEEP DIVE
 % =====================================================================
 \begin{frame}{LP Tokens: Ownership and Fee Accrual}
 \begin{columns}[T]
@@ -510,7 +565,7 @@ Fees aren't distributed separately---they accumulate in the pool. You receive yo
 \end{frame}
 
 % =====================================================================
-% SLIDE 14: IMPERMANENT LOSS EXPLAINED
+% SLIDE 15: IMPERMANENT LOSS EXPLAINED
 % =====================================================================
 \begin{frame}{Impermanent Loss Explained}
 \begin{block}{Definition}
@@ -534,7 +589,7 @@ Loss is ``impermanent'' because if prices return to original levels, the loss di
 \end{frame}
 
 % =====================================================================
-% SLIDE 15: IMPERMANENT LOSS FORMULA
+% SLIDE 16: IMPERMANENT LOSS FORMULA
 % =====================================================================
 \begin{frame}{Impermanent Loss Formula and Visualization}
 \begin{columns}[T]
@@ -603,7 +658,7 @@ where $r = \frac{P_1}{P_0}$ (price ratio)
 \end{frame}
 
 % =====================================================================
-% SLIDE 16: IL WORKED EXAMPLE
+% SLIDE 17: IL WORKED EXAMPLE
 % =====================================================================
 \begin{frame}{Impermanent Loss: Worked Example}
 \begin{columns}[T]
@@ -658,7 +713,7 @@ Trading fees must exceed \$343 to be profitable!
 \end{frame}
 
 % =====================================================================
-% SLIDE 17: ARBITRAGE IN AMMS
+% SLIDE 18: ARBITRAGE IN AMMS
 % =====================================================================
 \begin{frame}{The Role of Arbitrage in AMMs}
 \begin{columns}[T]
@@ -710,7 +765,7 @@ Arbitrage is the mechanism that keeps AMM prices aligned with external markets--
 \end{frame}
 
 % =====================================================================
-% SLIDE 18: DEFI LENDING OVERVIEW
+% SLIDE 19: DEFI LENDING OVERVIEW
 % =====================================================================
 \begin{frame}{DeFi Lending: How It Works}
 \begin{center}
@@ -753,7 +808,7 @@ Arbitrage is the mechanism that keeps AMM prices aligned with external markets--
 \end{frame}
 
 % =====================================================================
-% SLIDE 19: ALGORITHMIC INTEREST RATES
+% SLIDE 20: ALGORITHMIC INTEREST RATES
 % =====================================================================
 \begin{frame}{Algorithmic Interest Rates}
 \begin{columns}[T]
@@ -811,7 +866,7 @@ R_{\text{supply}} = R_{\text{borrow}} \times U \times (1 - \text{fee})
 \end{frame}
 
 % =====================================================================
-% SLIDE 20: LENDING EXAMPLE
+% SLIDE 21: LENDING EXAMPLE
 % =====================================================================
 \begin{frame}{DeFi Lending: Worked Example}
 \begin{columns}[T]
@@ -856,7 +911,7 @@ If ETH drops 40\% to \$1,800:
 \end{frame}
 
 % =====================================================================
-% SLIDE 21: FLASH LOANS
+% SLIDE 22: FLASH LOANS
 % =====================================================================
 \begin{frame}{Flash Loans: Innovation or Attack Vector?}
 \begin{block}{Definition}
@@ -891,7 +946,7 @@ Flash loans democratize access to capital but have enabled over \$500M in DeFi e
 \end{frame}
 
 % =====================================================================
-% SLIDE 22: COMPOSABILITY - MONEY LEGOS
+% SLIDE 23: COMPOSABILITY - MONEY LEGOS
 % =====================================================================
 \begin{frame}{Composability: The ``Money Legos'' Concept}
 \begin{columns}[T]
@@ -941,7 +996,7 @@ Composability creates \textit{systemic risk}---a bug in one protocol can cascade
 \end{frame}
 
 % =====================================================================
-% SLIDE 23: TVL AND DEFI METRICS
+% SLIDE 24: TVL AND DEFI METRICS
 % =====================================================================
 \begin{frame}{Understanding DeFi Metrics}
 \begin{columns}[T]
@@ -991,7 +1046,7 @@ Curve & \$2B+ \\
 \end{frame}
 
 % =====================================================================
-% SLIDE 24: DEFI RISKS
+% SLIDE 25: DEFI RISKS
 % =====================================================================
 \begin{frame}{DeFi Risks: A Complete Picture}
 \begin{columns}[T]
@@ -1038,7 +1093,7 @@ DeFi doesn't eliminate risk---it transforms and redistributes it.
 \end{frame}
 
 % =====================================================================
-% SLIDE 25: HANDS-ON EXERCISE INTRO
+% SLIDE 26: HANDS-ON EXERCISE INTRO
 % =====================================================================
 \begin{frame}{Hands-On Exercise: NB09 -- AMM Simulation}
 \begin{center}
@@ -1067,7 +1122,7 @@ DeFi doesn't eliminate risk---it transforms and redistributes it.
 \end{frame}
 
 % =====================================================================
-% SLIDE 26: HANDS-ON EXERCISE PREVIEW
+% SLIDE 27: HANDS-ON EXERCISE PREVIEW
 % =====================================================================
 \begin{frame}[fragile]{NB09 Preview: Core AMM Functions}
 \begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
@@ -1096,7 +1151,7 @@ class SimpleAMM:
 \end{frame}
 
 % =====================================================================
-% SLIDE 27: DISCUSSION - DEFI IN PRACTICE
+% SLIDE 28: DISCUSSION - DEFI IN PRACTICE
 % =====================================================================
 \begin{frame}{Discussion: DeFi in Practice}
 \begin{block}{Case Study: The 2020 DeFi Summer}
@@ -1119,7 +1174,7 @@ class SimpleAMM:
 \end{frame}
 
 % =====================================================================
-% SLIDE 28: APPLICATION - REAL WORLD USE CASES
+% SLIDE 29: APPLICATION - REAL WORLD USE CASES
 % =====================================================================
 \begin{frame}{Real-World DeFi Applications}
 \begin{columns}[T]
@@ -1163,7 +1218,7 @@ class SimpleAMM:
 \end{frame}
 
 % =====================================================================
-% SLIDE 29: CRITICAL ANALYSIS
+% SLIDE 30: CRITICAL ANALYSIS
 % =====================================================================
 \begin{frame}{Critical Analysis: Is DeFi Really Decentralized?}
 \begin{columns}[T]
@@ -1203,7 +1258,7 @@ DeFi is more accurately ``disintermediated'' than ``decentralized.'' It removes 
 \end{frame}
 
 % =====================================================================
-% SLIDE 30: FUTURE OF DEFI
+% SLIDE 31: FUTURE OF DEFI
 % =====================================================================
 \begin{frame}{The Future of DeFi}
 \begin{columns}[T]
@@ -1244,7 +1299,7 @@ Will DeFi remain a parallel financial system, or will it merge with traditional 
 \end{frame}
 
 % =====================================================================
-% SLIDE 31: EXECUTIVE SUMMARY
+% SLIDE 32: EXECUTIVE SUMMARY
 % =====================================================================
 \begin{frame}{Executive Summary}
 \begin{block}{Core Concepts}
@@ -1276,7 +1331,7 @@ Will DeFi remain a parallel financial system, or will it merge with traditional 
 \end{frame}
 
 % =====================================================================
-% SLIDE 32: CONCEPT MAP
+% SLIDE 33: CONCEPT MAP
 % =====================================================================
 \begin{frame}{Concept Map: DeFi Primitives}
 \begin{center}
@@ -1316,7 +1371,7 @@ Will DeFi remain a parallel financial system, or will it merge with traditional 
 \end{frame}
 
 % =====================================================================
-% SLIDE 33: KEY TERMS (PART 1)
+% SLIDE 34: KEY TERMS (PART 1)
 % =====================================================================
 \begin{frame}{Key Terms (Part 1)}
 \begin{columns}[T]
@@ -1357,7 +1412,7 @@ Percentage of supplied assets currently borrowed.
 \end{frame}
 
 % =====================================================================
-% SLIDE 34: KEY TERMS (PART 2)
+% SLIDE 35: KEY TERMS (PART 2)
 % =====================================================================
 \begin{frame}{Key Terms (Part 2)}
 \begin{columns}[T]
@@ -1398,7 +1453,7 @@ MEV attack that front-runs and back-runs a victim's trade.
 \end{frame}
 
 % =====================================================================
-% SLIDE 35: COMMON MISCONCEPTIONS
+% SLIDE 36: COMMON MISCONCEPTIONS
 % =====================================================================
 \begin{frame}{Common Misconceptions}
 \begin{columns}[T]
@@ -1443,7 +1498,7 @@ MEV attack that front-runs and back-runs a victim's trade.
 \end{frame}
 
 % =====================================================================
-% SLIDE 36: SELF-ASSESSMENT QUESTIONS (PART 1)
+% SLIDE 37: SELF-ASSESSMENT QUESTIONS (PART 1)
 % =====================================================================
 \begin{frame}{Self-Assessment Questions (1/2)}
 \begin{block}{Question 1: Liquidity Pools}
@@ -1469,7 +1524,7 @@ What is the mathematical formula for impermanent loss given price ratio $r$?
 \end{frame}
 
 % =====================================================================
-% SLIDE 37: SELF-ASSESSMENT QUESTIONS (PART 2)
+% SLIDE 38: SELF-ASSESSMENT QUESTIONS (PART 2)
 % =====================================================================
 \begin{frame}{Self-Assessment Questions (2/2)}
 \begin{block}{Question 3: Fee Accrual Mechanism}
@@ -1492,7 +1547,7 @@ How do trading fees accrue to LP token holders?
 \end{frame}
 
 % =====================================================================
-% SLIDE 38: WHAT'S NEXT
+% SLIDE 39: WHAT'S NEXT
 % =====================================================================
 \begin{frame}{What's Next: Topic 4.3 -- Stablecoins}
 \begin{columns}[T]
@@ -1545,7 +1600,7 @@ How do trading fees accrue to LP token holders?
 \end{frame}
 
 % =====================================================================
-% SLIDE 39: RESOURCES
+% SLIDE 40: RESOURCES
 % =====================================================================
 \begin{frame}{Resources for Further Learning}
 \begin{columns}[T]
@@ -1591,7 +1646,7 @@ How do trading fees accrue to LP token holders?
 \end{frame}
 
 % =====================================================================
-% SLIDE 40: QUESTIONS
+% SLIDE 41: QUESTIONS
 % =====================================================================
 \begin{frame}{Questions?}
 \begin{center}

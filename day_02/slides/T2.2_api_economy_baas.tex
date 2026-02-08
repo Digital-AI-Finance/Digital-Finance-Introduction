@@ -5,14 +5,14 @@
 \subtitle{How Non-Banks Offer Financial Services}
 \author{Joerg Osterrieder}
 \institute{Digital Finance}
-\date{2025}
+\date{Digital Finance}
 
 \begin{document}
 
 % ============================================================================
 % SLIDE 1: TITLE
 % ============================================================================
-\begin{frame}
+\begin{frame}[plain]
 \titlepage
 \end{frame}
 
@@ -22,21 +22,21 @@
 \begin{frame}{Learning Objectives}
 \begin{block}{By the end of this topic, you will be able to:}
 \begin{enumerate}
-\item \textbf{Define} what an API is and explain its role in modern finance
-\item \textbf{Describe} how Open Banking regulations (PSD2, UK Open Banking) work
-\item \textbf{Explain} the concept of Banking-as-a-Service (BaaS) and its business model
-\item \textbf{Understand} how embedded finance enables non-banks to offer financial products
-\item \textbf{Implement} basic API calls using Python (in Notebook NB03)
-\item \textbf{Analyze} the API value chain and revenue distribution
+\item \textbf{Define} what an API is and explain why it matters for modern finance
+\item \textbf{Explain} how open banking regulation enables third-party access to banking data
+\item \textbf{Describe} the Banking-as-a-Service model and how it separates licenses from experiences
+\item \textbf{Analyze} how embedded finance allows non-banks to offer financial products
+\item \textbf{Compare} token-based security with traditional password sharing
+\item \textbf{Apply} open banking concepts through API simulation exercises (NB03)
 \end{enumerate}
 \end{block}
 
 \vspace{3mm}
-\textit{``APIs are the technical mechanism that enabled FinTech unbundling.''}
+\textbf{Key Competency}: Explain how APIs, open banking, and BaaS work together to let any company offer financial services --- and identify the risks involved.
 \end{frame}
 
 % ============================================================================
-% SLIDES 3-4: PREREQUISITES / BACKGROUND
+% SLIDE 3: PREREQUISITES
 % ============================================================================
 \begin{frame}{Prerequisites: What You Need to Know}
 \begin{columns}[T]
@@ -45,10 +45,10 @@
 
 This topic is self-contained. We will explain:
 \begin{itemize}
-\item What software ``talks'' to other software
-\item How the internet enables data exchange
-\item Basic concepts of authentication
-\item How financial transactions work digitally
+\item How software systems communicate with each other
+\item What it means to authenticate and authorize
+\item How data flows between a bank and a third party
+\item Why regulation matters for innovation
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -56,8 +56,8 @@ This topic is self-contained. We will explain:
 \begin{itemize}
 \item \textbf{Client-Server}: One system requests, another responds
 \item \textbf{Internet Protocol}: Rules for data transmission
-\item \textbf{Authentication}: Proving who you are
-\item \textbf{Authorization}: What you're allowed to do
+\item \textbf{Authentication}: Proving \textit{who} you are
+\item \textbf{Authorization}: Defining \textit{what} you are allowed to do
 \end{itemize}
 \end{block}
 \end{column}
@@ -65,18 +65,26 @@ This topic is self-contained. We will explain:
 
 \vspace{3mm}
 \begin{alertblock}{From Topic 2.1}
-Recall: Banks have traditionally been ``bundled'' --- offering all services under one roof. APIs enable ``unbundling.''
+Recall: Banks have traditionally been ``bundled'' --- offering all services under one roof. This topic explains \textit{how} APIs enable ``unbundling.''
 \end{alertblock}
 \end{frame}
 
-\begin{frame}{Background: The Traditional Banking Problem}
+% ============================================================================
+% SLIDE 4: THE TRADITIONAL BANKING PROBLEM
+% ============================================================================
+\begin{frame}{The Traditional Banking Problem}
+\begin{alertblock}{The Problem}
+Banks built closed, proprietary systems for decades. How could a startup innovate on top of banking infrastructure it could not access?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.2cm]
 % Traditional model
 \node (cust) [blockchain, fill=dfgreen!20] {Customer};
 \node (bank) [process, below of=cust, minimum width=8cm, minimum height=2cm, fill=dflightblue] {};
-\node at (bank.center) [align=center] {\textbf{Traditional Bank}\\(Deposits, Loans, Payments, Cards --- All In One)};
-\node (fintech) [blockchain, right of=bank, xshift=5.5cm, fill=dfred!20] {FinTech\\Startup};
+\node at (bank.center) [align=center] {\textbf{Traditional Bank}\\(Deposits, Loans, Payments, Cards -- All In One)};
+\node (fintech) [blockchain, right of=bank, xshift=5.5cm, fill=dfred!20, align=center] {FinTech\\Startup};
 
 % Problem arrows
 \draw[arrow, dashed, color=dfred] (fintech) -- node[above, font=\scriptsize] {Cannot access} (bank);
@@ -85,69 +93,73 @@ Recall: Banks have traditionally been ``bundled'' --- offering all services unde
 \end{center}
 
 \vspace{3mm}
-\textbf{The Problem:}
+\textbf{The Concept:}
 \begin{itemize}
-\item \textbf{Closed Systems}: Banks built proprietary technology for decades
-\item \textbf{No Standard Communication}: Each bank had different systems
-\item \textbf{Barrier to Innovation}: Startups couldn't build on banking infrastructure
-\item \textbf{Customer Lock-in}: Difficult to switch providers or use multiple services
+\item \textbf{Closed Systems}: Each bank built its own proprietary technology
+\item \textbf{No Standard Communication}: No common language between institutions
+\item \textbf{Barrier to Innovation}: Startups could not build on banking infrastructure
+\item \textbf{Customer Lock-in}: Switching providers meant starting from scratch
 \end{itemize}
 
-\vspace{3mm}
-\textbf{The Solution?} \textcolor{dfblue}{Application Programming Interfaces (APIs)}
+\vspace{2mm}
+\begin{block}{The Insight}
+The solution is \textcolor{dfblue}{Application Programming Interfaces (APIs)} --- standardized contracts that let any authorized software talk to bank systems.
+\end{block}
 \end{frame}
 
 % ============================================================================
-% SLIDES 5-24: CORE CONTENT
+% SLIDE 5: WHAT IS AN API?
 % ============================================================================
-\begin{frame}{What is an API? (Application Programming Interface)}
+\begin{frame}{What is an API?}
+\begin{alertblock}{The Problem}
+How do different software systems talk to each other without knowing each other's internal workings?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Non-Technical Definition:}
 \begin{itemize}
-\item A \textbf{contract} between software systems
-\item Defines what you can \textbf{request} and what you'll \textbf{receive}
-\item Like a restaurant menu: limited options, standardized format
+\item An API is a \textbf{contract} between software systems
+\item It defines what you can \textbf{request} and what you will \textbf{receive}
+\item Think of it like a restaurant menu: a fixed set of options, in a standardized format
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Banking API Example:}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-# Request
-GET /accounts/123/balance
-
-# Response
-{
-  "account_id": "123",
-  "balance": 5420.50,
-  "currency": "USD"
-}
-\end{lstlisting}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{API} stands for Application Programming Interface. \textit{Endpoint} = a specific address where you send requests (like a phone number). \textit{Request} = asking for data. \textit{Response} = the data you get back.}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{block}{Why APIs Matter for Finance}
 \begin{itemize}
-\item \textbf{Unbundling}: Break banks into components
-\item \textbf{Speed}: Integration in days, not months
-\item \textbf{Innovation}: Startups access banking infrastructure
-\item \textbf{Competition}: Level playing field
+\item \textbf{Unbundling}: Break a monolithic bank into separate, accessible components
+\item \textbf{Speed}: Integrate with banking infrastructure quickly instead of building from scratch
+\item \textbf{Innovation}: Any authorized developer can access banking capabilities
+\item \textbf{Competition}: A more level playing field between incumbents and startups
 \end{itemize}
 \end{block}
 \end{column}
 \end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+APIs let any developer access banking capabilities without building them --- just as a restaurant menu lets you order food without knowing how to cook.
+\end{block}
 \end{frame}
 
-\begin{frame}{API Analogy: The Restaurant Menu}
+% ============================================================================
+% SLIDE 6: THE RESTAURANT ANALOGY
+% ============================================================================
+\begin{frame}{The Restaurant Analogy}
 \begin{center}
 \begin{tikzpicture}[node distance=2cm]
 % Customer
-\node (customer) [blockchain, fill=dfgreen!20] {Customer\\(Client App)};
+\node (customer) [blockchain, fill=dfgreen!20, align=center] {Customer\\(Client App)};
 
 % Waiter
-\node (waiter) [process, right of=customer, xshift=2.5cm, fill=dforange!20] {Waiter\\(API)};
+\node (waiter) [process, right of=customer, xshift=2.5cm, fill=dforange!20, align=center] {Waiter\\(API)};
 
 % Kitchen
-\node (kitchen) [blockchain, right of=waiter, xshift=2.5cm, fill=dflightblue] {Kitchen\\(Bank Systems)};
+\node (kitchen) [blockchain, right of=waiter, xshift=2.5cm, fill=dflightblue, align=center] {Kitchen\\(Bank Systems)};
 
 % Arrows
 \draw[arrow] (customer) -- node[above, font=\scriptsize] {Order} node[below, font=\scriptsize] {(Request)} (waiter);
@@ -156,14 +168,14 @@ GET /accounts/123/balance
 \end{tikzpicture}
 \end{center}
 
-\vspace{5mm}
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.33\textwidth}
 \textbf{The Menu (API Spec)}
 \begin{itemize}
-\item Lists available items
-\item Fixed prices/formats
-\item Standardized orders
+\item Lists available options
+\item Standardized formats
+\item Clear descriptions of what you can order
 \end{itemize}
 \end{column}
 \begin{column}{0.33\textwidth}
@@ -178,14 +190,73 @@ GET /accounts/123/balance
 \textbf{The Kitchen (Bank)}
 \begin{itemize}
 \item Does the actual work
-\item Hidden from customer
-\item Can change internally
+\item Hidden from the customer
+\item Can change internally without affecting the menu
 \end{itemize}
 \end{column}
 \end{columns}
+
+\vspace{3mm}
+\textbf{Key takeaway}: You do not need to know how the kitchen works. You just need to know the menu.
 \end{frame}
 
+% ============================================================================
+% SLIDE 7: HOW APIs COMMUNICATE
+% ============================================================================
+\begin{frame}[fragile]{How APIs Communicate}
+\begin{alertblock}{The Problem}
+What does an API request actually look like? How does a FinTech app ``talk'' to a bank?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Four Core Operations:}
+\begin{itemize}
+\item \textbf{GET}: Read information\\
+  {\scriptsize (``Show me my account balance'')}
+\item \textbf{POST}: Create or send something\\
+  {\scriptsize (``Send a payment to Alice'')}
+\item \textbf{PUT}: Update existing information\\
+  {\scriptsize (``Change my address'')}
+\item \textbf{DELETE}: Remove something\\
+  {\scriptsize (``Cancel a pending transfer'')}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Simplified Example:}
+\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
+# Read account balance
+GET /accounts/balance
+
+# Send a payment
+POST /payments
+{
+  "recipient": "Alice",
+  "amount": "lunch money"
+}
+\end{lstlisting}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+These four operations --- read, create, update, delete --- cover nearly everything a financial application needs to do. The simplicity of this contract is what makes APIs so powerful.
+\end{block}
+
+\vspace{2mm}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{HTTP} is the language computers use to communicate on the web. Every time you load a webpage, your browser sends HTTP requests.}
+\end{frame}
+
+% ============================================================================
+% SLIDE 8: THE UNBUNDLING OF BANKING
+% ============================================================================
 \begin{frame}{The Unbundling of Banking}
+\begin{alertblock}{The Problem}
+What happens when you break a monolithic bank into separate, independently accessible services?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.5cm]
 % Traditional bank
@@ -193,30 +264,48 @@ GET /accounts/123/balance
 \node at (bank.center) {\textbf{Traditional Bank}};
 
 % Arrow
-\node (arrow) [right of=bank, xshift=2.5cm] {\Large$\Rightarrow$};
-\node[above of=arrow, yshift=-0.5cm] {\textbf{API-fication}};
+\node (arw) [right of=bank, xshift=2.5cm] {\Large$\Rightarrow$};
+\node[above of=arw, yshift=-0.5cm] {\textbf{API-fication}};
 
 % Unbundled services
-\node (deposits) [blockchain, right of=arrow, xshift=2cm, yshift=1.5cm] {Deposits};
-\node (loans) [blockchain, right of=arrow, xshift=2cm, yshift=0.5cm] {Lending};
-\node (payments) [blockchain, right of=arrow, xshift=2cm, yshift=-0.5cm] {Payments};
-\node (cards) [blockchain, right of=arrow, xshift=2cm, yshift=-1.5cm] {Cards};
+\node (deposits) [blockchain, right of=arw, xshift=2cm, yshift=1.5cm] {Deposits};
+\node (loans) [blockchain, right of=arw, xshift=2cm, yshift=0.5cm] {Lending};
+\node (payments) [blockchain, right of=arw, xshift=2cm, yshift=-0.5cm] {Payments};
+\node (cards) [blockchain, right of=arw, xshift=2cm, yshift=-1.5cm] {Cards};
 
-% FinTech labels
-\node[right of=deposits, xshift=1.5cm, font=\footnotesize] {Chime, N26};
-\node[right of=loans, xshift=1.5cm, font=\footnotesize] {SoFi, Upstart};
-\node[right of=payments, xshift=1.5cm, font=\footnotesize] {Stripe, PayPal};
-\node[right of=cards, xshift=1.5cm, font=\footnotesize] {Marqeta, Galileo};
+% Generic labels (no company names)
+\node[right of=deposits, xshift=1.5cm, font=\footnotesize, text=dfgray] {(neobanks)};
+\node[right of=loans, xshift=1.5cm, font=\footnotesize, text=dfgray] {(lending platforms)};
+\node[right of=payments, xshift=1.5cm, font=\footnotesize, text=dfgray] {(payment processors)};
+\node[right of=cards, xshift=1.5cm, font=\footnotesize, text=dfgray] {(card issuers)};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\textbf{Result}: Hundreds of non-bank companies offer financial products without banking licenses
+\textbf{The Concept:}
+\begin{itemize}
+\item Each banking function becomes a standalone service accessible via API
+\item Different companies can specialize in one service and do it exceptionally well
+\item A single startup can compete with a bank on one specific dimension
+\end{itemize}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Any service can now be offered independently by a different company. The ``bank'' is no longer a single institution --- it is a collection of components that can be mixed and matched.
+\end{block}
 \end{frame}
 
-\begin{frame}{Open Banking: What It Means}
+% ============================================================================
+% SLIDE 9: OPEN BANKING -- THE CONCEPT
+% ============================================================================
+\begin{frame}{Open Banking: The Concept}
+\begin{alertblock}{The Problem}
+Why would banks voluntarily share your data with competitors? Most would not --- unless regulators require it.
+\end{alertblock}
+
+\vspace{3mm}
 \begin{block}{Definition}
-\textbf{Open Banking} is a system where banks provide third-party financial service providers access to consumer banking data and payment functionality through secure APIs, with customer consent.
+\textbf{Open Banking} is a regulatory and technical framework in which banks provide third-party financial service providers access to consumer banking data and payment functionality through secure APIs --- \textit{with customer consent}.
 \end{block}
 
 \vspace{3mm}
@@ -236,165 +325,238 @@ GET /accounts/123/balance
 \item \textbf{Customer Control}: You decide who sees your data
 \item \textbf{Standardized}: Same format across all banks
 \item \textbf{Secure}: Strong authentication required
-\item \textbf{Regulated}: Government oversight
+\item \textbf{Regulated}: Government oversight ensures compliance
 \end{itemize}
 \end{column}
 \end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Open banking shifts power from banks to consumers. Your financial data belongs to \textit{you}, not to your bank.
+\end{block}
 \end{frame}
 
-\begin{frame}{Open Banking Regulation: Forcing the Change}
+% ============================================================================
+% SLIDE 10: OPEN BANKING REGULATION
+% ============================================================================
+\begin{frame}{Open Banking: Regulatory Approaches}
+\begin{alertblock}{The Problem}
+How do different regions approach opening up banking data --- and why does the approach matter?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{PSD2 (Europe, 2018):}
+\textbf{Regulated Approach:}
 \begin{itemize}
-\item Banks \textbf{must} provide APIs
-\item Third parties can access account data (with consent)
-\item Third parties can initiate payments
-\item Creates AISPs and PISPs
+\item Governments \textbf{mandate} that banks provide APIs
+\item Standardized specifications ensure interoperability
+\item Third parties must be licensed and supervised
+\item Adopted by several European and Asia-Pacific jurisdictions
 \end{itemize}
 
 \vspace{2mm}
-\textbf{UK Open Banking (2018):}
-\begin{itemize}
-\item CMA-mandated for 9 largest banks
-\item Standardized API specifications
-\item Stricter than PSD2
-\end{itemize}
+\textit{``Banks must open up --- whether they want to or not.''}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{US Approach (2023+):}
+\textbf{Market-Driven Approach:}
 \begin{itemize}
-\item CFPB Section 1033 rules
-\item Market-driven (Plaid, Finicity)
-\item No mandated standards yet
-\item Screen-scraping still common
+\item No government mandate for standardized APIs
+\item Data aggregators negotiate access with banks individually
+\item Screen-scraping (sharing passwords) remains common
+\item Innovation happens, but without standardization
 \end{itemize}
 
-\begin{alertblock}{Key Difference}
-Europe: \textbf{Regulated} open banking\\
-US: \textbf{Market-driven} data sharing
-\end{alertblock}
+\vspace{2mm}
+\textit{``Let the market figure it out.''}
 \end{column}
 \end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+The regulatory approach shapes how fast innovation happens. Mandated standards create a level playing field quickly; market-driven approaches allow flexibility but create fragmentation.
+\end{block}
 \end{frame}
 
-\begin{frame}{Key Terms: AISP and PISP}
+% ============================================================================
+% SLIDE 11: AISP AND PISP
+% ============================================================================
+\begin{frame}{AISP and PISP: Read Access vs.\ Write Access}
+\begin{alertblock}{The Problem}
+What can third parties actually \textit{do} with your banking data --- and how is this regulated?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{block}{AISP}
+\begin{column}{0.48\textwidth}
+\begin{block}{AISP --- Account Information}
 \textbf{Account Information Service Provider}
 \vspace{2mm}
 \begin{itemize}
 \item \textbf{What}: Reads your account data
-\item \textbf{Examples}:
+\item \textbf{Use cases}:
   \begin{itemize}
-  \item Budgeting apps (Mint, YNAB)
-  \item Account aggregators
-  \item Credit score services
+  \item Budgeting apps that show all your accounts in one place
+  \item Credit assessment based on transaction history
+  \item Financial planning tools
   \end{itemize}
-\item \textbf{Permission}: Read-only access
-\item \textbf{Use Case}: ``Show me all my accounts in one app''
+\item \textbf{Permission}: \textcolor{dfgreen}{Read-only access}
 \end{itemize}
 \end{block}
 \end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{PISP}
+\begin{column}{0.48\textwidth}
+\begin{block}{PISP --- Payment Initiation}
 \textbf{Payment Initiation Service Provider}
 \vspace{2mm}
 \begin{itemize}
 \item \textbf{What}: Initiates payments from your account
-\item \textbf{Examples}:
+\item \textbf{Use cases}:
   \begin{itemize}
-  \item E-commerce checkout
+  \item E-commerce checkout directly from your bank
   \item Bill payment services
   \item Money transfer apps
   \end{itemize}
-\item \textbf{Permission}: Write access (with approval)
-\item \textbf{Use Case}: ``Pay directly from my bank''
+\item \textbf{Permission}: \textcolor{dforange}{Write access (with explicit approval)}
 \end{itemize}
 \end{block}
 \end{column}
 \end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Read access and write access are regulated differently because the risks differ. Seeing your balance is far less risky than moving your money.
+\end{block}
+
+\vspace{2mm}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{TPP (Third Party Provider)} = a company (not your bank) that accesses your bank data with your permission. \textit{Account aggregation} = combining data from multiple banks into one view.}
 \end{frame}
 
-\begin{frame}{Open Banking Architecture}
+% ============================================================================
+% SLIDE 12: OPEN BANKING ARCHITECTURE
+% ============================================================================
+\begin{frame}{Open Banking Architecture: The Consent Flow}
+\begin{alertblock}{The Problem}
+How does the consent flow actually work --- and how is your data kept secure?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
-\begin{tikzpicture}[node distance=2cm]
+\begin{tikzpicture}[node distance=1.8cm]
 % Layers
 \node (consumer) [blockchain, fill=dfgreen!20] {Consumer};
-\node (tpp) [blockchain, below of=consumer] {Third Party Provider (FinTech)};
-\node (api) [process, below of=tpp, fill=dforange!20] {Open Banking API Gateway};
+\node (tpp) [blockchain, below of=consumer] {Third Party Provider};
+\node (api) [process, below of=tpp, fill=dforange!20] {API Gateway};
 \node (bank) [blockchain, below of=api, fill=dflightblue] {Bank Core Systems};
 
-% Arrows
-\draw[arrow] (consumer) -- node[right] {1. Grant consent} (tpp);
-\draw[arrow] (tpp) -- node[right] {2. OAuth token request} (api);
-\draw[arrow] (api) -- node[right] {3. Verify \& route} (bank);
-\draw[arrow, dashed] (bank) -- ++(-3,0) |- node[left, pos=0.25] {4. Return data} (tpp);
+% Arrows with consent flow
+\draw[arrow] (consumer) -- node[right, font=\scriptsize] {1. Grant consent} (tpp);
+\draw[arrow] (tpp) -- node[right, font=\scriptsize] {2. Request access token} (api);
+\draw[arrow] (api) -- node[right, font=\scriptsize] {3. Verify and route request} (bank);
+\draw[arrow, dashed] (bank) -- ++(-3.5,0) |- node[left, pos=0.25, font=\scriptsize] {4. Return data securely} (tpp);
 
 % Side labels
-\node[left of=tpp, xshift=-2cm, text width=2.5cm, font=\footnotesize] {Account Aggregator, PFM App, Lending Platform};
+\node[left of=consumer, xshift=-2.5cm, text width=2.5cm, font=\footnotesize, align=right] {You control\\what is shared};
+\node[right of=bank, xshift=2.5cm, text width=2.5cm, font=\footnotesize, align=left] {Bank never shares\\your password};
 \end{tikzpicture}
 \end{center}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+You never share your password with the third party. Instead, the bank issues a temporary \textit{token} --- like a concert wristband that grants limited access and can be revoked at any time.
+\end{block}
 \end{frame}
 
+% ============================================================================
+% SLIDE 13: API TYPES IN FINANCIAL SERVICES
+% ============================================================================
 \begin{frame}{API Types in Financial Services}
+\begin{alertblock}{The Problem}
+What financial services can be accessed via API --- and what does each one do?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
-\begin{tabular}{p{3cm}p{4cm}p{4cm}}
+\begin{tabular}{p{3.2cm}p{5cm}p{3.5cm}}
 \toprule
-\textbf{API Type} & \textbf{Function} & \textbf{Providers} \\
+\textbf{API Type} & \textbf{Function} & \textbf{Who Uses It} \\
 \midrule
-\textbf{Account Information} & Read balances, transactions & Plaid, Tink, Yodlee \\
-\textbf{Payment Initiation} & Trigger bank transfers & TrueLayer, Token.io \\
-\textbf{Card Issuance} & Create virtual/physical cards & Marqeta, Galileo \\
-\textbf{Lending} & Originate, service loans & Blend, Amount \\
-\textbf{KYC/Identity} & Verify customer identity & Onfido, Jumio \\
-\textbf{Core Banking} & Full ledger functionality & Thought Machine, Mambu \\
+\textbf{Account Information} & Read balances, transaction history & Budgeting apps, lenders \\
+\textbf{Payment Initiation} & Trigger bank-to-bank transfers & E-commerce, bill pay \\
+\textbf{Card Issuance} & Create virtual or physical cards & Neobanks, expense tools \\
+\textbf{Lending} & Originate and service loans & Lending platforms \\
+\textbf{Identity / KYC} & Verify a customer's identity & Any regulated service \\
+\textbf{Core Banking} & Full account ledger functionality & Companies building banks \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\vspace{3mm}
-\textbf{Key insight}: You can now assemble a ``bank'' from API components without building anything yourself
-\end{frame}
-
-\begin{frame}{Banking-as-a-Service (BaaS): Definition}
-\begin{block}{What is BaaS?}
-\textbf{Banking-as-a-Service} is a model where licensed banks provide their banking infrastructure (charter, compliance, ledger) to non-banks via APIs, enabling them to offer financial products under their own brand.
+\vspace{4mm}
+\begin{block}{The Insight}
+You can assemble a ``bank'' from API building blocks without building any of the underlying infrastructure yourself. This is the foundation of Banking-as-a-Service.
 \end{block}
 
-\vspace{5mm}
+\vspace{2mm}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{KYC} = Know Your Customer, the process of verifying someone's identity before providing financial services. Required by law in most countries.}
+\end{frame}
+
+% ============================================================================
+% SLIDE 14: BANKING-AS-A-SERVICE: THE CONCEPT
+% ============================================================================
+\begin{frame}{Banking-as-a-Service: The Concept}
+\begin{alertblock}{The Problem}
+What if you want to offer banking products to your customers --- but you do not want to become a bank?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{block}{Definition}
+\textbf{Banking-as-a-Service (BaaS)} is a model where licensed banks provide their banking infrastructure --- including their charter, compliance systems, and account ledger --- to non-banks via APIs, enabling them to offer financial products under their own brand.
+\end{block}
+
+\vspace{3mm}
 \begin{columns}[T]
-\begin{column}{0.5\textwidth}
+\begin{column}{0.48\textwidth}
 \textbf{Without BaaS:}
 \begin{itemize}
-\item Need a banking license (\$10M+, 2+ years)
-\item Build compliance infrastructure
-\item Hire regulatory experts
-\item Create core banking systems
+\item Obtaining a banking license requires enormous capital and years of effort
+\item Must build compliance infrastructure from scratch
+\item Need to hire regulatory and legal experts
+\item Must create core banking systems
 \end{itemize}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.48\textwidth}
 \textbf{With BaaS:}
 \begin{itemize}
 \item ``Rent'' a license from a partner bank
 \item Use pre-built compliance tools
-\item Focus on customer experience
-\item Launch in months, not years
+\item Focus entirely on customer experience
+\item Launch much faster than building a bank
 \end{itemize}
 \end{column}
 \end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+BaaS separates ``who builds the experience'' from ``who holds the license.'' This is what allows technology companies to offer bank accounts, cards, and loans.
+\end{block}
 \end{frame}
 
-\begin{frame}{Banking-as-a-Service: The Full Stack}
+% ============================================================================
+% SLIDE 15: THE BaaS STACK
+% ============================================================================
+\begin{frame}{The BaaS Stack: What You Build vs.\ What You Rent}
+\begin{alertblock}{The Problem}
+In a BaaS arrangement, what does the FinTech actually build --- and what does it rent from others?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=0.9cm]
 % Stack
-\node (brand) [process, minimum width=10cm, fill=dfgreen!20] {\textbf{Brand Layer} -- Your FinTech Brand};
-\node (ux) [process, minimum width=10cm, below of=brand, fill=dflightblue] {\textbf{UX Layer} -- Mobile App, Web Portal};
-\node (middle) [process, minimum width=10cm, below of=ux, fill=dflightblue2] {\textbf{Middleware} -- BaaS Platform (Synapse, Unit, Treasury Prime)};
-\node (banking) [process, minimum width=10cm, below of=middle, fill=dflightblue3] {\textbf{Banking Layer} -- Partner Bank (Evolve, Cross River, Sutton)};
-\node (reg) [process, minimum width=10cm, below of=banking, fill=dflightblue4] {\textbf{Regulatory Layer} -- FDIC Insurance, Compliance, Charter};
+\node (brand) [process, minimum width=10cm, fill=dfgreen!20] {\textbf{Brand Layer}: Your Company's Brand and Identity};
+\node (ux) [process, minimum width=10cm, below of=brand, fill=dfgreen!10] {\textbf{UX Layer}: Mobile App, Web Portal, Customer Support};
+\node (middle) [process, minimum width=10cm, below of=ux, fill=dflightblue2] {\textbf{Middleware}: BaaS Platform (connects everything)};
+\node (banking) [process, minimum width=10cm, below of=middle, fill=dflightblue3] {\textbf{Banking Layer}: Partner Bank (holds the license)};
+\node (reg) [process, minimum width=10cm, below of=banking, fill=dflightblue4] {\textbf{Regulatory Layer}: Deposit Insurance, Compliance, Charter};
 
 % Ownership brackets
 \draw[decorate, decoration={brace, amplitude=10pt, mirror}, thick, color=dfgreen]
@@ -406,533 +568,298 @@ US: \textbf{Market-driven} data sharing
 \end{tikzpicture}
 \end{center}
 
-\vspace{2mm}
-\textbf{FinTech builds top two layers; rents the rest}
-\end{frame}
-
-\begin{frame}{BaaS Business Model: Who Earns What}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Revenue Split (Typical):}
-\begin{itemize}
-\item \textbf{FinTech brand}: Customer acquisition, UX
-\begin{itemize}
-\item Keeps: 40-60\% of interchange
-\item Earns: Subscription fees, interest spread
-\end{itemize}
-\item \textbf{BaaS platform}: Technology, compliance
-\begin{itemize}
-\item Takes: 10-20\% of interchange
-\item Plus: Per-account fees (\$1-3/month)
-\end{itemize}
-\item \textbf{Partner bank}: Charter, FDIC
-\begin{itemize}
-\item Takes: 20-40\% of interchange
-\item Plus: Interest on deposits
-\end{itemize}
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Economics Example}
-\textbf{Customer spends \$1,000/month on card}\\
-Interchange: \$15-20 generated\\
-\vspace{2mm}
-\begin{tabular}{lr}
-FinTech brand & \$8-10 \\
-BaaS platform & \$2-3 \\
-Partner bank & \$5-7 \\
-\end{tabular}
-\end{block}
-\end{column}
-\end{columns}
-
 \vspace{3mm}
-\begin{alertblock}{Regulatory Risk}
-2022-2023: Multiple BaaS partner banks under consent orders. FinTechs exposed to partner bank compliance failures.
-\end{alertblock}
-\end{frame}
-
-\begin{frame}{What is Interchange?}
-\begin{block}{Definition}
-\textbf{Interchange} is the fee paid by a merchant's bank to the cardholder's bank when a customer makes a purchase with a debit or credit card. It typically ranges from 1.5\% to 3\% of the transaction amount.
-\end{block}
-
-\vspace{3mm}
-\begin{center}
-\begin{tikzpicture}[node distance=2.5cm]
-\node (customer) [blockchain, fill=dfgreen!20] {Customer};
-\node (merchant) [blockchain, right of=customer, xshift=3cm] {Merchant};
-\node (issuer) [blockchain, below of=customer, fill=dflightblue] {Issuing Bank\\(Your Bank)};
-\node (acquirer) [blockchain, below of=merchant, fill=dflightblue] {Acquiring Bank\\(Merchant's Bank)};
-
-\draw[arrow] (customer) -- node[above, font=\scriptsize] {Pays \$100} (merchant);
-\draw[arrow] (acquirer) -- node[above, font=\scriptsize] {\$98.50} (merchant);
-\draw[arrow, color=dforange, thick] (acquirer) -- node[below, font=\scriptsize, color=dforange] {Interchange: \$1.50} (issuer);
-\draw[arrow, dashed] (customer) -- (issuer);
-\end{tikzpicture}
-\end{center}
-
-\vspace{3mm}
-\textbf{Why it matters}: Interchange is a major revenue source for card issuers --- and now for FinTechs using BaaS.
-\end{frame}
-
-\begin{frame}{Embedded Finance: Beyond FinTech}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Definition:}\\
-Financial services integrated into non-financial platforms and experiences
-
-\vspace{3mm}
-\textbf{Examples:}
-\begin{itemize}
-\item \textbf{Shopify Balance}: Banking for merchants
-\item \textbf{Uber Wallet}: Driver payments
-\item \textbf{Amazon Lending}: Seller financing
-\item \textbf{Apple Card}: Tech-integrated credit
-\item \textbf{Toast Capital}: Restaurant loans
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Why Non-Banks Win}
-\begin{itemize}
-\item \textbf{Distribution}: Already have customers
-\item \textbf{Data}: Know customer behavior
-\item \textbf{Context}: Offer finance at moment of need
-\item \textbf{Trust}: Existing brand relationship
-\end{itemize}
+\begin{block}{The Insight}
+The FinTech only needs to build what the customer sees and touches. Everything underneath --- the license, the compliance, the ledger --- is rented from specialized providers.
 \end{block}
 
 \vspace{2mm}
-\textbf{Prediction}: ``Every company will become a FinTech'' (a16z, 2020)
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{API Security: Authentication \& Authorization}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{OAuth 2.0 Flow:}
-\begin{enumerate}
-\item User grants consent on bank site
-\item Bank issues authorization code
-\item FinTech exchanges code for token
-\item Token used for API calls
-\item Token expires; refresh required
-\end{enumerate}
-
-\vspace{2mm}
-\textbf{Why OAuth?}
-\begin{itemize}
-\item User never shares password with FinTech
-\item Granular permissions (scopes)
-\item Revocable access
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{API Security Challenges}
-\begin{itemize}
-\item \textbf{Screen scraping}: Still used (user shares password)
-\item \textbf{Token theft}: Single point of failure
-\item \textbf{Rate limiting}: Prevents abuse
-\item \textbf{Consent management}: User often forgets what they authorized
-\end{itemize}
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{API Call Example: Account Balance}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-import requests
-
-# Authentication
-headers = {
-    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGc...",
-    "Content-Type": "application/json"
-}
-
-# API Call
-response = requests.get(
-    "https://api.bank.com/v1/accounts/123456/balance",
-    headers=headers
-)
-
-# Response
-{
-    "account_id": "123456",
-    "available_balance": 5420.50,
-    "current_balance": 5520.50,
-    "currency": "USD",
-    "as_of": "2024-01-15T10:30:00Z"
-}
-\end{lstlisting}
-
-\bottomnote{Notebook NB03: Make real API calls to simulated banking endpoints}
-\end{frame}
-
-\begin{frame}{Data Aggregators: Plaid and the US Model}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{How Plaid Works:}
-\begin{enumerate}
-\item User authenticates via Plaid Link
-\item Plaid connects to 12,000+ institutions
-\item Returns standardized data (transactions, balances)
-\item FinTech never sees bank credentials
-\end{enumerate}
-
-\vspace{2mm}
-\textbf{Plaid Revenue Model:}
-\begin{itemize}
-\item Per-connection fees: \$0.25-3.00/user/month
-\item Per-API-call pricing for some products
-\item Identity verification add-ons
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Market Position}
-\begin{itemize}
-\item 8,000+ FinTech customers
-\item 1 in 3 US adults connected
-\item Visa acquisition blocked (\$5.3B, 2021)
-\item Valued at \$13B (2021)
-\end{itemize}
-\end{block}
-
-\begin{alertblock}{Challenge}
-Banks increasingly resist screen-scraping; want FinTechs to use official APIs
-\end{alertblock}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{The API Value Chain}
-\begin{center}
-\begin{tikzpicture}[node distance=2.2cm]
-% Value chain nodes
-\node (data) [blockchain] {Data Sources\\(Banks)};
-\node (agg) [blockchain, right of=data, xshift=1cm] {Aggregators\\(Plaid, Tink)};
-\node (baas) [blockchain, right of=agg, xshift=1cm] {BaaS\\(Unit, Synapse)};
-\node (fintech) [blockchain, right of=baas, xshift=1cm] {FinTech\\Brands};
-\node (user) [blockchain, right of=fintech, xshift=1cm] {End User};
-
-% Arrows
-\draw[arrow] (data) -- (agg);
-\draw[arrow] (agg) -- (baas);
-\draw[arrow] (baas) -- (fintech);
-\draw[arrow] (fintech) -- (user);
-
-% Value labels
-\node[below of=data, yshift=0.5cm, font=\scriptsize] {Raw data};
-\node[below of=agg, yshift=0.5cm, font=\scriptsize] {Standardized};
-\node[below of=baas, yshift=0.5cm, font=\scriptsize] {Productized};
-\node[below of=fintech, yshift=0.5cm, font=\scriptsize] {Branded};
-\end{tikzpicture}
-\end{center}
-
-\vspace{3mm}
-\textbf{Key insight}: Each layer adds value (standardization, compliance, UX) and captures margin
-\end{frame}
-
-\begin{frame}{BaaS Players: The Ecosystem}
-\begin{center}
-\begin{tabular}{p{2.5cm}p{4.5cm}p{4.5cm}}
-\toprule
-\textbf{Layer} & \textbf{US Examples} & \textbf{Europe Examples} \\
-\midrule
-\textbf{BaaS Platforms} & Unit, Treasury Prime, Synapse, Bond & Railsr (fka Railsbank), Solarisbank, Swan \\
-\textbf{Partner Banks} & Evolve, Cross River, Sutton, Coastal Community & Solaris SE, ClearBank, Banking Circle \\
-\textbf{Card Issuers} & Marqeta, Galileo, i2c & Marqeta EU, Enfuce, Moorwand \\
-\textbf{Aggregators} & Plaid, Yodlee, Finicity & Tink, TrueLayer, Yapily \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\vspace{3mm}
-\begin{block}{Industry Consolidation (2021-2023)}
-\begin{itemize}
-\item Visa acquired Tink (\$2.1B)
-\item Mastercard acquired Finicity (\$825M)
-\item Visa's Plaid acquisition blocked by DOJ (\$5.3B)
-\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}{Case Study: How Chime Works}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Chime at a Glance:}
-\begin{itemize}
-\item 14+ million customers
-\item \$25B valuation (2021)
-\item No physical branches
-\item No minimum balance or fees
-\item ``Get paid early'' feature
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Key Innovation:}\\
-Direct deposit arrives up to 2 days early (because Chime credits when they see ACH notification, not when funds settle)
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{BaaS Stack}
-\begin{itemize}
-\item \textbf{Brand}: Chime
-\item \textbf{App}: Built by Chime
-\item \textbf{BaaS}: Galileo (card processing)
-\item \textbf{Bank}: Stride Bank, Bancorp Bank
-\item \textbf{Insurance}: FDIC via partner banks
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Revenue}: Primarily interchange fees (\$1B+ annually)
-\end{column}
-\end{columns}
-
-\vspace{3mm}
-\begin{alertblock}{Important}
-Chime is \textbf{not a bank}. It's a FinTech that partners with banks --- a key distinction for regulation.
-\end{alertblock}
-\end{frame}
-
-\begin{frame}{Risks and Challenges in BaaS}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{For FinTechs:}
-\begin{itemize}
-\item \textcolor{dfred}{Partner bank failures} --- Synapse collapse (2024)
-\item \textcolor{dfred}{Regulatory scrutiny} --- Consent orders
-\item \textcolor{dfred}{Concentration risk} --- Few partner banks
-\item \textcolor{dfred}{Revenue share pressure} --- Banks want more
-\end{itemize}
-
-\vspace{3mm}
-\textbf{For Partner Banks:}
-\begin{itemize}
-\item Reputation risk from FinTech failures
-\item Compliance responsibility
-\item BSA/AML obligations
-\item Capital requirements
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{alertblock}{2023-2024 Regulatory Actions}
-\begin{itemize}
-\item \textbf{Blue Ridge Bank}: Consent order for FinTech oversight
-\item \textbf{Cross River}: Increased scrutiny
-\item \textbf{Evolve}: Regulatory examination
-\item \textbf{Synapse}: Bankruptcy, customer funds frozen
-\end{itemize}
-\end{alertblock}
-
-\vspace{2mm}
-\textbf{Trend}: Regulators demanding banks know their FinTech partners' customers
-\end{column}
-\end{columns}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{Middleware} = software that connects different systems together. \textit{Charter} = a government-issued license to operate as a bank.}
 \end{frame}
 
 % ============================================================================
-% SLIDES 25-26: HANDS-ON EXERCISE
+% SLIDE 16: BaaS BUSINESS MODEL
+% ============================================================================
+\begin{frame}{BaaS Business Model: How Everyone Gets Paid}
+\begin{alertblock}{The Problem}
+If a FinTech is not a bank, how does revenue flow in a BaaS arrangement --- and who captures the most value?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Revenue Sources:}
+\begin{itemize}
+\item \textbf{Interchange fees}: When a customer uses a card, a small fee is generated and split among all parties
+\item \textbf{Subscription fees}: Monthly charges for premium features
+\item \textbf{Interest spread}: Difference between deposit and lending rates
+\item \textbf{Per-account fees}: The BaaS platform charges for each account maintained
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Who Gets What (Conceptually):}
+\begin{itemize}
+\item \textbf{FinTech brand}: Captures the largest share because it owns the customer relationship
+\item \textbf{BaaS platform}: Takes a cut for technology and compliance orchestration
+\item \textbf{Partner bank}: Receives fees for providing the license and deposit insurance
+\end{itemize}
+
+\vspace{2mm}
+\textit{The party closest to the customer typically captures the most value.}
+\end{column}
+\end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+In the API economy, value accrues to whoever owns the customer relationship --- not necessarily to whoever holds the banking license.
+\end{block}
+
+\vspace{2mm}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{Interchange} = a fee paid between banks when processing card transactions; a major revenue source for card issuers and now also for FinTechs.}
+\end{frame}
+
+% ============================================================================
+% SLIDE 17: EMBEDDED FINANCE
+% ============================================================================
+\begin{frame}{Embedded Finance: Financial Services at the Moment of Need}
+\begin{alertblock}{The Problem}
+Why are non-financial companies --- retailers, ride-sharing apps, e-commerce platforms --- starting to offer financial products?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{What is Embedded Finance?}\\
+Financial services integrated directly into non-financial platforms and experiences --- offered at the exact moment a customer needs them.
+
+\vspace{3mm}
+\textbf{Conceptual Examples:}
+\begin{itemize}
+\item An e-commerce platform offering merchant loans based on sales data
+\item A ride-sharing app providing driver banking and instant payouts
+\item A retail checkout offering installment payments
+\item A freelancing platform with built-in invoicing and tax savings
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{Why Non-Banks Have Advantages}
+\begin{itemize}
+\item \textbf{Distribution}: They already have the customers
+\item \textbf{Data}: They know customer behavior intimately
+\item \textbf{Context}: They can offer finance at the exact moment of need
+\item \textbf{Trust}: Customers already have a relationship with the brand
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+When finance is embedded where you already are --- shopping, working, traveling --- the traditional bank becomes invisible. The bank still exists in the background, but the customer never interacts with it directly.
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 18: API SECURITY -- HOW TRUST WORKS
+% ============================================================================
+\begin{frame}{API Security: How Trust Works}
+\begin{alertblock}{The Problem}
+How do you let a third party access your bank account without giving them your password?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{The Old Way (Dangerous):}
+\begin{itemize}
+\item Share your username and password with the third party
+\item They log in \textit{as you}
+\item Full access --- no limits
+\item If compromised, everything is exposed
+\item You cannot revoke without changing your password
+\end{itemize}
+
+\vspace{2mm}
+\textit{This is called ``screen scraping'' and is still used in some regions.}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{The New Way (Token-Based / OAuth):}
+\begin{enumerate}
+\item You grant consent on your bank's website
+\item The bank issues a temporary access token
+\item The third party uses the token --- never your password
+\item The token has limited scope (e.g., read-only)
+\item You can revoke access at any time
+\end{enumerate}
+
+\vspace{2mm}
+\textit{Like giving a valet a special key that only starts the car --- not one that opens the trunk.}
+\end{column}
+\end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+Token-based access is fundamentally more secure than password sharing. It gives you granular control --- you decide \textit{what} is shared, \textit{with whom}, and for \textit{how long}.
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 19: RISKS AND CHALLENGES IN BaaS
+% ============================================================================
+\begin{frame}{Risks and Challenges in BaaS}
+\begin{alertblock}{The Problem}
+What can go wrong when a FinTech depends on a partner bank for its entire banking infrastructure?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Risks for FinTechs:}
+\begin{itemize}
+\item \textcolor{dfred}{\textbf{Partner bank failures}}: If the partner bank faces regulatory action, the FinTech's customers may lose access to their accounts
+\item \textcolor{dfred}{\textbf{Regulatory scrutiny}}: Regulators increasingly hold banks responsible for their FinTech partners' behavior
+\item \textcolor{dfred}{\textbf{Concentration risk}}: Only a small number of banks serve as BaaS partners
+\item \textcolor{dfred}{\textbf{Revenue pressure}}: Partner banks may demand a larger share over time
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Risks for Partner Banks:}
+\begin{itemize}
+\item Reputation damage from FinTech failures
+\item Compliance responsibility for FinTech actions
+\item Anti-money-laundering obligations extend to FinTech customers
+\item Capital requirements may increase with growth
+\end{itemize}
+
+\vspace{3mm}
+\begin{alertblock}{Key Trend}
+Regulators are increasingly demanding that banks ``know their FinTech partners' customers'' --- adding cost and complexity to BaaS relationships.
+\end{alertblock}
+\end{column}
+\end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Renting infrastructure means sharing someone else's risks. A FinTech's fate is tied to its partner bank's regulatory standing.
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 20: HANDS-ON -- NB03
 % ============================================================================
 \begin{frame}{Hands-On Exercise: Notebook NB03}
 \begin{block}{Open Banking API Simulation}
-In Notebook NB03, you will:
+In Notebook NB03, you will build a simulated open banking environment:
 \begin{enumerate}
 \item Create a mock bank with customer accounts
 \item Implement Account Information API endpoints
-\item Simulate OAuth 2.0 authentication flow
+\item Simulate a token-based authentication flow
 \item Build a Payment Initiation service
 \item Create an Account Aggregator (multi-bank view)
 \end{enumerate}
 \end{block}
 
 \vspace{3mm}
-\textbf{What You'll Build:}
+\textbf{What You Will Build:}
 \begin{itemize}
 \item A simulated bank with realistic account structures
-\item API endpoints: \texttt{GET /accounts}, \texttt{GET /balances}, \texttt{GET /transactions}
-\item Payment initiation: \texttt{POST /payments}
-\item Multi-bank aggregation dashboard
+\item API endpoints for reading accounts, balances, and transactions
+\item A payment initiation endpoint
+\item A multi-bank aggregation dashboard
 \end{itemize}
-\end{frame}
 
-\begin{frame}[fragile]{NB03 Preview: Building a Mock Bank}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-class MockBank:
-    """Simulates a bank's Open Banking API."""
+\vspace{3mm}
+\textbf{Learning Goal}: Understand the mechanics of API-based banking by building it yourself --- even without prior programming experience, the notebook guides you step by step.
 
-    def __init__(self, bank_name: str, bic: str):
-        self.bank_name = bank_name
-        self.accounts = {}
-        self.consents = {}
-
-    def get_accounts(self, customer_id: str, consent_id: str):
-        """API: Get list of accounts (with consent check)."""
-        if consent_id not in self.consents:
-            return {"error": "CONSENT_INVALID"}
-
-        return {"accounts": [acc.to_api_response()
-                for acc in self.accounts.values()
-                if acc.owner_id == customer_id]}
-
-# Usage
-demo_bank = MockBank("Demo Digital Bank", "DEMODEBKXXX")
-response = demo_bank.get_accounts("CUST001", "consent-abc123")
-\end{lstlisting}
-
-\bottomnote{Full implementation in day\_02/notebooks/NB03\_Open\_Banking\_API.ipynb}
+\bottomnote{Notebook: day\_02/notebooks/NB03\_Open\_Banking\_API.ipynb}
 \end{frame}
 
 % ============================================================================
-% SLIDES 27-30: DISCUSSION / APPLICATION
+% SLIDE 21: DISCUSSION -- WHO WINS?
 % ============================================================================
 \begin{frame}{Discussion: Who Wins in Open Banking?}
 \begin{columns}[T]
 \begin{column}{0.33\textwidth}
 \textbf{Winners}
 \begin{itemize}
-\item Consumers (choice, innovation)
-\item FinTechs (access to infrastructure)
-\item Aggregators (critical middleware)
-\item Tech-savvy banks (new revenue)
+\item Consumers (more choice, better innovation)
+\item FinTechs (access to infrastructure they could not build alone)
+\item Data aggregators (critical middleware position)
+\item Tech-savvy banks (new revenue from APIs)
 \end{itemize}
 \end{column}
 \begin{column}{0.33\textwidth}
 \textbf{Losers}
 \begin{itemize}
-\item Traditional banks (losing monopoly)
-\item Legacy systems (must modernize)
-\item Screen scrapers (APIs replace them)
+\item Traditional banks (losing their data monopoly)
+\item Legacy technology systems (forced to modernize or die)
+\item Screen-scraping services (replaced by proper APIs)
 \end{itemize}
 \end{column}
 \begin{column}{0.33\textwidth}
 \textbf{Uncertain}
 \begin{itemize}
-\item Regulators (keeping up)
-\item Privacy advocates (data concerns)
-\item Small banks (cost of compliance)
+\item Regulators (struggling to keep pace with innovation)
+\item Privacy advocates (more data sharing means more risk)
+\item Small banks (high compliance cost relative to their size)
 \end{itemize}
 \end{column}
 \end{columns}
 
 \vspace{5mm}
-\begin{block}{Discussion Question}
-If every company can embed financial services, what happens to traditional banks' competitive advantage?
-\end{block}
-\end{frame}
-
-\begin{frame}{Application: Building a FinTech with BaaS}
-\textbf{Scenario}: You want to launch a neobank for freelancers
-
-\begin{center}
-\begin{tikzpicture}[node distance=0.8cm]
-\node (step1) [process, fill=dfgreen!20, minimum width=10cm] {1. Define product: Accounts, cards, invoicing, tax savings};
-\node (step2) [process, fill=dflightblue, minimum width=10cm, below of=step1] {2. Choose BaaS partner: Unit, Treasury Prime, or Bond};
-\node (step3) [process, fill=dflightblue2, minimum width=10cm, below of=step2] {3. Integrate APIs: Accounts, cards, payments, KYC};
-\node (step4) [process, fill=dflightblue3, minimum width=10cm, below of=step3] {4. Build UX: Mobile app, web dashboard};
-\node (step5) [process, fill=dflightblue4, minimum width=10cm, below of=step4] {5. Launch: Marketing, customer acquisition};
-\end{tikzpicture}
-\end{center}
-
-\vspace{3mm}
-\textbf{Timeline}: 6-12 months (vs. 3-5 years for a bank charter)\\
-\textbf{Cost}: \$1-5M (vs. \$20-50M for a de novo bank)
-\end{frame}
-
-\begin{frame}{Future Trends: Where is This Going?}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Short-term (2024-2026):}
-\begin{itemize}
-\item More regulatory scrutiny of BaaS
-\item Consolidation of partner banks
-\item US open banking rules finalized (CFPB 1033)
-\item PSD3 implementation in Europe
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Medium-term (2026-2030):}
-\begin{itemize}
-\item Open finance (beyond banking)
-\item Real-time payments standard
-\item AI-powered financial advice
-\item Cross-border open banking
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Open Finance Vision}
-Beyond bank accounts:
-\begin{itemize}
-\item Investment accounts
-\item Insurance policies
-\item Pension data
-\item Tax information
-\item Real estate ownership
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Ultimate goal}: A complete, portable financial identity that you control
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Competitive Landscape: Banks Fight Back}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Bank Responses to Disruption:}
-\begin{itemize}
-\item \textbf{Build}: Create own digital banks
-  \begin{itemize}
-  \item Marcus (Goldman Sachs)
-  \item Finn (JPMorgan --- shut down)
-  \end{itemize}
-\item \textbf{Buy}: Acquire FinTechs
-  \begin{itemize}
-  \item JPMorgan acquired 55ip, Nutmeg
-  \item Goldman acquired GreenSky
-  \end{itemize}
-\item \textbf{Partner}: White-label FinTech tech
-  \begin{itemize}
-  \item Banks using Galileo, Marqeta
-  \end{itemize}
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Bank Advantages}
-\begin{itemize}
-\item \textbf{Trust}: 100+ year brands
-\item \textbf{Deposits}: Cheap funding source
-\item \textbf{Relationships}: Corporate clients
-\item \textbf{Regulation}: Already compliant
-\item \textbf{Capital}: Deep pockets
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Key question}: Can banks move fast enough?
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 31: EXECUTIVE SUMMARY
-% ============================================================================
-\begin{frame}{Executive Summary}
-\begin{block}{Key Takeaways}
+\begin{block}{Discussion Questions}
 \begin{enumerate}
-\item \textbf{APIs unbundled banking}: Any financial service can now be offered separately via standardized interfaces
-\item \textbf{Regulation drives adoption}: PSD2 in Europe mandated open banking; US remains market-driven
-\item \textbf{BaaS enables non-banks}: Companies can ``rent'' banking infrastructure (charter, compliance, ledger) instead of building
-\item \textbf{Embedded finance is the future}: Non-financial platforms (Shopify, Uber, Amazon) increasingly offer financial services at the point of need
-\item \textbf{Value accrues to the customer interface}: Whoever owns the customer relationship captures the most value in the API economy
+\item If every company can embed financial services, what happens to traditional banks' competitive advantage?
+\item Is open banking ultimately good or bad for consumer privacy?
 \end{enumerate}
 \end{block}
 \end{frame}
 
 % ============================================================================
-% SLIDE 32: CONCEPT MAP
+% SLIDE 22: DISCUSSION -- BUILDING A FINTECH WITH BaaS
+% ============================================================================
+\begin{frame}{Discussion: Building a FinTech with BaaS}
+\textbf{Scenario}: You want to launch a neobank for freelancers. Walk through the key decisions.
+
+\vspace{3mm}
+\begin{center}
+\begin{tikzpicture}[node distance=0.8cm]
+\node (step1) [process, fill=dfgreen!20, minimum width=10cm] {1. Define product: Accounts, cards, invoicing, tax savings};
+\node (step2) [process, fill=dflightblue, minimum width=10cm, below of=step1] {2. Choose a BaaS partner to provide banking infrastructure};
+\node (step3) [process, fill=dflightblue2, minimum width=10cm, below of=step2] {3. Integrate APIs: Accounts, cards, payments, identity verification};
+\node (step4) [process, fill=dflightblue3, minimum width=10cm, below of=step3] {4. Build UX: Mobile app, web dashboard, customer support};
+\node (step5) [process, fill=dflightblue4, minimum width=10cm, below of=step4] {5. Launch and acquire customers};
+\end{tikzpicture}
+\end{center}
+
+\vspace{4mm}
+\begin{block}{Discussion Questions}
+\begin{enumerate}
+\item What are the biggest risks in this model?
+\item What happens if your partner bank faces regulatory problems?
+\item How would you differentiate your product from existing neobanks?
+\item What data would you need from freelancers that traditional banks do not collect?
+\end{enumerate}
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 23: EXECUTIVE SUMMARY
+% ============================================================================
+\begin{frame}{Executive Summary}
+\begin{block}{Key Takeaways}
+\begin{enumerate}
+\item \textbf{APIs unbundled banking}: Any financial service can now be offered separately via standardized interfaces --- breaking the bank monopoly on financial products
+\item \textbf{Regulation drives adoption}: In regions where governments mandate open banking, innovation accelerates; in market-driven regions, adoption is slower and more fragmented
+\item \textbf{BaaS enables non-banks}: Companies can ``rent'' banking infrastructure (charter, compliance, ledger) instead of building it from scratch, dramatically lowering the barrier to entry
+\item \textbf{Embedded finance is the frontier}: Non-financial platforms increasingly offer financial services at the moment of need, making the traditional bank invisible to the end consumer
+\item \textbf{Value accrues to the customer interface}: Whoever owns the customer relationship captures the most value in the API economy --- not necessarily whoever holds the banking license
+\end{enumerate}
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 24: CONCEPT MAP
 % ============================================================================
 \begin{frame}{Concept Map: The API Economy Ecosystem}
 \begin{center}
@@ -945,27 +872,27 @@ Beyond bank accounts:
 \node (api) [concept, fill=dfteal!30, minimum width=2.5cm] {APIs};
 
 % Top level
-\node (openbank) [concept, above left of=api, xshift=-1cm, yshift=0.8cm] {Open Banking};
-\node (baas) [concept, above right of=api, xshift=1cm, yshift=0.8cm] {BaaS};
+\node (openbank) [concept, above left of=api, xshift=-1.5cm, yshift=0.8cm] {Open Banking};
+\node (baas) [concept, above right of=api, xshift=1.5cm, yshift=0.8cm] {BaaS};
 
 % Second level
-\node (psd2) [concept, above of=openbank, yshift=-0.3cm] {PSD2/PSD3};
-\node (aisp) [concept, left of=openbank, xshift=-0.8cm] {AISP};
-\node (pisp) [concept, right of=openbank, xshift=-0.5cm] {PISP};
+\node (regulation) [concept, above of=openbank, yshift=-0.3cm] {Regulation};
+\node (aisp) [concept, left of=openbank, xshift=-1cm] {AISP};
+\node (pisp) [concept, right of=openbank, xshift=-0.3cm] {PISP};
 
 \node (partner) [concept, above of=baas, yshift=-0.3cm] {Partner Banks};
-\node (platform) [concept, right of=baas, xshift=0.8cm] {BaaS Platforms};
+\node (platform) [concept, right of=baas, xshift=1cm] {BaaS Platforms};
 
 % Bottom level
 \node (embedded) [concept, below of=api, yshift=0.3cm] {Embedded Finance};
-\node (fintech) [concept, below left of=embedded, xshift=-0.5cm] {FinTechs};
-\node (nonbank) [concept, below right of=embedded, xshift=0.5cm] {Non-Banks};
+\node (fintech) [concept, below left of=embedded, xshift=-0.8cm] {FinTechs};
+\node (nonbank) [concept, below right of=embedded, xshift=0.8cm] {Non-Banks};
 
 % Connections
 \draw[relation] (api) -- (openbank);
 \draw[relation] (api) -- (baas);
 \draw[relation] (api) -- (embedded);
-\draw[relation] (openbank) -- (psd2);
+\draw[relation] (openbank) -- (regulation);
 \draw[relation] (openbank) -- (aisp);
 \draw[relation] (openbank) -- (pisp);
 \draw[relation] (baas) -- (partner);
@@ -978,114 +905,74 @@ Beyond bank accounts:
 \end{center}
 
 \vspace{3mm}
-\footnotesize{APIs are the technical foundation enabling Open Banking (data access), BaaS (infrastructure rental), and Embedded Finance (integration into non-financial products).}
+\footnotesize{APIs are the technical foundation enabling \textbf{Open Banking} (regulated data access), \textbf{BaaS} (infrastructure rental), and \textbf{Embedded Finance} (integration into non-financial products). Each builds on the previous.}
 \end{frame}
 
 % ============================================================================
-% SLIDES 33-34: KEY TERMS & DEFINITIONS
+% SLIDE 25: KEY TERMS
 % ============================================================================
-\begin{frame}{Key Terms \& Definitions (1/2)}
+\begin{frame}{Key Terms and Definitions}
 \begin{description}
-\item[API] \textbf{Application Programming Interface} --- A standardized way for software systems to communicate, defining available requests and expected responses.
+\item[API] \textbf{Application Programming Interface} --- A standardized contract allowing software systems to communicate, defining available requests and expected responses.
 
-\item[Open Banking] A regulatory/technical framework requiring banks to share customer data with authorized third parties via secure APIs.
+\item[Open Banking] A regulatory and technical framework requiring banks to share customer data with authorized third parties via secure APIs, with customer consent.
 
-\item[PSD2] \textbf{Payment Services Directive 2} --- EU regulation (2018) mandating banks to provide API access for account information and payment initiation.
+\item[AISP] \textbf{Account Information Service Provider} --- A licensed third party authorized to read and aggregate bank account data (read-only access).
 
-\item[AISP] \textbf{Account Information Service Provider} --- A third party authorized to access and aggregate bank account data (read-only).
+\item[PISP] \textbf{Payment Initiation Service Provider} --- A licensed third party authorized to initiate payments from a user's bank account (write access).
 
-\item[PISP] \textbf{Payment Initiation Service Provider} --- A third party authorized to initiate payments from a user's bank account.
-\end{description}
-\end{frame}
-
-\begin{frame}{Key Terms \& Definitions (2/2)}
-\begin{description}
 \item[BaaS] \textbf{Banking-as-a-Service} --- A model where licensed banks provide banking infrastructure to non-banks via APIs.
 
-\item[Embedded Finance] Financial services integrated into non-financial platforms and customer journeys.
+\item[Embedded Finance] Financial services integrated directly into non-financial platforms and customer journeys.
 
-\item[OAuth 2.0] An authorization framework allowing third parties to access resources without sharing passwords.
-
-\item[Interchange] Fees paid between banks when processing card transactions; a major revenue source for card issuers.
-
-\item[Partner Bank] A licensed bank that provides the regulatory charter and deposit insurance for FinTechs using BaaS.
+\item[OAuth] An authorization framework allowing third parties to access resources using tokens instead of passwords.
 \end{description}
 \end{frame}
 
 % ============================================================================
-% SLIDE 35: COMMON MISCONCEPTIONS
+% SLIDE 26: COMMON MISCONCEPTIONS + SELF-ASSESSMENT
 % ============================================================================
-\begin{frame}{Common Misconceptions}
+\begin{frame}{Common Misconceptions and Self-Assessment}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textcolor{dfred}{\textbf{Myth 1:}} ``Chime/Revolut/N26 are banks''\\
-\textcolor{dfgreen}{\textbf{Reality:}} Most neobanks are FinTechs partnering with licensed banks. They don't hold a full banking charter.
+\textbf{Common Myths:}
 
-\vspace{4mm}
+\vspace{2mm}
+\textcolor{dfred}{\textbf{Myth 1:}} ``Neobanks are banks''\\
+\textcolor{dfgreen}{\textbf{Reality:}} Most neobanks are FinTechs partnering with licensed banks. They do not hold a full banking charter themselves.
+
+\vspace{3mm}
 \textcolor{dfred}{\textbf{Myth 2:}} ``Open Banking means anyone can see my data''\\
-\textcolor{dfgreen}{\textbf{Reality:}} Explicit customer consent is required. You control who accesses what, and can revoke access anytime.
+\textcolor{dfgreen}{\textbf{Reality:}} Explicit customer consent is required. You control who accesses what, and can revoke access at any time.
+
+\vspace{3mm}
+\textcolor{dfred}{\textbf{Myth 3:}} ``APIs make banking less secure''\\
+\textcolor{dfgreen}{\textbf{Reality:}} Proper APIs with token-based authentication are more secure than screen-scraping, which requires sharing passwords.
 \end{column}
 \begin{column}{0.48\textwidth}
-\textcolor{dfred}{\textbf{Myth 3:}} ``APIs make banking less secure''\\
-\textcolor{dfgreen}{\textbf{Reality:}} Proper APIs with OAuth 2.0 are more secure than screen-scraping, which requires sharing passwords.
+\textbf{Self-Assessment Questions:}
 
-\vspace{4mm}
-\textcolor{dfred}{\textbf{Myth 4:}} ``BaaS is just white-labeling''\\
-\textcolor{dfgreen}{\textbf{Reality:}} BaaS provides deep infrastructure (ledger, compliance, licensing) --- not just branding on top of existing products.
+\vspace{2mm}
+\begin{enumerate}
+\item In your own words, explain the difference between an AISP and a PISP.
+
+\vspace{2mm}
+\item Why does a FinTech using BaaS depend on its partner bank's regulatory standing?
+
+\vspace{2mm}
+\item What are the advantages of token-based access over password sharing?
+
+\vspace{2mm}
+\item If you were building a FinTech, would you apply for your own banking license or use BaaS? Justify your reasoning.
+\end{enumerate}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDES 36-37: SELF-ASSESSMENT QUESTIONS
+% SLIDE 27: WHAT'S NEXT + QUESTIONS
 % ============================================================================
-\begin{frame}{Self-Assessment Questions (1/2)}
-\begin{block}{Question 1}
-What is an Application Programming Interface (API) in the context of financial services?
-\end{block}
-
-\vspace{2mm}
-\textbf{A.} A type of banking license\\
-\textbf{B.} A standardized way for different software systems to communicate and exchange data\\
-\textbf{C.} A mobile banking application\\
-\textbf{D.} A type of cryptocurrency
-
-\vspace{5mm}
-\begin{block}{Question 2}
-Which regulation mandated that European banks must provide API access to authorized third parties?
-\end{block}
-
-\vspace{2mm}
-\textbf{A.} Dodd-Frank Act\\
-\textbf{B.} Basel III\\
-\textbf{C.} PSD2 (Payment Services Directive 2)\\
-\textbf{D.} GDPR
-\end{frame}
-
-\begin{frame}{Self-Assessment Questions (2/2)}
-\begin{block}{Question 3}
-In a Banking-as-a-Service (BaaS) model, what does the FinTech company typically ``rent'' from the partner bank?
-\end{block}
-
-\vspace{2mm}
-\textbf{A.} Office space and employees\\
-\textbf{B.} Banking charter, FDIC insurance, and compliance infrastructure\\
-\textbf{C.} Customer data and transaction history\\
-\textbf{D.} Marketing and branding services
-
-\vspace{5mm}
-\textbf{Answers:}
-\begin{enumerate}
-\item B --- APIs enable standardized communication between software systems
-\item C --- PSD2 mandated European banks to provide API access
-\item B --- FinTechs rent the regulatory infrastructure (charter, compliance, insurance)
-\end{enumerate}
-\end{frame}
-
-% ============================================================================
-% SLIDE 38: WHAT'S NEXT
-% ============================================================================
-\begin{frame}{What's Next: Topic 2.3 --- Data-Driven Finance}
+\begin{frame}{What's Next}
 \begin{block}{Coming Up}
 \textbf{Topic 2.3: Data-Driven Finance --- Lending, Scoring, and Algorithmic Decisions}
 \end{block}
@@ -1093,68 +980,25 @@ In a Banking-as-a-Service (BaaS) model, what does the FinTech company typically 
 \vspace{3mm}
 \textbf{Preview:}
 \begin{itemize}
-\item How FinTechs use alternative data for credit decisions
-\item Machine learning in lending: promises and pitfalls
-\item Algorithmic bias and fairness in financial AI
-\item The shift from FICO scores to AI-based underwriting
-\item Regulatory challenges of ``black box'' decisions
+\item How do lenders decide whether to trust you with money they might never see again?
+\item Traditional credit scoring vs.\ machine learning approaches
+\item Alternative data: what if your everyday financial behavior could help you get a loan?
+\item Algorithmic bias: can a ``neutral'' algorithm discriminate?
+\item The right to know why you were turned down
 \end{itemize}
 
 \vspace{3mm}
 \textbf{Connection to this topic:}\\
-Open Banking APIs provide the \textbf{data} that powers data-driven finance. Without API access to transaction history, AI-based lending wouldn't be possible.
+Open Banking APIs provide the \textbf{data} that powers data-driven finance. Without API access to transaction history, alternative credit scoring would not be possible.
 
-\bottomnote{Notebook NB04: Building a Simple Credit Scoring Model}
-\end{frame}
-
-% ============================================================================
-% SLIDE 39: RESOURCES
-% ============================================================================
-\begin{frame}{Resources for Further Learning}
-\textbf{Regulations \& Standards:}
-\begin{itemize}
-\item European Banking Authority --- PSD2 Guidelines: \url{eba.europa.eu}
-\item UK Open Banking Standards: \url{standards.openbanking.org.uk}
-\item CFPB Section 1033: \url{consumerfinance.gov}
-\end{itemize}
-
-\vspace{2mm}
-\textbf{API Documentation (for exploration):}
-\begin{itemize}
-\item Plaid API Docs: \url{plaid.com/docs}
-\item TrueLayer: \url{docs.truelayer.com}
-\item Open Banking UK: \url{openbanking.org.uk}
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Industry Analysis:}
-\begin{itemize}
-\item a16z: ``Every Company Will Be a FinTech Company''
-\item Bain \& Company: Embedded Finance Reports
-\item Simon-Kucher: BaaS Market Analysis
-\end{itemize}
-\end{frame}
-
-% ============================================================================
-% SLIDE 40: QUESTIONS
-% ============================================================================
-\begin{frame}{Questions?}
+\vspace{5mm}
 \centering
-\vspace{1cm}
-{\Large\textbf{Topic 2.2: The API Economy and Banking-as-a-Service}}
+{\Large\textbf{Questions?}}
 
-\vspace{1cm}
-\textbf{Key Message:}\\
-\textit{APIs have transformed banking from a monolithic industry into a componentized ecosystem where any company can offer financial services.}
+\vspace{3mm}
+\textbf{Remember}: Complete Notebook NB03 (Open Banking API Simulation) before the next session.
 
-\vspace{1cm}
-\textbf{Contact:}\\
-Joerg Osterrieder\\
-Digital Finance\\
-2025
-
-\vspace{1cm}
-\textbf{Next:} Notebook NB03 --- Open Banking API Simulation
+\bottomnote{Next: Topic 2.3 | Notebook: NB03 --- Open Banking API Simulation}
 \end{frame}
 
 \end{document}

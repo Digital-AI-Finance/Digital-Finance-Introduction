@@ -289,6 +289,7 @@ FinTech builds \textit{on top of} the existing system
 \item \textbf{Venmo} -- Social payments layer on ACH
 \item \textbf{Zelle} -- Bank consortium instant transfer
 \item \textbf{Cash App} -- P2P + banking features
+\item \textbf{PayPal} -- Original digital payment pioneer
 \end{itemize}
 
 \vspace{3mm}
@@ -310,6 +311,10 @@ FinTech builds \textit{on top of} the existing system
 \vspace{3mm}
 \textbf{Common Thread:}\\
 \textcolor{dfblue}{All operate on existing payment rails (ACH, SWIFT, card networks) with better interfaces, pricing, and user experience.}
+
+\vspace{2mm}
+\footnotesize
+\textit{You may already use some of these! Venmo for splitting dinner, PayPal for online shopping, or Wise for international transfers.}
 \end{column}
 \end{columns}
 
@@ -325,7 +330,7 @@ When you send money via Venmo, it still settles through ACH---FinTech adds a con
 \begin{frame}{FinTech Examples: Banking \& Lending}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Neobanks:}
+\textbf{Neobanks (Apps You Might Know):}
 \begin{itemize}
 \item \textbf{Chime} -- No-fee banking via partners
 \item \textbf{N26, Revolut} -- European mobile banks
@@ -370,9 +375,9 @@ When you send money via Venmo, it still settles through ACH---FinTech adds a con
 \begin{frame}{FinTech Examples: Investing \& Insurance}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Investing/WealthTech:}
+\textbf{Investing/WealthTech (Student-Friendly):}
 \begin{itemize}
-\item \textbf{Robinhood} -- Commission-free trading
+\item \textbf{Robinhood} -- Commission-free stock trading
 \item \textbf{Webull} -- Advanced trading features
 \item \textbf{Betterment, Wealthfront} -- Robo-advisors
 \item \textbf{Acorns, Stash} -- Micro-investing
@@ -381,7 +386,7 @@ When you send money via Venmo, it still settles through ACH---FinTech adds a con
 
 \vspace{3mm}
 \textbf{Key Innovation:}\\
-Democratized access to investing through lower minimums, no commissions, and simplified UX.
+Democratized access to investing through lower minimums, no commissions, and simplified UX. You can start with \$5, not \$5,000.
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{InsurTech:}
@@ -433,6 +438,12 @@ The existing infrastructure is fundamentally flawed. We need:
 \item Consensus mechanisms
 \item Smart contracts
 \end{itemize}
+
+\vspace{3mm}
+\begin{block}{Simple Analogy}
+\footnotesize
+\textbf{Imagine a vending machine that can be a bank}---no employees, just code that follows rules automatically. That's DeFi.
+\end{block}
 \end{column}
 \begin{column}{0.47\textwidth}
 \begin{tikzpicture}[scale=0.65, transform shape]
@@ -507,10 +518,73 @@ Crypto/DeFi builds a \textit{parallel} system
 \item \textbf{Open-source code} is auditable by anyone
 \end{itemize}
 \end{block}
+
+\vspace{2mm}
+\begin{block}{Smart Contract Analogy}
+\footnotesize
+\textbf{Like an escrow account that releases funds automatically when conditions are met}---no lawyer needed. If you buy a house: when title transfers + payment confirmed $\rightarrow$ keys released. All automatic.
+\end{block}
 \end{frame}
 
 % =====================================================================
-% FRAME 13: CRYPTO/DEFI EXAMPLES - CURRENCIES & TOKENS
+% FRAME 13: TRUST SPECTRUM COMPARISON
+% =====================================================================
+\begin{frame}{Trust Spectrum: Two Extremes}
+\begin{center}
+\textbf{\Large Where Do You Want to Be on This Spectrum?}
+\end{center}
+
+\vspace{5mm}
+\begin{tikzpicture}[scale=1.0, transform shape]
+% Horizontal spectrum line
+\draw[ultra thick, dfgray] (0,0) -- (12,0);
+
+% Left end - FinTech
+\node[above, text width=3cm, align=center] at (0,0.3) {\textbf{Trust the Bank\\Completely}};
+\draw[ultra thick, dfblue] (0,-0.3) -- (0,0.3);
+\node[below, text width=3.5cm, align=center, font=\footnotesize] at (0,-0.5) {
+FinTech\\
+Institutions protect you\\
+Someone else responsible
+};
+
+% Middle - Hybrid
+\node[above, text width=2.5cm, align=center] at (6,0.3) {\textbf{Hybrid\\Zone}};
+\draw[thick, dfgray] (6,-0.2) -- (6,0.2);
+\node[below, text width=3.5cm, align=center, font=\footnotesize] at (6,-0.5) {
+Custodial Crypto\\
+(Coinbase, PayPal)\\
+Some control
+};
+
+% Right end - DeFi
+\node[above, text width=3cm, align=center] at (12,0.3) {\textbf{Trust the Code\\Only}};
+\draw[ultra thick, dfteal] (12,-0.3) -- (12,0.3);
+\node[below, text width=3.5cm, align=center, font=\footnotesize] at (12,-0.5) {
+DeFi\\
+Math protects you\\
+You are responsible
+};
+
+% Examples along spectrum
+\node[font=\tiny, text=dfblue] at (1.5,-1.5) {Traditional bank};
+\node[font=\tiny, text=dfblue] at (3,-1.5) {Venmo, Revolut};
+\node[font=\tiny, text=dfgray] at (6,-1.5) {Binance, Kraken};
+\node[font=\tiny, text=dfteal] at (9,-1.5) {MetaMask};
+\node[font=\tiny, text=dfteal] at (10.5,-1.5) {Uniswap, Aave};
+\end{tikzpicture}
+
+\vspace{5mm}
+\begin{block}{The Key Question}
+\begin{itemize}
+\item \textbf{Left (FinTech):} More protection, less freedom. Bank says ``we've got you.''
+\item \textbf{Right (DeFi):} More freedom, less protection. Code says ``you're on your own.''
+\end{itemize}
+\end{block}
+\end{frame}
+
+% =====================================================================
+% FRAME 14: CRYPTO/DEFI EXAMPLES - CURRENCIES & TOKENS
 % =====================================================================
 \begin{frame}{Crypto/DeFi Examples: Currencies \& Tokens}
 \begin{columns}[T]
@@ -691,7 +765,64 @@ All operate on blockchain rails, using smart contracts, without traditional inte
 \end{frame}
 
 % =====================================================================
-% FRAME 17: SIDE-BY-SIDE COMPARISON TABLE
+% FRAME 17: PERMISSIONED VS PERMISSIONLESS - WHY IT MATTERS
+% =====================================================================
+\begin{frame}{Permissioned vs. Permissionless: Why Does This Matter for YOU?}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Permissioned (FinTech):}
+
+\vspace{2mm}
+\textbf{Someone can say NO:}
+\begin{itemize}
+\item Need ID and proof of address
+\item Credit check required
+\item Geographic restrictions apply
+\item Account can be frozen
+\item Service can refuse you
+\end{itemize}
+
+\vspace{3mm}
+\textbf{You GET:}
+\begin{itemize}
+\item[\textcolor{dfgreen}{\checkmark}] Customer support
+\item[\textcolor{dfgreen}{\checkmark}] Fraud protection
+\item[\textcolor{dfgreen}{\checkmark}] Chargebacks
+\item[\textcolor{dfgreen}{\checkmark}] Legal recourse
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Permissionless (DeFi):}
+
+\vspace{2mm}
+\textbf{No one can say NO:}
+\begin{itemize}
+\item Only need internet + wallet
+\item No credit check
+\item Works anywhere
+\item Cannot be frozen
+\item No approval needed
+\end{itemize}
+
+\vspace{3mm}
+\textbf{You GET:}
+\begin{itemize}
+\item[\textcolor{dfred}{$\times$}] No customer support
+\item[\textcolor{dfred}{$\times$}] No fraud protection
+\item[\textcolor{dfred}{$\times$}] No chargebacks
+\item[\textcolor{dfred}{$\times$}] No legal recourse
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{The Real-World Impact}
+\textbf{FinTech:} Safer but can exclude you. \textbf{DeFi:} Includes everyone but you're on your own.
+\end{block}
+\end{frame}
+
+% =====================================================================
+% FRAME 18: SIDE-BY-SIDE COMPARISON TABLE
 % =====================================================================
 \begin{frame}{Side-by-Side Comparison}
 \begin{center}
@@ -723,7 +854,92 @@ All operate on blockchain rails, using smart contracts, without traditional inte
 \end{frame}
 
 % =====================================================================
-% FRAME 18: DETAILED COMPARISON - TRUST & CUSTODY
+% FRAME 18: CUSTODIAL VS NON-CUSTODIAL EXPLAINED
+% =====================================================================
+\begin{frame}{Custodial vs. Non-Custodial: ``Not Your Keys, Not Your Crypto''}
+\begin{center}
+\textbf{\Large Understanding Who Controls Your Money}
+\end{center}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Custodial (FinTech Approach):}
+
+\vspace{2mm}
+\begin{block}{Like a Bank Holds Your Money}
+\footnotesize
+The exchange/platform holds your crypto for you. You log in with username + password.
+\end{block}
+
+\vspace{2mm}
+\textbf{Examples:}
+\begin{itemize}
+\item Coinbase account
+\item PayPal crypto
+\item Robinhood crypto
+\end{itemize}
+
+\vspace{2mm}
+\textcolor{dfgreen}{\textbf{Pros:}}
+\begin{itemize}
+\item Easy to use
+\item Can recover password
+\item Customer support
+\end{itemize}
+
+\vspace{2mm}
+\textcolor{dfred}{\textbf{Cons:}}
+\begin{itemize}
+\item They can freeze your account
+\item If company fails, you might lose funds
+\item Not true ownership
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Non-Custodial (DeFi Approach):}
+
+\vspace{2mm}
+\begin{block}{Like Cash in Your Pocket}
+\footnotesize
+You hold the private keys. Only you can access your crypto. No one else has control.
+\end{block}
+
+\vspace{2mm}
+\textbf{Examples:}
+\begin{itemize}
+\item MetaMask wallet
+\item Ledger hardware wallet
+\item Trust Wallet
+\end{itemize}
+
+\vspace{2mm}
+\textcolor{dfgreen}{\textbf{Pros:}}
+\begin{itemize}
+\item True ownership
+\item Cannot be frozen
+\item No counterparty risk
+\end{itemize}
+
+\vspace{2mm}
+\textcolor{dfred}{\textbf{Cons:}}
+\begin{itemize}
+\item Lose keys = lose money forever
+\item No customer support
+\item More responsibility
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{The Tradeoff}
+\textbf{Custodial:} Convenience + Support vs. Less Control\\
+\textbf{Non-Custodial:} Full Control vs. Full Responsibility
+\end{block}
+\end{frame}
+
+% =====================================================================
+% FRAME 19: DETAILED COMPARISON - TRUST & CUSTODY
 % =====================================================================
 \begin{frame}{Comparison Deep Dive: Trust \& Custody}
 \begin{columns}[T]
@@ -948,7 +1164,84 @@ Users who need \textbf{different} financial infrastructure---global access, self
 \end{frame}
 
 % =====================================================================
-% FRAME 24: THE CONVERGENCE
+% FRAME 24: REGULATORY DIFFERENCES & CONSUMER PROTECTION
+% =====================================================================
+\begin{frame}{Regulatory Differences: What Happens When Things Go Wrong?}
+\begin{center}
+\textbf{\Large Consumer Protection Implications}
+\end{center}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{FinTech: Regulated \& Protected}
+
+\vspace{3mm}
+\begin{block}{Bank Fails?}
+\footnotesize
+\textbf{FDIC insures up to \$250,000} in the US\\
+Similar protections in EU (€100k), UK (£85k)
+\end{block}
+
+\vspace{2mm}
+\begin{block}{Fraud/Unauthorized Transaction?}
+\footnotesize
+\textbf{Chargebacks available}\\
+Zero liability for credit cards\\
+Limited liability for debit cards
+\end{block}
+
+\vspace{2mm}
+\begin{block}{Company Misbehaves?}
+\footnotesize
+\textbf{Sue them in court}\\
+Regulatory oversight (SEC, CFPB)\\
+Legal recourse available
+\end{block}
+
+\vspace{2mm}
+\textcolor{dfgreen}{\textbf{Bottom line:}} You have a safety net.
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{DeFi: Unregulated \& Unprotected}
+
+\vspace{3mm}
+\begin{block}{Smart Contract Hacked?}
+\footnotesize
+\textbf{Your money may be gone forever}\\
+No insurance, no government bailout\\
+``Code is law''---even if buggy
+\end{block}
+
+\vspace{2mm}
+\begin{block}{Sent to Wrong Address?}
+\footnotesize
+\textbf{Transactions are irreversible}\\
+No chargebacks, no undo button\\
+Lost keys = lost funds
+\end{block}
+
+\vspace{2mm}
+\begin{block}{Protocol Fails?}
+\footnotesize
+\textbf{No one to sue}\\
+Anonymous developers\\
+No regulator to complain to
+\end{block}
+
+\vspace{2mm}
+\textcolor{dfred}{\textbf{Bottom line:}} You are your own safety net.
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{Real Example}
+In 2022, Terra/Luna collapse: \$40 billion lost. FinTech users could seek legal recourse. DeFi users had no one to sue---just code that executed as designed.
+\end{block}
+\end{frame}
+
+% =====================================================================
+% FRAME 25: THE CONVERGENCE
 % =====================================================================
 \begin{frame}{The Convergence}
 \begin{center}

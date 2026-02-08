@@ -169,7 +169,7 @@ Each friction represents billions of dollars in costs and millions of people aff
 \begin{column}{0.55\textwidth}
 \textbf{The Problem:}
 \begin{itemize}
-\item Stock trade: T+1 (1 business day since May 2024)
+\item Stock trade: T+1 (Trade day + 1 business day---you buy Monday, money settles Tuesday)
 \item International wire: 1-5 business days
 \item ACH transfer: 2-3 business days
 \item Even ``instant'' payments take hours behind scenes
@@ -190,21 +190,25 @@ Each friction represents billions of dollars in costs and millions of people aff
 % Settlement chain
 \node (you) [transaction] {You};
 \node (bank1) [blockchain, below of=you, minimum width=1.5cm] {Your Bank};
-\node (corr1) [blockchain, below of=bank1, minimum width=1.5cm] {Correspondent};
-\node (swift) [blockchain, below of=corr1, minimum width=1.5cm] {SWIFT};
-\node (corr2) [blockchain, below of=swift, minimum width=1.5cm] {Correspondent};
+\node (corr1) [blockchain, below of=bank1, minimum width=1.5cm, fill=dforange!20] {Correspondent};
+\node (swift) [blockchain, below of=corr1, minimum width=1.5cm, fill=dfblue!20] {SWIFT};
+\node (corr2) [blockchain, below of=swift, minimum width=1.5cm, fill=dforange!20] {Correspondent};
 \node (bank2) [blockchain, below of=corr2, minimum width=1.5cm] {Their Bank};
 \node (them) [transaction, below of=bank2] {Them};
 
 \draw[arrow] (you) -- (bank1);
-\draw[arrow] (bank1) -- (corr1);
-\draw[arrow] (corr1) -- (swift);
-\draw[arrow] (swift) -- (corr2);
-\draw[arrow] (corr2) -- (bank2);
+\draw[arrow] (bank1) -- node[right, font=\tiny] {hop 1} (corr1);
+\draw[arrow] (corr1) -- node[right, font=\tiny] {hop 2} (swift);
+\draw[arrow] (swift) -- node[right, font=\tiny] {hop 3} (corr2);
+\draw[arrow] (corr2) -- node[right, font=\tiny] {hop 4} (bank2);
 \draw[arrow] (bank2) -- (them);
 
 \node[right of=swift, node distance=2.5cm] {\textcolor{dfred}{3-5 days}};
 \end{tikzpicture}
+
+\vspace{2mm}
+\footnotesize
+Each intermediary adds fees and delays.
 \end{column}
 \end{columns}
 \end{frame}
@@ -230,6 +234,10 @@ Each friction represents billions of dollars in costs and millions of people aff
 \item Clearing (overnight)
 \item Settlement (next day)
 \end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+\textbf{Example:} Buy stock Monday at 2pm. Money leaves your account Tuesday morning. Until then, capital is locked.
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{tikzpicture}[scale=0.7, transform shape]
@@ -327,6 +335,10 @@ Lehman Brothers' failure created \$600B+ in unsettled trades. Settlement delay a
 
 \vspace{3mm}
 \textbf{Who pays?} Migrant workers sending money home. The global remittance market is \textbf{\$700+ billion/year}, with \textbf{\$50+ billion} lost to fees.
+
+\vspace{2mm}
+\footnotesize
+\textbf{Example:} A Filipino worker sending \$200 home loses about \$14 in fees---that's 7\% just to move their own money.
 \end{frame}
 
 %--- Frame 11: High Fees - Fee Breakdown ---
@@ -427,11 +439,11 @@ Lehman Brothers' failure created \$600B+ in unsettled trades. Settlement delay a
 \vspace{3mm}
 \textbf{Why excluded?}
 \begin{itemize}
-\item No ID documents
-\item No fixed address
-\item Minimum balance requirements
+\item \textbf{No government ID} (birth certificate never issued)
+\item \textbf{Distance:} Nearest bank is 50km away
+\item \textbf{Minimum balance:} \$500 required, you have \$100
+\item \textbf{Documentation:} Need 3 months utility bills + employer letter
 \item Poor credit history
-\item Geographic distance from banks
 \item Distrust of institutions
 \end{itemize}
 \end{column}
@@ -556,6 +568,10 @@ Those who need financial services most have the least access to them.
 \item Credit card interchange fees
 \item Insurance pricing algorithms
 \end{itemize}
+
+\vspace{2mm}
+\footnotesize
+\textbf{Your ``free'' bank:} \$2 per ATM, \$35 overdraft, \$10 monthly minimum, \$3 paper statement...
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{tikzpicture}[scale=0.65, transform shape]
@@ -670,7 +686,45 @@ Institutions have teams of analysts; consumers have Google. The information gap 
 \end{itemize}
 \end{frame}
 
-%--- Frame 20: Fragmentation - Technical Details ---
+%--- Frame 20: Fragmentation - Domestic vs Cross-Border Comparison ---
+\begin{frame}{Fragmentation: Domestic Fast, Cross-Border Slow}
+\begin{center}
+\begin{tikzpicture}[scale=0.8, transform shape]
+% Domestic transfer
+\node at (0,4) {\textbf{Sending Money Within Your Country}};
+\node (you1) [transaction] at (-2,3) {You};
+\node (bank1) [blockchain, minimum width=2cm] at (0,3) {Your Bank};
+\node (them1) [transaction] at (2,3) {Them};
+\draw[->, ultra thick, dfgreen] (you1) -- (bank1);
+\draw[->, ultra thick, dfgreen] (bank1) -- (them1);
+\node[below, dfgreen, font=\small] at (0,2.5) {\textbf{Instant to same day}};
+
+% Cross-border transfer
+\node at (0,1.5) {\textbf{Sending Money Across Borders}};
+\node (you2) [transaction] at (-3,0.5) {You};
+\node (b1) [blockchain, minimum width=1.2cm, minimum height=0.6cm, font=\tiny] at (-1.5,0.5) {Your Bank};
+\node (c1) [blockchain, minimum width=1.2cm, minimum height=0.6cm, font=\tiny] at (0,0.5) {Corresp.};
+\node (sw) [blockchain, minimum width=1.2cm, minimum height=0.6cm, font=\tiny] at (1.5,0.5) {SWIFT};
+\node (c2) [blockchain, minimum width=1.2cm, minimum height=0.6cm, font=\tiny] at (3,0.5) {Corresp.};
+\node (b2) [blockchain, minimum width=1.2cm, minimum height=0.6cm, font=\tiny] at (4.5,0.5) {Their Bank};
+\node (them2) [transaction] at (6,0.5) {Them};
+
+\draw[->, thick, dfred] (you2) -- (b1);
+\draw[->, thick, dfred] (b1) -- (c1);
+\draw[->, thick, dfred] (c1) -- (sw);
+\draw[->, thick, dfred] (sw) -- (c2);
+\draw[->, thick, dfred] (c2) -- (b2);
+\draw[->, thick, dfred] (b2) -- (them2);
+
+\node[below, dfred, font=\small] at (1.5,-0.3) {\textbf{3-5 days + multiple fees}};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Why the difference?} Different payment networks, different regulations, currency conversion, multiple intermediaries, batch processing cycles.
+\end{frame}
+
+%--- Frame 21: Fragmentation - Technical Details ---
 \begin{frame}{Fragmentation: A Technical Mess}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -764,6 +818,11 @@ Institutions have teams of analysts; consumers have Google. The information gap 
 \item Local timezone (misaligned with global commerce)
 \item Batch processing cycles (not real-time)
 \end{itemize}
+
+\vspace{3mm}
+\begin{alertblock}{Weekend Frustration}
+Try to send rent on Saturday---it won't arrive until Tuesday (Monday is processing, Tuesday is settlement).
+\end{alertblock}
 \end{frame}
 
 %--- Frame 22: Limited Hours - Global Business Impact ---

@@ -9,7 +9,7 @@
 \subtitle{Where Is Digital Finance Going?}
 \author{Joerg Osterrieder}
 \institute{Digital Finance Course}
-\date{2025}
+\date{2026}
 
 \begin{document}
 
@@ -153,7 +153,7 @@ Synthesis and forward-looking analysis. You leave with a durable framework for e
 \vspace{0.3cm}
 \textbf{Examples:}
 \begin{itemize}
-\item Aave Arc (permissioned pools)
+\item Aave Arc (permissioned pools; limited adoption so far)
 \item Circle (regulated stablecoin)
 \item Coinbase (public company, licensed)
 \end{itemize}
@@ -164,7 +164,7 @@ Synthesis and forward-looking analysis. You leave with a durable framework for e
 % ---------------------------------------------------------------------
 \begin{frame}{Convergence Example 1: Institutional DeFi}
 \begin{block}{Definition}
-DeFi protocols or pools designed for institutions with KYC/AML, permissioned access, and regulatory compliance.
+DeFi protocols or pools designed for institutions with KYC/AML (Know Your Customer / Anti-Money Laundering), permissioned access, and regulatory compliance.
 \end{block}
 
 \begin{columns}[T]
@@ -180,7 +180,7 @@ DeFi protocols or pools designed for institutions with KYC/AML, permissioned acc
 \begin{column}{0.48\textwidth}
 \textbf{Key examples:}
 \begin{itemize}
-\item \textbf{Aave Arc}: Permissioned Aave for institutions
+\item \textbf{Aave Arc}: Permissioned Aave for institutions (adoption has been limited)
 \item \textbf{Compound Treasury}: Institutional lending product
 \item \textbf{Maple Finance}: Institutional credit pools
 \item \textbf{Centrifuge}: Real-world asset financing
@@ -213,14 +213,17 @@ Bank deposits represented as tokens on a blockchain, combining bank liability wi
 \node[blockchain, minimum width=3.5cm, align=center] (token) at (4,0) {Tokenized\\Deposit};
 
 % Properties below
-\node[below, font=\footnotesize, align=center, text=dfgray] at (-4,-1.2) {FDIC insured\\Bank liability\\Traditional rails};
-\node[below, font=\footnotesize, align=center, text=dfteal] at (4,-1.2) {FDIC insured\\Bank liability\\Blockchain rails};
+\node[below, font=\footnotesize, align=center, text=dfgray] at (-4,-1.2) {Deposit-insured*\\Bank liability\\Traditional rails};
+\node[below, font=\footnotesize, align=center, text=dfteal] at (4,-1.2) {Deposit-insured*\\Bank liability\\Blockchain rails};
 \end{tikzpicture}
 \end{center}
 
 \textbf{Key players:} JPMorgan (JPM Coin), Citi, Wells Fargo, Societe Generale
 
 \textbf{Difference from stablecoins:} Tokenized deposits are \emph{bank liabilities}, not claims on reserves held by a separate issuer.
+
+\vspace{1mm}
+{\scriptsize *Deposit insurance varies by jurisdiction: FDIC (US), FSCS (UK), Einlagensicherung (EU/Germany). Coverage limits differ.}
 \end{frame}
 
 % ---------------------------------------------------------------------
@@ -255,7 +258,7 @@ Financial services seamlessly integrated into non-financial platforms and workfl
 \begin{itemize}
 \item Shopify Capital (e-commerce lending)
 \item Uber driver instant pay
-\item Apple Pay Later
+\item Klarna / Affirm (buy-now-pay-later)
 \item Amazon lending to sellers
 \item Tesla insurance
 \end{itemize}
@@ -286,17 +289,17 @@ Financial services seamlessly integrated into non-financial platforms and workfl
 \begin{column}{0.48\textwidth}
 \textbf{Examples:}
 \begin{itemize}
-\item \textbf{MakerDAO}: DAI backed by RWA vaults
+\item \textbf{MakerDAO (now Sky)}: DAI backed by RWA vaults (DAI transitioning to USDS)
 \item \textbf{Ondo Finance}: Tokenized treasuries
-\item \textbf{Backed Finance}: Tokenized ETFs
+\item \textbf{Backed Finance}: Tokenized ETFs (Exchange-Traded Funds)
 \item \textbf{Goldfinch}: Credit to emerging markets
 \end{itemize}
 \end{column}
 \end{columns}
 
 \vspace{0.5cm}
-\begin{exampleblock}{MakerDAO's RWA Strategy}
-MakerDAO now allocates \$2B+ to real-world assets (US Treasuries, corporate bonds). A ``DeFi'' protocol holding TradFi assets---convergence in action.
+\begin{exampleblock}{MakerDAO's RWA Strategy (now rebranded as Sky, 2024)}
+MakerDAO (now Sky) allocates \$2B+ to real-world assets (US Treasuries, corporate bonds). A ``DeFi'' protocol holding TradFi assets---convergence in action.
 \end{exampleblock}
 \end{frame}
 
@@ -437,15 +440,19 @@ Automated investment management using algorithms to construct, monitor, and reba
 % ---------------------------------------------------------------------
 \begin{frame}{Robo-Advisory: The Math Behind It}
 \textbf{Mean-Variance Optimization (Markowitz):}
+
+\textbf{Intuition:} Find the mix of assets that gives the best return for a given level of risk. A cautious investor tilts toward bonds; an aggressive one tilts toward stocks.
+
 \begin{equation}
 \min_w \frac{1}{2} w^T \Sigma w - \lambda \mu^T w
 \end{equation}
 \begin{itemize}
-\item $w$ = portfolio weights
-\item $\Sigma$ = covariance matrix of returns
-\item $\mu$ = expected returns vector
-\item $\lambda$ = risk aversion parameter
+\item $w$ = portfolio weights (how much of each asset)
+\item $\Sigma$ = covariance matrix (how assets move together)
+\item $\mu$ = expected returns vector (how much each asset is expected to earn)
+\item $\lambda$ = risk aversion parameter (higher $=$ more cautious)
 \end{itemize}
+{\scriptsize (Don't worry about the math---the key idea is balancing risk against return automatically.)}
 
 \vspace{0.3cm}
 \textbf{Mapping Risk Tolerance to $\lambda$:}
@@ -587,7 +594,7 @@ Two Sigma, Citadel, Renaissance, DE Shaw
 \begin{column}{0.48\textwidth}
 \textbf{Current Applications:}
 \begin{itemize}
-\item MEV (Maximal Extractable Value) bots
+\item MEV (Maximal Extractable Value---profit extracted by reordering transactions) bots
 \item Liquidation bots
 \item Yield farming optimizers
 \item Portfolio rebalancing agents
@@ -633,7 +640,7 @@ Complex ML models (neural networks, gradient boosting) often cannot explain \emp
 \textbf{Mitigation Approaches:}
 \begin{itemize}
 \item Interpretable models (logistic regression)
-\item SHAP/LIME explanations
+\item SHAP/LIME explanations (methods that attribute a prediction to individual input features)
 \item Surrogate models
 \item Feature importance analysis
 \item Regulatory sandboxes
@@ -960,7 +967,7 @@ Every design choice involves tradeoffs. Be skeptical of claims that offer everyt
 Security & Must register with SEC or use exemptions \\
 Commodity & CFTC oversight for derivatives \\
 Money transmission & State licenses required \\
-Banking product & OCC/Fed/FDIC oversight \\
+Banking product & OCC/Fed/FDIC oversight (US); PRA/FCA (UK); ECB/BaFin (EU) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1061,8 +1068,8 @@ WHO BENEFITS & Issuers (interest on reserves), traders (liquidity), DeFi (compos
 \node[process, minimum width=4cm, minimum height=1.5cm, font=\bfseries, align=center] (center) at (0,0) {Digital Finance\\Innovation};
 
 % Four lenses
-\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (tech) at (-5,2.5) {Technical Lens\\(Days 2, 3)};
-\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (econ) at (5,2.5) {Economic Lens\\(Days 1, 4)};
+\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (tech) at (-5,2.5) {Technical Lens\\(Days 3, 4)};
+\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (econ) at (5,2.5) {Economic Lens\\(Days 1, 2)};
 \node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (reg) at (-5,-2.5) {Regulatory Lens\\(Day 5)};
 \node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (social) at (5,-2.5) {Social Lens\\(All Days)};
 
@@ -1161,7 +1168,7 @@ Is the future of blockchain ``one chain to rule them all'' or an interoperable m
 \end{itemize}
 
 \vspace{0.2cm}
-\textbf{Stablecoin market cap:} \$150B+ (2024)
+\textbf{Stablecoin market cap:} $\sim$\$230B+ (as of early 2025; check CoinGecko for current figures)
 \end{column}
 \end{columns}
 
@@ -1191,7 +1198,7 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \begin{column}{0.48\textwidth}
 \textbf{Challenges:}
 \begin{itemize}
-\item Key management for normies
+\item Key management for everyday users
 \item Recovery when keys lost
 \item Adoption chicken-and-egg
 \item Regulatory acceptance
@@ -1210,8 +1217,8 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \begin{column}{0.48\textwidth}
 \textbf{What's at Risk:}
 \begin{itemize}
-\item ECDSA (used by Bitcoin, Ethereum)
-\item RSA encryption
+\item ECDSA (Elliptic Curve Digital Signature Algorithm---used by Bitcoin, Ethereum)
+\item RSA encryption (widely used public-key cryptosystem)
 \item Current digital signatures
 \item Potentially: all historical transactions
 \end{itemize}
@@ -1331,12 +1338,12 @@ Form groups of 3--4. Each group picks one open question and develops a hypothesi
 \toprule
 \textbf{Day} & \textbf{Theme} & \textbf{Key Takeaways} \\
 \midrule
-1 & Landscape & FinTech vs. DeFi framing; market structure; key players \\
-2 & Blockchain & Consensus, security, scalability trilemma; cryptographic foundations \\
-3 & Smart Contracts & Programmability, composability, DeFi primitives (AMMs, lending) \\
-4 & Stablecoins \& Tokenization & Price stability mechanisms; real-world asset integration \\
-5 & Regulation & Global approaches; compliance frameworks; legal status \\
-6 & Future & Convergence; AI applications and risks; evaluation framework \\
+1 & Foundations & What is money; financial system pain points; FinTech vs.\ DeFi framing; landscape overview \\
+2 & Digital Finance & Digital payments; API economy \& BaaS; data-driven finance; platform economics \\
+3 & Blockchain & Cryptographic building blocks; blockchain mechanics; wallets \& transactions; Bitcoin vs.\ Ethereum \\
+4 & Smart Contracts \& DeFi & Smart contracts; DeFi primitives (AMMs, lending); stablecoins; tokenization \& CBDCs \\
+5 & Risks \& Regulation & What goes wrong (hacks, failures); regulatory landscapes; DAO governance; privacy \& inclusion \\
+6 & Future & Convergence thesis; AI in digital finance; synthesis framework; what's next \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1411,7 +1418,7 @@ Form groups of 3--4. Each group picks one open question and develops a hypothesi
 \begin{itemize}
 \item The Block, CoinDesk (crypto)
 \item Risk.net, American Banker (TradFi)
-\item a]16z crypto blog
+\item a16z crypto blog
 \item BIS working papers
 \end{itemize}
 

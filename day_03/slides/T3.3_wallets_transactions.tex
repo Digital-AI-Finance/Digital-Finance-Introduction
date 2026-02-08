@@ -57,7 +57,7 @@ Understanding wallets and transactions is essential for anyone working in digita
 \begin{column}{0.48\textwidth}
 \textbf{Private Key}
 \begin{itemize}\compactlist
-\item A secret 256-bit random number
+\item A secret 256-bit random number (a number so large it's practically impossible for anyone else to guess)
 \item Only you should know it
 \item Used to \textit{sign} transactions
 \item Proves you authorize spending
@@ -594,7 +594,7 @@ To & 0x9c4d...e8f2 & Recipient's address \\
 Value & 1.5 ETH & Amount to transfer \\
 Nonce & 42 & Transaction count (prevents replay) \\
 Gas Limit & 21,000 & Maximum computation units \\
-Gas Price & 50 gwei & Price per gas unit \\
+Gas Price & 50 gwei & Price per gas unit (see frame 18) \\
 \hline
 \textbf{Signature} & v, r, s & Proves authorization \\
 \hline
@@ -664,6 +664,8 @@ The \textbf{mempool} (memory pool) is where valid but unconfirmed transactions w
 \vspace{3mm}
 \textbf{Gas Economics}
 
+\textbf{Analogy:} Gas limit = max fuel in tank; Gas price = cost per gallon
+
 \[
 \text{Fee} = \text{Gas Used} \times \text{Gas Price}
 \]
@@ -672,7 +674,7 @@ The \textbf{mempool} (memory pool) is where valid but unconfirmed transactions w
 \textbf{Example:}
 \begin{itemize}\compactlist
 \item Gas used: 21,000
-\item Gas price: 50 gwei
+\item Gas price: 50 gwei (explained in detail on next frame)
 \item Fee = 21,000 $\times$ 50 gwei = 0.00105 ETH
 \end{itemize}
 \end{column}
@@ -707,7 +709,11 @@ Higher fees\\[2mm]
 \begin{frame}{Gas Price Units: Gwei Explained}
 \textbf{Definition:} \textbf{Gwei} (giga-wei) is the standard unit for measuring gas prices on Ethereum.
 
-\vspace{5mm}
+\vspace{3mm}
+\textbf{Think of it like cents to dollars, but with more decimal places:}\\
+Wei is the smallest unit (like a penny's fraction), and ETH is the whole unit (like a dollar).
+
+\vspace{3mm}
 \begin{center}
 \begin{tabular}{l|l|l}
 \toprule
@@ -740,6 +746,9 @@ If ETH = \$2,000, that's about \$2.10 per transaction.
 % SLIDE 19: EIP-1559 FEE STRUCTURE
 % =======================================================================
 \begin{frame}{EIP-1559: Modern Ethereum Fee Structure}
+\textbf{EIP-1559} was a major 2021 upgrade that changed how Ethereum calculates transaction fees.
+
+\vspace{2mm}
 \textbf{Since August 2021}, Ethereum uses a two-part fee system:
 
 \vspace{3mm}
@@ -1409,7 +1418,7 @@ This is why you don't control custodial funds -- you're asking permission.
 \item ``World Computer'' vision
 \item Smart contract platform
 \item Account model
-\item Turing-complete programming
+\item Turing-complete programming (see Topic 3.4 for full explanation)
 \item Rapid innovation
 \end{itemize}
 \end{column}

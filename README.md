@@ -217,6 +217,42 @@ However, if you have limited time:
 
 ---
 
+## Advanced Topics
+
+The following topics are optional advanced content that extends the core curriculum. They can be included at instructor discretion or used for self-study by motivated students.
+
+### T3.5: Layer 2 Scaling Solutions [ADVANCED]
+**Prerequisites:** T3.2 (Blockchain Mechanics)
+
+An in-depth exploration of how Layer 2 solutions solve the blockchain scalability trilemma:
+- Payment channels and the Lightning Network
+- Sidechains and their trust models
+- Rollups: Optimistic vs ZK approaches
+- Bridges and cross-chain communication
+
+**Materials:**
+- Slides: `day_03/slides/T3.5_layer2_scaling.tex`
+- Notebook: `day_03/notebooks/NB15_Layer2_Simulation.ipynb`
+- Quiz: `quiz/quiz3.5.html`
+
+### T4.5: Zero-Knowledge Technology in Finance [ADVANCED]
+**Prerequisites:** T3.1 (Cryptography), T3.5 (recommended)
+
+Introduction to zero-knowledge proofs and their applications in privacy and scaling:
+- ZK proof properties: completeness, soundness, zero-knowledge
+- SNARKs vs STARKs: trade-offs and use cases
+- Applications: private transactions, selective disclosure, ZK-rollups
+- The future of ZK in DeFi and compliance
+
+**Materials:**
+- Slides: `day_04/slides/T4.5_zero_knowledge.tex`
+- Notebook: `day_04/notebooks/NB16_ZK_Proofs.ipynb`
+- Quiz: `quiz/quiz4.5.html`
+
+**Note:** These advanced topics do not modify the core 4-topic-per-day structure. They provide additional depth for students interested in cutting-edge scaling and privacy technologies.
+
+---
+
 ## Directory Structure
 
 ```

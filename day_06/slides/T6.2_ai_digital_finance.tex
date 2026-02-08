@@ -4,16 +4,12 @@
 
 \input{../../template_beamer.tex}
 
-% ======================= ADDITIONAL STYLES =======================
-\tikzstyle{aibox} = [rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=dfpurple, fill=dfpurple!15, thick]
-\definecolor{dfpurple}{RGB}{148, 103, 189}
-
 % ======================= DOCUMENT INFO =======================
 \title[Topic 6.2: AI in Finance]{Topic 6.2: AI and Digital Finance}
 \subtitle{Machine Learning Transforms Financial Services}
 \author{Joerg Osterrieder}
 \institute{Digital Finance}
-\date{2025}
+\date{2026}
 
 \begin{document}
 
@@ -31,7 +27,7 @@
 \begin{block}{By the end of this topic, you will be able to:}
 \begin{enumerate}
 \item \textbf{Identify} the major AI applications in finance (robo-advisory, fraud detection, credit scoring, algorithmic trading)
-\item \textbf{Understand} the mathematical foundations of robo-advisors (Modern Portfolio Theory, mean-variance optimization)
+\item \textbf{Understand} how robo-advisors make investment decisions (the logic behind automated portfolio balancing)
 \item \textbf{Analyze} AI risks including model opacity, adversarial attacks, and systemic risks
 \item \textbf{Evaluate} AI claims in finance using a critical framework
 \item \textbf{Apply} these concepts through hands-on robo-advisor simulation
@@ -48,30 +44,37 @@
 \begin{frame}{Prerequisites and Background}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{What You Should Know:}
+\textbf{What We've Learned So Far:}
 \begin{itemize}
-\item Basic understanding of financial markets
-\item Concept of risk and return
-\item Familiarity with portfolio diversification
-\item Understanding of basic statistics (mean, variance, correlation)
+\item Money and financial systems (Day 1)
+\item Digital payments and APIs (Day 2)
+\item Blockchain and consensus (Day 3)
+\item Smart contracts and DeFi (Day 4)
+\item Risks and regulation (Day 5)
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Course Context:}
 \begin{itemize}
-\item Day 1: FinTech vs. DeFi landscape
-\item Days 2-3: Blockchain and smart contracts
-\item Day 4: Stablecoins and tokenization
-\item Day 5: Regulation frameworks
+\item Day 1: Foundations -- Money, FinTech vs.\ DeFi
+\item Day 2: Payments, APIs, Data-Driven Finance
+\item Day 3: Cryptography, Blockchain, Wallets
+\item Day 4: Smart Contracts, DeFi, Stablecoins
+\item Day 5: Risks, Regulation, DAOs, Privacy
 \item \textbf{Today: AI as force multiplier}
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{0.5cm}
-\begin{alertblock}{Connection to Previous Topics}
-AI intersects with all previous material: AI-powered DeFi, algorithmic stablecoin management, automated compliance, and AI-driven trading on blockchain platforms.
+\vspace{0.3cm}
+\begin{alertblock}{No Prior Knowledge Needed}
+We will introduce every concept as we go -- no prior knowledge of AI, programming, mathematics, or finance is required.
 \end{alertblock}
+
+\vspace{0.2cm}
+\begin{block}{Connection to Previous Topics}
+AI intersects with all previous material: AI-powered DeFi, algorithmic stablecoin management, automated compliance, and AI-driven trading on blockchain platforms.
+\end{block}
 \end{frame}
 
 % =====================================================================
@@ -92,8 +95,8 @@ AI intersects with all previous material: AI-powered DeFi, algorithmic stablecoi
 \begin{column}{0.48\textwidth}
 \textbf{Scale of Transformation:}
 \begin{itemize}
-\item \$1.4T+ in robo-advisor AUM (2024)
-\item 75\%+ of trading volume algorithmic
+\item \$1.4T+ in robo-advisor AUM globally (2024, Statista)
+\item 75\%+ of US equity trading volume is algorithmic (SEC estimates)
 \item Billions saved in fraud prevention
 \item Millions gaining credit access
 \end{itemize}
@@ -165,7 +168,7 @@ Automated investment management using algorithms to construct, monitor, and reba
 \vspace{0.3cm}
 \textbf{Scale:}
 \begin{itemize}
-\item \$1.4T+ AUM globally (2024)
+\item \$1.4T+ AUM globally (2024, Statista)
 \item Fees: 0.25--0.50\% vs. 1\%+ traditional
 \item Growing 20\%+ annually
 \end{itemize}
@@ -178,74 +181,78 @@ Automated investment management using algorithms to construct, monitor, and reba
 % =====================================================================
 %                    SLIDE 7: ROBO-ADVISORY MATH FOUNDATION
 % =====================================================================
-\begin{frame}{Robo-Advisory: The Math Behind It}
-\textbf{Mean-Variance Optimization (Markowitz):}
-\begin{equation}
-\min_w \frac{1}{2} w^T \Sigma w - \lambda \mu^T w
-\end{equation}
-\begin{itemize}
-\item $w$ = portfolio weights
-\item $\Sigma$ = covariance matrix of returns
-\item $\mu$ = expected returns vector
-\item $\lambda$ = risk aversion parameter
-\end{itemize}
+\begin{frame}{Robo-Advisory: The Intuition Behind It}
+\begin{block}{Modern Portfolio Theory in Plain English}
+\textbf{Core idea:} Don't put all your eggs in one basket. By mixing investments that don't move together, you can get better returns for the same level of risk.
+\end{block}
 
 \vspace{0.3cm}
-\textbf{Mapping Risk Tolerance to $\lambda$:}
+\textbf{What the robo-advisor's algorithm does:}
+\begin{enumerate}
+\item \textbf{Estimates} how much each investment might return and how risky it is
+\item \textbf{Measures} how investments move relative to each other (when one goes up, does the other go down?)
+\item \textbf{Finds} the best mix given how much risk you are comfortable with
+\item \textbf{Adjusts} the mix over time as markets change
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{How Your Risk Tolerance Maps to Investments:}
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{lcc}
+\begin{tabular}{lc}
 \toprule
-\textbf{Risk Profile} & \textbf{$\lambda$} & \textbf{Typical Equity \%} \\
+\textbf{Risk Profile} & \textbf{Typical Stock Allocation} \\
 \midrule
-Conservative & 1--2 & 20--40\% \\
-Moderate & 3--5 & 40--60\% \\
-Aggressive & 6--10 & 60--90\% \\
+Conservative (cautious) & 20--40\% \\
+Moderate (balanced) & 40--60\% \\
+Aggressive (growth-seeking) & 60--90\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\bottomnote{Modern robo-advisors add constraints: factor exposure, ESG filters, tax efficiency}
+\bottomnote{For the mathematical formulas behind this, see the Appendix. Modern robo-advisors also add constraints: ESG filters, tax efficiency, position limits.}
 \end{frame}
 
 % =====================================================================
 %                    SLIDE 8: PORTFOLIO RETURN AND VARIANCE
 % =====================================================================
-\begin{frame}{Portfolio Mathematics: Return and Variance}
+\begin{frame}{Portfolio Concepts: Return, Risk, and the Sharpe Ratio}
+\textit{These concepts power robo-advisors behind the scenes:}
+\vspace{0.2cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Portfolio Expected Return:}
-\begin{equation}
-r_p = w^T \mu = \sum_{i=1}^{n} w_i \mu_i
-\end{equation}
+\textbf{Portfolio Return:}\\
+Your portfolio's expected gain is simply the weighted average of each investment's expected gain. If you put 60\% in stocks (expected 8\%) and 40\% in bonds (expected 3\%), your expected return is about 6\%.
 
 \vspace{0.3cm}
-\textbf{Portfolio Variance:}
-\begin{equation}
-\sigma_p^2 = w^T \Sigma w
-\end{equation}
+\textbf{Portfolio Risk:}\\
+The overall risk of your portfolio depends not just on how risky each investment is, but on how they move relative to each other. If stocks zig when bonds zag, combining them reduces your overall risk.
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{Key Insight:}\\
-Diversification reduces $\sigma_p^2$ through off-diagonal covariance terms when correlations are less than 1.
+Diversification works because investments rarely move in perfect lockstep.
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{The Sharpe Ratio:}
-\begin{equation}
-\text{SR} = \frac{r_p - r_f}{\sigma_p}
-\end{equation}
-\begin{itemize}
-\item $r_p$ = portfolio return
-\item $r_f$ = risk-free rate (e.g., T-bills)
-\item $\sigma_p$ = portfolio volatility
-\end{itemize}
+\textbf{The Sharpe Ratio:}\\
+A simple scorecard for investments:
 
-\vspace{0.3cm}
-\textbf{Interpretation:}\\
-Excess return per unit of risk. Higher is better.
+\vspace{0.2cm}
+\begin{block}{How to read it}
+\centering
+\textit{Sharpe Ratio} = \\[0.2cm]
+\footnotesize $\dfrac{\text{Portfolio return} - \text{Risk-free return}}{\text{Portfolio risk (volatility)}}$
+\end{block}
+
+\begin{itemize}
+\item \textbf{Numerator:} How much extra return you earn above a ``safe'' investment (like a government bond)
+\item \textbf{Denominator:} How bumpy the ride is
+\item \textbf{Higher is better:} More reward per unit of risk
+\end{itemize}
 \end{column}
 \end{columns}
+
+\bottomnote{For the full mathematical formulas, see the Appendix.}
 \end{frame}
 
 % =====================================================================
@@ -257,8 +264,8 @@ Excess return per unit of risk. Higher is better.
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 % Axes
-\draw[->] (0,0) -- (6,0) node[right] {Risk ($\sigma$)};
-\draw[->] (0,0) -- (0,5) node[above] {Return ($\mu$)};
+\draw[->] (0,0) -- (6,0) node[right, font=\footnotesize, text width=2.5cm, align=left] {Risk (how much prices swing)};
+\draw[->] (0,0) -- (0,5) node[above, font=\footnotesize] {Expected Return (average gain)};
 
 % Efficient frontier curve
 \draw[thick, dfblue, domain=0.8:5, samples=50] plot (\x, {0.5 + 1.5*sqrt(\x - 0.5)});
@@ -332,7 +339,7 @@ The set of portfolios that maximize return for a given risk level, or minimize r
 
 \vspace{0.3cm}
 \begin{block}{From Score to Portfolio}
-Each risk profile maps to a target asset allocation (e.g., 60/40 stocks/bonds), which then drives the mean-variance optimization with appropriate constraints.
+Each risk profile maps to a target asset allocation (e.g., 60/40 stocks/bonds), which the robo-advisor's algorithm then fine-tunes to find the best mix of investments within those targets.
 \end{block}
 \end{frame}
 
@@ -404,8 +411,13 @@ Selling investments at a loss to offset capital gains and reduce taxes, then rep
 \end{column}
 \end{columns}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{Robo-Advisor Advantage:} Automated systems can monitor all positions daily and harvest losses systematically---impractical for human advisors at scale.
+
+\vspace{0.2cm}
+\begin{alertblock}{International Note}
+Tax-loss harvesting is primarily a US concept. International equivalents exist in some countries (e.g., capital gains offsetting in the UK, \textit{Verlustverrechnung} in Germany) but rules vary significantly. The Wash Sale Rule described above is US-specific (IRS).
+\end{alertblock}
 \end{frame}
 
 % =====================================================================
@@ -478,8 +490,8 @@ Small fee differences compound into large wealth differences over time.
 \vspace{0.5cm}
 \begin{block}{Common ML Approaches}
 \begin{itemize}
-\item \textbf{Supervised}: Random forests, gradient boosting, neural networks on labeled fraud data
-\item \textbf{Unsupervised}: Anomaly detection (isolation forests, autoencoders)
+\item \textbf{Supervised}: Random forests, gradient boosting (an AI technique that combines many simple predictions into one strong one), neural networks on labeled fraud data
+\item \textbf{Unsupervised}: Anomaly detection using isolation forests (an algorithm that detects unusual patterns by isolating outliers) and autoencoders (AI models that learn to compress and reconstruct data, useful for spotting anomalies)
 \item \textbf{Graph-based}: Network analysis to detect fraud rings
 \end{itemize}
 \end{block}
@@ -531,7 +543,7 @@ Reducing FPR from 5\% to 0.5\% = 90\% fewer frustrated customers.
 \begin{frame}{AI Application 3: Credit Scoring}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Traditional FICO:}
+\textbf{Traditional FICO (a widely used US credit score):}
 \begin{itemize}
 \item Payment history (35\%)
 \item Amounts owed (30\%)
@@ -597,10 +609,11 @@ Reducing FPR from 5\% to 0.5\% = 90\% fewer frustrated customers.
 \vspace{0.3cm}
 \begin{alertblock}{Regulatory Requirements}
 \begin{itemize}
-\item \textbf{ECOA} (US): Cannot discriminate on race, religion, national origin, sex
-\item \textbf{FCRA} (US): Right to know reasons for adverse actions
+\item \textbf{ECOA} (Equal Credit Opportunity Act, US): Cannot discriminate on race, religion, national origin, sex
+\item \textbf{FCRA} (Fair Credit Reporting Act, US): Right to know reasons for adverse actions
 \item \textbf{GDPR} (EU): Right to explanation for automated decisions
 \end{itemize}
+\footnotesize\textit{Note: ECOA and FCRA are US-specific; other jurisdictions have equivalent frameworks.}
 \end{alertblock}
 \end{frame}
 
@@ -612,9 +625,9 @@ Reducing FPR from 5\% to 0.5\% = 90\% fewer frustrated customers.
 \begin{column}{0.55\textwidth}
 \textbf{Evolution of Quant Trading:}
 \begin{enumerate}
-\item \textbf{1980s--90s}: Statistical arbitrage
+\item \textbf{1980s--90s}: Statistical arbitrage (using math to find temporary price differences between related assets)
 \item \textbf{2000s}: High-frequency trading
-\item \textbf{2010s}: Factor investing at scale
+\item \textbf{2010s}: Factor investing at scale (choosing investments based on measurable characteristics like company size or recent momentum)
 \item \textbf{2020s}: Deep learning, NLP, alternative data
 \end{enumerate}
 
@@ -633,7 +646,7 @@ Reducing FPR from 5\% to 0.5\% = 90\% fewer frustrated customers.
 \begin{itemize}
 \item Most AI trading strategies don't beat benchmarks net of fees
 \item Overfitting is rampant
-\item Alpha decays quickly once discovered
+\item Alpha (returns above the market average) decays quickly once discovered
 \item Data quality issues pervasive
 \end{itemize}
 \end{alertblock}
@@ -697,7 +710,7 @@ Two Sigma, Citadel, Renaissance, DE Shaw
 \begin{column}{0.48\textwidth}
 \textbf{Current Applications:}
 \begin{itemize}
-\item MEV (Maximal Extractable Value) bots
+\item MEV (Maximal Extractable Value) bots -- profit that blockchain validators can extract by reordering transactions, like a postal worker who reads your letters and acts on the information before delivering them
 \item Liquidation bots
 \item Yield farming optimizers
 \item Portfolio rebalancing agents
@@ -727,7 +740,7 @@ Yearn uses algorithms to automatically move deposits between yield strategies, o
 % =====================================================================
 \begin{frame}{AI Risks in Finance: Model Opacity}
 \begin{block}{The Black Box Problem}
-Complex ML models (neural networks, gradient boosting) often cannot explain \emph{why} they make specific predictions. This creates regulatory and ethical challenges.
+Complex ML models (neural networks, gradient boosting) often cannot explain \emph{why} they make specific predictions. This creates regulatory and ethical challenges in finance.
 \end{block}
 
 \begin{columns}[T]
@@ -745,7 +758,7 @@ Complex ML models (neural networks, gradient boosting) often cannot explain \emp
 \textbf{Mitigation Approaches:}
 \begin{itemize}
 \item Interpretable models (logistic regression)
-\item SHAP/LIME explanations
+\item SHAP/LIME (tools that explain why an AI made a specific decision)
 \item Surrogate models
 \item Feature importance analysis
 \item Regulatory sandboxes
@@ -811,7 +824,7 @@ AI-generated voice/video for social engineering attacks. A CFO ``calls'' to auth
 
 \vspace{0.3cm}
 \textbf{Historical Example:}\\
-August 2007 quant meltdown---many funds used similar factor models, simultaneous deleveraging.
+August 2007 quant meltdown---many hedge funds used similar AI-driven factor models. When one large fund began selling to cover losses, it triggered a chain reaction: others held the same positions and also had to sell, causing billions in losses within days. This demonstrated how model ``herding'' can amplify market shocks.
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Concentration Risk:}
@@ -877,7 +890,7 @@ Most AI finance claims are overhyped. Demand evidence: backtests (with proper me
 \end{itemize}
 \end{block}
 
-\bottomnote{Notebook: NB13\_Robo\_Advisor\_Simulation.ipynb}
+\bottomnote{Notebook: NB13\_Robo\_Advisor.ipynb}
 \end{frame}
 
 % =====================================================================
@@ -903,12 +916,12 @@ Most AI finance claims are overhyped. Demand evidence: backtests (with proper me
 \begin{column}{0.48\textwidth}
 \textbf{Key Code Steps:}
 \begin{enumerate}
-\item Calculate $\mu$ (expected returns)
-\item Estimate $\Sigma$ (covariance matrix)
-\item Solve optimization problem
-\item Generate efficient frontier
+\item Calculate expected returns for each asset
+\item Estimate how assets move together
+\item Find the best portfolio mix
+\item Generate the efficient frontier chart
 \item Map risk scores to allocations
-\item Backtest performance
+\item Backtest (test on historical data)
 \end{enumerate}
 
 \vspace{0.2cm}
@@ -1014,11 +1027,11 @@ Leading platforms now offer ``hybrid'' services combining algorithmic management
 \begin{column}{0.48\textwidth}
 \textbf{Growing Demand:}
 \begin{itemize}
-\item AI/ML engineers in finance
-\item Quantitative developers
-\item Model risk managers
+\item FinTech product managers
+\item Compliance analysts who understand AI
+\item Business strategists evaluating AI claims
+\item Risk officers assessing algorithmic systems
 \item AI ethics specialists
-\item Human-AI interface designers
 \end{itemize}
 \end{column}
 \end{columns}
@@ -1138,7 +1151,7 @@ Financial AI applications (credit scoring, insurance pricing) are classified as 
 
 \item[Efficient Frontier] Set of optimal portfolios offering highest return for each level of risk
 
-\item[Sharpe Ratio] Risk-adjusted return measure: $(r_p - r_f) / \sigma_p$
+\item[Sharpe Ratio] A scorecard measuring how much extra return you earn per unit of risk -- higher is better
 
 \item[Tax-Loss Harvesting] Selling losing investments to realize losses for tax benefits while maintaining market exposure
 \end{description}
@@ -1149,7 +1162,7 @@ Financial AI applications (credit scoring, insurance pricing) are classified as 
 % =====================================================================
 \begin{frame}{Key Terms (2/2)}
 \begin{description}
-\item[Wash Sale Rule] IRS rule prohibiting repurchase of substantially identical securities within 30 days of selling at a loss
+\item[Wash Sale Rule] US IRS rule prohibiting repurchase of substantially identical securities within 30 days of selling at a loss. Other countries have similar concepts (e.g., ``bed and breakfasting'' rules in the UK, \textit{Verlustverrechnung} rules in Germany)
 
 \item[Alternative Data] Non-traditional data sources (satellite imagery, social media, web traffic) used for financial predictions
 
@@ -1159,7 +1172,7 @@ Financial AI applications (credit scoring, insurance pricing) are classified as 
 
 \item[Herding Risk] Systemic risk from many institutions using similar AI models and making correlated decisions
 
-\item[SHAP/LIME] Techniques for explaining individual predictions from complex ML models
+\item[SHAP/LIME] Tools that explain \emph{why} an AI made a specific decision -- like showing which factors most influenced a loan approval or denial
 \end{description}
 \end{frame}
 
@@ -1226,21 +1239,22 @@ In the Sharpe ratio formula $(r_p - r_f) / \sigma_p$, what does $r_f$ typically 
 % =====================================================================
 \begin{frame}{Self-Assessment Questions (2/2)}
 \begin{block}{Question 3 (From Quiz 6.2, Q17)}
-What is the Black-Litterman model used for in advanced robo-advisors?
+Why is the ``efficient frontier'' important for robo-advisors?
 \begin{enumerate}[A.]
-\item Predicting stock prices with 100\% accuracy
-\item Combining market equilibrium returns with investor views to create more stable portfolio allocations
-\item Calculating transaction costs
-\item Determining tax rates for different investments
+\item It guarantees maximum returns with zero risk
+\item It identifies portfolios that offer the best return for each level of risk
+\item It eliminates the need for diversification
+\item It predicts future stock prices accurately
 \end{enumerate}
 \end{block}
 
 \vspace{0.5cm}
+\pause
 \begin{exampleblock}{Answers}
 \begin{itemize}
 \item Question 1: \textbf{B} -- Robo-advisors charge 0.15-0.50\%, significantly less than traditional 1-2\%
 \item Question 2: \textbf{C} -- The risk-free rate (typically T-bills) is the baseline return with no risk
-\item Question 3: \textbf{B} -- Black-Litterman combines equilibrium returns with investor views for stability
+\item Question 3: \textbf{B} -- The efficient frontier shows the optimal risk-return tradeoff; portfolios below it are suboptimal
 \end{itemize}
 \end{exampleblock}
 \end{frame}
@@ -1318,8 +1332,7 @@ Think about how you would evaluate a new AI-powered financial service:
 \begin{itemize}
 \item Python: PyPortfolioOpt, cvxpy
 \item Betterment, Wealthfront (try them)
-\item Quantopian archives
-\item QuantConnect (algo trading)
+\item QuantConnect (algo trading platform, free tier available)
 \end{itemize}
 \end{column}
 \end{columns}
@@ -1347,9 +1360,55 @@ Think about how you would evaluate a new AI-powered financial service:
 
 \vspace{0.5cm}
 
-\textcolor{dfgray}{Joerg Osterrieder | Digital Finance | 2025}
+\textcolor{dfgray}{Joerg Osterrieder | Digital Finance | 2026}
 \end{center}
 \vfill
+\end{frame}
+
+% =====================================================================
+%              APPENDIX: OPTIONAL MATHEMATICAL DETAILS
+% =====================================================================
+\appendix
+
+\begin{frame}{Optional Deep Dive: Mathematical Details (1/2)}
+\textit{This appendix contains the formal mathematics behind the robo-advisory concepts discussed earlier. This material is optional and not required for the course.}
+
+\vspace{0.3cm}
+\textbf{Mean-Variance Optimization (Markowitz, 1952):}
+\begin{equation}
+\min_w \frac{1}{2} w^T \Sigma w - \lambda \mu^T w
+\end{equation}
+\begin{itemize}
+\item $w$ = portfolio weights (how much of each investment to hold)
+\item $\Sigma$ = covariance matrix of returns (measures how investments move relative to each other)
+\item $\mu$ = expected returns vector (estimated future gains for each investment)
+\item $\lambda$ = risk aversion parameter (higher = more cautious investor)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{In words:} Find the portfolio weights $w$ that minimize risk (first term) while maximizing expected return (second term), with $\lambda$ controlling the trade-off.
+\end{frame}
+
+\begin{frame}{Optional Deep Dive: Mathematical Details (2/2)}
+\textbf{Portfolio Expected Return:}
+\begin{equation}
+r_p = w^T \mu = \sum_{i=1}^{n} w_i \mu_i
+\end{equation}
+\textit{The portfolio return is the weighted average of individual asset returns.}
+
+\vspace{0.3cm}
+\textbf{Portfolio Variance:}
+\begin{equation}
+\sigma_p^2 = w^T \Sigma w
+\end{equation}
+\textit{Portfolio risk depends on both individual asset risks and how assets move together (correlations). When correlations are below 1, diversification reduces overall risk.}
+
+\vspace{0.3cm}
+\textbf{The Sharpe Ratio:}
+\begin{equation}
+\text{SR} = \frac{r_p - r_f}{\sigma_p}
+\end{equation}
+\textit{Measures excess return (above the risk-free rate $r_f$, e.g.\ government bonds) per unit of risk. Higher Sharpe ratios indicate better risk-adjusted performance.}
 \end{frame}
 
 \end{document}

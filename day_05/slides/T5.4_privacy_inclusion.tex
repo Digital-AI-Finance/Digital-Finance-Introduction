@@ -26,7 +26,7 @@
 \item \textbf{Evaluate} financial inclusion claims critically
 \item \textbf{Form} a reasoned position on surveillance in finance
 \item \textbf{Understand} who benefits from different design choices
-\item \textbf{Analyze} CBDC privacy implications and programmable money
+\item \textbf{Analyze} CBDC (Central Bank Digital Currency) privacy implications and programmable money
 \item \textbf{Compare} privacy technologies and their regulatory status
 \end{enumerate}
 \end{block}
@@ -35,6 +35,38 @@
 \textbf{Key Competency}: Critically evaluate the distributional consequences of privacy and transparency choices in financial system design.
 
 \bottomnote{This topic synthesizes Day 5 themes: risks, regulation, governance, and inclusion}
+\end{frame}
+
+% ============================================================================
+% SLIDE 2b: Transition from T5.3 (H60)
+% ============================================================================
+\begin{frame}{Why This Topic Now?}
+\begin{block}{Connection to T5.3}
+In T5.3 we explored how DAOs try to govern themselves. Now we face a deeper question: in a world of digital money, \textbf{who can see what you do with your money}---and should they?
+\end{block}
+
+\vspace{5mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{From Governance to Privacy:}
+\begin{itemize}
+\item T5.3 asked: Who decides the rules?
+\item T5.4 asks: Who watches you follow them?
+\item Governance and surveillance are two sides of the same coin
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{What We Will Cover:}
+\begin{itemize}
+\item Privacy vs. transparency tradeoffs
+\item Privacy technologies and how they work
+\item Blockchain surveillance and its tools
+\item CBDCs and programmable money
+\item Financial inclusion: promise vs. reality
+\item Who benefits and who is harmed
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ============================================================================
@@ -66,7 +98,7 @@
 \item Cash provided natural privacy
 \item Bank secrecy was traditional norm
 \item Digital transactions create permanent records
-\item Post-9/11: surveillance intensified
+\item Post-9/11: After the September 11, 2001 terrorist attacks, governments worldwide dramatically expanded financial surveillance laws, requiring banks to monitor and report suspicious transactions more aggressively than ever before
 \end{itemize}
 \end{block}
 
@@ -98,7 +130,7 @@ Digital finance creates unprecedented transparency (for regulation, trust) and u
 \item \textcolor{dfblue}{KYC}: Know Your Customer
 \item \textcolor{dfblue}{AML}: Anti-Money Laundering
 \item \textcolor{dfblue}{CFT}: Countering Financing of Terrorism
-\item \textcolor{dfblue}{FATF}: Travel Rule for crypto
+\item \textcolor{dfblue}{FATF}: The Financial Action Task Force---an international body that sets anti-money-laundering standards. Its \textbf{Travel Rule} requires financial institutions to share sender and receiver information for transfers above a certain amount---like putting a return address on a package
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -127,6 +159,10 @@ Digital finance creates unprecedented transparency (for regulation, trust) and u
 % SLIDE 5: The Privacy-Transparency Spectrum
 % ============================================================================
 \begin{frame}{The Privacy-Transparency Spectrum}
+
+\textbf{Recall from Day 3}: Bitcoin transactions are \textbf{pseudonymous}---they are linked to addresses (like account numbers) rather than real names. But these addresses can potentially be traced back to real identities.
+
+\vspace{2mm}
 \begin{center}
 \begin{tikzpicture}[scale=0.85, transform shape]
 % Spectrum line
@@ -159,7 +195,7 @@ Digital finance creates unprecedented transparency (for regulation, trust) and u
 \end{tikzpicture}
 \end{center}
 
-\vspace{5mm}
+\vspace{3mm}
 \begin{block}{Key Question}
 Where on this spectrum should financial systems be? Different societies, different answers.
 \end{block}
@@ -187,9 +223,9 @@ Where on this spectrum should financial systems be? Different societies, differe
 \textbf{Historical Precedent:}
 \begin{itemize}
 \item Nazi Germany: bank records used for persecution
+\item Apartheid South Africa: financial records identified anti-apartheid activists
 \item Authoritarian states freeze activist accounts
 \item Corporate surveillance for profit
-\item Social credit systems emerge
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
@@ -255,38 +291,98 @@ The controversial claim: ``Nothing to hide, nothing to fear.''
 \end{frame}
 
 % ============================================================================
-% SLIDE 8: Privacy Technologies - Overview
+% SLIDE 8a: Privacy Techniques - Hiding the Sender (C23 split 1/3)
 % ============================================================================
-\begin{frame}{Privacy Technologies in Cryptocurrency}
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\textbf{Privacy Coins:}
-\begin{itemize}
-\item \textbf{Monero (XMR):} Ring signatures, stealth addresses, RingCT for amounts
-\item \textbf{Zcash (ZEC):} zk-SNARKs, shielded transactions (optional)
-\item \textbf{Dash:} CoinJoin mixing (PrivateSend)
-\end{itemize}
+\begin{frame}{Privacy Techniques: Hiding the Sender}
+
+\textit{Note: If you covered the optional Topic 4.5 on zero-knowledge proofs, parts of this section will be a review. If not, don't worry---we explain everything you need here.}
 
 \vspace{3mm}
-\textbf{Mixing Services:}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Ring Signatures (used by Monero):}
 \begin{itemize}
-\item Tornado Cash (sanctioned by OFAC 2022)
-\item CoinJoin implementations (Wasabi, JoinMarket)
-\item Tumbling services (centralized, risky)
+\item Imagine 10 people each have a key. One of them signs a document, but nobody can tell \textit{which} one signed it
+\item The signature is valid, but the signer is hidden among the group
+\item \textbf{Analogy:} Like signing a petition where any of 10 members could have written it---the signature is real, but the author is unknown
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Zero-Knowledge Proofs:}
+\textbf{CoinJoin / Mixing:}
 \begin{itemize}
-\item Prove something without revealing it
-\item ``I'm over 18'' without showing ID
-\item ``I have funds'' without showing balance
-\item ``I'm not sanctioned'' without revealing identity
+\item \textbf{CoinJoin}: Multiple people combine their transactions into one, making it hard to trace who paid whom. \textbf{Analogy:} Like several people putting cash into a hat and each taking out the same amount---observers cannot tell who paid whom
+\item Used by: Dash (``PrivateSend''), Wasabi Wallet, JoinMarket
+\item \textbf{Tumbling (mixing) services}: Third parties that mix many people's crypto together to break the trail. Controversial because they are also used for money laundering
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% SLIDE 8b: Privacy Techniques - Hiding the Receiver (C23 split 2/3)
+% ============================================================================
+\begin{frame}{Privacy Techniques: Hiding the Receiver}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Stealth Addresses (used by Monero):}
+\begin{itemize}
+\item Like having a PO box that automatically creates a new, unique address for every letter you receive
+\item The sender can send to you, but observers cannot link your different addresses together
+\item Each transaction creates a one-time address---even if someone knows your public address, they cannot tell which transactions are yours
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Result:}\\
+The \textit{receiver} of every transaction is hidden from outside observers.
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Mixing Protocols on Ethereum:}
+\begin{itemize}
+\item \textbf{Tornado Cash}: Users deposit ETH into a smart contract (recall: a program that runs automatically on a blockchain), then withdraw to a different address
+\item Zero-knowledge proofs verify the deposit was valid without revealing which deposit matches which withdrawal
+\item Breaks the on-chain link between sender and receiver
+\end{itemize}
+
+\vspace{3mm}
+\begin{alertblock}{Key Distinction}
+Ring signatures hide the sender within a group. Stealth addresses hide the receiver by generating unique one-time addresses.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% SLIDE 8c: Privacy Techniques - Hiding the Amount (C23 split 3/3)
+% ============================================================================
+\begin{frame}{Privacy Techniques: Hiding the Amount}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{RingCT (Ring Confidential Transactions):}
+\begin{itemize}
+\item Used by Monero---combines ring signatures with hidden amounts
+\item Not only is the sender hidden, but the amount transferred is also encrypted
+\item The blockchain can still verify that no money was created or destroyed (inputs = outputs), without anyone seeing the actual numbers
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Bulletproofs:}
+\begin{itemize}
+\item A type of \textbf{range proof}: a way to prove a number is within a valid range (e.g., ``my balance is between 0 and 1,000'') without revealing the exact number
+\item \textbf{Analogy:} Like proving you are old enough to drink without showing your exact birthday
+\item Used by Monero to make RingCT more efficient
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Zero-Knowledge Proofs for Amounts:}
+\begin{itemize}
+\item \textbf{Analogy:} Imagine proving you know a secret password without ever saying the password out loud. That is a zero-knowledge proof---you prove you \textit{know} something without \textit{revealing} what you know
+\item \textbf{zk-SNARKs} (used by Zcash): Very fast to verify, but require a \textbf{trusted setup}---a one-time ceremony to create the system's initial parameters. If anyone involved cheats during setup, they could create fake proofs forever
+\item \textbf{zk-STARKs}: No trusted setup needed, but proofs are larger
 \end{itemize}
 
 \vspace{3mm}
 \begin{block}{Emerging Possibility}
-Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance. Technically possible, politically challenging.
+Privacy-preserving compliance: Prove you are compliant WITHOUT full surveillance. Technically possible, politically challenging.
 \end{block}
 \end{column}
 \end{columns}
@@ -298,9 +394,13 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \begin{frame}{Zero-Knowledge Proofs: Technical Foundation}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{What is a Zero-Knowledge Proof?}
+\textbf{Start with the Analogy:}\\
+Imagine proving you know a secret password without ever saying the password out loud. You demonstrate knowledge without revealing the knowledge itself. That is a zero-knowledge proof.
+
+\vspace{3mm}
+\textbf{More Formally:}
 \begin{itemize}
-\item Cryptographic method where prover convinces verifier of a statement's truth
+\item Cryptographic method where a prover convinces a verifier of a statement's truth
 \item Without revealing ANY information beyond the truth itself
 \item Neither party learns anything extra
 \end{itemize}
@@ -309,7 +409,7 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \textbf{Classic Analogy: Color-Blind Friend}
 \begin{enumerate}
 \item Friend cannot distinguish red/green balls
-\item You prove they're different colors
+\item You prove they are different colors
 \item Without telling which is which
 \item Repeated trials create confidence
 \end{enumerate}
@@ -326,9 +426,9 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \vspace{3mm}
 \begin{block}{Key Implementations}
 \begin{itemize}
-\item \textbf{zk-SNARKs}: Zcash, fast but trusted setup
-\item \textbf{zk-STARKs}: No trusted setup, larger proofs
-\item \textbf{Bulletproofs}: Monero's range proofs
+\item \textbf{zk-SNARKs}: Used by Zcash. Fast verification, but requires a \textbf{trusted setup}---like building a vault where the builders must be trusted, even though later users don't need to trust each other
+\item \textbf{zk-STARKs}: No trusted setup needed, but larger proofs
+\item \textbf{Bulletproofs}: Monero's \textbf{range proofs}---prove a value is in a valid range without showing the value
 \end{itemize}
 \end{block}
 \end{column}
@@ -336,28 +436,28 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \end{frame}
 
 % ============================================================================
-% SLIDE 10: Monero Deep Dive
+% SLIDE 10a: The Technology of Surveillance (C24 split 1/2)
 % ============================================================================
-\begin{frame}{Privacy Coin Deep Dive: Monero (XMR)}
+\begin{frame}{Privacy Coin Deep Dive: Monero's Privacy Stack}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{Privacy Technologies Used:}
+\textbf{Monero (XMR)---Privacy by Default:}
 \begin{itemize}
-\item \textbf{Ring Signatures:} Mix your transaction with decoys---sender hidden among group
-\item \textbf{Stealth Addresses:} One-time addresses for each transaction---receiver unlinkable
-\item \textbf{RingCT:} Confidential transactions hide amounts
-\item \textbf{Dandelion++:} Network-level privacy for broadcast
+\item \textbf{Ring Signatures:} Mix your transaction with decoys---sender hidden among group. \textbf{Analogy:} Imagine 10 people each have a key; one signs, but nobody can tell which one
+\item \textbf{Stealth Addresses:} One-time addresses for each transaction---receiver unlinkable. \textbf{Analogy:} A PO box that auto-generates a new address for every letter received
+\item \textbf{RingCT:} Confidential transactions hide amounts while proving no money was created or destroyed
+\item \textbf{Dandelion++:} A privacy technique for broadcasting transactions. Instead of announcing a transaction to everyone simultaneously, it first passes through a random chain of nodes---like whispering a message through several people before announcing it publicly
 \end{itemize}
-
-\vspace{3mm}
+\end{column}
+\begin{column}{0.42\textwidth}
 \textbf{Result:}
 \begin{itemize}
 \item Sender, receiver, amount all hidden
 \item Blockchain analysis extremely difficult
 \item Default privacy (not optional like Zcash)
 \end{itemize}
-\end{column}
-\begin{column}{0.42\textwidth}
+
+\vspace{3mm}
 \begin{alertblock}{Regulatory Response}
 \begin{itemize}
 \item Delisted from many exchanges
@@ -366,15 +466,45 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \item IRS bounty for tracing (\$625K)
 \end{itemize}
 \end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% SLIDE 10b: The Regulation of Privacy (C24 split 2/2)
+% ============================================================================
+\begin{frame}{The Regulation of Privacy Coins}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{How Governments Mandate Transparency:}
+\begin{itemize}
+\item Exchange delistings: Regulators pressure exchanges to remove privacy coins
+\item Travel Rule enforcement: Require sender/receiver data for transfers
+\item Outright bans: Some countries prohibit privacy coins entirely
+\item Bounties: Governments offer rewards for breaking privacy (e.g., IRS \$625K Monero bounty)
+\end{itemize}
 
 \vspace{3mm}
-\textbf{Use Cases:}
+\textbf{The Policy Tension:}
 \begin{itemize}
-\item Legitimate privacy needs
-\item Dissidents and activists
-\item Ransomware (unfortunately)
-\item Tax evasion concerns
+\item Privacy coins have legitimate uses: dissidents, activists, abuse survivors
+\item But also used for ransomware and tax evasion
+\item Regulators rarely distinguish between the two
 \end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Use Cases---Both Sides:}
+\begin{itemize}
+\item Legitimate: Dissidents and activists under authoritarian regimes
+\item Legitimate: Businesses protecting competitive information
+\item Illicit: Ransomware payments
+\item Illicit: Tax evasion and sanctions circumvention
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{Key Question}
+Should a technology be banned because it \textit{can} be misused? Cash can also be used for crime, but nobody proposes banning cash entirely.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
@@ -387,7 +517,7 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \begin{column}{0.55\textwidth}
 \textbf{What is Tornado Cash?}
 \begin{itemize}
-\item Ethereum mixing protocol (smart contract)
+\item Ethereum mixing protocol (a smart contract---recall: a program that runs automatically on a blockchain)
 \item Users deposit ETH, withdraw to different address
 \item Zero-knowledge proofs verify valid deposit
 \item Breaks on-chain link between sender/receiver
@@ -412,7 +542,7 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \vspace{3mm}
 \begin{alertblock}{Legal Questions}
 \begin{itemize}
-\item Is code speech? (First Amendment)
+\item Is code speech? (The First Amendment to the US Constitution protects free speech---relevant because some argue writing code is a form of speech)
 \item Can immutable smart contracts be sanctioned?
 \item What about users who need privacy legitimately?
 \end{itemize}
@@ -431,6 +561,10 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{Blockchain Analysis Companies:}
+
+Think of blockchain analysts as forensic accountants examining a public ledger---every transaction is visible, they just need to figure out which entries belong to whom.
+
+\vspace{2mm}
 \begin{itemize}
 \item \textbf{Chainalysis}: Market leader, works with governments
 \item \textbf{Elliptic}: UK-based, financial institutions
@@ -439,10 +573,10 @@ Privacy-preserving compliance: Prove you're compliant WITHOUT full surveillance.
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Techniques Used:}
+\textbf{Pattern-Matching Techniques:}
 \begin{itemize}
 \item \textbf{Clustering}: Link addresses to same entity
-\item \textbf{Heuristics}: Common input ownership, change detection
+\item Analysts look for clues like ``these addresses always transact together'' (\textbf{common ownership}) or ``this leftover amount went back to the sender'' (\textbf{change detection})
 \item \textbf{Exchange KYC}: Link to real identities
 \item \textbf{IP tracking}: Network-level analysis
 \end{itemize}
@@ -481,8 +615,8 @@ Bitcoin is \textbf{pseudonymous}, not anonymous. With enough data, most users ca
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Common Misconception:}\\
-Many users believe Bitcoin is ``anonymous.'' It is \textbf{not}---it's pseudonymous with a permanent, public transaction history.
+\textbf{Why Pseudonymity Is Weaker:}\\
+Pseudonyms can be \textbf{unmasked retroactively}. If anyone ever links your real identity to your Bitcoin address, they can trace ALL your past transactions. \textbf{Analogy:} Like writing under a pen name---once someone discovers your real name, every book you ever wrote is exposed.
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{Anonymity (Monero, Zcash shielded):}
@@ -500,7 +634,7 @@ Even ``anonymous'' systems have weaknesses:
 \begin{itemize}
 \item Exchange on/off ramps require KYC
 \item IP addresses can be tracked
-\item Human errors in OpSec
+\item Human errors in operational security (OpSec)---the practice of protecting sensitive information from being discovered
 \end{itemize}
 \end{alertblock}
 \end{column}
@@ -513,18 +647,18 @@ Even ``anonymous'' systems have weaknesses:
 \begin{frame}{CBDCs: The Ultimate Surveillance Tool?}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{CBDC Capabilities:}
+\textbf{CBDC (Central Bank Digital Currency) Capabilities:}
 \begin{itemize}
 \item Complete transaction visibility
 \item Programmable spending restrictions
 \item Automatic tax collection
-\item Expiring money (demurrage)
+\item \textbf{Expiring money (demurrage)}: money that loses value over time if you don't spend it---like a gift card with an expiration date. This encourages spending rather than hoarding
 \item Geographic restrictions
-\item Social credit integration
+\item \textbf{Social credit integration}: Social credit systems assign citizens a score based on their behavior---paying bills on time, obeying traffic laws, or even what they post online. In China's system, a low score can restrict travel, loan access, and even children's school options
 \item Remote freezing/confiscation
 \end{itemize}
-
-\vspace{3mm}
+\end{column}
+\begin{column}{0.42\textwidth}
 \textbf{China's e-CNY (Digital Yuan):}
 \begin{itemize}
 \item Real-time government visibility
@@ -532,9 +666,9 @@ Even ``anonymous'' systems have weaknesses:
 \item Integrated with social systems
 \item Pilot: 260M+ wallets active
 \end{itemize}
-\end{column}
-\begin{column}{0.42\textwidth}
-\begin{tikzpicture}[scale=0.65, transform shape]
+
+\vspace{3mm}
+\begin{tikzpicture}[scale=0.55, transform shape]
 % CBDC structure
 \node (cbdc) [blockchain, minimum width=2.5cm, fill=dfred!20] {\textbf{CBDC}};
 \node (gov) [blockchain, above of=cbdc, node distance=2cm, minimum width=2cm] {Government};
@@ -545,11 +679,6 @@ Even ``anonymous'' systems have weaknesses:
 \draw[->, thick, dfblue] (citizen) -- ++(2,0) node[right, font=\footnotesize] {Spend?};
 \draw[->, thick, dfred] (cbdc) -- ++(-2,0) node[left, font=\footnotesize] {Report};
 \end{tikzpicture}
-
-\vspace{3mm}
-\begin{alertblock}{Dystopian Scenario}
-Money that watches you, judges you, and can be remotely disabled or programmed.
-\end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
@@ -610,7 +739,7 @@ Money that watches you, judges you, and can be remotely disabled or programmed.
 \begin{itemize}
 \item Transaction data sold to advertisers
 \item Credit scoring as control mechanism
-\item Behavioral prediction markets
+\item Behavioral prediction: companies use your transaction data to predict what you will buy, how risky you are, and what ads to show you
 \item Insurance discrimination
 \item Targeted pricing based on purchase history
 \end{itemize}
@@ -653,7 +782,7 @@ Privacy is the cost.
 \begin{column}{0.55\textwidth}
 \textbf{The Narrative:}
 \begin{itemize}
-\item 1.4 billion unbanked adults globally
+\item According to the World Bank (2021), 1.4 billion adults remain unbanked globally
 \item Mobile phones reach areas banks don't
 \item Crypto bypasses traditional gatekeepers
 \item ``Bank the unbanked'' rallying cry
@@ -764,7 +893,7 @@ Is crypto solving inclusion, or repackaging exclusion in new forms? The unbanked
 
 \vspace{3mm}
 \begin{block}{Reality Check}
-Crypto adoption correlates more with speculation interest than financial exclusion. Turkey, Vietnam, Philippines: high adoption + existing financial access.
+Chainalysis (2023) reports that emerging markets account for the highest crypto adoption rates---but proponents argue this reflects genuine financial need, while critics counter that adoption correlates more with speculation interest than financial exclusion.
 \end{block}
 \end{column}
 \end{columns}
@@ -860,6 +989,40 @@ Financial inclusion success came from:
 \end{frame}
 
 % ============================================================================
+% SLIDE 21b: El Salvador vs M-Pesa Comparison (M5)
+% ============================================================================
+\begin{frame}{Comparing Inclusion Approaches: What Works?}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Factor} & \textbf{M-Pesa (Kenya)} & \textbf{Bitcoin (El Salvador)} \\
+\hline
+Technology & Basic SMS phones & Smartphone app \\
+\hline
+Complexity & Very simple & Complex (wallets, keys) \\
+\hline
+Volatility & None (pegged to shilling) & High (Bitcoin price swings) \\
+\hline
+Human support & 250K+ local agents & Limited \\
+\hline
+Adoption & 50M+ active users & Low daily usage \\
+\hline
+Inclusion result & 2\% poverty reduction & Modest at best \\
+\hline
+Regulatory fit & Government-supported & IMF concerns \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{block}{Key Insight}
+\textbf{What worked}: appropriate technology, human infrastructure, regulatory support.\\
+\textbf{What struggled}: cutting-edge technology, top-down mandates, volatile assets.
+\end{block}
+\end{frame}
+
+% ============================================================================
 % SLIDE 22: Who Benefits, Who Is Harmed
 % ============================================================================
 \begin{frame}{Who Benefits? Who Is Harmed?}
@@ -937,6 +1100,10 @@ Compliance without surveillance. Privacy AND legitimacy. Technically possible, p
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{What is Self-Sovereign Identity (SSI)?}
+
+\textbf{Analogy:} Think of SSI as a digital wallet containing verified credentials---like carrying your passport, diploma, and bank statement in your phone, but you choose which to show and to whom.
+
+\vspace{2mm}
 \begin{itemize}
 \item Users control their own identity data
 \item No reliance on centralized authority
@@ -957,9 +1124,9 @@ Compliance without surveillance. Privacy AND legitimacy. Technically possible, p
 \textbf{Financial Applications:}
 \begin{itemize}
 \item KYC once, use everywhere
-\item Prove creditworthiness without revealing score
+\item Prove \textbf{creditworthiness} (whether a borrower is likely to repay a loan, based on their financial history) without revealing exact credit score
 \item Age verification for services
-\item Accredited investor status
+\item \textbf{Accredited investor} status (a legal designation meaning you meet income or wealth thresholds required to invest in certain high-risk products)
 \end{itemize}
 
 \vspace{3mm}
@@ -972,7 +1139,7 @@ Compliance without surveillance. Privacy AND legitimacy. Technically possible, p
 \end{itemize}
 \end{block}
 
-\textbf{Projects}: Microsoft ION, Civic, Worldcoin (controversial)
+\textbf{Projects}: Microsoft ION, Civic, Worldcoin (controversial---it collects iris scans, raising concerns about biometric data privacy and consent, especially in developing countries)
 \end{column}
 \end{columns}
 \end{frame}
@@ -1052,9 +1219,9 @@ What fails (5.1) $\rightarrow$ Who governs from outside (5.2) $\rightarrow$ Who 
 \textbf{Historical Examples:}
 \begin{itemize}
 \item Bank derisking of legal industries
-\item WikiLeaks payment processor ban
-\item Convoy protests: frozen accounts
-\item Nigerian #EndSARS donation blocks
+\item \textbf{WikiLeaks} (2010): A website that published secret government documents; banks and payment processors (Visa, Mastercard, PayPal) cut off its funding under government pressure
+\item \textbf{Canadian trucker convoy} (2022): Protesters' bank accounts were frozen by government order under emergency powers
+\item \textbf{\#EndSARS} (Nigeria, 2020): Protesters against police brutality used crypto to receive donations after banks froze activist accounts
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -1107,19 +1274,27 @@ Who should control money?
 \textbf{China Approach:}
 \begin{itemize}
 \item Digital Yuan: state visibility
-\item Social credit integration
+\item Social credit integration (see earlier definition)
 \item Tight capital controls
 \item Crypto banned domestically
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
+\textbf{India and Africa:}
+\begin{itemize}
+\item \textbf{India}: 30\% crypto tax imposed (2022); attempted outright ban failed; world's largest biometric ID system (Aadhaar) creates unique privacy tensions
+\item \textbf{Africa}: Mobile money revolution (M-Pesa); Nigeria and Kenya lead crypto adoption in Africa, driven by remittances and currency instability
+\end{itemize}
+
+\vspace{2mm}
 \begin{alertblock}{The Divergence}
-Different societies reaching different conclusions:
+Different societies, different conclusions:
 \begin{itemize}
 \item EU: Privacy as human right
 \item US: Security/AML as priority
 \item China: State control as goal
-\item Crypto: Individual sovereignty
+\item India: Tax and regulate
+\item Africa: Mobile-first innovation
 \end{itemize}
 \end{alertblock}
 \end{column}
@@ -1147,7 +1322,7 @@ Different societies reaching different conclusions:
 \item Privacy enables crime
 \item Society needs accountability
 \item Victims deserve recourse
-\item ``Sunlight is the best disinfectant''
+\item ``Sunlight is the best disinfectant'' (meaning: making information public is the best way to prevent corruption and wrongdoing)
 \item Democratic oversight requires visibility
 \end{itemize}
 \end{column}
@@ -1282,15 +1457,15 @@ Pick one financial service you use. Read its privacy policy. Understand what you
 % ============================================================================
 % SLIDE 33: Key Terms (Part 1)
 % ============================================================================
-\begin{frame}{Key Terms \& Definitions (1/2)}
+\begin{frame}{Key Terms \& Definitions (1/3)}
 \begin{description}
 \item[Financial Privacy] Control over who can see your financial transactions and data.
 
-\item[Pseudonymity] Using identifiers (like Bitcoin addresses) not directly linked to real identity, but potentially traceable.
+\item[Pseudonymity] Using identifiers (like Bitcoin addresses) not directly linked to real identity, but potentially traceable. Weaker than anonymity because unmasking one link exposes all history.
 
 \item[Anonymity] True unlinkability between transactions and identity; much stronger than pseudonymity.
 
-\item[Zero-Knowledge Proof] Cryptographic method to prove a statement is true without revealing any additional information.
+\item[Zero-Knowledge Proof] Cryptographic method to prove a statement is true without revealing any additional information. Like proving you know a password without saying it.
 
 \item[CBDC] Central Bank Digital Currency---digital money issued directly by a central bank, with various privacy models possible.
 \end{description}
@@ -1299,7 +1474,7 @@ Pick one financial service you use. Read its privacy policy. Understand what you
 % ============================================================================
 % SLIDE 34: Key Terms (Part 2)
 % ============================================================================
-\begin{frame}{Key Terms \& Definitions (2/2)}
+\begin{frame}{Key Terms \& Definitions (2/3)}
 \begin{description}
 \item[Privacy Coin] Cryptocurrency designed to hide transaction details (sender, receiver, amount). Examples: Monero, Zcash.
 
@@ -1307,13 +1482,31 @@ Pick one financial service you use. Read its privacy policy. Understand what you
 
 \item[KYC/AML] Know Your Customer / Anti-Money Laundering---regulatory requirements for identity verification.
 
-\item[Self-Sovereign Identity] Identity model where individuals control their own data without centralized authority.
+\item[Self-Sovereign Identity (SSI)] Identity model where individuals control their own data without centralized authority---like a digital wallet with verified credentials you choose to share.
 
 \item[Surveillance Capitalism] Economic system where personal data is collected and monetized, often without meaningful consent.
 \end{description}
+\end{frame}
 
-\vspace{3mm}
-\textbf{Tip}: These terms are essential for discussing the ethical and political dimensions of digital finance.
+% ============================================================================
+% SLIDE 34b: Key Terms (Part 3) -- expanded (M6)
+% ============================================================================
+\begin{frame}{Key Terms \& Definitions (3/3)}
+\begin{description}
+\item[Ring Signature] A cryptographic signature that proves one member of a group signed, without revealing which member. Used by Monero to hide the sender.
+
+\item[Stealth Address] A one-time address generated for each transaction, preventing observers from linking transactions to the same receiver.
+
+\item[FATF Travel Rule] Requirement by the Financial Action Task Force that financial institutions share sender/receiver information for transfers above a threshold.
+
+\item[Demurrage] Money that loses value over time if not spent---like a gift card with an expiration date. Encourages spending over hoarding.
+
+\item[Trusted Setup] A one-time ceremony to generate cryptographic parameters. If compromised, fake proofs could be created. Required by zk-SNARKs but not zk-STARKs.
+
+\item[Social Credit System] A system that assigns scores to citizens based on behavior, potentially restricting access to services for low scores.
+
+\item[OpSec] Operational security---the practice of protecting sensitive information from being discovered or exploited.
+\end{description}
 \end{frame}
 
 % ============================================================================

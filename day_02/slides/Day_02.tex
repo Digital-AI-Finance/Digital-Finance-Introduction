@@ -25,6 +25,15 @@
 \item Data-Driven Finance
 \item Platform Economics
 \end{enumerate}
+
+\vspace{3mm}
+\textbf{Key Questions:}
+\begin{itemize}
+\item How does money actually move when you tap your card?
+\item How can a tech company offer banking without being a bank?
+\item How do algorithms decide who gets a loan?
+\item What makes a FinTech sustainable vs.\ venture-subsidized?
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{Day Arc:}
@@ -34,61 +43,58 @@
 \item \textbf{2.3} Intelligence layer (data/ML)
 \item \textbf{2.4} Business logic (platforms)
 \end{itemize}
+
+\vspace{3mm}
+\begin{block}{Hands-On Components}
+\textbf{NB02}: Payment Transaction Analysis\\
+\textbf{NB03}: Banking API Simulation\\
+\textbf{NB04}: ML Credit Scoring
+\end{block}
 \end{column}
 \end{columns}
-
-\vspace{5mm}
-\begin{block}{Hands-On Components}
-\textbf{NB02}: Payment Transaction Analysis | \textbf{NB03}: Banking API Simulation | \textbf{NB04}: ML Credit Scoring
-\end{block}
 \end{frame}
 
 % ============================================================================
 %                    SECTION 2.1: DIGITAL PAYMENTS
 % ============================================================================
-\section{2.1 Digital Payments -- How Money Actually Moves}
+\section{Digital Payments}
 
-\begin{frame}{2.1 Digital Payments}
-\centering
-\Large\textbf{How Money Actually Moves}
+\begin{frame}{The Hidden Journey of a Payment}
+\begin{alertblock}{The Problem}
+Why does a simple coffee purchase involve so many parties?
+\end{alertblock}
 
-\vspace{8mm}
-\normalsize
-\textit{``Payments are the rails on which all finance travels.''}
-
-\vspace{8mm}
-\begin{block}{Key Competency}
-Trace a digital payment from initiation to settlement and identify where value is captured at each layer.
-\end{block}
-
-\bottomnote{Hands-on: Notebook NB02 -- Payment Transaction Data Analysis}
-\end{frame}
-
-\begin{frame}{The Payment Stack: Four Layers}
+\vspace{2mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.2cm]
-% Layer boxes
-\node (l4) [process, minimum width=10cm, fill=dflightblue] {\textbf{Layer 4: Consumer Interfaces} -- Apps, Wallets, POS};
-\node (l3) [process, minimum width=10cm, below of=l4, fill=dflightblue2] {\textbf{Layer 3: Payment Processors} -- Stripe, Adyen, Square};
-\node (l2) [process, minimum width=10cm, below of=l3, fill=dflightblue3] {\textbf{Layer 2: Card Networks} -- Visa, Mastercard, UnionPay};
-\node (l1) [process, minimum width=10cm, below of=l2, fill=dflightblue4] {\textbf{Layer 1: Settlement Systems} -- ACH, SWIFT, Central Banks};
+% Layer boxes - generic labels, no company names
+\node (l4) [process, minimum width=10cm, fill=dflightblue] {\textbf{Layer 4: Consumer Interfaces} -- Apps, Wallets, Checkout};
+\node (l3) [process, minimum width=10cm, below of=l4, fill=dflightblue2] {\textbf{Layer 3: Payment Processors} -- Technical Integration};
+\node (l2) [process, minimum width=10cm, below of=l3, fill=dflightblue3] {\textbf{Layer 2: Card Networks} -- Authorization Routing};
+\node (l1) [process, minimum width=10cm, below of=l2, fill=dflightblue4] {\textbf{Layer 1: Settlement Systems} -- Central Banks, Clearing Houses};
 
 % Arrows
 \draw[arrow] (l4) -- (l3);
 \draw[arrow] (l3) -- (l2);
 \draw[arrow] (l2) -- (l1);
+
+% Side label
+\node[right of=l4, xshift=4.5cm, rotate=-90, anchor=south, font=\footnotesize] {Each layer extracts value};
 \end{tikzpicture}
 \end{center}
 
-\vspace{3mm}
-\begin{itemize}
-\item Each layer extracts fees and adds latency
-\item FinTech disruption targets specific layers
-\item Understanding the stack reveals where value is captured
-\end{itemize}
+\vspace{2mm}
+\begin{block}{The Insight}
+Each layer in the payment stack captures a portion of every transaction. Understanding the stack reveals who profits from your purchase --- and where disruption is possible.
+\end{block}
 \end{frame}
 
-\begin{frame}{Card Payment Flow: The Four-Party Model}
+\begin{frame}{The Four-Party Model}
+\begin{alertblock}{The Problem}
+When you swipe your card, who is involved and what happens?
+\end{alertblock}
+
+\vspace{2mm}
 \begin{center}
 \begin{tikzpicture}[node distance=2.5cm, auto]
 % Nodes
@@ -98,303 +104,329 @@ Trace a digital payment from initiation to settlement and identify where value i
 \node (acquirer) [blockchain, below of=merchant] {Acquiring Bank};
 \node (network) [blockchain, below of=cardholder, xshift=3.5cm, fill=dfteal!20] {Card Network};
 
-% Arrows
-\draw[arrow] (cardholder) -- node[above] {1. Swipes card} (merchant);
+% Arrows - NO dollar amounts
+\draw[arrow] (cardholder) -- node[above] {1. Presents card} (merchant);
 \draw[arrow] (merchant) -- node[right] {2. Auth request} (acquirer);
 \draw[arrow] (acquirer) -- node[below] {3. Route} (network);
-\draw[arrow] (network) -- node[below] {4. Verify} (issuer);
+\draw[arrow] (network) -- node[below] {4. Verify funds} (issuer);
 \draw[arrow] (issuer) -- node[left] {5. Approve/Decline} (cardholder);
-\draw[arrow, dashed, color=dfgreen] (issuer) |- ++(0,-1.5) -| node[below, pos=0.25] {6. Settlement (T+1 to T+3)} (acquirer);
+\draw[arrow, dashed, color=dfgreen] (issuer) |- ++(0,-1.5) -| node[below, pos=0.25] {6. Settlement (days later)} (acquirer);
 \end{tikzpicture}
 \end{center}
 
 \vspace{2mm}
-\footnotesize
-\textbf{Key insight}: Authorization is real-time ($<$2 seconds), but settlement is batch (1-3 days)
-\end{frame}
-
-\begin{frame}{Interchange Economics: Who Pays What}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{Fee Breakdown (Typical US Card Transaction):}
-\begin{itemize}
-\item \textbf{Interchange}: 1.5-2.5\% $\rightarrow$ Issuing bank
-\item \textbf{Assessment}: 0.13-0.15\% $\rightarrow$ Card network
-\item \textbf{Processor markup}: 0.1-0.5\% $\rightarrow$ Payment processor
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Total: 2.0-3.5\%} of transaction value
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Why So Expensive?}
-\begin{itemize}
-\item Fraud liability shift
-\item Reward program funding
-\item Network effects protection
-\item Regulatory capture
-\end{itemize}
+\begin{block}{The Insight}
+Authorization happens in seconds; settlement takes days. The merchant sees ``approved'' almost instantly, but the actual money moves much later in batch processing.
 \end{block}
-\end{column}
-\end{columns}
-
-\vspace{3mm}
-\begin{alertblock}{EU vs US Comparison}
-EU interchange capped at 0.2\% (debit) / 0.3\% (credit) by regulation.\\
-US averages 2.2\% -- \textbf{10x higher}. Why the difference?
-\end{alertblock}
 \end{frame}
 
-\begin{frame}{Payment Methods: Speed vs Cost Matrix}
+\begin{frame}{Who Pays Whom?}
+\begin{alertblock}{The Problem}
+Who actually pays for the ``free'' card in your wallet?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
-\begin{tabular}{lccc}
+\begin{tabular}{p{2.8cm}p{4.5cm}p{4cm}}
 \toprule
-\textbf{Method} & \textbf{Settlement} & \textbf{Cost} & \textbf{Reversibility} \\
+\textbf{Party} & \textbf{Role} & \textbf{How They Earn} \\
 \midrule
-Wire Transfer (SWIFT) & 1-5 days & \$15-50 flat & Difficult \\
-ACH (US) & 1-3 days & \$0.20-1.50 & Reversible (60 days) \\
-Card (Visa/MC) & 1-3 days & 2-3\% & Chargeback rights \\
-SEPA (EU) & Same day & $<$\euro 0.20 & Limited \\
-Real-Time (FedNow/PIX) & Seconds & \$0.01-0.05 & Final \\
-Crypto (Bitcoin) & 10-60 min & Variable & Final \\
-Stablecoins & Seconds-minutes & \$0.01-5 & Final \\
+\textbf{Cardholder} & Initiates payment & (Consumer --- pays indirectly through prices) \\
+\textbf{Merchant} & Accepts payment & Sells goods/services \\
+\textbf{Issuing Bank} & Issues card, bears risk & Receives the largest share of fees \\
+\textbf{Acquiring Bank} & Processes for merchant & Keeps a small portion of fees \\
+\textbf{Card Network} & Routes transactions & Charges assessment fees \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \vspace{3mm}
-\textbf{Key tradeoff}: Speed and finality vs. consumer protection (reversibility)
+\textbf{The Fee Flow:}
+Merchant pays $\rightarrow$ Acquirer passes on $\rightarrow$ Network routes $\rightarrow$ Issuer receives most
+
+\vspace{2mm}
+\begin{block}{The Insight}
+The \textbf{issuing bank} receives the largest share because it bears the credit and fraud risk. The merchant passes these costs into prices --- so consumers ultimately pay, even if their card is ``free.''
+\end{block}
 \end{frame}
 
-\begin{frame}{Real-Time Payment Systems: Global Adoption}
+\begin{frame}{Payment Methods: A Spectrum of Trade-Offs}
+\begin{alertblock}{The Problem}
+With so many ways to pay, how do you choose the right one?
+\end{alertblock}
+
+\vspace{2mm}
+\begin{center}
+\begin{tabular}{p{3cm}ccc}
+\toprule
+\textbf{Method} & \textbf{Speed} & \textbf{Cost} & \textbf{Consumer Protection} \\
+\midrule
+Wire Transfer & Slow to moderate & High (flat fee) & Very limited \\
+Bank Transfer & Slow & Low & Limited \\
+Card Payment & Fast auth, slow settle & Moderate (percentage) & Strong (chargebacks) \\
+Digital Wallet & Fast & Moderate to high & Varies \\
+Real-Time Rails & Instant & Very low & Final (no reversal) \\
+Cryptocurrency & Variable & Variable & Final (no reversal) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Live Systems (2024):}
+\textbf{The Fundamental Tradeoff:}\\
+Fast + Cheap $\leftrightarrow$ Less consumer protection\\
+Slow + Expensive $\leftrightarrow$ More certainty and recourse
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{The Insight}
+Every payment method is a tradeoff --- there is no single ``best'' option. The right choice depends on the specific context: speed, cost, and how much protection you need.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Real-Time Payment Systems}
+\begin{alertblock}{The Problem}
+What if payments could be instant \textit{and} nearly free?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{The Concept:}
 \begin{itemize}
-\item \textbf{PIX (Brazil)}: 150M+ users, 3B+ txns/month
-\item \textbf{UPI (India)}: 300M+ users, 10B+ txns/month
-\item \textbf{FPS (UK)}: 4B+ txns/year
-\item \textbf{FedNow (US)}: Launched 2023
-\item \textbf{TIPS (EU)}: Euro-wide instant
+\item Governments around the world are building \textbf{real-time payment infrastructure}
+\item These are public systems --- instant, low-cost, available to all banks
+\item Examples exist across many countries: Brazil, India, the UK, the EU, and the US have all launched or are rolling out such systems
+\item They settle in seconds, not days
+\end{itemize}
+
+\vspace{2mm}
+\textbf{How They Differ from Cards:}
+\begin{itemize}
+\item Government-operated (public good)
+\item Near-zero transaction cost
+\item Bank-to-bank (no intermediary network)
+\item Irrevocable (no chargebacks)
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{block}{Impact on FinTech}
+\begin{block}{Impact on the Payment Landscape}
 \begin{itemize}
-\item Commoditizes payment rails
-\item Threatens card networks
-\item Enables new business models
-\item Government as infrastructure provider
+\item \textbf{Commoditizes payment rails}: Basic money movement becomes free
+\item \textbf{Threatens card networks}: Why pay a percentage fee when instant transfer is free?
+\item \textbf{Enables new business models}: Micropayments, real-time payroll, instant refunds
+\item \textbf{Shifts competition}: Value moves from moving money to services built on top
 \end{itemize}
 \end{block}
 \end{column}
 \end{columns}
 
-\vspace{3mm}
-\begin{alertblock}{Strategic Question}
-If real-time payments are nearly free, where does payment FinTech capture value?
-\end{alertblock}
+\vspace{2mm}
+\begin{block}{The Insight}
+When the government builds free instant payment infrastructure, it changes the entire competitive landscape for private payment companies. The value shifts from \textit{moving} money to \textit{services around} money.
+\end{block}
 \end{frame}
 
-\begin{frame}{Cross-Border Payments: The \$150 Trillion Opportunity}
+\begin{frame}{Cross-Border Payments: The Broken System}
+\begin{alertblock}{The Problem}
+Why is sending money abroad still slow and expensive?
+\end{alertblock}
+
+\vspace{2mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.5cm]
-% Traditional path
-\node (sender) [blockchain, fill=dfred!20] {Sender Bank};
-\node (corr1) [blockchain, right of=sender, xshift=2cm] {Correspondent 1};
-\node (corr2) [blockchain, right of=corr1, xshift=2cm] {Correspondent 2};
-\node (receiver) [blockchain, right of=corr2, xshift=2cm, fill=dfgreen!20] {Receiver Bank};
+% Traditional correspondent banking chain - NO dollar amounts
+\node (sender) [blockchain, fill=dfred!20, align=center] {Sender's\\Bank};
+\node (corr1) [blockchain, right of=sender, xshift=2.2cm, align=center] {Correspondent\\Bank A};
+\node (corr2) [blockchain, right of=corr1, xshift=2.2cm, align=center] {Correspondent\\Bank B};
+\node (receiver) [blockchain, right of=corr2, xshift=2.2cm, fill=dfgreen!20, align=center] {Receiver's\\Bank};
 
-\draw[arrow] (sender) -- node[above] {\$20 fee} (corr1);
-\draw[arrow] (corr1) -- node[above] {\$15 fee} (corr2);
-\draw[arrow] (corr2) -- node[above] {\$10 fee} (receiver);
+\draw[arrow] (sender) -- node[above, font=\footnotesize] {+ fee} (corr1);
+\draw[arrow] (corr1) -- node[above, font=\footnotesize] {+ fee} (corr2);
+\draw[arrow] (corr2) -- node[above, font=\footnotesize] {+ fee} (receiver);
 
-% Labels
-\node[below of=corr1, yshift=-0.5cm] {\textbf{Traditional: 3-5 days, \$45+ fees}};
+% Label
+\node[below of=corr1, xshift=1.5cm, yshift=-0.3cm, font=\small] {\textbf{Each hop adds time and cost}};
 \end{tikzpicture}
 \end{center}
 
-\vspace{5mm}
-\textbf{FinTech Solutions:}
-\begin{columns}[T]
-\begin{column}{0.33\textwidth}
-\textbf{Wise (TransferWise)}\\
-Peer-matching + local rails\\
-\textcolor{dfgreen}{70\% cheaper}
-\end{column}
-\begin{column}{0.33\textwidth}
-\textbf{Ripple/XRP}\\
-Blockchain settlement\\
-\textcolor{dfgreen}{Seconds, not days}
-\end{column}
-\begin{column}{0.33\textwidth}
-\textbf{Stablecoin Rails}\\
-USDC on-chain transfers\\
-\textcolor{dfgreen}{24/7 settlement}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Payment Failures: Understanding the Funnel}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Where Payments Fail:}
-\begin{enumerate}
-\item \textbf{Insufficient funds}: 30-40\%
-\item \textbf{Fraud blocks}: 20-25\%
-\item \textbf{Network timeouts}: 10-15\%
-\item \textbf{Card expired}: 10-15\%
-\item \textbf{3DS abandonment}: 10-15\%
-\item \textbf{Other}: 5-10\%
-\end{enumerate}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Business Impact}
-\begin{itemize}
-\item Average decline rate: \textbf{15-20\%}
-\item Each 1\% improvement = significant revenue
-\item ``False positives'' (good txns blocked) cost more than fraud
-\end{itemize}
-\end{block}
-\end{column}
-\end{columns}
-
 \vspace{3mm}
-\begin{alertblock}{Notebook NB02 Exercise}
-Analyze payment transaction data to identify failure patterns, calculate true costs of declines vs. fraud, and optimize acceptance rates.
-\end{alertblock}
-\end{frame}
-
-\begin{frame}{FinTech Payment Innovators: Business Model Analysis}
-\begin{center}
-\begin{tabular}{p{2.5cm}p{3.5cm}p{4.5cm}}
-\toprule
-\textbf{Company} & \textbf{Innovation} & \textbf{Revenue Model} \\
-\midrule
-\textbf{Stripe} & Developer-first APIs, embedded finance & 2.9\% + \$0.30 per txn \\
-\textbf{Square/Block} & Hardware + software bundle, SMB focus & 2.6\% + \$0.10 per txn \\
-\textbf{Adyen} & Single platform, enterprise & Interchange++ (transparent) \\
-\textbf{PayPal} & Two-sided network, checkout & 3.49\% + \$0.49 per txn \\
-\textbf{Wise} & Mid-market FX, transparency & 0.5-2\% of transfer \\
-\textbf{Plaid} & Account connectivity & Per-API-call pricing \\
-\bottomrule
-\end{tabular}
-\end{center}
+\textbf{Why It Is Broken:}
+\begin{itemize}
+\item Money must ``hop'' through several \textbf{correspondent banks}\footnotemark --- each one charges a fee and adds delay
+\item Currency conversion happens at each hop, often at unfavorable rates
+\item Compliance checks (anti-money laundering) at every intermediary slow the process further
+\item The sender often does not know the total cost until the money arrives
+\end{itemize}
+\footnotetext{Correspondent banking --- a system where banks maintain accounts at other banks in foreign countries to facilitate international transfers.}
 
 \vspace{2mm}
-\textbf{Key insight}: Most FinTechs are \textit{layers on top of} traditional rails, not replacements
+\begin{block}{The Insight}
+Cross-border payments are the most expensive, slowest part of the payment system --- making them a prime target for FinTech disruption.
+\end{block}
 \end{frame}
 
-\begin{frame}{Buy Now Pay Later (BNPL): Disrupting Card Credit}
+\begin{frame}{Buy Now Pay Later (BNPL)}
+\begin{alertblock}{The Problem}
+Why would a merchant pay \textit{higher} fees for installment payments?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{How BNPL Works:}
 \begin{enumerate}
 \item Consumer selects BNPL at checkout
-\item BNPL provider pays merchant (minus fee)
-\item Consumer repays in 4 installments
-\item No interest (if on-time)
+\item BNPL provider pays the merchant (minus a fee)
+\item Consumer repays in several installments
+\item Typically no interest if payments are on time
 \end{enumerate}
 
 \vspace{3mm}
-\textbf{Key Players:}
-Klarna, Affirm, Afterpay, PayPal Pay in 4
+\textbf{Why Merchants Accept Higher Fees:}
+\begin{itemize}
+\item Increases average order value
+\item Attracts customers who might not buy otherwise
+\item Converts browsers into buyers
+\item Shifts credit risk to the BNPL provider
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{block}{Revenue Sources}
+\begin{block}{BNPL Revenue Sources}
 \begin{itemize}
-\item Merchant fees: 4-8\% (higher than cards!)
-\item Late fees: \$7-10 per missed payment
-\item Interest on longer-term loans
+\item \textbf{Merchant fees}: Higher than standard card fees --- the provider's main revenue
+\item \textbf{Late payment fees}: Charged when consumers miss installments
+\item \textbf{Interest}: On longer-term loan products
 \end{itemize}
 \end{block}
 
-\begin{alertblock}{Risks}
+\vspace{2mm}
+\begin{alertblock}{Business Model Tensions}
 \begin{itemize}
-\item Credit losses (no traditional underwriting)
-\item Regulatory scrutiny increasing
-\item Consumer debt concerns
+\item Credit losses without traditional underwriting\footnotemark
+\item Growing regulatory scrutiny globally
+\item Consumer debt accumulation concerns
+\item Sustainability questions when growth slows
 \end{itemize}
 \end{alertblock}
+\footnotetext{Underwriting --- the process of assessing whether a borrower is likely to repay.}
 \end{column}
 \end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+BNPL shifts credit risk from consumers to providers, creating new business model tensions between growth and sustainability.
+\end{block}
+\end{frame}
+
+\begin{frame}{Hands-On: NB02 Payment Transaction Analysis}
+\begin{alertblock}{The Problem}
+How do we analyze payment data to make better business decisions?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{block}{Notebook Overview}
+Analyze simulated payment transaction data to understand:
+\begin{itemize}
+\item How different payment methods compare in practice
+\item How fee structures affect merchant profitability
+\item How settlement times vary and why it matters for cash flow
+\item How network analysis can reveal transaction patterns
+\end{itemize}
+\end{block}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{What You Will Do:}
+\begin{itemize}
+\item Work with a realistic simulated payment dataset
+\item Compare multiple payment methods across key dimensions
+\item Visualize cost and settlement trade-offs
+\item Build and analyze a payment network graph
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{exampleblock}{No Programming Prerequisites}
+The notebook is self-guided with code provided. Your job is to \textbf{interpret the results} and draw business conclusions --- not to write code from scratch.
+\end{exampleblock}
+\end{column}
+\end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Data analysis reveals patterns invisible in individual transactions --- what seems random at the single-payment level becomes predictable at scale.
+\end{block}
 \end{frame}
 
 \begin{frame}{Section 2.1 Key Takeaways}
 \begin{enumerate}
-\item \textbf{Payments are multi-layered}: Consumer interfaces, processors, networks, settlement
-\item \textbf{Speed vs. protection tradeoff}: Faster payments = less reversibility
-\item \textbf{Interchange is the prize}: Most value captured by issuing banks
-\item \textbf{Real-time rails commoditizing}: Government infrastructure threatens card networks
-\item \textbf{Cross-border is broken}: Huge FinTech opportunity
-\item \textbf{Most FinTechs are layers}: Building on, not replacing, traditional infrastructure
+\item \textbf{Payments are multi-layered}: Consumer interfaces $\rightarrow$ processors $\rightarrow$ networks $\rightarrow$ settlement systems. Each layer extracts value from every transaction.
+
+\item \textbf{Speed vs.\ protection is the fundamental tradeoff}: Faster, cheaper payments are typically less reversible. Every payment method trades off these dimensions differently.
+
+\item \textbf{Interchange funds the card ecosystem}: The issuing bank receives the largest share of fees because it bears credit and fraud risk. Merchants pass these costs to consumers through prices.
+
+\item \textbf{Real-time government rails are reshaping competition}: When instant payments become free public infrastructure, the value shifts from moving money to the services built on top.
+
+\item \textbf{Most FinTechs are layers, not replacements}: The majority of payment innovators build on top of existing rails rather than replacing them --- true disruption of the underlying infrastructure is rare.
 \end{enumerate}
 
 \vspace{3mm}
 \begin{block}{Coming Up: Notebook NB02}
-Analyze real payment transaction data -- fees, settlement times, failure rates, and optimization opportunities.
+Analyze simulated payment transaction data --- fees, settlement times, failure rates, and optimization opportunities.
 \end{block}
 \end{frame}
 
 % ============================================================================
 %                    SECTION 2.2: API ECONOMY & BaaS
 % ============================================================================
-\section{2.2 The API Economy and Banking-as-a-Service}
+\section{The API Economy and Banking-as-a-Service}
 
-\begin{frame}{2.2 API Economy \& Banking-as-a-Service}
-\centering
-\Large\textbf{How Non-Banks Offer Financial Services}
+\begin{frame}{What is an API?}
+\begin{alertblock}{The Problem}
+How do different software systems talk to each other without knowing each other's internal workings?
+\end{alertblock}
 
-\vspace{8mm}
-\normalsize
-\textit{``APIs are the technical mechanism that enabled FinTech unbundling.''}
-
-\vspace{8mm}
-\begin{block}{Key Competency}
-Explain how APIs enable non-banks to offer financial services and interact with a simulated banking API.
-\end{block}
-
-\bottomnote{Hands-on: Notebook NB03 -- Open Banking API Simulation}
-\end{frame}
-
-\begin{frame}{What is an API? (Application Programming Interface)}
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Non-Technical Definition:}
 \begin{itemize}
-\item A \textbf{contract} between software systems
-\item Defines what you can \textbf{request} and what you'll \textbf{receive}
-\item Like a restaurant menu: limited options, standardized format
+\item An API is a \textbf{contract} between software systems
+\item It defines what you can \textbf{request} and what you will \textbf{receive}
+\item Think of it like a restaurant menu: a fixed set of options, in a standardized format
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Banking API Example:}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-# Request
-GET /accounts/123/balance
-
-# Response
-{
-  "account_id": "123",
-  "balance": 5420.50,
-  "currency": "USD"
-}
-\end{lstlisting}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{API} stands for Application Programming Interface. \textit{Endpoint} = a specific address where you send requests (like a phone number). \textit{Request} = asking for data. \textit{Response} = the data you get back.}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{block}{Why APIs Matter for Finance}
 \begin{itemize}
-\item \textbf{Unbundling}: Break banks into components
-\item \textbf{Speed}: Integration in days, not months
-\item \textbf{Innovation}: Startups access banking infrastructure
-\item \textbf{Competition}: Level playing field
+\item \textbf{Unbundling}: Break a monolithic bank into separate, accessible components
+\item \textbf{Speed}: Integrate with banking infrastructure quickly instead of building from scratch
+\item \textbf{Innovation}: Any authorized developer can access banking capabilities
+\item \textbf{Competition}: A more level playing field between incumbents and startups
 \end{itemize}
 \end{block}
 \end{column}
 \end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+APIs let any developer access banking capabilities without building them --- just as a restaurant menu lets you order food without knowing how to cook.
+\end{block}
 \end{frame}
 
 \begin{frame}{The Unbundling of Banking}
+\begin{alertblock}{The Problem}
+What happens when you break a monolithic bank into separate, independently accessible services?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.5cm]
 % Traditional bank
@@ -402,457 +434,492 @@ GET /accounts/123/balance
 \node at (bank.center) {\textbf{Traditional Bank}};
 
 % Arrow
-\node (arrow) [right of=bank, xshift=2.5cm] {\Large$\Rightarrow$};
-\node[above of=arrow, yshift=-0.5cm] {\textbf{API-fication}};
+\node (arw) [right of=bank, xshift=2.5cm] {\Large$\Rightarrow$};
+\node[above of=arw, yshift=-0.5cm] {\textbf{API-fication}};
 
 % Unbundled services
-\node (deposits) [blockchain, right of=arrow, xshift=2cm, yshift=1.5cm] {Deposits};
-\node (loans) [blockchain, right of=arrow, xshift=2cm, yshift=0.5cm] {Lending};
-\node (payments) [blockchain, right of=arrow, xshift=2cm, yshift=-0.5cm] {Payments};
-\node (cards) [blockchain, right of=arrow, xshift=2cm, yshift=-1.5cm] {Cards};
+\node (deposits) [blockchain, right of=arw, xshift=2cm, yshift=1.5cm] {Deposits};
+\node (loans) [blockchain, right of=arw, xshift=2cm, yshift=0.5cm] {Lending};
+\node (payments) [blockchain, right of=arw, xshift=2cm, yshift=-0.5cm] {Payments};
+\node (cards) [blockchain, right of=arw, xshift=2cm, yshift=-1.5cm] {Cards};
 
-% FinTech labels
-\node[right of=deposits, xshift=1.5cm, font=\footnotesize] {Chime, N26};
-\node[right of=loans, xshift=1.5cm, font=\footnotesize] {SoFi, Upstart};
-\node[right of=payments, xshift=1.5cm, font=\footnotesize] {Stripe, PayPal};
-\node[right of=cards, xshift=1.5cm, font=\footnotesize] {Marqeta, Galileo};
+% Generic labels (no company names)
+\node[right of=deposits, xshift=1.5cm, font=\footnotesize, text=dfgray] {(neobanks)};
+\node[right of=loans, xshift=1.5cm, font=\footnotesize, text=dfgray] {(lending platforms)};
+\node[right of=payments, xshift=1.5cm, font=\footnotesize, text=dfgray] {(payment processors)};
+\node[right of=cards, xshift=1.5cm, font=\footnotesize, text=dfgray] {(card issuers)};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\textbf{Result}: Hundreds of non-bank companies offer financial products without banking licenses
-\end{frame}
-
-\begin{frame}{Open Banking Regulation: Forcing the Change}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{PSD2 (Europe, 2018):}
+\textbf{The Concept:}
 \begin{itemize}
-\item Banks \textbf{must} provide APIs
-\item Third parties can access account data (with consent)
-\item Third parties can initiate payments
-\item Creates AISPs and PISPs
+\item Each banking function becomes a standalone service accessible via API
+\item Different companies can specialize in one service and do it exceptionally well
+\item A single startup can compete with a bank on one specific dimension
 \end{itemize}
 
 \vspace{2mm}
-\textbf{UK Open Banking (2018):}
+\begin{block}{The Insight}
+Any service can now be offered independently by a different company. The ``bank'' is no longer a single institution --- it is a collection of components that can be mixed and matched.
+\end{block}
+\end{frame}
+
+\begin{frame}{Open Banking: Regulatory Approaches}
+\begin{alertblock}{The Problem}
+How do different regions approach opening up banking data --- and why does the approach matter?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Regulated Approach:}
 \begin{itemize}
-\item CMA-mandated for 9 largest banks
-\item Standardized API specifications
-\item Stricter than PSD2
+\item Governments \textbf{mandate} that banks provide APIs
+\item Standardized specifications ensure interoperability
+\item Third parties must be licensed and supervised
+\item Adopted by several European and Asia-Pacific jurisdictions
 \end{itemize}
+
+\vspace{2mm}
+\textit{``Banks must open up --- whether they want to or not.''}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{US Approach (2023+):}
+\textbf{Market-Driven Approach:}
 \begin{itemize}
-\item CFPB Section 1033 rules
-\item Market-driven (Plaid, Finicity)
-\item No mandated standards yet
-\item Screen-scraping still common
+\item No government mandate for standardized APIs
+\item Data aggregators negotiate access with banks individually
+\item Screen-scraping (sharing passwords) remains common
+\item Innovation happens, but without standardization
 \end{itemize}
 
-\begin{alertblock}{Key Difference}
-Europe: \textbf{Regulated} open banking\\
-US: \textbf{Market-driven} data sharing
-\end{alertblock}
+\vspace{2mm}
+\textit{``Let the market figure it out.''}
 \end{column}
 \end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+The regulatory approach shapes how fast innovation happens. Mandated standards create a level playing field quickly; market-driven approaches allow flexibility but create fragmentation.
+\end{block}
 \end{frame}
 
-\begin{frame}{Open Banking Architecture}
+\begin{frame}{AISP and PISP: Read Access vs.\ Write Access}
+\begin{alertblock}{The Problem}
+What can third parties actually \textit{do} with your banking data --- and how is this regulated?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{AISP --- Account Information}
+\textbf{Account Information Service Provider}
+\vspace{2mm}
+\begin{itemize}
+\item \textbf{What}: Reads your account data
+\item \textbf{Use cases}:
+  \begin{itemize}
+  \item Budgeting apps that show all your accounts in one place
+  \item Credit assessment based on transaction history
+  \item Financial planning tools
+  \end{itemize}
+\item \textbf{Permission}: \textcolor{dfgreen}{Read-only access}
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{block}{PISP --- Payment Initiation}
+\textbf{Payment Initiation Service Provider}
+\vspace{2mm}
+\begin{itemize}
+\item \textbf{What}: Initiates payments from your account
+\item \textbf{Use cases}:
+  \begin{itemize}
+  \item E-commerce checkout directly from your bank
+  \item Bill payment services
+  \item Money transfer apps
+  \end{itemize}
+\item \textbf{Permission}: \textcolor{dforange}{Write access (with explicit approval)}
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Read access and write access are regulated differently because the risks differ. Seeing your balance is far less risky than moving your money.
+\end{block}
+
+\vspace{2mm}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{TPP (Third Party Provider)} = a company (not your bank) that accesses your bank data with your permission. \textit{Account aggregation} = combining data from multiple banks into one view.}
+\end{frame}
+
+\begin{frame}{Open Banking Architecture: The Consent Flow}
+\begin{alertblock}{The Problem}
+How does the consent flow actually work --- and how is your data kept secure?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
-\begin{tikzpicture}[node distance=2cm]
+\begin{tikzpicture}[node distance=1.8cm]
 % Layers
 \node (consumer) [blockchain, fill=dfgreen!20] {Consumer};
-\node (tpp) [blockchain, below of=consumer] {Third Party Provider (FinTech)};
-\node (api) [process, below of=tpp, fill=dforange!20] {Open Banking API Gateway};
+\node (tpp) [blockchain, below of=consumer] {Third Party Provider};
+\node (api) [process, below of=tpp, fill=dforange!20] {API Gateway};
 \node (bank) [blockchain, below of=api, fill=dflightblue] {Bank Core Systems};
 
-% Arrows
-\draw[arrow] (consumer) -- node[right] {1. Grant consent} (tpp);
-\draw[arrow] (tpp) -- node[right] {2. OAuth token request} (api);
-\draw[arrow] (api) -- node[right] {3. Verify \& route} (bank);
-\draw[arrow, dashed] (bank) -- ++(-3,0) |- node[left, pos=0.25] {4. Return data} (tpp);
+% Arrows with consent flow
+\draw[arrow] (consumer) -- node[right, font=\scriptsize] {1. Grant consent} (tpp);
+\draw[arrow] (tpp) -- node[right, font=\scriptsize] {2. Request access token} (api);
+\draw[arrow] (api) -- node[right, font=\scriptsize] {3. Verify and route request} (bank);
+\draw[arrow, dashed] (bank) -- ++(-3.5,0) |- node[left, pos=0.25, font=\scriptsize] {4. Return data securely} (tpp);
 
 % Side labels
-\node[left of=tpp, xshift=-2cm, text width=2.5cm, font=\footnotesize] {Account Aggregator, PFM App, Lending Platform};
+\node[left of=consumer, xshift=-2.5cm, text width=2.5cm, font=\footnotesize, align=right] {You control\\what is shared};
+\node[right of=bank, xshift=2.5cm, text width=2.5cm, font=\footnotesize, align=left] {Bank never shares\\your password};
 \end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}{API Types in Financial Services}
-\begin{center}
-\begin{tabular}{p{3cm}p{4cm}p{4cm}}
-\toprule
-\textbf{API Type} & \textbf{Function} & \textbf{Providers} \\
-\midrule
-\textbf{Account Information} & Read balances, transactions & Plaid, Tink, Yodlee \\
-\textbf{Payment Initiation} & Trigger bank transfers & TrueLayer, Token.io \\
-\textbf{Card Issuance} & Create virtual/physical cards & Marqeta, Galileo \\
-\textbf{Lending} & Originate, service loans & Blend, Amount \\
-\textbf{KYC/Identity} & Verify customer identity & Onfido, Jumio \\
-\textbf{Core Banking} & Full ledger functionality & Thought Machine, Mambu \\
-\bottomrule
-\end{tabular}
 \end{center}
 
 \vspace{3mm}
-\textbf{Key insight}: You can now assemble a ``bank'' from API components without building anything yourself
+\begin{block}{The Insight}
+You never share your password with the third party. Instead, the bank issues a temporary \textit{token} --- like a concert wristband that grants limited access and can be revoked at any time.
+\end{block}
 \end{frame}
 
-\begin{frame}{Banking-as-a-Service (BaaS): The Full Stack}
+\begin{frame}{The BaaS Stack: What You Build vs.\ What You Rent}
+\begin{alertblock}{The Problem}
+In a BaaS arrangement, what does the FinTech actually build --- and what does it rent from others?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=0.9cm]
 % Stack
-\node (brand) [process, minimum width=10cm, fill=dfgreen!20] {\textbf{Brand Layer} -- Your FinTech Brand};
-\node (ux) [process, minimum width=10cm, below of=brand, fill=dflightblue] {\textbf{UX Layer} -- Mobile App, Web Portal};
-\node (middle) [process, minimum width=10cm, below of=ux, fill=dflightblue2] {\textbf{Middleware} -- BaaS Platform (Synapse, Unit, Treasury Prime)};
-\node (banking) [process, minimum width=10cm, below of=middle, fill=dflightblue3] {\textbf{Banking Layer} -- Partner Bank (Evolve, Cross River, Sutton)};
-\node (reg) [process, minimum width=10cm, below of=banking, fill=dflightblue4] {\textbf{Regulatory Layer} -- FDIC Insurance, Compliance, Charter};
-\end{tikzpicture}
-\end{center}
+\node (brand) [process, minimum width=10cm, fill=dfgreen!20] {\textbf{Brand Layer}: Your Company's Brand and Identity};
+\node (ux) [process, minimum width=10cm, below of=brand, fill=dfgreen!10] {\textbf{UX Layer}: Mobile App, Web Portal, Customer Support};
+\node (middle) [process, minimum width=10cm, below of=ux, fill=dflightblue2] {\textbf{Middleware}: BaaS Platform (connects everything)};
+\node (banking) [process, minimum width=10cm, below of=middle, fill=dflightblue3] {\textbf{Banking Layer}: Partner Bank (holds the license)};
+\node (reg) [process, minimum width=10cm, below of=banking, fill=dflightblue4] {\textbf{Regulatory Layer}: Deposit Insurance, Compliance, Charter};
 
-\vspace{2mm}
-\textbf{FinTech builds top two layers; rents the rest}
-\end{frame}
-
-\begin{frame}{BaaS Business Model: Who Earns What}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Revenue Split (Typical):}
-\begin{itemize}
-\item \textbf{FinTech brand}: Customer acquisition, UX
-\begin{itemize}
-\item Keeps: 40-60\% of interchange
-\item Earns: Subscription fees, interest spread
-\end{itemize}
-\item \textbf{BaaS platform}: Technology, compliance
-\begin{itemize}
-\item Takes: 10-20\% of interchange
-\item Plus: Per-account fees (\$1-3/month)
-\end{itemize}
-\item \textbf{Partner bank}: Charter, FDIC
-\begin{itemize}
-\item Takes: 20-40\% of interchange
-\item Plus: Interest on deposits
-\end{itemize}
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Economics Example}
-\textbf{Customer spends \$1,000/month on card}\\
-Interchange: \$15-20 generated\\
-\vspace{2mm}
-\begin{tabular}{lr}
-FinTech brand & \$8-10 \\
-BaaS platform & \$2-3 \\
-Partner bank & \$5-7 \\
-\end{tabular}
-\end{block}
-\end{column}
-\end{columns}
-
-\vspace{3mm}
-\begin{alertblock}{Regulatory Risk}
-2022-2023: Multiple BaaS partner banks under consent orders. FinTechs exposed to partner bank compliance failures.
-\end{alertblock}
-\end{frame}
-
-\begin{frame}{Embedded Finance: Beyond FinTech}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Definition:}\\
-Financial services integrated into non-financial platforms and experiences
-
-\vspace{3mm}
-\textbf{Examples:}
-\begin{itemize}
-\item \textbf{Shopify Balance}: Banking for merchants
-\item \textbf{Uber Wallet}: Driver payments
-\item \textbf{Amazon Lending}: Seller financing
-\item \textbf{Apple Card}: Tech-integrated credit
-\item \textbf{Toast Capital}: Restaurant loans
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Why Non-Banks Win}
-\begin{itemize}
-\item \textbf{Distribution}: Already have customers
-\item \textbf{Data}: Know customer behavior
-\item \textbf{Context}: Offer finance at moment of need
-\item \textbf{Trust}: Existing brand relationship
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Prediction}: ``Every company will become a FinTech'' (a]16z, 2020)
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{API Security: Authentication \& Authorization}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{OAuth 2.0 Flow:}
-\begin{enumerate}
-\item User grants consent on bank site
-\item Bank issues authorization code
-\item FinTech exchanges code for token
-\item Token used for API calls
-\item Token expires; refresh required
-\end{enumerate}
-
-\vspace{2mm}
-\textbf{Why OAuth?}
-\begin{itemize}
-\item User never shares password with FinTech
-\item Granular permissions (scopes)
-\item Revocable access
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{API Security Challenges}
-\begin{itemize}
-\item \textbf{Screen scraping}: Still used (user shares password)
-\item \textbf{Token theft}: Single point of failure
-\item \textbf{Rate limiting}: Prevents abuse
-\item \textbf{Consent management}: User often forgets what they authorized
-\end{itemize}
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{API Call Example: Account Balance}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-import requests
-
-# Authentication
-headers = {
-    "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGc...",
-    "Content-Type": "application/json"
-}
-
-# API Call
-response = requests.get(
-    "https://api.bank.com/v1/accounts/123456/balance",
-    headers=headers
-)
-
-# Response
-{
-    "account_id": "123456",
-    "available_balance": 5420.50,
-    "current_balance": 5520.50,
-    "currency": "USD",
-    "as_of": "2024-01-15T10:30:00Z"
-}
-\end{lstlisting}
-
-\bottomnote{Notebook NB03: Make real API calls to simulated banking endpoints}
-\end{frame}
-
-\begin{frame}{Data Aggregators: Plaid and the US Model}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{How Plaid Works:}
-\begin{enumerate}
-\item User authenticates via Plaid Link
-\item Plaid connects to 12,000+ institutions
-\item Returns standardized data (transactions, balances)
-\item FinTech never sees bank credentials
-\end{enumerate}
-
-\vspace{2mm}
-\textbf{Plaid Revenue Model:}
-\begin{itemize}
-\item Per-connection fees: \$0.25-3.00/user/month
-\item Per-API-call pricing for some products
-\item Identity verification add-ons
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Market Position}
-\begin{itemize}
-\item 8,000+ FinTech customers
-\item 1 in 3 US adults connected
-\item Visa acquisition blocked (\$5.3B, 2021)
-\item Valued at \$13B (2021)
-\end{itemize}
-\end{block}
-
-\begin{alertblock}{Challenge}
-Banks increasingly resist screen-scraping; want FinTechs to use official APIs
-\end{alertblock}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{The API Value Chain}
-\begin{center}
-\begin{tikzpicture}[node distance=2.2cm]
-% Value chain nodes
-\node (data) [blockchain] {Data Sources\\(Banks)};
-\node (agg) [blockchain, right of=data, xshift=1cm] {Aggregators\\(Plaid, Tink)};
-\node (baas) [blockchain, right of=agg, xshift=1cm] {BaaS\\(Unit, Synapse)};
-\node (fintech) [blockchain, right of=baas, xshift=1cm] {FinTech\\Brands};
-\node (user) [blockchain, right of=fintech, xshift=1cm] {End User};
-
-% Arrows
-\draw[arrow] (data) -- (agg);
-\draw[arrow] (agg) -- (baas);
-\draw[arrow] (baas) -- (fintech);
-\draw[arrow] (fintech) -- (user);
-
-% Value labels
-\node[below of=data, yshift=0.5cm, font=\scriptsize] {Raw data};
-\node[below of=agg, yshift=0.5cm, font=\scriptsize] {Standardized};
-\node[below of=baas, yshift=0.5cm, font=\scriptsize] {Productized};
-\node[below of=fintech, yshift=0.5cm, font=\scriptsize] {Branded};
+% Ownership brackets
+\draw[decorate, decoration={brace, amplitude=10pt, mirror}, thick, color=dfgreen]
+    ([xshift=-5.3cm]brand.north west) -- ([xshift=-5.3cm]ux.south west)
+    node[midway, left=12pt, align=right, font=\footnotesize] {FinTech\\Builds};
+\draw[decorate, decoration={brace, amplitude=10pt, mirror}, thick, color=dfteal]
+    ([xshift=-5.3cm]middle.north west) -- ([xshift=-5.3cm]reg.south west)
+    node[midway, left=12pt, align=right, font=\footnotesize] {FinTech\\Rents};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\textbf{Key insight}: Each layer adds value (standardization, compliance, UX) and captures margin
+\begin{block}{The Insight}
+The FinTech only needs to build what the customer sees and touches. Everything underneath --- the license, the compliance, the ledger --- is rented from specialized providers.
+\end{block}
+
+\vspace{2mm}
+\footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{Middleware} = software that connects different systems together. \textit{Charter} = a government-issued license to operate as a bank.}
+\end{frame}
+
+\begin{frame}{Embedded Finance: Financial Services at the Moment of Need}
+\begin{alertblock}{The Problem}
+Why are non-financial companies --- retailers, ride-sharing apps, e-commerce platforms --- starting to offer financial products?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{What is Embedded Finance?}\\
+Financial services integrated directly into non-financial platforms and experiences --- offered at the exact moment a customer needs them.
+
+\vspace{3mm}
+\textbf{Conceptual Examples:}
+\begin{itemize}
+\item An e-commerce platform offering merchant loans based on sales data
+\item A ride-sharing app providing driver banking and instant payouts
+\item A retail checkout offering installment payments
+\item A freelancing platform with built-in invoicing and tax savings
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{Why Non-Banks Have Advantages}
+\begin{itemize}
+\item \textbf{Distribution}: They already have the customers
+\item \textbf{Data}: They know customer behavior intimately
+\item \textbf{Context}: They can offer finance at the exact moment of need
+\item \textbf{Trust}: Customers already have a relationship with the brand
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+When finance is embedded where you already are --- shopping, working, traveling --- the traditional bank becomes invisible. The bank still exists in the background, but the customer never interacts with it directly.
+\end{block}
+\end{frame}
+
+\begin{frame}{Hands-On Exercise: Notebook NB03}
+\begin{block}{Open Banking API Simulation}
+In Notebook NB03, you will build a simulated open banking environment:
+\begin{enumerate}
+\item Create a mock bank with customer accounts
+\item Implement Account Information API endpoints
+\item Simulate a token-based authentication flow
+\item Build a Payment Initiation service
+\item Create an Account Aggregator (multi-bank view)
+\end{enumerate}
+\end{block}
+
+\vspace{3mm}
+\textbf{What You Will Build:}
+\begin{itemize}
+\item A simulated bank with realistic account structures
+\item API endpoints for reading accounts, balances, and transactions
+\item A payment initiation endpoint
+\item A multi-bank aggregation dashboard
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Learning Goal}: Understand the mechanics of API-based banking by building it yourself --- even without prior programming experience, the notebook guides you step by step.
+
+\bottomnote{Notebook: day\_02/notebooks/NB03\_Open\_Banking\_API.ipynb}
 \end{frame}
 
 \begin{frame}{Section 2.2 Key Takeaways}
 \begin{enumerate}
-\item \textbf{APIs unbundled banking}: Any service can be offered separately
-\item \textbf{Regulation varies}: EU mandated open banking; US market-driven
-\item \textbf{BaaS enables non-banks}: Rent a charter, build only what differentiates
-\item \textbf{Embedded finance is the future}: Every platform becomes financial
-\item \textbf{Security is OAuth-based}: No password sharing, granular consent
-\item \textbf{Aggregators are middleware}: Standardize across thousands of banks
+\item \textbf{APIs unbundled banking}: Any financial service can now be offered separately via standardized interfaces --- breaking the bank monopoly on financial products
+
+\item \textbf{Regulation drives adoption}: In regions where governments mandate open banking, innovation accelerates; in market-driven regions, adoption is slower and more fragmented
+
+\item \textbf{BaaS enables non-banks}: Companies can ``rent'' banking infrastructure (charter, compliance, ledger) instead of building it from scratch, dramatically lowering the barrier to entry
+
+\item \textbf{Embedded finance is the frontier}: Non-financial platforms increasingly offer financial services at the moment of need, making the traditional bank invisible to the end consumer
+
+\item \textbf{Value accrues to the customer interface}: Whoever owns the customer relationship captures the most value in the API economy --- not necessarily whoever holds the banking license
 \end{enumerate}
 
 \vspace{3mm}
 \begin{block}{Coming Up: Notebook NB03}
-Make API calls to a simulated open banking endpoint -- retrieve accounts, transactions, and initiate a mock payment.
+Make API calls to a simulated open banking endpoint --- retrieve accounts, transactions, and initiate a mock payment.
 \end{block}
 \end{frame}
 
 % ============================================================================
 %                    SECTION 2.3: DATA-DRIVEN FINANCE
 % ============================================================================
-\section{2.3 Data-Driven Finance -- Lending, Scoring, and Algorithmic Decisions}
+\section{Data-Driven Finance}
 
-\begin{frame}{2.3 Data-Driven Finance}
-\centering
-\Large\textbf{Lending, Scoring, and Algorithmic Decision-Making}
-
-\vspace{8mm}
-\normalsize
-\textit{``Data and algorithms are how FinTech platforms price risk differently from banks.''}
-
-\vspace{8mm}
-\begin{block}{Key Competency}
-Explain how alternative data and ML models change credit decisions, and identify potential sources of algorithmic bias.
-\end{block}
-
-\bottomnote{Hands-on: Notebook NB04 -- Building a Credit Scoring Model}
-\end{frame}
-
-\begin{frame}{Traditional Credit Scoring: FICO and Its Limits}
+\begin{frame}{Traditional Credit Scoring}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{FICO Score Components:}
+\begin{alertblock}{The Problem}
+Lenders used to rely on personal relationships and gut feelings. How do you scale that to millions of applicants?
+\end{alertblock}
+
+\vspace{3mm}
+\textbf{The Solution: Credit Scores}
 \begin{itemize}
-\item Payment history: 35\%
-\item Amounts owed: 30\%
-\item Length of credit history: 15\%
-\item New credit: 10\%
-\item Credit mix: 10\%
+\item A credit score condenses your entire financial history into a \textbf{single number}
+\item The number represents predicted creditworthiness
+\item Scores span a range from \textbf{very poor to excellent}
+\item Higher score = lower predicted risk = better loan terms
 \end{itemize}
 
-\vspace{2mm}
-\textbf{Score Range}: 300-850\\
-\textbf{``Prime''}: 670+\\
-\textbf{``Subprime''}: $<$670
+\vspace{3mm}
+\textbf{Where Scores Are Used:}
+\begin{itemize}
+\item Loan approvals and interest rates
+\item Credit card limits
+\item Insurance pricing
+\item Rental applications
+\item Sometimes even employment screening
+\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Limitations}
+\begin{block}{What Goes Into a Score}
+Scores are built from categories of your financial behavior:
 \begin{itemize}
-\item \textbf{45M credit invisible}: No score at all
-\item \textbf{Thin file}: Too little history
-\item \textbf{Stale data}: Updated monthly
-\item \textbf{No income data}: Just credit behavior
-\item \textbf{Backward-looking}: Past predicts future?
+\item How reliably you pay bills
+\item How much debt you carry
+\item How long you have been borrowing
+\item How often you apply for new credit
+\item What mix of credit types you use
 \end{itemize}
-\end{alertblock}
+\end{block}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+A single number determines the cost of many major life decisions --- your mortgage rate, your credit card limit, sometimes even whether you can rent an apartment.
+\end{block}
 \end{column}
 \end{columns}
-
-\vspace{2mm}
-\textbf{The opportunity}: Millions of creditworthy people excluded by traditional scores
 \end{frame}
 
-\begin{frame}{Alternative Data: Beyond the Credit Bureau}
+\begin{frame}{What Matters Most in a Credit Score}
+\begin{alertblock}{The Problem}
+Not all financial behaviors matter equally. What should a score emphasize?
+\end{alertblock}
+
+\vspace{3mm}
+\textbf{Credit Score Components --- Ranked by Importance:}
+
+\vspace{2mm}
 \begin{center}
-\begin{tabular}{p{3.5cm}p{4cm}p{3.5cm}}
+\begin{tikzpicture}[
+    bar/.style={rectangle, rounded corners=2pt, minimum height=0.6cm, anchor=west, font=\small},
+    label/.style={font=\small, anchor=east}
+]
+% Bars representing relative importance (qualitative, no percentages)
+\node[bar, fill=dfblue!80, minimum width=8cm] at (0,3) {};
+\node[label] at (-0.2,3) {\textbf{Payment History}};
+\node[font=\scriptsize, anchor=west] at (8.2,3) {Most important};
+
+\node[bar, fill=dfteal!70, minimum width=6.8cm] at (0,2.2) {};
+\node[label] at (-0.2,2.2) {\textbf{Amounts Owed}};
+\node[font=\scriptsize, anchor=west] at (7,2.2) {Very important};
+
+\node[bar, fill=dfgreen!60, minimum width=4.2cm] at (0,1.4) {};
+\node[label] at (-0.2,1.4) {\textbf{Length of History}};
+\node[font=\scriptsize, anchor=west] at (4.4,1.4) {Moderately important};
+
+\node[bar, fill=dforange!60, minimum width=2.8cm] at (0,0.6) {};
+\node[label] at (-0.2,0.6) {\textbf{New Credit}};
+\node[font=\scriptsize, anchor=west] at (3,0.6) {Somewhat important};
+
+\node[bar, fill=dfred!50, minimum width=2.8cm] at (0,-0.2) {};
+\node[label] at (-0.2,-0.2) {\textbf{Credit Mix}};
+\node[font=\scriptsize, anchor=west] at (3,-0.2) {Somewhat important};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Your behavior with existing debt --- whether you pay on time and how much you owe --- matters far more than anything else. The most important factors are the ones you control through everyday financial discipline.
+\end{block}
+\end{frame}
+
+\begin{frame}{Who Gets Left Behind?}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{alertblock}{The Problem}
+What about people who have \textit{no} credit history at all?
+\end{alertblock}
+
+\vspace{3mm}
+\textbf{``Credit Invisible'' --- No Score at All:}
+\begin{itemize}
+\item \textbf{Young adults}: Have not had time to build history
+\item \textbf{Recent immigrants}: Foreign credit history does not transfer
+\item \textbf{Cash-economy users}: Pay for everything without credit
+\item \textbf{Divorced individuals}: Shared accounts removed
+\item \textbf{Post-bankruptcy}: Wiped history, starting over
+\end{itemize}
+
+\vspace{3mm}
+\textbf{The ``Thin File'' Problem:}\\
+Some people have \textit{some} history, but not enough for a reliable score. They fall into a gray zone --- not scoreable, but not invisible either.
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{The Scale of the Problem}
+Millions of people across every country are excluded from credit --- not because they are risky, but because the system has no data on them.
+\end{block}
+
+\vspace{3mm}
+\textbf{The Catch-22:}
+\begin{itemize}
+\item You need credit to build a credit history
+\item You need a credit history to get credit
+\item This traps millions in a cycle of exclusion
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Millions of creditworthy people are excluded not because they \textit{cannot} repay, but because they lack traditional history. This is the opportunity that alternative data and FinTech try to address.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Alternative Data: A New Lens}
+\begin{alertblock}{The Problem}
+What if we could assess creditworthiness using everyday financial behavior --- not just formal credit history?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{center}
+\begin{tabular}{p{3.5cm}p{5cm}p{3cm}}
 \toprule
-\textbf{Data Type} & \textbf{Signal} & \textbf{Used By} \\
+\textbf{Data Type} & \textbf{What It Reveals} & \textbf{Who Benefits} \\
 \midrule
-Bank transactions & Cash flow, spending patterns & Plaid, Petal \\
-Rent payments & Payment reliability & Experian Boost \\
-Utility bills & Consistent payments & FICO XD \\
-Employment/payroll & Income stability & Argyle, Pinwheel \\
-Social media & Network, behavior & (controversial) \\
-Device/browser data & Fraud signals & Socure, Sardine \\
-Education history & Future earning potential & Upstart \\
-Shopping behavior & Financial responsibility & Affirm \\
+Bank transactions & Cash flow patterns, income stability, spending habits & Thin-file borrowers \\
+Rent payments & Reliability of regular payments & Young adults, renters \\
+Utility bills & Consistent bill payment behavior & Cash-economy users \\
+Employment/payroll & Job stability, income verification & Immigrants, gig workers \\
+Education history & Future earning potential & Young graduates \\
+Shopping behavior & Financial responsibility signals & Underbanked consumers \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\vspace{2mm}
-\textbf{Key tension}: More data $\rightarrow$ better predictions $\rightarrow$ privacy concerns
+\vspace{3mm}
+\begin{block}{The Insight}
+Alternative data can bring ``credit invisible'' people into the system --- scoring them on behaviors they already have, rather than formal credit products they lack.
+\end{block}
 \end{frame}
 
-\begin{frame}{Machine Learning in Credit: How It Works}
+\begin{frame}{Machine Learning in Credit}
+\begin{alertblock}{The Problem}
+Can computers find patterns in data that humans miss?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{Traditional (Logistic Regression):}
+\begin{column}{0.5\textwidth}
+\textbf{Traditional Models:}
 \begin{itemize}
-\item Linear combinations of features
-\item Easy to interpret (coefficients)
-\item Required by some regulations
-\item Limited to known relationships
+\item Simple, well-understood rules
+\item Easy to explain to regulators and applicants
+\item Limited to relationships humans define
+\item Proven track record over decades
 \end{itemize}
 
 \vspace{2mm}
-\textbf{ML Models (XGBoost, Neural Nets):}
-\begin{itemize}
-\item Non-linear relationships
-\item Feature interactions automatic
-\item Higher predictive accuracy
-\item ``Black box'' interpretability issues
-\end{itemize}
+\textit{Think of it as}: a carefully designed checklist where each item has a clear weight.
 \end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Accuracy Improvement}
-ML models can improve:
+\begin{column}{0.5\textwidth}
+\textbf{Machine Learning Models:}
 \begin{itemize}
-\item Default prediction: 15-25\%
-\item Approval rates: 10-20\% more
-\item Loss rates: 10-15\% lower
+\item Can discover complex, hidden patterns
+\item Handle hundreds of variables simultaneously
+\item Significantly better at predicting defaults
+\item Much harder to explain \textit{why} a decision was made
 \end{itemize}
+
 \vspace{2mm}
-\textbf{Upstart claim}: 27\% more approvals at same loss rate
-\end{block}
+\textit{Think of it as}: a system that learns its own rules from the data --- powerful, but opaque.
 \end{column}
 \end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+Better accuracy comes at the cost of explainability. This is not just a technical annoyance --- it is a fundamental tension that shapes regulation, consumer trust, and business strategy in lending.
+\end{block}
 \end{frame}
 
-\begin{frame}{Credit Scoring Pipeline}
+\begin{frame}{The Credit Scoring Pipeline}
+\begin{alertblock}{The Problem}
+How does raw data become a lending decision?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.8cm]
 % Pipeline nodes
-\node (data) [process] {Data\\Collection};
-\node (feature) [process, right of=data, xshift=1.5cm] {Feature\\Engineering};
-\node (model) [process, right of=feature, xshift=1.5cm] {Model\\Training};
-\node (score) [process, right of=model, xshift=1.5cm] {Score\\Generation};
-\node (decision) [decision, right of=score, xshift=1.5cm] {Decision};
+\node (data) [process, align=center] {Data\\Collection};
+\node (feature) [process, align=center, right of=data, xshift=1.5cm] {Feature\\Engineering};
+\node (model) [process, align=center, right of=feature, xshift=1.5cm] {Model\\Training};
+\node (score) [process, align=center, right of=model, xshift=1.5cm] {Score\\Generation};
+\node (decision) [process, right of=score, xshift=1.5cm] {Decision};
 
 % Arrows
 \draw[arrow] (data) -- (feature);
@@ -861,186 +928,121 @@ ML models can improve:
 \draw[arrow] (score) -- (decision);
 
 % Labels below
-\node[below of=data, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Bureau + Alt data};
-\node[below of=feature, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Transform, normalize};
-\node[below of=model, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {XGBoost, NN};
-\node[below of=score, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {0-100 or PD\%};
-\node[below of=decision, yshift=0.3cm, font=\scriptsize, text width=2cm, align=center] {Approve/\\Decline/\\Price};
+\node[below of=data, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Bureau +\\alternative data};
+\node[below of=feature, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Transform raw\\data into signals};
+\node[below of=model, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Learn patterns\\from past outcomes};
+\node[below of=score, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Predicted\\creditworthiness};
+\node[below of=decision, yshift=0.3cm, font=\scriptsize, text width=2cm, align=center] {Approve /\\Decline /\\Set terms};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\begin{block}{Key Decisions at Each Stage}
+\textbf{Key Decisions at Each Stage:}
 \begin{itemize}
-\item \textbf{Data}: What sources? Privacy implications?
-\item \textbf{Features}: What transformations? What to exclude?
-\item \textbf{Model}: Accuracy vs. interpretability?
-\item \textbf{Decision}: Cutoffs, pricing tiers, human review?
+\item \textbf{Data}: What sources? What are the privacy implications?
+\item \textbf{Features}: What transformations? What should we exclude?
+\item \textbf{Model}: How much accuracy vs. how much explainability?
+\item \textbf{Decision}: Where do we set the approval threshold? When does a human review?
 \end{itemize}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Bias can enter at \textit{every} stage of this pipeline --- not just in the model itself, but in which data is collected, how features are designed, and where thresholds are set.
 \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Feature Engineering Example}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-# Raw transaction data
-transactions = [
-    {"date": "2024-01-15", "amount": -1200, "category": "rent"},
-    {"date": "2024-01-14", "amount": 3500, "category": "payroll"},
-    {"date": "2024-01-10", "amount": -45, "category": "food"},
-    ...
-]
-
-# Engineered features
-features = {
-    "avg_monthly_income": 3500,
-    "income_volatility": 0.05,      # Low = stable
-    "rent_to_income_ratio": 0.34,   # Below 0.4 = good
-    "days_since_overdraft": 180,    # Higher = better
-    "recurring_payment_count": 12,  # Shows organization
-    "gambling_transaction_flag": 0, # Red flag if present
-}
-\end{lstlisting}
-
-\bottomnote{Notebook NB04: Engineer features from transaction data and see how they affect model predictions}
 \end{frame}
 
 \begin{frame}{Algorithmic Bias: The Dark Side}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Sources of Bias:}
-\begin{enumerate}
-\item \textbf{Historical data}: Past discrimination encoded
-\item \textbf{Proxy variables}: ZIP code $\approx$ race
-\item \textbf{Sample bias}: Training on existing customers
-\item \textbf{Feature selection}: Human choices embedded
-\end{enumerate}
-
-\vspace{2mm}
-\textbf{Legal Framework (US):}
-\begin{itemize}
-\item ECOA: No discrimination by protected class
-\item Disparate impact: Unintentional bias illegal
-\item Adverse action notices: Must explain denials
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{alertblock}{Apple Card Investigation (2019)}
-Same household, shared finances:\\
-\textbf{Husband}: \$20,000 limit\\
-\textbf{Wife}: \$200 limit\\
-\vspace{2mm}
-Algorithm couldn't explain why.\\
-NY DFS investigation followed.
+\begin{alertblock}{The Problem}
+Can a ``neutral'' algorithm discriminate?
 \end{alertblock}
 
-\begin{block}{Testing for Bias}
-\begin{itemize}
-\item Demographic parity
-\item Equal opportunity
-\item Calibration across groups
-\end{itemize}
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Explainability: The Interpretability Challenge}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Why Explainability Matters:}
-\begin{itemize}
-\item Regulatory requirement (adverse action)
-\item Consumer trust
-\item Model debugging
-\item Fairness auditing
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Explainability Techniques:}
-\begin{itemize}
-\item SHAP values
-\item LIME (local explanations)
-\item Feature importance
-\item Partial dependence plots
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Adverse Action Example}
-``Your application was declined because:
+\vspace{3mm}
+\textbf{Sources of Bias:}
 \begin{enumerate}
-\item High credit utilization (78\%)
-\item Short credit history (2 years)
-\item Recent late payment (30+ days)
-\item High number of inquiries (6)
-\end{enumerate}''
-\end{block}
-\vspace{2mm}
-\textbf{Challenge}: ML models may not map cleanly to these reasons
+\item \textbf{Historical data bias}:\\
+If past lending was discriminatory, the data reflects those patterns --- and the model learns to repeat them
+\item \textbf{Proxy variables}:\\
+Features like location or school can correlate with race or socioeconomic status
+\item \textbf{Sample bias}:\\
+Training only on existing customers misses the people who were already excluded
+\item \textbf{Feature selection bias}:\\
+Human choices about what data to include embed assumptions
+\end{enumerate}
 \end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{FinTech Lenders: Business Models}
-\begin{center}
-\begin{tabular}{p{2.5cm}p{3cm}p{3cm}p{2.5cm}}
-\toprule
-\textbf{Company} & \textbf{Model} & \textbf{Data Edge} & \textbf{Unit Economics} \\
-\midrule
-\textbf{Upstart} & AI underwriting & Education, employment & 25\% lower losses \\
-\textbf{SoFi} & Member ecosystem & Product usage & Cross-sell \\
-\textbf{Affirm} & POS lending & Purchase behavior & Merchant fees \\
-\textbf{LendingClub} & Marketplace & Platform data & Origination fees \\
-\textbf{Kabbage} & SMB lending & Accounting data & Higher rates \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{column}{0.5\textwidth}
+\textbf{Real-World Example:}
+\begin{itemize}
+\item A major technology company launched a credit card
+\item An algorithm set credit limits for applicants
+\item People in the same household, with shared finances, received \textbf{dramatically different credit limits}
+\item The algorithm could not explain why
+\item A regulatory investigation followed
+\end{itemize}
 
 \vspace{3mm}
-\textbf{Key insight}: FinTech lenders compete on \textit{data advantage}, not cost of capital
+\textbf{Fairness Concepts:}
+\begin{itemize}
+\item \textbf{Demographic parity}: Approval rates similar across groups
+\item \textbf{Equalized odds}: Error rates similar across groups
+\item \textbf{Calibration}: Predictions equally accurate for all groups
+\end{itemize}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Bias in the data means bias in the decisions. Good intentions do not prevent harmful outcomes --- you must actively test for and mitigate bias.
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
-\begin{frame}{Beyond Credit: Algorithmic Decisions in Finance}
+\begin{frame}{Explainability: The Right to Know Why}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Insurance (Insurtech):}
+\begin{alertblock}{The Problem}
+If a machine denies you a loan, who explains why?
+\end{alertblock}
+
+\vspace{3mm}
+\textbf{Why Explainability Matters:}
 \begin{itemize}
-\item Telematics (driving behavior)
-\item IoT sensors (home/health)
-\item Claims fraud detection
-\item Dynamic pricing
+\item \textbf{Regulatory requirement}: In many jurisdictions, lenders \textit{must} tell you why you were declined (``adverse action notice'')
+\item \textbf{Consumer trust}: People need to understand decisions that affect their lives
+\item \textbf{Model debugging}: Developers need to find and fix errors
+\item \textbf{Fairness auditing}: Regulators need to verify the model is not discriminating
 \end{itemize}
 
-\vspace{2mm}
-\textbf{Investment (Robo-advisors):}
-\begin{itemize}
-\item Risk profiling algorithms
-\item Automated rebalancing
-\item Tax-loss harvesting
-\item Goal-based allocation
-\end{itemize}
+\vspace{3mm}
+\textbf{What an Adverse Action Notice Looks Like:}\\
+\textit{``Your application was declined because of: high debt relative to income, short credit history, and a recent late payment.''}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{Fraud Detection:}
+\textbf{Explainability Techniques (Conceptual):}
 \begin{itemize}
-\item Real-time transaction scoring
-\item Behavioral biometrics
-\item Device fingerprinting
-\item Network analysis
+\item \textbf{Feature importance}: Which inputs matter most \textit{overall}?
+\item \textbf{SHAP values}: How much did each input push \textit{this specific} decision up or down?
+\item \textbf{Partial dependence}: How does changing one input affect the output?
 \end{itemize}
 
-\vspace{2mm}
-\textbf{AML/KYC:}
-\begin{itemize}
-\item Identity verification
-\item Document analysis (OCR)
-\item PEP/sanctions screening
-\item Suspicious activity patterns
-\end{itemize}
+\vspace{3mm}
+\textbf{SHAP in Plain Language:}\\
+Imagine you are splitting a restaurant bill fairly. SHAP assigns each feature its ``fair share'' of the prediction --- showing exactly which factors helped and which hurt.
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Explainability is both a regulatory requirement and an ethical imperative. Consumers deserve to understand the decisions that shape their financial lives --- and to have a path to challenge those decisions.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{The Data Flywheel}
+\begin{alertblock}{The Problem}
+Why do data-rich companies keep getting stronger while newcomers struggle to compete?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=2.5cm]
 % Circular nodes
@@ -1061,52 +1063,36 @@ NY DFS investigation followed.
 \end{center}
 
 \vspace{3mm}
-\textbf{Implication}: First-mover advantage in data creates compounding moat\\
-\textbf{Challenge}: Incumbents have more historical data; FinTechs have more diverse data
-\end{frame}
-
-\begin{frame}{Regulatory Landscape for ML in Credit}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{US Framework:}
+\textbf{How It Works:}
 \begin{itemize}
-\item \textbf{ECOA}: Fair lending
-\item \textbf{FCRA}: Credit reporting
-\item \textbf{CFPB}: Model risk guidance
-\item \textbf{OCC/Fed}: SR 11-7 model risk
-\end{itemize}
-
-\vspace{2mm}
-\textbf{EU Framework:}
-\begin{itemize}
-\item \textbf{GDPR}: Right to explanation
-\item \textbf{AI Act}: High-risk use case
-\item \textbf{EBA Guidelines}: ML in credit
+\item More data improves model accuracy
+\item Better models make better lending decisions
+\item Better decisions attract more customers
+\item More customers generate more data
+\item The cycle \textit{compounds} over time
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Emerging Requirements}
-\begin{itemize}
-\item Model documentation
-\item Bias testing requirements
-\item Human-in-the-loop mandates
-\item Algorithmic audits
-\end{itemize}
-\end{alertblock}
-
-\textbf{Trend}: Regulation catching up to ML adoption
+\begin{block}{The Insight}
+First-mover advantage in data creates a compounding moat. Incumbents have more historical data; newer entrants often have more \textit{diverse} data. The winner is whoever spins the flywheel fastest.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Section 2.3 Key Takeaways}
 \begin{enumerate}
-\item \textbf{Traditional scoring excludes millions}: FICO misses credit-invisible
-\item \textbf{Alternative data expands access}: Bank transactions, rent, employment
-\item \textbf{ML improves accuracy}: 15-25\% better default prediction
-\item \textbf{Bias is real and dangerous}: Historical discrimination encoded
-\item \textbf{Explainability is required}: Regulatory and ethical imperative
-\item \textbf{Data creates moats}: Flywheel effect compounds advantage
+\item \textbf{Traditional scoring leaves people behind}: Credit scores are powerful but exclude millions of creditworthy people who lack formal credit history
+
+\item \textbf{Alternative data expands access}: Bank transactions, rent payments, and employment data can bring excluded people into the credit system
+
+\item \textbf{ML improves accuracy but reduces transparency}: Machine learning finds patterns humans miss, but creates ``black box'' challenges for regulators and consumers
+
+\item \textbf{Bias is real and requires active mitigation}: Historical discrimination gets encoded in data; proxy variables can circumvent legal protections; good intentions alone do not prevent harm
+
+\item \textbf{Explainability is non-negotiable}: Consumers have a right to know why they were denied credit --- this is both a legal requirement and an ethical imperative
 \end{enumerate}
 
 \vspace{3mm}
@@ -1118,474 +1104,401 @@ Build a credit scoring model with alternative data. See how feature selection af
 % ============================================================================
 %                    SECTION 2.4: PLATFORM ECONOMICS
 % ============================================================================
-\section{2.4 Platform Economics -- Network Effects and FinTech Business Models}
-
-\begin{frame}{2.4 Platform Economics}
-\centering
-\Large\textbf{Network Effects, Winner-Take-Most, and FinTech Business Models}
-
-\vspace{8mm}
-\normalsize
-\textit{``Understanding platform economics is essential for evaluating which innovations are sustainable vs. venture-subsidized.''}
-
-\vspace{8mm}
-\begin{block}{Key Competency}
-Analyze a FinTech business model and assess its sustainability using platform economics concepts.
-\end{block}
-
-\bottomnote{Discussion-based session: Applying frameworks to real FinTech cases}
-\end{frame}
+\section{Platform Economics}
 
 \begin{frame}{What is a Platform?}
+\begin{alertblock}{The Problem}
+What makes a platform fundamentally different from a traditional business?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Definition:}\\
-A business that creates value by facilitating exchanges between two or more interdependent groups
+\textbf{The Concept:}\\
+A \textcolor{dfblue}{\textbf{platform}} is a business that creates value by facilitating exchanges between two or more interdependent groups.
 
 \vspace{3mm}
-\textbf{Platform vs. Pipeline:}
+\textbf{Key Characteristics:}
 \begin{itemize}
-\item \textbf{Pipeline}: Linear value chain (make $\rightarrow$ sell)
-\item \textbf{Platform}: Network orchestration (connect $\rightarrow$ facilitate)
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Examples:}
-\begin{itemize}
-\item Visa (merchants $\leftrightarrow$ cardholders)
-\item Robinhood (traders $\leftrightarrow$ market makers)
-\item LendingClub (borrowers $\leftrightarrow$ investors)
+\item Two or more distinct user groups
+\item Each group needs the other to participate
+\item The platform orchestrates and facilitates their interaction
+\item Value is created by the participants, not the platform itself
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\begin{tikzpicture}[node distance=2cm]
+\begin{tikzpicture}[node distance=2cm, scale=0.9, transform shape]
 % Platform model
-\node (side1) [blockchain, fill=dfgreen!20] {Side A\\(Consumers)};
+\node (side1) [blockchain, fill=dfgreen!20, align=center] {Side A\\(e.g., Consumers)};
 \node (platform) [process, right of=side1, xshift=1.5cm, fill=dforange!20] {Platform};
-\node (side2) [blockchain, right of=platform, xshift=1.5cm, fill=dfblue!20] {Side B\\(Producers)};
+\node (side2) [blockchain, right of=platform, xshift=1.5cm, fill=dfblue!20, align=center] {Side B\\(e.g., Providers)};
 
-% Arrows
-\draw[arrow, <->] (side1) -- (platform);
-\draw[arrow, <->] (platform) -- (side2);
+% Arrows - bidirectional
+\draw[thick, dfblue, stealth-stealth] (side1) -- (platform);
+\draw[thick, dfblue, stealth-stealth] (platform) -- (side2);
 
 % Value labels
 \node[above of=platform, yshift=-0.5cm, font=\footnotesize] {Orchestrates};
 \end{tikzpicture}
 \end{center}
+
+\vspace{5mm}
+\begin{block}{The Insight}
+Platforms don't own the means of production --- they own the means of \textbf{connection}. This is a fundamentally different source of power.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Network Effects: The Core Mechanism}
+\begin{alertblock}{The Problem}
+Why does a payment network become more useful as more people join it?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Direct Network Effects:}\\
-More users $\rightarrow$ more value for each user
+\textbf{Direct (Same-Side) Network Effects:}\\
+More users on the same side makes the platform more valuable for everyone on that side.
 
 \vspace{2mm}
-\textit{Example}: Venmo -- more friends = more utility
+\textit{Example}: A peer payment app --- the more of your friends who use it, the more useful it is to you.
 
 \vspace{5mm}
 \textbf{Indirect (Cross-Side) Network Effects:}\\
-More users on Side A $\rightarrow$ more value for Side B
+More users on Side A makes the platform more attractive to Side B, and vice versa.
 
 \vspace{2mm}
-\textit{Example}: More Visa cardholders $\rightarrow$ merchants want to accept Visa
+\textit{Example}: The more cardholders a card network has, the more merchants want to accept it --- and vice versa.
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{block}{Metcalfe's Law}
-Network value $\propto$ n$^2$\\
-(where n = number of users)
+\textbf{What is an Externality?}\\
+When your action affects others who didn't choose to be affected. Network effects are a \textit{positive externality} --- each new user makes the platform better for all existing users.
 
-\vspace{2mm}
-\textbf{Implication}:\\
-Doubling users quadruples value
+\vspace{5mm}
+\begin{block}{The Insight}
+Each new user adds value for \textit{all} existing users --- this is what makes platforms so powerful and why they invest so heavily in early growth.
 \end{block}
 
-\begin{alertblock}{Critical Mass}
-Networks often have a ``tipping point'' -- below it, collapse; above it, dominance
+\vspace{3mm}
+\begin{alertblock}{Critical Question}
+Does this company have \textbf{real} network effects, or just \textbf{growth}?\\
+\vspace{2mm}
+\textit{Growth without network effects is just expensive customer acquisition.}
 \end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{The Chicken-and-Egg Problem}
+\begin{alertblock}{The Problem}
+How do you launch a platform when each side needs the other to exist first?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=3cm]
-% Chicken-egg cycle
+% Death spiral
 \node (no_buyers) [blockchain, fill=dfred!20] {No Buyers};
 \node (no_sellers) [blockchain, right of=no_buyers, xshift=2cm, fill=dfred!20] {No Sellers};
 
-\draw[arrow, bend left=30] (no_buyers) to node[above] {Why list?} (no_sellers);
-\draw[arrow, bend left=30] (no_sellers) to node[below] {Why browse?} (no_buyers);
+\draw[arrow, bend left=30] (no_buyers) to node[above, font=\footnotesize] {Why list?} (no_sellers);
+\draw[arrow, bend left=30] (no_sellers) to node[below, font=\footnotesize] {Why browse?} (no_buyers);
 
-\node[below of=no_buyers, xshift=3cm, yshift=1cm] {\textbf{Death Spiral}};
+\node[below of=no_buyers, xshift=3cm, yshift=1cm, font=\bfseries] {Death Spiral};
 \end{tikzpicture}
 \end{center}
 
-\vspace{5mm}
-\textbf{Platform Launch Strategies:}
+\vspace{3mm}
+\textbf{Three Launch Strategies:}
 \begin{columns}[T]
 \begin{column}{0.33\textwidth}
-\textbf{Subsidize one side}\\
-PayPal paid users \$10 to sign up
+\textbf{Subsidize One Side}\\
+One early payment platform famously paid new users to join --- absorbing losses to reach critical mass quickly.
 \end{column}
 \begin{column}{0.33\textwidth}
-\textbf{Single-player mode}\\
-Venmo: useful even alone (payment tracking)
+\textbf{Single-Player Mode}\\
+Make the product useful even without a network --- e.g., an app that tracks expenses alone but becomes more powerful when friends join.
 \end{column}
 \begin{column}{0.33\textwidth}
-\textbf{Fake it}\\
-Dating apps seeded with fake profiles
+\textbf{Seed Supply}\\
+Create initial supply yourself or partner with existing providers so the platform has value from day one.
 \end{column}
 \end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Every successful platform found a creative way to solve this bootstrapping problem. The strategy chosen often shapes the platform's economics for years.
+\end{block}
 \end{frame}
 
 \begin{frame}{Winner-Take-Most Dynamics}
+\begin{alertblock}{The Problem}
+Why do some markets end up with one dominant player while others sustain healthy competition?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{When Markets Tip:}
-\begin{itemize}
-\item Strong network effects
-\item High multi-homing costs
-\item Standardization benefits
-\item Data advantages compound
-\end{itemize}
+\textbf{The Concept:}\\
+A market ``tips'' toward a single dominant player when three conditions align:
 
 \vspace{3mm}
-\textbf{FinTech Examples:}
+\begin{enumerate}
+\item \textbf{Strong network effects} --- each new user significantly increases value for all
+\item \textbf{High switching costs} --- it is expensive or difficult to move to a competitor
+\item \textbf{Low multi-homing} --- users find it impractical to use multiple platforms
+\end{enumerate}
+
+\vspace{3mm}
+\textbf{Key Distinction:}
 \begin{itemize}
-\item Payments: Visa/MC duopoly
-\item Stock trading: NYSE dominance
-\item Crypto: ETH for smart contracts
+\item \textbf{Winner-take-all}: One company captures nearly the entire market
+\item \textbf{Winner-take-most}: A dominant player emerges but competition survives at the margins
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{block}{Multi-Homing Prevents Tipping}
-When users easily use multiple platforms:
+\textbf{FinTech Examples:}
 \begin{itemize}
-\item Less lock-in
-\item Competition persists
-\item Margins compress
+\item \textbf{Tips}: Card networks --- strong network effects, high switching costs for merchants
+\item \textbf{Does not tip}: Neobanks --- low switching costs, easy to hold multiple accounts
 \end{itemize}
 
-\vspace{2mm}
-\textbf{Example}: Drivers on Uber AND Lyft
+\vspace{3mm}
+\begin{block}{The Insight}
+Not all markets tip --- understanding \textit{when} they do is the key to evaluating any FinTech investment. The conditions must all be present simultaneously.
 \end{block}
-\end{column}
-\end{columns}
 
 \vspace{3mm}
-\textbf{Key question}: Does this FinTech's market tip, or does competition persist?
-\end{frame}
-
-\begin{frame}{FinTech Business Model Canvas}
-\begin{center}
-\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|}
-\hline
-\textbf{Element} & \textbf{Questions} & \textbf{Examples} \\
-\hline
-\textbf{Value Proposition} & What pain point? Better than alternatives how? & Speed, cost, access, UX \\
-\hline
-\textbf{Revenue Model} & Transaction fees? Subscription? Spread? Data? & 2.9\% + \$0.30, \$10/mo \\
-\hline
-\textbf{Cost Structure} & CAC? Infrastructure? Regulatory? & Marketing, cloud, compliance \\
-\hline
-\textbf{Network Effects} & Direct? Indirect? Data flywheel? & User-to-user, merchant-consumer \\
-\hline
-\textbf{Moat} & What prevents competition? & Switching costs, data, regulatory \\
-\hline
-\textbf{Scalability} & Marginal cost of growth? & Near-zero (software) vs. human-dependent \\
-\hline
-\end{tabular}
-\end{center}
+\begin{alertblock}{Key Question}
+Does this FinTech's market have the conditions to tip, or will competition persist?
+\end{alertblock}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Revenue Models in FinTech}
+\begin{alertblock}{The Problem}
+How do FinTechs actually make money, especially when many products appear ``free''?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Transaction-Based:}
 \begin{itemize}
-\item \textbf{Interchange}: Card-based revenue
-\item \textbf{Spread}: Bid-ask, FX markup
-\item \textbf{Percentage fees}: 2.9\% of payment
-\item \textbf{Flat fees}: \$0.30 per transaction
+\item A small percentage of each transaction plus a flat fee
+\item Interchange revenue from card spending
+\item Foreign exchange markups on currency conversion
 \end{itemize}
 
-\vspace{2mm}
+\vspace{3mm}
 \textbf{Subscription:}
 \begin{itemize}
-\item \textbf{Premium features}: Robinhood Gold
-\item \textbf{B2B SaaS}: Stripe Atlas
-\item \textbf{Membership}: Amazon Prime
+\item Premium tiers with additional features
+\item Business-to-business software-as-a-service
+\item Membership models with bundled services
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{Interest/Float:}
+\textbf{Interest and Float:}
 \begin{itemize}
-\item \textbf{Deposit spread}: Earn 5\%, pay 1\%
-\item \textbf{Lending margin}: Borrow low, lend high
-\item \textbf{Float}: Hold funds, earn interest
+\item Earning interest on customer deposits held temporarily
+\item Lending margin: borrow at a low rate, lend at a higher rate
+\item Holding funds in transit and earning interest on the ``float''
 \end{itemize}
 
-\vspace{2mm}
-\textbf{Data/Ecosystem:}
+\vspace{3mm}
+\textbf{Data and Ecosystem:}
 \begin{itemize}
-\item \textbf{PFOF}: Payment for order flow
-\item \textbf{Cross-sell}: Land and expand
-\item \textbf{Data licensing}: Aggregate insights
+\item Selling order flow to market makers
+\item Cross-selling additional products to existing customers
+\item Licensing aggregated, anonymized insights
 \end{itemize}
 \end{column}
 \end{columns}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+The most resilient FinTechs combine multiple revenue streams. Dependence on a single source creates vulnerability --- especially if regulators restrict it.
+\end{block}
 \end{frame}
 
-\begin{frame}{Case Study: Robinhood's Business Model}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Value Proposition:}\\
-Commission-free trading, gamified UX, fractional shares
-
-\vspace{3mm}
-\textbf{Revenue Breakdown (2023):}
-\begin{itemize}
-\item PFOF: 50\%
-\item Net interest: 35\%
-\item Gold subscriptions: 10\%
-\item Other: 5\%
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Network Effects:}\\
-Weak -- no user-to-user interaction
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{alertblock}{PFOF Controversy}
-Robinhood sells order flow to market makers (Citadel).\\
-\vspace{2mm}
-\textbf{Critics}: Conflict of interest -- whose interests first?\\
-\textbf{Defense}: Still best execution; users get ``free''
+\begin{frame}{Unit Economics: The Health Check}
+\begin{alertblock}{The Problem}
+How do you tell if a fast-growing company is actually healthy --- or just burning money?
 \end{alertblock}
 
-\begin{block}{Sustainability?}
-\begin{itemize}
-\item PFOF may be banned (EU did)
-\item Rising rates helped interest income
-\item Switching costs are low
-\end{itemize}
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Case Study: Stripe's Business Model}
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Value Proposition:}\\
-Developer-first payment infrastructure; ``7 lines of code''
-
-\vspace{3mm}
-\textbf{Revenue Model:}
+\textbf{Key Concepts (No Math Required):}
 \begin{itemize}
-\item 2.9\% + \$0.30 per transaction
-\item Plus products: Radar, Atlas, Connect
-\item Volume discounts for enterprise
+\item \textbf{CAC} (Customer Acquisition Cost): How much you spend to get one new customer
+\item \textbf{LTV} (Lifetime Value): Total revenue expected from one customer over their entire relationship
+\item \textbf{Payback Period}: How long until a customer ``pays back'' their acquisition cost
+\item \textbf{Churn}: The rate at which customers leave
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Moat:}
-\begin{itemize}
-\item Developer lock-in (integration effort)
-\item Product breadth (one vendor)
-\item Brand in tech community
-\end{itemize}
+\textbf{The Core Question:}\\
+Does each customer eventually pay back \textit{more} than it cost to acquire them?
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{block}{Platform Strategy}
-\textbf{Land}: Simple payments API\\
-\textbf{Expand}: Billing, fraud, treasury, identity, lending\\
-\textbf{Lock-in}: Deep integration, switching cost
-\end{block}
-
-\vspace{2mm}
-\textbf{Network Effects:}
+\textbf{Healthy vs.\ Unhealthy:}
 \begin{itemize}
-\item Indirect: More merchants $\rightarrow$ better fraud models
-\item Data flywheel: Scale improves ML
-\item Developer ecosystem: Third-party tools
+\item Lifetime value should be \textbf{several times} the acquisition cost
+\item Payback should happen within a \textbf{reasonable timeframe}
+\item Churn should be \textbf{low enough} that customers stay long enough to generate returns
 \end{itemize}
+
+\vspace{3mm}
+\begin{block}{FinTech CAC Challenges}
+\begin{itemize}
+\item Trust is required for financial products
+\item Regulatory constraints limit marketing channels
+\item High-intent keywords are expensive
+\item Referral programs can be costly
+\end{itemize}
+\end{block}
 \end{column}
 \end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Growth without healthy unit economics is just burning money. Always ask: is each new customer profitable, or is the company paying more to acquire them than they will ever earn back?
+\end{block}
 \end{frame}
 
 \begin{frame}{Venture Subsidies: Real Growth or Fake Economics?}
+\begin{alertblock}{The Problem}
+If a product is free or extremely cheap, is the demand real --- or artificial?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Blitzscaling Playbook:}
 \begin{enumerate}
-\item Raise venture capital
-\item Subsidize user acquisition
-\item Grow at all costs
-\item Achieve network effects
+\item Raise large amounts of venture capital
+\item Use it to subsidize user acquisition (below-cost pricing, free products, sign-up bonuses)
+\item Grow at all costs to reach critical mass
+\item Achieve network effects and lock-in
 \item Raise prices once dominant
 \end{enumerate}
 
-\vspace{2mm}
-\textbf{Examples:}
+\vspace{3mm}
+\textbf{When This Works:}
 \begin{itemize}
-\item Uber: Years of subsidized rides
-\item DoorDash: Negative unit economics
-\item BNPL players: Free credit
+\item The market truly tips (winner-take-most)
+\item Network effects create lasting value
+\item Switching costs prevent users from leaving when prices rise
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{alertblock}{When It Doesn't Work}
 \begin{itemize}
 \item Multi-homing prevents lock-in
-\item No network effects to capture
+\item No real network effects to capture
 \item Regulation prevents pricing power
-\item Competition never stops
+\item Competition never stops --- multiple players survive indefinitely
 \end{itemize}
 \end{alertblock}
 
-\begin{block}{Analysis Framework}
-\textbf{Ask}: Would users stay at \textit{sustainable} prices?\\
-\textbf{Test}: Remove subsidies mentally -- what happens?
+\vspace{3mm}
+\begin{block}{The ``Remove Subsidies'' Test}
+\textbf{Ask}: Would customers stay at \textit{sustainable} prices?\\
+\textbf{Test}: Mentally remove the subsidies --- what happens to demand?\\
+\textbf{If demand collapses}: The growth was artificial.
 \end{block}
 \end{column}
 \end{columns}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Always ask: would customers stay at sustainable prices? If the answer is unclear, the company may be building on sand.
+\end{block}
 \end{frame}
 
-\begin{frame}{Unit Economics: CAC, LTV, and Payback}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Key Metrics:}
-\begin{itemize}
-\item \textbf{CAC}: Customer Acquisition Cost
-\item \textbf{LTV}: Lifetime Value
-\item \textbf{Payback}: Months to recover CAC
-\item \textbf{Churn}: \% customers leaving
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Healthy Benchmarks:}
-\begin{itemize}
-\item LTV/CAC $>$ 3x
-\item Payback $<$ 18 months
-\item Churn $<$ 5\% annual (B2B)
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{FinTech CAC Challenges}
-\begin{itemize}
-\item Trust required for financial products
-\item Regulatory constraints on marketing
-\item High-intent keywords expensive
-\item Referral programs costly
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Typical FinTech CACs:}\\
-Neobank: \$100-300\\
-Trading app: \$50-150\\
-B2B SaaS: \$500-2,000
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Regulation as Moat}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Regulatory Barriers Protect:}
-\begin{itemize}
-\item Banking charters (capital requirements)
-\item Insurance licenses (state-by-state)
-\item Broker-dealer registration
-\item Money transmitter licenses
-\end{itemize}
-
-\vspace{2mm}
-\textbf{FinTechs Navigate Via:}
-\begin{itemize}
-\item BaaS partnerships (rent a charter)
-\item Special purpose charters (OCC)
-\item Industrial loan companies (Utah)
-\item Regulatory arbitrage
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Regulation as Strategy}
-Once compliant, regulation becomes \textbf{moat}:
-\begin{itemize}
-\item Competitors must also comply
-\item Time to license = runway
-\item Relationships with regulators valuable
-\end{itemize}
-\end{block}
-
-\begin{alertblock}{Risk}
-Regulatory capture can flip:\\
-What protects you can also restrict you
+\begin{frame}{The Data Flywheel in Platforms}
+\begin{alertblock}{The Problem}
+Why do data-rich platforms keep getting stronger while newcomers struggle to catch up?
 \end{alertblock}
-\end{column}
-\end{columns}
-\end{frame}
 
-\begin{frame}{Incumbent Response: Build, Buy, or Partner}
+\vspace{3mm}
 \begin{center}
-\begin{tabular}{p{2.5cm}p{4cm}p{4cm}}
-\toprule
-\textbf{Strategy} & \textbf{Pros} & \textbf{Cons} \\
-\midrule
-\textbf{Build} (Internal) & Control, integration & Slow, cultural mismatch \\
-\textbf{Buy} (Acquire) & Speed, talent, customers & Expensive, integration risk \\
-\textbf{Partner} (API/BaaS) & Fast, low commitment & Dependency, margin sharing \\
-\textbf{Copy} (Fast follow) & Proven concept & Behind, no differentiation \\
-\textbf{Invest} (Minority stake) & Option value, intel & Limited control \\
-\bottomrule
-\end{tabular}
+\begin{tikzpicture}[scale=0.9, transform shape]
+% Flywheel nodes
+\node (data) [process, fill=dfblue!20] at (0,2) {More Data};
+\node (product) [process, fill=dfteal!20] at (3,0) {Better Product};
+\node (users) [process, fill=dfgreen!20] at (0,-2) {More Users};
+\node (attract) [process, fill=dforange!20] at (-3,0) {Greater Attraction};
+
+% Arrows forming cycle
+\draw[arrow, very thick] (data) to[bend left=20] (product);
+\draw[arrow, very thick] (product) to[bend left=20] (users);
+\draw[arrow, very thick] (users) to[bend left=20] (attract);
+\draw[arrow, very thick] (attract) to[bend left=20] (data);
+
+% Center label
+\node[font=\large\bfseries] at (0,0) {Flywheel};
+\end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\textbf{Examples:}
+\textbf{How It Works in FinTech:}
 \begin{itemize}
-\item \textbf{Buy}: JPMorgan acquires InstaMed, WePay, Nutmeg
-\item \textbf{Partner}: Goldman + Apple (Apple Card)
-\item \textbf{Build}: Chase launches digital-first accounts
+\item More transactions generate more data, which improves fraud detection, which reduces false declines, which attracts more merchants, which generates more transactions
+\item More loan applications improve risk models, which enable more accurate pricing, which attracts better borrowers, which generates more data
 \end{itemize}
+
+\begin{block}{The Insight}
+The data flywheel creates compounding advantages that new entrants cannot easily replicate --- it is one of the most powerful moats in modern finance.
+\end{block}
 \end{frame}
 
 \begin{frame}{Discussion: Evaluating FinTech Sustainability}
-\begin{block}{Framework Questions}
+\begin{block}{Framework: Six Questions for Any FinTech}
 \begin{enumerate}
-\item Does this FinTech have \textbf{real network effects}, or just growth?
-\item What is the \textbf{unit economics} without subsidies?
-\item Are \textbf{switching costs} high enough to retain users?
-\item Does the \textbf{data advantage} compound over time?
-\item Can incumbents \textbf{copy this} easily?
-\item Will \textbf{regulation} help or hurt long-term?
+\item Does this FinTech have \textbf{real network effects}, or just growth fueled by subsidies?
+\item Are the \textbf{unit economics healthy} --- does each customer pay back more than they cost to acquire?
+\item Are \textbf{switching costs} high enough to retain users when prices rise?
+\item Does the \textbf{data advantage} compound over time via a flywheel?
+\item Can incumbents \textbf{easily copy this} --- or is there a lasting moat?
+\item Will \textbf{regulation} help or hurt the company long-term?
 \end{enumerate}
 \end{block}
 
 \vspace{3mm}
-\textbf{Discussion Exercise}: Apply this framework to Chime, Klarna, or Revolut
+\textbf{Discussion Exercise:}\\
+Think about a financial app you use regularly. Apply these six questions:
+\begin{itemize}
+\item What would happen if the app raised its prices significantly?
+\item Could you easily switch to an alternative? Would you?
+\item Does the app get better the more people use it, or is the experience the same regardless?
+\end{itemize}
+
+\vspace{2mm}
+\textit{There are no wrong answers --- the goal is to practice the framework.}
 \end{frame}
 
 \begin{frame}{Section 2.4 Key Takeaways}
 \begin{enumerate}
-\item \textbf{Platforms create value differently}: Orchestration, not production
-\item \textbf{Network effects are the goal}: But not every FinTech has them
-\item \textbf{Winner-take-most requires conditions}: Multi-homing prevents tipping
-\item \textbf{Revenue models vary widely}: Transaction, subscription, spread, data
-\item \textbf{Venture subsidies mask reality}: Ask what happens at sustainable prices
-\item \textbf{Regulation can be moat or barrier}: Depends on strategic positioning
+\item \textbf{Platforms create value differently}: They orchestrate exchanges rather than produce goods --- the most powerful FinTechs are platforms, not pipelines
+
+\item \textbf{Network effects are the goal, but not guaranteed}: Not every FinTech has real network effects --- growth without them is just expensive customer acquisition that evaporates when subsidies end
+
+\item \textbf{Winner-take-most requires specific conditions}: Strong network effects combined with high switching costs and low multi-homing --- without all three, competition persists
+
+\item \textbf{Unit economics determine sustainability}: Lifetime value should be several times the acquisition cost --- venture subsidies mask reality until funding stops
+
+\item \textbf{Multiple moats beat single advantages}: The strongest FinTechs combine network effects, data flywheels, switching costs, and regulatory positioning
 \end{enumerate}
 
 \vspace{3mm}
-\begin{block}{Day 2 Complete}
-From payment mechanics $\rightarrow$ API infrastructure $\rightarrow$ ML intelligence $\rightarrow$ platform economics.\\
-Tomorrow: Blockchain, DeFi, and the crypto ecosystem.
+\begin{block}{Core Skill}
+Always ask: ``Would this business work at \textit{sustainable} prices without subsidies?''
 \end{block}
 \end{frame}
 
@@ -1597,15 +1510,15 @@ Tomorrow: Blockchain, DeFi, and the crypto ecosystem.
 \begin{enumerate}
 \item \textbf{Digital Payments}
 \begin{itemize}
-\item Four-layer stack
-\item Interchange economics
-\item Real-time payment revolution
+\item Four-layer payment stack
+\item Speed vs.\ protection tradeoffs
+\item Real-time rails reshaping competition
 \end{itemize}
 \item \textbf{API Economy \& BaaS}
 \begin{itemize}
-\item Banking unbundling
+\item APIs unbundled banking
 \item Open banking regulation
-\item Embedded finance
+\item Embedded finance as the frontier
 \end{itemize}
 \end{enumerate}
 \end{column}
@@ -1614,15 +1527,15 @@ Tomorrow: Blockchain, DeFi, and the crypto ecosystem.
 \setcounter{enumi}{2}
 \item \textbf{Data-Driven Finance}
 \begin{itemize}
-\item Alternative data
-\item ML credit scoring
-\item Algorithmic bias
+\item Alternative data expands access
+\item ML vs.\ explainability tension
+\item Algorithmic bias is real
 \end{itemize}
 \item \textbf{Platform Economics}
 \begin{itemize}
-\item Network effects
-\item Business model analysis
-\item Sustainability assessment
+\item Network effects drive dominance
+\item Unit economics determine sustainability
+\item Data flywheels compound advantages
 \end{itemize}
 \end{enumerate}
 \end{column}
@@ -1632,6 +1545,9 @@ Tomorrow: Blockchain, DeFi, and the crypto ecosystem.
 \begin{block}{Notebooks}
 NB02: Payment Analysis | NB03: Banking API | NB04: Credit Scoring Model
 \end{block}
+
+\vspace{2mm}
+\textbf{The Day 2 Arc}: From how money moves (payments) $\rightarrow$ how infrastructure is shared (APIs) $\rightarrow$ how decisions are automated (data/ML) $\rightarrow$ how business models sustain (platforms). Tomorrow: Blockchain, DeFi, and the crypto ecosystem.
 \end{frame}
 
 \end{document}

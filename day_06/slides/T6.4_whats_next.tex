@@ -6,7 +6,7 @@
 \subtitle{The Future of Digital Finance}
 \author{Joerg Osterrieder}
 \institute{Digital Finance}
-\date{2025}
+\date{2026}
 
 \begin{document}
 
@@ -51,8 +51,9 @@ This is the concluding topic of Digital Finance. We look forward while consolida
 \begin{column}{0.48\textwidth}
 \textbf{What you should know:}
 \begin{itemize}
-\item Blockchain fundamentals (Day 2-3)
-\item Smart contracts and DeFi (Day 3-4)
+\item Digital payments and FinTech (Day 2)
+\item Blockchain fundamentals (Day 3)
+\item Smart contracts and DeFi (Day 4)
 \item Stablecoins and tokenization (Day 4)
 \item Regulatory frameworks (Day 5)
 \item Convergence thesis (Day 6)
@@ -73,9 +74,9 @@ This is the concluding topic of Digital Finance. We look forward while consolida
 \draw[thick, dfblue, fill=dflightblue4] (0,0) rectangle (4,4);
 \node at (2,3.5) {\footnotesize Day 1: Foundations};
 \draw[dfblue] (0,3) -- (4,3);
-\node at (2,2.5) {\footnotesize Day 2-3: Technical};
+\node at (2,2.5) {\footnotesize Day 2--3: Payments \& Blockchain};
 \draw[dfblue] (0,2) -- (4,2);
-\node at (2,1.5) {\footnotesize Day 4-5: Applied};
+\node at (2,1.5) {\footnotesize Day 4--5: DeFi \& Regulation};
 \draw[dfblue] (0,1) -- (4,1);
 \node[text=dfred] at (2,0.5) {\footnotesize \textbf{Day 6: Future}};
 
@@ -151,9 +152,9 @@ This is the concluding topic of Digital Finance. We look forward while consolida
 \textbf{Current State:}
 \begin{itemize}
 \item Multiple Layer 1 chains (Ethereum, Solana, etc.)
-\item Multiple Layer 2s (Arbitrum, Optimism, Base)
+\item Multiple Layer 2s (Layer 1 is the main blockchain; Layer 2 is a faster layer built on top: Arbitrum, Optimism, Base)
 \item Fragmented liquidity
-\item Bridge vulnerabilities (\$2B+ hacked)
+\item Bridge vulnerabilities (\$2B+ hacked cumulative, 2020--2023)
 \item Poor user experience
 \end{itemize}
 \end{column}
@@ -237,7 +238,7 @@ Most bridges sacrifice security for speed and generalizability, creating systemi
 \end{itemize}
 
 \vspace{0.2cm}
-\textbf{Status:} 130+ countries exploring; China, Nigeria, Bahamas live
+\textbf{Status:} 130+ countries exploring (source: Atlantic Council CBDC Tracker, 2024); China, Nigeria, Bahamas live
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Arguments for Private Money:}
@@ -250,7 +251,7 @@ Most bridges sacrifice security for speed and generalizability, creating systemi
 \end{itemize}
 
 \vspace{0.2cm}
-\textbf{Stablecoin market cap:} \$150B+ (2024)
+\textbf{Stablecoin market cap:} \$230B+ (as of late 2024)
 \end{column}
 \end{columns}
 
@@ -326,7 +327,7 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{DID/SSI Vision:}
+\textbf{DID/SSI Vision (Self-Sovereign Identity / Decentralized Identifiers --- letting individuals control their own digital identity):}
 \begin{itemize}
 \item Self-sovereign identity
 \item User controls their data
@@ -338,7 +339,7 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \begin{column}{0.48\textwidth}
 \textbf{Challenges:}
 \begin{itemize}
-\item Key management for normies
+\item Key management for everyday users
 \item Recovery when keys lost
 \item Adoption chicken-and-egg
 \item Regulatory acceptance
@@ -348,7 +349,7 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \end{columns}
 
 \vspace{0.3cm}
-\textbf{Watch:} EU eIDAS 2.0, Worldcoin, ENS, Soulbound tokens, Polygon ID
+\textbf{Watch:} EU eIDAS 2.0 (the EU's electronic identification and trust services regulation), Worldcoin (iris-scanning identity verification project), ENS (Ethereum Name Service --- human-readable blockchain addresses), Soulbound tokens (digital credentials that cannot be transferred, like a diploma), Polygon ID (privacy-preserving identity toolkit)
 \end{frame}
 
 % =============================================================================
@@ -359,8 +360,8 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \begin{column}{0.48\textwidth}
 \textbf{What's at Risk:}
 \begin{itemize}
-\item ECDSA (used by Bitcoin, Ethereum)
-\item RSA encryption
+\item ECDSA (Elliptic Curve Digital Signature Algorithm --- the math that secures blockchain signatures, used by Bitcoin, Ethereum)
+\item RSA (a widely used encryption algorithm)
 \item Current digital signatures
 \item Potentially: all historical transactions
 \end{itemize}
@@ -374,7 +375,7 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \item Post-quantum cryptography (NIST standards)
 \item Hash-based signatures (already quantum-resistant)
 \item Migration plans for blockchains
-\item Timeline uncertainty (10--30 years?)
+\item Timeline uncertainty (10--30 years? Experts disagree widely on timing, but NIST has already begun standardizing post-quantum cryptography.)
 \end{itemize}
 
 \vspace{0.2cm}
@@ -409,11 +410,12 @@ Online identity today is fragmented, insecure, and controlled by platforms. Can 
 \end{center}
 
 \vspace{5mm}
-\textbf{Post-Quantum Cryptography (NIST Standards):}
+\textbf{Post-Quantum Cryptography:}
+In 2024, NIST (the US National Institute of Standards and Technology) approved new encryption standards designed to be safe from quantum computers:
 \begin{itemize}
-\item \textbf{CRYSTALS-Kyber}: Key encapsulation mechanism
-\item \textbf{CRYSTALS-Dilithium}: Digital signatures
-\item \textbf{SPHINCS+}: Hash-based signatures (conservative choice)
+\item \textbf{ML-KEM} (formerly CRYSTALS-Kyber): For secure key exchange
+\item \textbf{ML-DSA} (formerly CRYSTALS-Dilithium): For digital signatures
+\item \textbf{SLH-DSA} (formerly SPHINCS+): A conservative backup option
 \end{itemize}
 
 \vspace{3mm}
@@ -576,7 +578,7 @@ Zero-knowledge proofs may solve the privacy vs. compliance dilemma that has plag
 % =============================================================================
 \begin{frame}{Emerging Technology: Account Abstraction}
 \begin{block}{ERC-4337: Account Abstraction}
-Makes blockchain accounts programmable, dramatically improving user experience.
+ERC-4337 is a standard that makes cryptocurrency wallets work more like regular app accounts, with features like password recovery. It makes blockchain accounts programmable, dramatically improving user experience.
 \end{block}
 
 \begin{columns}[T]
@@ -612,7 +614,7 @@ Account abstraction could make crypto as user-friendly as traditional finance wh
 % =============================================================================
 \begin{frame}{Emerging Technology: DePIN}
 \begin{block}{Decentralized Physical Infrastructure Networks}
-Using token incentives to coordinate real-world infrastructure deployment.
+Using token incentives to coordinate real-world infrastructure deployment. \textbf{Note:} DePIN is still experimental with limited real-world adoption beyond niche applications.
 \end{block}
 
 \begin{columns}[T]
@@ -673,7 +675,7 @@ Using token incentives to coordinate real-world infrastructure deployment.
 \vspace{2mm}
 \textbf{Examples:}
 \begin{itemize}
-\item Aave Arc
+\item Aave Arc (limited adoption)
 \item Compound Treasury
 \item JPM Onyx
 \item Securitize
@@ -713,16 +715,19 @@ Same efficiency gains, but with regulatory compliance baked in.
 \midrule
 Issuer & Commercial banks & Non-bank entities \\
 Liability & Bank liability & Issuer liability \\
-Insurance & FDIC insured & No deposit insurance \\
+Insurance & FDIC insured* & No deposit insurance \\
 Regulation & Bank charter & Varies by jurisdiction \\
 Example & JPM Coin & USDC, USDT \\
 Settlement & Private blockchain & Public/private \\
 Access & Bank customers only & Permissionless \\
 \bottomrule
 \end{tabular}
+
+\vspace{1mm}
+{\scriptsize *FDIC = Federal Deposit Insurance Corporation (US). Similar: FSCS (UK), Einlagensicherung (EU).}
 \end{center}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Tokenized Deposits:}
@@ -867,9 +872,9 @@ Cross-disciplinary skills are most valuable: technical + financial + regulatory 
 };
 
 % Labels
-\node[below, text width=3cm, align=center] at (-4,-1.2) {\footnotesize China, some emerging markets};
-\node[below, text width=3cm, align=center] at (0,-1.2) {\footnotesize EU (MiCA), UK, Singapore};
-\node[below, text width=3cm, align=center] at (4,-1.2) {\footnotesize UAE, some US states};
+\node[below, text width=3.3cm, align=center] at (-4,-1.2) {\footnotesize China, India (partial); may stifle innovation};
+\node[below, text width=3.3cm, align=center] at (0,-1.2) {\footnotesize EU (MiCA), UK, Singapore; fosters trust};
+\node[below, text width=3.3cm, align=center] at (4,-1.2) {\footnotesize UAE, some US states; attracts capital but risks gaps};
 \end{tikzpicture}
 \end{center}
 
@@ -887,24 +892,27 @@ Cross-disciplinary skills are most valuable: technical + financial + regulatory 
 % Frame 24: The Innovation Scorecard Revisited
 % =============================================================================
 \begin{frame}{The Innovation Scorecard: Your Framework}
-\begin{block}{Five Questions for Any Digital Finance Innovation}
+\begin{block}{Six Questions for Any Digital Finance Innovation}
 \end{block}
 
 \begin{enumerate}
 \item \textbf{PROBLEM}: What real problem does this solve, and for whom?\\
 \footnotesize \textcolor{dfgray}{Red flag: Vague problem statement or only solves crypto-native problems}
 
-\item \textbf{MECHANISM}: How does it actually work? What's the trust model?\\
+\item \textbf{MECHANISM}: How does it actually work (technically and economically)?\\
 \footnotesize \textcolor{dfgray}{Red flag: ``It's decentralized'' without specifics}
 
-\item \textbf{INCENTIVES}: Who profits and how? Are incentives aligned?\\
-\footnotesize \textcolor{dfgray}{Red flag: Unclear value capture or ponzinomic structures}
+\item \textbf{TRADEOFFS}: What are the key tradeoffs and design choices?\\
+\footnotesize \textcolor{dfgray}{Red flag: Claims of ``no tradeoffs'' or ``best of all worlds''}
 
-\item \textbf{RISKS}: What can go wrong? What are the trade-offs?\\
+\item \textbf{RISKS}: What could go wrong (technical, economic, regulatory)?\\
 \footnotesize \textcolor{dfgray}{Red flag: Claims of ``no risk'' or ``guaranteed returns''}
 
-\item \textbf{REGULATORY}: Where does this fit legally?\\
+\item \textbf{REGULATORY STATUS}: Where does it fit in the regulatory landscape?\\
 \footnotesize \textcolor{dfgray}{Red flag: Regulatory arbitrage as the main strategy}
+
+\item \textbf{WHO BENEFITS}: Who captures value, and who bears costs?\\
+\footnotesize \textcolor{dfgray}{Red flag: Unclear value capture or misaligned incentives}
 \end{enumerate}
 \end{frame}
 
@@ -919,12 +927,12 @@ Cross-disciplinary skills are most valuable: technical + financial + regulatory 
 \toprule
 \textbf{Day} & \textbf{Theme} & \textbf{Key Takeaways} \\
 \midrule
-1 & Landscape & FinTech vs. DeFi framing; market structure; key players \\
-2 & Digital Payments & Payment systems; API economy; data-driven finance \\
-3 & Blockchain & Consensus, security, scalability trilemma; cryptographic foundations \\
-4 & Smart Contracts & Programmability, composability, DeFi primitives (AMMs, lending) \\
-5 & Regulation & Global approaches; compliance frameworks; legal status \\
-6 & Future & Convergence; AI applications and risks; evaluation framework \\
+1 & Foundations & Money, financial system, FinTech vs. DeFi, landscape overview \\
+2 & Digital Finance & Payments, API economy, data-driven finance, platform economics \\
+3 & Blockchain & Cryptography, mechanics, wallets, Bitcoin vs. Ethereum \\
+4 & Smart Contracts & Smart contracts, DeFi primitives, stablecoins, tokenization \& CBDCs \\
+5 & Risk \& Regulation & Failures, regulation, DAO governance, privacy \& inclusion \\
+6 & Future & Convergence, AI \& digital finance, synthesis framework, what's next \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1005,7 +1013,7 @@ Cross-disciplinary skills are most valuable: technical + financial + regulatory 
 \begin{itemize}
 \item The Block, CoinDesk (crypto)
 \item Risk.net, American Banker (TradFi)
-\item a16z crypto blog
+\item a16z crypto blog (\url{a16zcrypto.com})
 \item BIS working papers
 \end{itemize}
 
@@ -1044,8 +1052,8 @@ Cross-disciplinary skills are most valuable: technical + financial + regulatory 
 % Frame 29: Discussion: Your Hypotheses
 % =============================================================================
 \begin{frame}{Group Discussion: Your Hypotheses}
-\begin{block}{Instructions}
-Form groups of 3--4. Each group picks one open question and develops a hypothesis about how it will unfold over the next decade. Be prepared to defend your view.
+\begin{block}{Instructions (15 minutes)}
+Form small groups (3--4 students). Each group picks one open question and develops a hypothesis about how it will unfold over the next decade. Be prepared to defend your view.
 \end{block}
 
 \vspace{0.3cm}
@@ -1207,7 +1215,7 @@ Uncertainty about the future is not a weakness---it's an opportunity for those w
 
 \item[Institutional DeFi] DeFi protocols with added compliance layers (KYC/AML) for institutional participants.
 
-\item[Tokenized Deposits] Bank deposits represented on blockchain, maintaining FDIC insurance and bank liability status.
+\item[Tokenized Deposits] Bank deposits represented on blockchain, maintaining FDIC (Federal Deposit Insurance Corporation --- the US bank deposit insurance agency; similar schemes: FSCS in the UK, Einlagensicherung in the EU) insurance and bank liability status.
 
 \item[AI Agent] An autonomous AI system capable of holding assets and executing transactions independently.
 

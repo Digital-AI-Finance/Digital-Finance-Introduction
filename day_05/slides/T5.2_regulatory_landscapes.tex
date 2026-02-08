@@ -17,7 +17,42 @@
 \end{frame}
 
 % ==============================================================================
-% SLIDE 2: Learning Objectives
+% SLIDE 2: Bridge from T5.1
+% ==============================================================================
+% [H32] Bridge from T5.1 to T5.2
+\begin{frame}{From Technical Risks to Regulatory Responses}
+\begin{block}{Where We Left Off (Topic 5.1)}
+In T5.1 we saw what goes wrong \textit{technically} --- hacks, exploits, smart contract failures, and exchange collapses. Now we ask: \textbf{how do governments try to PREVENT these problems?} That is regulation.
+\end{block}
+
+\vspace{5mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{T5.1 showed us:}
+\begin{itemize}
+\item Technical vulnerabilities
+\item Smart contract exploits
+\item Exchange failures
+\item Loss of user funds
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{T5.2 asks:}
+\begin{itemize}
+\item Who should prevent these problems?
+\item What rules exist today?
+\item How do different countries approach this?
+\item What trade-offs arise?
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{3mm}
+\textbf{Key connection:} Every major crypto disaster we studied in T5.1 led to new regulations. Today we study those regulatory responses.
+\end{frame}
+
+% ==============================================================================
+% SLIDE 3: Learning Objectives
 % ==============================================================================
 \begin{frame}{Learning Objectives}
 \textbf{By the end of this topic, you will be able to:}
@@ -39,7 +74,28 @@ Regulatory analysis is essential for any digital finance professional---whether 
 \end{frame}
 
 % ==============================================================================
-% SLIDE 3: Prerequisites/Background I
+% SLIDE 4: Why This Matters to YOU
+% ==============================================================================
+% [H27] Motivation frame
+\begin{frame}{Why Should YOU Care About Crypto Regulation?}
+\textbf{Regulation is not just for lawyers --- it affects everyone who uses, builds, or invests in digital finance.}
+\vspace{5mm}
+
+\begin{enumerate}
+\item \textbf{Which products you can access:} Regulations determine whether you can buy certain tokens, use certain exchanges, or access DeFi in your country
+\item \textbf{Whether your investments are protected:} If an exchange fails, regulation decides whether you get your money back --- or lose everything
+\item \textbf{Which innovations succeed or fail:} Many promising projects have shut down not because the technology failed, but because regulation made them impossible
+\item \textbf{Your career:} Understanding regulation is a major competitive advantage in digital finance --- employers value it highly
+\end{enumerate}
+
+\vspace{3mm}
+\begin{alertblock}{Real Example}
+When MiCA took effect in the EU, Tether (USDT) was delisted from some European exchanges. Millions of users had to switch stablecoins overnight --- all because of regulation.
+\end{alertblock}
+\end{frame}
+
+% ==============================================================================
+% SLIDE 5: Prerequisites/Background I
 % ==============================================================================
 \begin{frame}{Prerequisites: Financial Regulation Basics}
 \textbf{Why do we regulate financial markets?}
@@ -74,7 +130,7 @@ Digital finance challenges traditional regulatory assumptions: borderless, pseud
 \end{frame}
 
 % ==============================================================================
-% SLIDE 4: Prerequisites/Background II
+% SLIDE 6: Prerequisites/Background II
 % ==============================================================================
 \begin{frame}{Prerequisites: Key Regulatory Concepts}
 \begin{center}
@@ -103,7 +159,89 @@ Digital finance challenges traditional regulatory assumptions: borderless, pseud
 \end{frame}
 
 % ==============================================================================
-% SLIDE 5: The Regulatory Challenge
+% SLIDE 7: Global Overview -- Regulatory Spectrum
+% ==============================================================================
+% [C11] Global overview before diving into US specifics
+\begin{frame}{Global Overview: The Regulatory Spectrum}
+\textbf{Every country approaches crypto regulation differently.} Before we dive into specific jurisdictions, here is the big picture:
+\vspace{3mm}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85, transform shape]
+% Spectrum line
+\draw[very thick, ->, dfblue] (0,0) -- (13,0);
+\node[below, font=\footnotesize] at (0,-0.2) {\textbf{Banned}};
+\node[below, font=\footnotesize] at (4.3,-0.2) {\textbf{Restricted}};
+\node[below, font=\footnotesize] at (8.6,-0.2) {\textbf{Permissive}};
+\node[below, font=\footnotesize] at (13,-0.2) {\textbf{Embracing}};
+
+% Country markers
+\node[above, font=\footnotesize, text=dfred] at (0.5,0.3) {China};
+\node[above, font=\footnotesize, text=dfred] at (1.8,0.7) {Algeria};
+
+\node[above, font=\footnotesize, text=dforange] at (4,0.3) {India};
+\node[above, font=\footnotesize, text=dforange] at (5.5,0.7) {S.~Korea};
+
+\node[above, font=\footnotesize, text=dfgreen] at (7.5,0.3) {EU (MiCA)};
+\node[above, font=\footnotesize, text=dfgreen] at (9,0.7) {Japan};
+
+\node[above, font=\footnotesize, text=dfblue] at (11,0.3) {Singapore};
+\node[above, font=\footnotesize, text=dfblue] at (12.5,0.7) {UAE};
+
+% Dots on the line
+\fill[dfred] (0.5,0) circle (3pt);
+\fill[dfred] (1.8,0) circle (3pt);
+\fill[dforange] (4,0) circle (3pt);
+\fill[dforange] (5.5,0) circle (3pt);
+\fill[dfgreen] (7.5,0) circle (3pt);
+\fill[dfgreen] (9,0) circle (3pt);
+\fill[dfblue] (11,0) circle (3pt);
+\fill[dfblue] (12.5,0) circle (3pt);
+
+% US special position
+\node[above, font=\footnotesize, text=dforange] at (6.5,1.2) {US (unclear)};
+\fill[dforange] (6.5,0) circle (3pt);
+\draw[dashed, dforange] (5.0,0) -- (8.0,0);
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\begin{block}{Key Takeaway}
+There is no single ``right'' approach. We will study the US (complex, fragmented), EU (comprehensive framework), and Asia (full spectrum from ban to innovation hub) in detail.
+\end{block}
+
+\vspace{2mm}
+% [H31] Acknowledge US-heavy focus
+\footnotesize \textbf{Note:} We spend more time on the US because it is the largest crypto market and its regulatory approach is the most complex. Other jurisdictions often follow or react to US decisions.
+\end{frame}
+
+% ==============================================================================
+% SLIDE 8: How to Read a Regulatory Framework
+% ==============================================================================
+% [H28] Analytical framework slide
+\begin{frame}{How to Read Any Regulatory Framework}
+\textbf{When evaluating any country's approach to crypto regulation, ask these four questions:}
+\vspace{5mm}
+
+\begin{enumerate}
+\item \textbf{Who regulates?}\\
+Is there one regulator or many? Do they coordinate or compete?
+\item \textbf{What is classified as what?}\\
+Is a token a security, a commodity, a payment instrument, or something new?
+\item \textbf{What is banned vs.\ permitted?}\\
+Can you trade, issue tokens, run an exchange, offer DeFi services?
+\item \textbf{How are consumers protected?}\\
+Are there insurance schemes, disclosure requirements, or investor limits?
+\end{enumerate}
+
+\vspace{5mm}
+\begin{block}{Use This Framework}
+As we study each jurisdiction, apply these four questions. You will see how the same technology receives very different regulatory treatment depending on how each country answers them.
+\end{block}
+\end{frame}
+
+% ==============================================================================
+% SLIDE 9: The Regulatory Challenge
 % ==============================================================================
 \begin{frame}{The Regulatory Challenge}
 \begin{columns}[T]
@@ -145,37 +283,75 @@ Digital finance challenges traditional regulatory assumptions: borderless, pseud
 \end{frame}
 
 % ==============================================================================
-% SLIDE 6: US Fragmented Landscape
+% SLIDE 10: US Regulatory Landscape -- The Big Two
 % ==============================================================================
-\begin{frame}{United States: Fragmented Regulatory Landscape}
+% [H24] Split into 2 slides: first the Big Two
+\begin{frame}{United States: The Big Two Regulators}
 \begin{center}
-\begin{tikzpicture}[scale=0.75, transform shape]
-% Regulatory agencies
-\node (sec) [blockchain, minimum width=2.2cm, fill=dfblue!20] {SEC};
-\node (cftc) [blockchain, right of=sec, node distance=3cm, minimum width=2.2cm, fill=dfteal!20] {CFTC};
-\node (fincen) [blockchain, right of=cftc, node distance=3cm, minimum width=2.2cm, fill=dforange!20] {FinCEN};
-\node (occ) [blockchain, below of=sec, node distance=2cm, minimum width=2.2cm, fill=dfgreen!20] {OCC};
-\node (fed) [blockchain, below of=cftc, node distance=2cm, minimum width=2.2cm, fill=dfred!20] {Fed};
-\node (state) [blockchain, below of=fincen, node distance=2cm, minimum width=2.2cm, fill=lightgray] {50 States};
+\begin{tikzpicture}[scale=0.8, transform shape]
+% Two main agencies
+\node (sec) [blockchain, minimum width=3cm, fill=dfblue!20] {\textbf{SEC}};
+\node (cftc) [blockchain, right of=sec, node distance=5cm, minimum width=3cm, fill=dfteal!20] {\textbf{CFTC}};
 
 % Labels
-\node[below of=sec, node distance=1cm, font=\footnotesize] {Securities};
-\node[below of=cftc, node distance=1cm, font=\footnotesize] {Commodities};
-\node[below of=fincen, node distance=1cm, font=\footnotesize] {AML/KYC};
-\node[below of=occ, node distance=1cm, font=\footnotesize] {Banks};
-\node[below of=fed, node distance=1cm, font=\footnotesize] {Payments};
-\node[below of=state, node distance=1cm, font=\footnotesize] {Money Transmission};
+\node[below of=sec, node distance=1.5cm, font=\small, text width=4cm, align=center] {\textbf{Securities \& Exchange Commission}\\Regulates investment contracts (securities)};
+\node[below of=cftc, node distance=1.5cm, font=\small, text width=4cm, align=center] {\textbf{Commodity Futures Trading Commission}\\Regulates commodities and derivatives};
+
+% The question in the middle
+\node[font=\Large] at (2.5,0) {\textbf{vs.}};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\begin{alertblock}{Key Issue}
-No single regulator for crypto. Jurisdictional conflicts between SEC (securities) and CFTC (commodities) create uncertainty and ``regulation by enforcement.''
+\textbf{The central question in US crypto regulation:}
+\begin{itemize}
+\item Is a crypto token a \textbf{security} (regulated by the SEC)?
+\item Or is it a \textbf{commodity} (regulated by the CFTC)?
+\item Bitcoin and Ethereum: classified as \textbf{commodities}
+\item Many other tokens: the SEC argues they are \textbf{securities}
+\end{itemize}
+
+\vspace{3mm}
+\begin{alertblock}{Why This Matters}
+Securities face strict rules: registration, disclosure documents, and restrictions on who can buy. Commodities face lighter regulation. The classification determines everything.
 \end{alertblock}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 7: The Howey Test
+% SLIDE 11: US Regulatory Landscape -- Supporting Agencies
+% ==============================================================================
+% [H24] Second part: supporting agencies
+\begin{frame}{United States: Supporting Regulatory Agencies}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape]
+% Supporting agencies
+\node (fincen) [blockchain, minimum width=2.5cm, fill=dforange!20] {FinCEN};
+\node (occ) [blockchain, right of=fincen, node distance=4cm, minimum width=2.5cm, fill=dfgreen!20] {OCC};
+\node (fdic) [blockchain, right of=occ, node distance=4cm, minimum width=2.5cm, fill=dflightblue3] {FDIC};
+
+% Labels
+\node[below of=fincen, node distance=1.3cm, font=\footnotesize, text width=3cm, align=center] {Anti-money laundering \& financial crimes};
+\node[below of=occ, node distance=1.3cm, font=\footnotesize, text width=3cm, align=center] {National bank regulation};
+\node[below of=fdic, node distance=1.3cm, font=\footnotesize, text width=3cm, align=center] {Deposit insurance};
+
+% Second row
+\node (fed) [blockchain, below of=fincen, node distance=3cm, minimum width=2.5cm, fill=dfred!20] {Federal Reserve};
+\node (state) [blockchain, below of=occ, node distance=3cm, minimum width=2.5cm, fill=lightgray] {50 States};
+
+\node[below of=fed, node distance=1.3cm, font=\footnotesize, text width=3cm, align=center] {Monetary policy \& payments};
+\node[below of=state, node distance=1.3cm, font=\footnotesize, text width=3cm, align=center] {State-level money transmission licenses};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+% [C7] Define "regulation by enforcement"
+\begin{alertblock}{Key Issue: No Single Regulator}
+No single agency is in charge of crypto. Jurisdictional conflicts between all these agencies create uncertainty and ``regulation by enforcement'' --- meaning regulators do not write new crypto-specific rules. Instead, they use existing laws and punish companies that break them. Think of it as: \textit{``we will tell you the rules by punishing those who break them.''}
+\end{alertblock}
+\end{frame}
+
+% ==============================================================================
+% SLIDE 12: The Howey Test
 % ==============================================================================
 \begin{frame}{US: The Howey Test}
 \begin{columns}[T]
@@ -190,13 +366,15 @@ A token is a security if it involves:
 \end{enumerate}
 
 \vspace{3mm}
-\textbf{SEC Position:}
-\begin{itemize}
-\item Most ICOs were securities
-\item Many tokens are securities
-\item ETH and BTC are NOT securities
-\item ``Come in and register''
-\end{itemize}
+% [C8] Rental property analogy for Howey Test
+\textbf{Analogy:} Think of buying a rental property managed by someone else:
+\begin{enumerate}
+\item You invest money (buying the property)
+\item In a common enterprise (the building has multiple investors)
+\item Expecting profits (rental income)
+\item From others' efforts (the property manager does the work)
+\end{enumerate}
+$\rightarrow$ This is an ``investment contract'' = a security.
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{tikzpicture}[scale=0.7, transform shape]
@@ -212,16 +390,21 @@ A token is a security if it involves:
 \end{tikzpicture}
 
 \vspace{3mm}
-\textbf{Consequences:}\\
-\footnotesize Securities require registration, prospectus, qualified investors only.
+\textbf{SEC Position:}
+\begin{itemize}
+% [H17] Define ICO on first use
+\item Most ICOs (Initial Coin Offerings --- a way for crypto projects to raise money by selling tokens directly to the public, similar to an IPO for stocks) were securities
+\item Many tokens are securities
+\item ETH and BTC are NOT securities
+\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 8: SEC vs CFTC Jurisdiction
+% SLIDE 13: SEC vs CFTC Jurisdiction
 % ==============================================================================
-\begin{frame}{SEC vs. CFTC: Jurisdictional Divide}
+\begin{frame}{SEC vs.\ CFTC: Jurisdictional Divide}
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|l|c|c|}
@@ -236,6 +419,7 @@ A token is a security if it involves:
 \hline
 \textbf{Ethereum} & Not a security (debated) & Commodity \\
 \hline
+% [H19] Define spot market
 \textbf{Most altcoins} & Often securities & Spot market limited \\
 \hline
 \textbf{Stablecoins} & Unclear & Limited jurisdiction \\
@@ -245,17 +429,23 @@ A token is a security if it involves:
 \end{tabular}
 \end{center}
 
-\vspace{3mm}
+\vspace{2mm}
+% [H19] Spot market definition
+\footnotesize \textbf{Term:} \textit{Spot market} = buying or selling for immediate delivery, as opposed to futures or options (which are contracts about future prices).
+
+\vspace{2mm}
+\normalsize
 \begin{block}{The Gap}
-Spot markets for crypto commodities (like Bitcoin) fall into a regulatory gap---CFTC has limited authority, SEC claims none.
+Spot markets for crypto commodities (like Bitcoin) fall into a regulatory gap---CFTC has limited authority over spot trading, SEC claims none. Nobody is clearly in charge.
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 9: FinCEN and AML Requirements
+% SLIDE 14: FinCEN and AML Requirements
 % ==============================================================================
 \begin{frame}{FinCEN: AML/KYC Requirements}
-\textbf{Financial Crimes Enforcement Network (FinCEN)}---enforces Bank Secrecy Act
+% [H20] Define Bank Secrecy Act
+\textbf{Financial Crimes Enforcement Network (FinCEN)}---enforces the Bank Secrecy Act (BSA, 1970), the foundation of US anti-money-laundering law. The BSA requires banks and financial businesses to report suspicious transactions to help detect money laundering.
 \vspace{3mm}
 
 \begin{columns}[T]
@@ -266,7 +456,8 @@ Spot markets for crypto commodities (like Bitcoin) fall into a regulatory gap---
 \item Custodial wallet providers
 \item Crypto ATM operators
 \item Payment processors
-\item (As Money Services Businesses)
+% [H21] Define MSBs
+\item As Money Services Businesses (MSBs --- businesses that transfer money, cash checks, or exchange currencies, including many crypto exchanges)
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
@@ -274,34 +465,59 @@ Spot markets for crypto commodities (like Bitcoin) fall into a regulatory gap---
 \begin{itemize}
 \item Customer identification (KYC)
 \item Transaction monitoring
-\item Suspicious Activity Reports (SARs)
-\item Currency Transaction Reports (\$10K+)
+% [H22] Define SARs and CTRs
+\item Suspicious Activity Reports (SARs --- filed when a business spots something unusual)
+\item Currency Transaction Reports (CTRs --- required for transactions over \$10,000)
 \item Record keeping (5 years)
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{3mm}
 \begin{alertblock}{Key Point}
 AML/KYC requirements apply regardless of whether tokens are securities or commodities. All crypto businesses touching fiat or custody must comply.
 \end{alertblock}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 10: US Enforcement Actions
+% SLIDE 15: Checkpoint -- US Regulation So Far
 % ==============================================================================
-\begin{frame}{US Enforcement Actions (2023-2024)}
+% [C9] Checkpoint/recap slide after dense US regulatory content
+\begin{frame}{Checkpoint: US Regulation So Far}
+\begin{block}{Let's Pause and Recap}
+We have covered a lot of US-specific content. Here are the key points so far:
+\end{block}
+
+\vspace{3mm}
+\begin{enumerate}
+\item \textbf{Multiple regulators} --- The US has many agencies (SEC, CFTC, FinCEN, OCC, 50 states) with overlapping authority. No single ``crypto regulator'' exists.
+\item \textbf{The key question:} Is a crypto token a \textbf{security} or a \textbf{commodity}? The answer determines which rules apply.
+\item \textbf{The Howey Test} helps decide --- think of the rental property analogy: if you invest money, in a group venture, expecting profits from someone else's work, it is a security.
+\item \textbf{AML/KYC applies to everyone} --- regardless of token classification, all crypto businesses must verify customer identities and report suspicious activity.
+\item \textbf{``Regulation by enforcement''} --- the US currently makes rules by suing companies, rather than writing clear guidelines first.
+\end{enumerate}
+
+\vspace{3mm}
+\textbf{Coming next:} Enforcement actions, state-level regulation, and how tokens can legally be issued.
+\end{frame}
+
+% ==============================================================================
+% SLIDE 16: US Enforcement Actions
+% ==============================================================================
+\begin{frame}{US Enforcement Actions (2023--2024)}
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|l|l|p{5cm}|}
 \hline
 \textbf{Target} & \textbf{Allegation} & \textbf{Status} \\
 \hline
-Coinbase & Operating unregistered exchange & Ongoing litigation \\
+% [M1] Define "operating unregistered exchange"
+Coinbase & Operating unregistered exchange (running a trading platform without SEC approval) & Ongoing litigation \\
 \hline
 Binance & Multiple securities violations & \$4.3B settlement \\
 \hline
-Kraken & Unregistered staking service & \$30M settlement \\
+% [M2] Define "staking"
+Kraken & Unregistered staking service (staking = locking up tokens to earn rewards) & \$30M settlement \\
 \hline
 Ripple (XRP) & Unregistered securities & Partial win for Ripple \\
 \hline
@@ -312,15 +528,16 @@ Terraform & Securities fraud (UST) & Founders charged \\
 
 \vspace{3mm}
 \begin{alertblock}{Regulation by Enforcement}
-The US lacks comprehensive crypto legislation. SEC and CFTC establish rules through lawsuits rather than clear guidelines.
+The US lacks comprehensive crypto legislation. SEC and CFTC establish rules through lawsuits rather than clear guidelines --- companies often do not know they are breaking a rule until they are sued.
 \end{alertblock}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 11: State-Level Regulation
+% SLIDE 17: State-Level Regulation
 % ==============================================================================
 \begin{frame}{US State-Level Regulation: BitLicense Example}
-\textbf{New York BitLicense (2015)}---most comprehensive state framework
+% [H26] Add context about state regulation
+\textbf{In the US, states can create their own financial regulations on top of federal rules.} New York's BitLicense (2015) was the first state-level crypto-specific license.
 \vspace{3mm}
 
 \begin{columns}[T]
@@ -348,44 +565,76 @@ The US lacks comprehensive crypto legislation. SEC and CFTC establish rules thro
 \end{columns}
 
 \vspace{3mm}
-\begin{block}{50-State Problem}
+% [C10] 50-state analogy
+\begin{block}{The 50-State Problem}
 Each US state has different money transmission rules. Operating nationally requires up to 50 separate licenses.
+
+\textbf{Analogy:} Imagine opening a restaurant --- you would need a different license in every state, plus a federal one. Now imagine doing that in 50 states simultaneously. That is the challenge facing crypto companies in the US.
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 12: Securities Exemptions
+% SLIDE 18: Securities Exemptions (Simplified)
 % ==============================================================================
-\begin{frame}{US: Securities Registration Exemptions}
-\textbf{If your token is a security, how can you legally issue it?}
-\vspace{3mm}
+% [H23] Simplified from graduate-level to plain English
+\begin{frame}{US: If Your Token Is a Security, What Are Your Options?}
+\textbf{If the Howey Test says your token is a security, you have two main paths:}
+\vspace{5mm}
 
 \begin{center}
-\renewcommand{\arraystretch}{1.3}
-\footnotesize
-\begin{tabular}{|l|p{3.5cm}|p{4cm}|p{2.5cm}|}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|l|p{9cm}|}
 \hline
-\textbf{Exemption} & \textbf{What It Allows} & \textbf{Key Requirements} & \textbf{Investor Limits} \\
+\textbf{Path} & \textbf{What It Means in Plain English} \\
 \hline
-\textbf{Reg D 506(b)} & Private placement & No general solicitation & Accredited only \\
+% [M3][M4][M5] Define private placement, general solicitation, accredited investor
+\textbf{Reg D} (Private Placement) & Sell only to \textbf{accredited investors} --- people wealthy enough (income over \$200K/year or net worth over \$1M) or experienced enough that regulators assume they can handle risky investments. No public advertising allowed in most cases. \\
 \hline
-\textbf{Reg D 506(c)} & Private placement & Can advertise, verify status & Accredited only \\
-\hline
-\textbf{Reg A+} & Mini-IPO up to \$75M & Light SEC review, ongoing disclosure & Anyone (with limits) \\
-\hline
-\textbf{Reg S} & Non-US offering & Offshore only, no US marketing & Non-US persons \\
-\hline
-\textbf{Reg CF} & Crowdfunding up to \$5M & Through registered portal & Anyone (with limits) \\
+\textbf{Reg A+} (Mini-IPO) & A simplified version of a full public offering. Less paperwork than a traditional IPO, and \textbf{anyone} can invest (with limits). Maximum raise: \$75M. \\
 \hline
 \end{tabular}
 \end{center}
 
 \vspace{3mm}
-\textbf{Warning:} Exemptions have strict requirements. Violations trigger enforcement.
+\footnotesize
+\textbf{Other options:} Reg S (sell only outside the US), Reg CF (crowdfunding up to \$5M through registered portals). All exemptions have strict requirements --- violations trigger enforcement.
+
+\vspace{3mm}
+\normalsize
+% [H18] Define prospectus and qualified investors
+\begin{block}{Key Terms}
+\textbf{Prospectus} = detailed document explaining the investment and its risks (like a product manual for investors). \textbf{Accredited/qualified investor} = someone wealthy or experienced enough that regulators assume they can handle risky investments.
+\end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 13: EU MiCA Framework
+% SLIDE 19: Transition to EU
+% ==============================================================================
+% [M14] Bridge sentence from US to EU
+\begin{frame}{From US Fragmentation to EU Harmonization}
+\begin{block}{Change of Approach}
+We have just seen the US approach: multiple agencies, overlapping authority, regulation by enforcement, and significant uncertainty. Now let's see a very different model.
+\end{block}
+
+\vspace{5mm}
+\begin{center}
+\begin{tikzpicture}[scale=0.8, transform shape]
+\node (us) [blockchain, minimum width=3.5cm, fill=dfred!15] {\textbf{US Approach}};
+\node (eu) [blockchain, right of=us, node distance=7cm, minimum width=3.5cm, fill=dfgreen!15] {\textbf{EU Approach}};
+
+\draw[->, very thick, dfblue] (us) -- node[above, font=\small] {vs.} (eu);
+
+\node[below of=us, node distance=1.5cm, font=\footnotesize, text width=4cm, align=center] {Multiple agencies\\Case-by-case\\Enforcement-driven\\Uncertain};
+\node[below of=eu, node distance=1.5cm, font=\footnotesize, text width=4cm, align=center] {Single framework (MiCA)\\Clear categories\\Rules-based\\Predictable};
+\end{tikzpicture}
+\end{center}
+
+\vspace{5mm}
+\textbf{The EU asked:} ``What if we wrote clear rules \textit{before} problems happen, instead of suing companies after the fact?''
+\end{frame}
+
+% ==============================================================================
+% SLIDE 20: EU MiCA Framework
 % ==============================================================================
 \begin{frame}{European Union: MiCA Framework}
 \begin{columns}[T]
@@ -393,7 +642,7 @@ Each US state has different money transmission rules. Operating nationally requi
 \textbf{Markets in Crypto-Assets (MiCA):}
 \begin{itemize}
 \item First comprehensive crypto regulation
-\item Effective 2024-2025
+\item Effective 2024--2025
 \item Harmonized across 27 countries
 \item Clear licensing requirements
 \end{itemize}
@@ -433,7 +682,7 @@ DeFi, NFTs (mostly), CBDCs
 \end{frame}
 
 % ==============================================================================
-% SLIDE 14: MiCA Token Categories
+% SLIDE 21: MiCA Token Categories
 % ==============================================================================
 \begin{frame}{MiCA: Token Categories}
 \begin{center}
@@ -461,7 +710,7 @@ MiCA creates clear categories with proportionate requirements---unlike the US bi
 \end{frame}
 
 % ==============================================================================
-% SLIDE 15: MiCA Stablecoin Rules
+% SLIDE 22: MiCA Stablecoin Rules
 % ==============================================================================
 \begin{frame}{MiCA: Stablecoin Rules}
 \begin{columns}[T]
@@ -489,9 +738,10 @@ MiCA creates clear categories with proportionate requirements---unlike the US bi
 ``Significant'' ART/EMT if:
 \begin{itemize}
 \item 10M+ holders
-\item \EUR{}5B+ market cap
+% [L3] Add "euros" after EUR
+\item 5 billion euros+ market cap
 \item 2.5M+ daily transactions
-\item \EUR{}500M+ daily value
+\item 500 million euros+ daily value
 \end{itemize}
 Higher capital, stricter oversight.
 \end{alertblock}
@@ -504,7 +754,7 @@ Must comply or delist from EU exchanges.
 \end{frame}
 
 % ==============================================================================
-% SLIDE 16: MiCA Service Provider Rules
+% SLIDE 23: MiCA Service Provider Rules
 % ==============================================================================
 \begin{frame}{MiCA: Crypto-Asset Service Providers (CASPs)}
 \textbf{Services requiring CASP license:}
@@ -527,7 +777,8 @@ Must comply or delist from EU exchanges.
 \vspace{3mm}
 \textbf{CASP Requirements:}
 \begin{itemize}
-\item Authorization in one EU member state (passportable)
+% [M6] Define "passportable"
+\item Authorization in one EU member state (passportable --- meaning the license is usable across all EU countries)
 \item Minimum capital requirements
 \item Governance and organizational requirements
 \item Safeguarding of client assets
@@ -536,12 +787,12 @@ Must comply or delist from EU exchanges.
 
 \vspace{3mm}
 \begin{block}{Passporting}
-Once licensed in one EU country, CASPs can operate across all 27 member states.
+Once licensed in one EU country, CASPs can operate across all 27 member states --- a major advantage over the US 50-state problem.
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 17: Asia Diverse Approaches
+% SLIDE 24: Asia Diverse Approaches
 % ==============================================================================
 \begin{frame}{Asia: Diverse Regulatory Approaches}
 \begin{center}
@@ -554,20 +805,27 @@ Once licensed in one EU country, CASPs can operate across all 27 member states.
 
 % Labels
 \node[below of=japan, node distance=1.2cm, font=\footnotesize, text width=2.5cm, align=center] {Licensed exchanges\\Crypto legal tender nearby};
-\node[below of=singapore, node distance=1.2cm, font=\footnotesize, text width=2.5cm, align=center] {Innovation hub\\MAS licensing};
+% [L1] Expand MAS before use
+\node[below of=singapore, node distance=1.2cm, font=\footnotesize, text width=2.5cm, align=center] {Innovation hub\\MAS (Monetary Authority) licensing};
 \node[below of=china, node distance=1.2cm, font=\footnotesize, text width=2.5cm, align=center] {Total ban\\CBDC push (e-CNY)};
-\node[below of=korea, node distance=1.2cm, font=\footnotesize, text width=2.5cm, align=center] {Strict compliance\\Travel rule enforced};
+% [C10] Travel Rule analogy
+\node[below of=korea, node distance=1.2cm, font=\footnotesize, text width=2.5cm, align=center] {Strict compliance\\Travel Rule enforced};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
+% [C10] Travel Rule analogy
+\textbf{Analogy --- Travel Rule:} Like registered mail --- the sender and receiver must be identified for transfers above a certain amount. South Korea enforces this strictly.
+
+\vspace{2mm}
 \textbf{Key insight:} Asia demonstrates the full spectrum from complete ban (China) to innovation hub (Singapore).
 \end{frame}
 
 % ==============================================================================
-% SLIDE 18: Singapore MAS
+% SLIDE 25: Singapore MAS
 % ==============================================================================
 \begin{frame}{Singapore: Innovation Hub with Clear Rules}
+% [L1] MAS already expanded in previous slide
 \textbf{Monetary Authority of Singapore (MAS) Approach}
 \vspace{3mm}
 
@@ -585,11 +843,13 @@ Once licensed in one EU country, CASPs can operate across all 27 member states.
 \begin{column}{0.48\textwidth}
 \textbf{Requirements:}
 \begin{itemize}
-\item AML/CFT compliance
+% [M7] Expand CFT
+\item AML/CFT (Combating the Financing of Terrorism) compliance
 \item Technology risk management
 \item User protection measures
 \item Capital requirements
-\item Fit and proper management
+% [L4] Explain "fit and proper"
+\item Fit and proper management (meaning directors and key staff must demonstrate honesty, competence, and financial soundness)
 \end{itemize}
 \end{column}
 \end{columns}
@@ -601,7 +861,7 @@ Attract compliant crypto businesses with clear rules, strict enforcement, and in
 \end{frame}
 
 % ==============================================================================
-% SLIDE 19: China Complete Ban
+% SLIDE 26: China Complete Ban
 % ==============================================================================
 \begin{frame}{China: Complete Ban + CBDC}
 \begin{columns}[T]
@@ -610,7 +870,7 @@ Attract compliant crypto businesses with clear rules, strict enforcement, and in
 \begin{itemize}
 \item Cryptocurrency trading
 \item Crypto mining (since 2021)
-\item ICOs
+\item ICOs (token fundraising)
 \item Crypto exchanges
 \item Providing crypto services
 \end{itemize}
@@ -642,7 +902,7 @@ Ban decentralized crypto, promote centralized CBDC. Maximum control, full survei
 \end{frame}
 
 % ==============================================================================
-% SLIDE 20: Japan and South Korea
+% SLIDE 27: Japan and South Korea
 % ==============================================================================
 \begin{frame}{Japan and South Korea: Regulated Markets}
 \begin{columns}[T]
@@ -652,15 +912,18 @@ Ban decentralized crypto, promote centralized CBDC. Maximum control, full survei
 \item First major country to license exchanges (2017)
 \item Crypto as ``payment method''
 \item Strict exchange requirements
-\item Cold wallet mandate
-\item Self-regulatory organization (JVCEA)
-\item Response to Mt. Gox collapse
+% [M9] Define cold wallet
+\item Cold wallet mandate (cold wallet = offline storage, not connected to the internet, harder for hackers to reach)
+% [M8] Expand JVCEA
+\item Self-regulatory organization: JVCEA (Japan Virtual and Crypto Assets Exchange Association)
+\item Response to Mt.\ Gox collapse
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{South Korea:}
 \begin{itemize}
-\item Real-name trading accounts
+% [M19] Explain real-name system
+\item Real-name trading accounts (every crypto trader must link their exchange account to a bank account in their real, verified name --- no anonymous trading)
 \item Bank partnerships required
 \item Strict Travel Rule enforcement
 \item Tax on crypto gains
@@ -670,14 +933,14 @@ Ban decentralized crypto, promote centralized CBDC. Maximum control, full survei
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{3mm}
 \begin{block}{Common Thread}
 Both markets experienced major hacks/scandals that drove stricter regulation. Compliance-focused but open to innovation.
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 21: Regulatory Comparison Matrix
+% SLIDE 28: Regulatory Comparison Matrix
 % ==============================================================================
 \begin{frame}{Regulatory Comparison Matrix}
 \begin{center}
@@ -711,13 +974,14 @@ Regulatory arbitrage is real. Projects choose jurisdictions strategically. Clear
 \end{frame}
 
 % ==============================================================================
-% SLIDE 22: The Travel Rule
+% SLIDE 29: The Travel Rule
 % ==============================================================================
 \begin{frame}{The Travel Rule (FATF Recommendation 16)}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{What is it?}\\
-FATF requirement: Virtual Asset Service Providers (VASPs) must share sender/receiver information for transfers above thresholds.
+% [C10] Travel Rule analogy repeated with detail
+FATF requirement: Virtual Asset Service Providers (VASPs) must share sender/receiver information for transfers above thresholds. \textbf{Analogy:} Like registered mail --- both sender and receiver must be identified.
 
 \vspace{3mm}
 \textbf{Information Required:}
@@ -733,7 +997,7 @@ FATF requirement: Virtual Asset Service Providers (VASPs) must share sender/rece
 \textbf{Thresholds:}
 \begin{itemize}
 \item US: \$3,000+
-\item EU: \EUR{}0 (all transfers!)
+\item EU: 0 euros (all transfers!)
 \item FATF guidance: \$1,000
 \end{itemize}
 \end{column}
@@ -752,14 +1016,14 @@ FATF requirement: Virtual Asset Service Providers (VASPs) must share sender/rece
 
 \vspace{5mm}
 \begin{alertblock}{DeFi Challenge}
-How do you apply Travel Rule to non-custodial wallets and DEXs?
+How do you apply Travel Rule to non-custodial wallets and DEXs with no central operator?
 \end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 23: DeFi Regulatory Challenges
+% SLIDE 30: DeFi Regulatory Challenges
 % ==============================================================================
 \begin{frame}{DeFi Regulatory Challenges}
 \begin{columns}[T]
@@ -801,13 +1065,14 @@ How do you apply Travel Rule to non-custodial wallets and DEXs?
 \end{columns}
 
 \vspace{3mm}
+% [L2] Explain "chokepoints" in plain English
 \begin{block}{Emerging Approach}
-Target the chokepoints: fiat on/off ramps, centralized frontends, infrastructure providers.
+Target the \textbf{chokepoints} (the few places where regulators can exert control): fiat on/off ramps (where crypto meets traditional money), centralized frontends (the websites users interact with), and infrastructure providers (the companies running the servers).
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 24: Regulatory Sandbox Concept
+% SLIDE 31: Regulatory Sandbox Concept
 % ==============================================================================
 \begin{frame}{Regulatory Sandboxes}
 \textbf{A controlled environment for innovation under regulatory supervision}
@@ -844,15 +1109,16 @@ Regulators learn about new technologies. Innovators get clarity. Both sides redu
 \end{frame}
 
 % ==============================================================================
-% SLIDE 25: Case Study - Tornado Cash
+% SLIDE 32: Case Study - Tornado Cash
 % ==============================================================================
 \begin{frame}{Case Study: Tornado Cash Sanctions}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{What Happened (Aug 2022):}
 \begin{itemize}
-\item US Treasury sanctioned Tornado Cash
-\item Smart contract addresses added to OFAC list
+% [M10] Expand and explain OFAC
+\item US Treasury sanctioned Tornado Cash via OFAC (Office of Foreign Assets Control --- the agency that enforces economic sanctions)
+\item Smart contract addresses added to sanctions list
 \item Developer arrested in Netherlands
 \item First time: CODE itself sanctioned
 \end{itemize}
@@ -860,10 +1126,11 @@ Regulators learn about new technologies. Innovators get clarity. Both sides redu
 \vspace{3mm}
 \textbf{Consequences:}
 \begin{itemize}
-\item GitHub removed repo
-\item Circle froze USDC in addresses
+\item GitHub removed repository
+\item Circle froze USDC in flagged addresses
 \item Exchanges blocked deposits
-\item Alchemy/Infura blocked RPC access
+% [M11] Define Alchemy/Infura/RPC
+\item Alchemy and Infura (companies providing blockchain access services) blocked RPC access (RPC = the technical connection applications use to communicate with the blockchain)
 \end{itemize}
 \end{column}
 \begin{column}{0.42\textwidth}
@@ -872,7 +1139,8 @@ Regulators learn about new technologies. Innovators get clarity. Both sides redu
 \item Can you sanction open-source code?
 \item Is running a mixer illegal?
 \item What about privacy rights?
-\item First Amendment implications?
+% [H29] Explain First Amendment
+\item First Amendment implications? (The First Amendment to the US Constitution protects free speech --- some argue that code is speech)
 \end{itemize}
 \end{alertblock}
 
@@ -884,9 +1152,9 @@ Court ruled some sanctions overreach (2024). Case ongoing.
 \end{frame}
 
 % ==============================================================================
-% SLIDE 26: Case Study - Ripple XRP
+% SLIDE 33: Case Study - Ripple XRP
 % ==============================================================================
-\begin{frame}{Case Study: SEC vs. Ripple (XRP)}
+\begin{frame}{Case Study: SEC vs.\ Ripple (XRP)}
 \textbf{The landmark case defining token classification}
 \vspace{3mm}
 
@@ -918,18 +1186,22 @@ Court ruled some sanctions overreach (2024). Case ongoing.
 
 \vspace{3mm}
 \begin{alertblock}{Implications}
-Secondary market trading may not create securities liability. Context matters more than token itself.
+Secondary market trading may not create securities liability. Context matters more than the token itself.
 \end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 27: Case Study - Terra/Luna Collapse
+% SLIDE 34: Case Study - Terra/Luna Collapse
 % ==============================================================================
 \begin{frame}{Case Study: Terra/Luna Regulatory Aftermath}
-\textbf{How regulators respond to \$40B+ collapse}
+\textbf{How regulators respond to a \$40B+ collapse}
 \vspace{3mm}
+
+% [H25] Back-reference to T4.3
+\textit{Recall from Day 4 (Topic 4.3): We studied how algorithmic stablecoins like UST tried to maintain their dollar peg through automatic mechanisms. Here is what happened when that mechanism failed:}
+\vspace{2mm}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -954,14 +1226,14 @@ Secondary market trading may not create securities liability. Context matters mo
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{3mm}
 \begin{block}{Lesson}
 Systemic failures trigger regulatory action. Terra accelerated stablecoin regulation globally, especially in EU (MiCA) and proposed US legislation.
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 28: Case Study - FTX and Exchange Regulation
+% SLIDE 35: Case Study - FTX and Exchange Regulation
 % ==============================================================================
 \begin{frame}{Case Study: FTX Collapse and Exchange Oversight}
 \textbf{The case that changed crypto regulation permanently}
@@ -971,7 +1243,8 @@ Systemic failures trigger regulatory action. Terra accelerated stablecoin regula
 \begin{column}{0.48\textwidth}
 \textbf{What Failed (Nov 2022):}
 \begin{itemize}
-\item Customer funds mixed with Alameda
+% [M18] Add context for Alameda Research
+\item Customer funds mixed with Alameda Research (the trading firm secretly run by FTX's founder, Sam Bankman-Fried)
 \item No segregation of assets
 \item Fraudulent accounting
 \item \$8B+ customer funds missing
@@ -990,14 +1263,43 @@ Systemic failures trigger regulatory action. Terra accelerated stablecoin regula
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{3mm}
 \begin{alertblock}{Key Takeaway}
 FTX showed that offshore exchanges serving US customers remain enforcement targets. ``Regulatory arbitrage'' has limits when fraud is involved.
 \end{alertblock}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 29: Discussion - Regulatory Philosophy
+% SLIDE 36: Case Study Synthesis
+% ==============================================================================
+% [M12] Comparison table synthesizing all four case studies
+\begin{frame}{Case Study Synthesis: What Do These Cases Teach Us?}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\footnotesize
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Case} & \textbf{Core Issue} & \textbf{Regulatory Response} & \textbf{Lesson} \\
+\hline
+Tornado Cash & Can code be sanctioned? & OFAC sanctions on smart contracts & Privacy vs.\ compliance tension \\
+\hline
+Ripple (XRP) & Is XRP a security? & SEC lawsuit, partial loss & Context matters, not just token \\
+\hline
+Terra/Luna & Algorithmic stablecoin failure & Global stablecoin rules (MiCA) & Systemic risk drives regulation \\
+\hline
+FTX & Exchange fraud & Proof of reserves, segregation & Offshore is not beyond reach \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{5mm}
+\begin{block}{Pattern}
+Every major crypto disaster follows the same cycle: \textbf{Innovation $\rightarrow$ Growth $\rightarrow$ Failure $\rightarrow$ Public outrage $\rightarrow$ New regulation.} Understanding this cycle helps you predict what regulators will do next.
+\end{block}
+\end{frame}
+
+% ==============================================================================
+% SLIDE 37: Discussion - Regulatory Philosophy
 % ==============================================================================
 \begin{frame}{Discussion: Regulatory Philosophy}
 \begin{columns}[T]
@@ -1007,7 +1309,8 @@ FTX showed that offshore exchanges serving US customers remain enforcement targe
 \item Protect consumers from fraud
 \item Prevent money laundering
 \item Ensure financial stability
-\item Level playing field with TradFi
+% [H30] Define TradFi
+\item Level playing field with TradFi (Traditional Finance --- crypto community's term for conventional banks, stock exchanges, and financial institutions)
 \item Accountability for failures
 \end{itemize}
 \end{column}
@@ -1016,27 +1319,34 @@ FTX showed that offshore exchanges serving US customers remain enforcement targe
 \begin{itemize}
 \item Enable innovation
 \item Avoid regulatory arbitrage
-\item Code is speech (1st Amendment)
+% [H29] Already explained above; keep consistent
+\item Code is speech (First Amendment --- US constitutional protection of free expression)
 \item Self-sovereignty rights
-\item Regulation kills jobs
+\item Over-regulation pushes activity offshore
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{3mm}
+% [H31] Acknowledge US-heavy focus
+\footnotesize \textbf{Note:} We have spent more time on the US because it is the largest crypto market and its regulatory approach is the most complex. Other jurisdictions often follow or react to US decisions.
+
+\vspace{2mm}
+\normalsize
 \begin{block}{Discussion Questions}
 \begin{itemize}
 \item Should DeFi protocols be regulated like banks?
 \item Is ``code is law'' compatible with rule of law?
-\item What's the right balance for stablecoins?
-\item Where would you launch a crypto startup?
+\item What is the right balance for stablecoins?
+\item Where would you launch a crypto startup, and why?
 \end{itemize}
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 30: Application - Regulatory Strategy
+% SLIDE 38: Application - Regulatory Strategy
 % ==============================================================================
+% [L5] Strategy slide kept in position (near end is appropriate for application)
 \begin{frame}{Application: Building a Regulatory Strategy}
 \textbf{For any digital finance project, consider:}
 \vspace{3mm}
@@ -1052,12 +1362,12 @@ FTX showed that offshore exchanges serving US customers remain enforcement targe
 
 \vspace{5mm}
 \begin{alertblock}{Reality Check}
-Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regulatory work.
+Compliance is expensive. Budget 15--30\% of early-stage costs for legal and regulatory work.
 \end{alertblock}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 31: Executive Summary
+% SLIDE 39: Executive Summary
 % ==============================================================================
 \begin{frame}{Executive Summary}
 \begin{block}{Key Takeaways}
@@ -1066,7 +1376,7 @@ Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regul
 \item \textbf{EU (MiCA):} First comprehensive framework, clear categories, passportable licenses
 \item \textbf{Asia:} Full spectrum from ban (China) to innovation hub (Singapore)
 \item \textbf{Global trend:} Moving toward regulation, focus on stablecoins and consumer protection
-\item \textbf{DeFi:} Fundamental challenge---who/what to regulate when there's no central operator
+\item \textbf{DeFi:} Fundamental challenge---who/what to regulate when there is no central operator
 \item \textbf{Strategy:} Regulatory clarity (even if strict) often preferred over uncertainty
 \end{enumerate}
 \end{block}
@@ -1076,7 +1386,7 @@ Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regul
 \end{frame}
 
 % ==============================================================================
-% SLIDE 32: Concept Map
+% SLIDE 40: Concept Map
 % ==============================================================================
 \begin{frame}{Concept Map: Regulatory Landscape}
 \begin{center}
@@ -1125,22 +1435,23 @@ Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regul
 \end{frame}
 
 % ==============================================================================
-% SLIDE 33: Key Terms I
+% SLIDE 41: Key Terms I
 % ==============================================================================
 \begin{frame}{Key Terms (Part 1)}
 \begin{description}
 \item[Howey Test] US legal test to determine if an asset is a security: investment of money in common enterprise with expectation of profits from others' efforts
-\item[MiCA] Markets in Crypto-Assets---EU's comprehensive crypto regulatory framework effective 2024-2025
+\item[MiCA] Markets in Crypto-Assets---EU's comprehensive crypto regulatory framework effective 2024--2025
 \item[CASP] Crypto-Asset Service Provider---licensed entity under MiCA
 \item[ART] Asset-Referenced Token---stablecoin backed by multiple assets
 \item[EMT] E-Money Token---stablecoin pegged 1:1 to single fiat currency
 \item[VASP] Virtual Asset Service Provider---FATF term for crypto businesses
 \item[Travel Rule] FATF requirement to share sender/receiver information for crypto transfers
+\item[ICO] Initial Coin Offering---a way for crypto projects to raise money by selling tokens to the public
 \end{description}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 34: Key Terms II
+% SLIDE 42: Key Terms II
 % ==============================================================================
 \begin{frame}{Key Terms (Part 2)}
 \begin{description}
@@ -1152,11 +1463,13 @@ Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regul
 \item[BSA] Bank Secrecy Act---US law requiring financial institutions to report suspicious activity
 \item[MSB] Money Services Business---FinCEN registration category for crypto businesses
 \item[Regulation by Enforcement] Establishing rules through lawsuits rather than clear legislation
+\item[TradFi] Traditional Finance---conventional banks, stock exchanges, and financial institutions
+\item[OFAC] Office of Foreign Assets Control---US agency enforcing economic sanctions
 \end{description}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 35: Common Misconceptions
+% SLIDE 43: Common Misconceptions
 % ==============================================================================
 \begin{frame}{Common Misconceptions}
 \begin{alertblock}{Misconception 1: ``Crypto is unregulated''}
@@ -1172,12 +1485,12 @@ Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regul
 \end{alertblock}
 
 \begin{alertblock}{Misconception 4: ``All tokens are either securities or commodities''}
-\textbf{Reality:} Classification depends on context. The same token can be a security in one sale (institutional) and not in another (exchange trading).
+\textbf{Reality:} Classification depends on context. The same token can be a security in one sale (institutional) and not in another (exchange trading), as the Ripple case showed.
 \end{alertblock}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 36: Self-Assessment Questions I
+% SLIDE 44: Self-Assessment Questions I
 % ==============================================================================
 \begin{frame}{Self-Assessment Questions (1/2)}
 \textbf{Test your understanding:}
@@ -1202,29 +1515,36 @@ Compliance is expensive. Budget 15-30\% of early-stage costs for legal and regul
 \end{frame}
 
 % ==============================================================================
-% SLIDE 37: Self-Assessment Questions II
+% SLIDE 45: Self-Assessment Questions II (with analytical questions)
 % ==============================================================================
+% [M15] Add analytical questions alongside recall questions
 \begin{frame}{Self-Assessment Questions (2/2)}
-\textbf{Question 3:} What are common securities registration exemptions used by crypto projects?
+\textbf{Question 3 (Recall):} Which approach best describes the EU's MiCA framework compared to the US?
 \begin{itemize}
-\item[A)] No exemptions exist; all securities must be fully registered
-\item[B)] Regulation D (private placements), Regulation A+ (mini-IPO), and Regulation S (non-US offerings)
-\item[C)] Projects can self-declare exemption without filing anything
-\item[D)] All crypto tokens are automatically exempt as utility tokens
+\item[A)] Both use enforcement-driven, case-by-case regulation
+\item[B)] MiCA provides clear categories and rules upfront; the US relies on enforcement
+\item[C)] MiCA bans all crypto; the US permits it
+\item[D)] Both use identical regulatory frameworks
 \end{itemize}
 
-\vspace{5mm}
-\begin{block}{Answers}
+\vspace{3mm}
+\textbf{Question 4 (Analytical):} A startup creates a token that gives holders a share of platform revenue. The team manages all development. Using the Howey Test, is this likely a security? Why or why not?
+
+\vspace{3mm}
+\textbf{Question 5 (Analytical):} If you were launching a crypto exchange, which jurisdiction would you choose and why? Consider: licensing costs, regulatory clarity, market access, and consumer trust.
+
+\vspace{3mm}
+\begin{block}{Answers (Q1--Q3)}
 \begin{enumerate}
 \item \textbf{B} -- SEC regulates securities, CFTC oversees commodities (BTC, ETH)
 \item \textbf{B} -- Full AML/KYC includes ID verification, monitoring, and SARs
-\item \textbf{B} -- Reg D, Reg A+, and Reg S are common exemptions (with strict requirements)
+\item \textbf{B} -- MiCA is rules-based upfront; the US is enforcement-driven
 \end{enumerate}
 \end{block}
 \end{frame}
 
 % ==============================================================================
-% SLIDE 38: What's Next
+% SLIDE 46: What's Next
 % ==============================================================================
 \begin{frame}{What's Next: Topic 5.3 -- DAO Governance}
 \textbf{Preview of upcoming topic:}
@@ -1260,7 +1580,7 @@ DAOs raise fundamental regulatory questions: If a DAO controls a protocol, who i
 \end{frame}
 
 % ==============================================================================
-% SLIDE 39: Resources
+% SLIDE 47: Resources
 % ==============================================================================
 \begin{frame}{Resources for Further Learning}
 \textbf{Primary Sources:}
@@ -1288,7 +1608,7 @@ DAOs raise fundamental regulatory questions: If a DAO controls a protocol, who i
 \end{frame}
 
 % ==============================================================================
-% SLIDE 40: Questions Closing Slide
+% SLIDE 48: Questions Closing Slide
 % ==============================================================================
 \begin{frame}[plain]
 \begin{center}

@@ -17,6 +17,8 @@
 \institute{Digital Finance}
 \date{2025}
 
+% Note: EVM = Ethereum Virtual Machine (a shared computer that runs programs)
+
 \begin{document}
 
 % =====================================================================
@@ -34,9 +36,9 @@
 \begin{enumerate}
     \item \textbf{Define} what a smart contract is and how it differs from traditional contracts
     \item \textbf{Explain} how smart contracts execute on blockchain networks
-    \item \textbf{Understand} the Ethereum Virtual Machine (EVM) and gas mechanism
-    \item \textbf{Read} basic Solidity smart contract code
-    \item \textbf{Identify} key limitations: oracle problem, immutability, reentrancy risks
+    \item \textbf{Understand} the Ethereum Virtual Machine (EVM---a shared computer that runs programs) and gas mechanism (a fee to prevent spam)
+    \item \textbf{Read} basic Solidity smart contract code with simple syntax guidance
+    \item \textbf{Identify} key limitations: oracle problem, immutability, reentrancy (when a contract is called back before it finishes)
     \item \textbf{Analyze} what ``trustless'' really means in practice
 \end{enumerate}
 \end{block}
@@ -57,11 +59,11 @@
 \begin{column}{0.48\textwidth}
 \textbf{From Day 3 -- Key Concepts:}
 \begin{itemize}
-    \item \textbf{Blockchain}: Distributed, immutable ledger
-    \item \textbf{Consensus}: Agreement without central authority
-    \item \textbf{Cryptography}: Hashes secure data integrity
-    \item \textbf{Wallets}: Private/public key pairs for identity
-    \item \textbf{Transactions}: Signed messages changing state
+    \item \textbf{Blockchain}: Distributed, immutable ledger (shared record book)
+    \item \textbf{Consensus}: Agreement without central authority (voting without a boss)
+    \item \textbf{Cryptography}: Hashes secure data integrity (digital fingerprints)
+    \item \textbf{Wallets}: Private/public key pairs for identity (password + username)
+    \item \textbf{Transactions}: Signed messages changing state (sending a signed check)
 \end{itemize}
 \end{column}
 
@@ -100,18 +102,18 @@
 \textbf{Ethereum vs. Bitcoin:}
 \begin{itemize}
     \item Bitcoin: ``Programmable money'' (limited scripts)
-    \item Ethereum: ``World computer'' (Turing-complete programs)
+    \item Ethereum: ``World computer''---can run any program you can imagine, like a universal calculator vs a basic one
 \end{itemize}
 
 \vspace{0.3cm}
 \textbf{Two Types of Accounts:}
 \begin{enumerate}
-    \item \textbf{Externally Owned Accounts (EOA)}
+    \item \textbf{Personal Wallets (Externally Owned Accounts - EOA)}
     \begin{itemize}
         \item Controlled by private keys (humans/wallets)
         \item Can initiate transactions
     \end{itemize}
-    \item \textbf{Contract Accounts}
+    \item \textbf{Smart Program Wallets (Contract Accounts)}
     \begin{itemize}
         \item Controlled by code (smart contracts)
         \item Can only respond to transactions
@@ -156,9 +158,9 @@ A \textbf{smart contract} is a program stored on a blockchain that automatically
 \vspace{0.3cm}
 \textbf{Key Properties:}
 \begin{itemize}
-    \item \textbf{Deterministic}: Same input always produces same output
-    \item \textbf{Immutable}: Once deployed, code cannot be changed
-    \item \textbf{Transparent}: Anyone can verify the code
+    \item \textbf{Deterministic}: Same input always produces same output (like a calculator)
+    \item \textbf{Immutable}: Once deployed, code cannot be changed (carved in stone)
+    \item \textbf{Transparent}: Anyone can verify the code (like a glass box)
     \item \textbf{Self-executing}: No intermediary needed
 \end{itemize}
 \end{column}
@@ -285,6 +287,12 @@ The code's logic is the absolute and final arbiter---whatever the code does is w
 
 \begin{column}{0.48\textwidth}
 \begin{alertblock}{The DAO Hack (2016)}
+\textbf{What is reentrancy?}
+\begin{itemize}
+    \item Like an ATM giving you money twice because it didn't update your balance fast enough
+\end{itemize}
+
+\vspace{0.1cm}
 \textbf{What happened:}
 \begin{itemize}
     \item Attacker exploited reentrancy bug
@@ -343,6 +351,11 @@ The code's logic is the absolute and final arbiter---whatever the code does is w
 \end{center}
 
 \vspace{0.2cm}
+\begin{block}{In Simple Terms}
+\textbf{(1)} You send a request \quad \textbf{(2)} Network checks it \quad \textbf{(3)} Contract executes
+\end{block}
+
+\vspace{0.1cm}
 \begin{enumerate}
 \footnotesize
     \item User creates and signs transaction calling contract function
@@ -364,13 +377,15 @@ The code's logic is the absolute and final arbiter---whatever the code does is w
 \begin{column}{0.50\textwidth}
 \begin{block}{What is the EVM?}
 A runtime environment that executes smart contract bytecode in a \textbf{deterministic}, \textbf{isolated} environment across all network nodes.
+
+\vspace{0.2cm}
+Think of it as a \textit{shared computer that runs programs} the same way everywhere.
 \end{block}
 
 \vspace{0.3cm}
 \textbf{Key Properties:}
 \begin{itemize}
-    \item \textbf{Stack-based}: 256-bit word size
-    \item \textbf{Sandboxed}: Cannot access host system
+    \item \textbf{Sealed box}: Can only do math and save results (like a sealed box that cannot access your computer)
     \item \textbf{Deterministic}: Same output everywhere
     \item \textbf{Metered}: Every operation costs gas
 \end{itemize}
@@ -416,6 +431,9 @@ A runtime environment that executes smart contract bytecode in a \textbf{determi
 \begin{column}{0.50\textwidth}
 \begin{block}{What is Gas?}
 A unit measuring computational effort required to execute operations on the EVM.
+
+\vspace{0.2cm}
+Think of gas as a \textit{fee to prevent spam}, like paying postage for a letter---heavier letters cost more.
 \end{block}
 
 \vspace{0.3cm}
@@ -584,13 +602,23 @@ contract SimpleEscrow {
 \begin{frame}{Understanding the Contract Structure}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
+\begin{alertblock}{Reading Code 101}
+\footnotesize
+\textbf{address} = wallet ID \\
+\textbf{uint256} = positive number \\
+\textbf{bool} = true/false \\
+\textbf{require()} = ``check that this is true'' \\
+\textbf{msg.sender} = ``who called this function''
+\end{alertblock}
+
+\vspace{0.2cm}
 \textbf{1. License \& Version:}
 \begin{itemize}
     \item \code{SPDX-License-Identifier}: Legal license
     \item \code{pragma solidity}: Compiler version
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{2. State Variables:}
 \begin{itemize}
     \item \code{address}: Ethereum addresses
@@ -599,7 +627,7 @@ contract SimpleEscrow {
     \item Stored permanently on blockchain
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{3. Constructor:}
 \begin{itemize}
     \item Runs once at deployment
@@ -636,7 +664,7 @@ contract SimpleEscrow {
 % =====================================================================
 % SLIDE 16: STATE VARIABLES VS LOCAL VARIABLES
 % =====================================================================
-\begin{frame}{State Variables vs. Local Variables}
+\begin{frame}[fragile]{State Variables vs. Local Variables}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{State Variables:}
@@ -752,7 +780,7 @@ contract Owned {
 \vspace{0.2cm}
 \begin{block}{Modifier Pattern}
 \begin{itemize}
-    \item Modifiers run \textbf{before} the function body (at the \code{\_})
+    \item Modifiers run \textbf{before} the function body (at the underscore)
     \item Commonly used for: access control, input validation, reentrancy guards
     \item Creates cleaner, more maintainable code
 \end{itemize}

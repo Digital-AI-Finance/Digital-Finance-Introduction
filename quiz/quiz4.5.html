@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 4.5: Zero-Knowledge Technology | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 4.5: Zero-Knowledge Technology [ADVANCED]</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 4.5: Zero-Knowledge Technology</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                    "id": 1,
+                    "question": "What is a zero-knowledge proof?",
+                    "options": {
+                        "A": "A proof that reveals all information about a statement",
+                        "B": "A cryptographic method to prove a statement is true without revealing any information beyond the statement's validity",
+                        "C": "A way to encrypt data so no one can read it",
+                        "D": "A type of digital signature"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "A zero-knowledge proof allows a prover to convince a verifier that a statement is true without revealing anything beyond the validity of the statement itself. For example, you could prove you know a password without revealing the password, or prove you're over 21 without revealing your exact age. Think of it like proving to a colorblind friend that two balls are different colors by having them hold the balls behind their back and switch them (or not), then asking you if they switched - you can always tell, proving you can distinguish the colors without revealing which is which."
+                },
+                {
+                    "id": 2,
+                    "question": "What does 'zero-knowledge' mean in the context of these proofs?",
+                    "options": {
+                        "A": "The proof contains no data",
+                        "B": "The verifier learns nothing beyond the truth of the statement being proven",
+                        "C": "The proof requires zero computational resources",
+                        "D": "Neither party knows the answer initially"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "The 'zero-knowledge' property means that the verifier gains no information beyond the validity of the statement. If you prove you know a secret password, the verifier becomes convinced you know it, but learns nothing about what the password actually is. The verifier cannot use the proof to impersonate you or gain any knowledge that would help them discover the secret themselves."
+                },
+                {
+                    "id": 3,
+                    "question": "Who are the two parties in a zero-knowledge proof system?",
+                    "options": {
+                        "A": "Sender and receiver",
+                        "B": "Prover and verifier",
+                        "C": "Client and server",
+                        "D": "Alice and Bob"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "The two parties are the Prover (who wants to prove they know something or that a statement is true) and the Verifier (who wants to be convinced of the statement's validity without learning the underlying secret). The prover holds private information and generates the proof, while the verifier checks the proof without gaining access to the private information."
+                },
+                {
+                    "id": 4,
+                    "question": "What is an interactive proof?",
+                    "options": {
+                        "A": "A proof that requires physical interaction",
+                        "B": "A proof system where the verifier sends random challenges and the prover responds, repeating multiple rounds",
+                        "C": "A proof displayed on an interactive screen",
+                        "D": "A proof that changes over time"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "An interactive proof involves multiple rounds of communication between prover and verifier. The verifier sends random challenges, and the prover must respond correctly to each challenge. The colorblind friend example is interactive: the friend randomly switches (or doesn't switch) the balls behind their back, then you prove you can distinguish colors by correctly stating whether they switched. After many rounds, the friend becomes convinced you're not just guessing."
+                },
+                {
+                    "id": 5,
+                    "question": "How do ZK proofs enhance privacy in blockchain applications?",
+                    "options": {
+                        "A": "By encrypting all blockchain data",
+                        "B": "By allowing transaction validation without revealing transaction details like amounts or participants",
+                        "C": "By hiding the blockchain from public view",
+                        "D": "By requiring passwords for all transactions"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "ZK proofs enable privacy by allowing validators to verify that transactions are legitimate (e.g., sender has sufficient funds, no double-spending) without revealing sensitive details like transaction amounts, sender addresses, or recipient addresses. Projects like Zcash use zk-SNARKs to offer 'shielded transactions' where only the proof of validity is public, not the transaction details."
+                },
+                {
+                    "id": 6,
+                    "question": "How do ZK proofs help with blockchain scalability?",
+                    "options": {
+                        "A": "By making blocks larger",
+                        "B": "By allowing computation to occur off-chain while posting only small proofs on-chain (ZK-rollups)",
+                        "C": "By reducing the number of validators",
+                        "D": "By compressing transaction data"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "ZK-rollups improve scalability by executing hundreds or thousands of transactions off-chain, then posting a single small ZK proof on-chain that proves all those transactions were valid. Instead of Ethereum validators re-executing every transaction, they just verify the ~200-byte proof, allowing massive throughput increases (10-100x). Projects like zkSync and StarkNet use this approach to scale Ethereum."
+                },
+                {
+                    "id": 7,
+                    "question": "What does the 'completeness' property of ZK proofs guarantee?",
+                    "options": {
+                        "A": "The proof contains all necessary information",
+                        "B": "If the statement is true, an honest prover can always convince the verifier",
+                        "C": "The proof is complete only after multiple rounds",
+                        "D": "The verifier will always accept any proof"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "Completeness means that if a statement is actually true and both parties follow the protocol honestly, the verifier will always be convinced. This is one of three essential properties: completeness (true statements are provable), soundness (false statements are not provable), and zero-knowledge (nothing extra is revealed). Without completeness, legitimate provers couldn't reliably prove valid statements, making the system useless."
+                },
+                {
+                    "id": 8,
+                    "question": "What does the 'soundness' property of ZK proofs guarantee?",
+                    "options": {
+                        "A": "The proof makes audible sounds when verified",
+                        "B": "A cheating prover cannot convince the verifier of a false statement except with negligible probability",
+                        "C": "The proof logic is logically sound",
+                        "D": "Only valid transactions produce sounds"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "Soundness ensures that a malicious prover cannot convince the verifier of a false statement (except with extremely low probability, typically 1/2^128 or less). For example, if you don't actually have enough funds for a transaction, you cannot create a valid ZK proof claiming you do. This property prevents fraud and ensures the integrity of ZK systems. The small probability accounts for the fact that no cryptographic system is 100% secure against all possible attacks."
+                },
+                {
+                    "id": 9,
+                    "question": "What are the key characteristics of SNARKs (Succinct Non-interactive ARguments of Knowledge)?",
+                    "options": {
+                        "A": "Large proofs, slow verification, quantum resistant",
+                        "B": "Small proofs (~200 bytes), fast verification (~1ms), requires trusted setup",
+                        "C": "Medium proofs, no trusted setup needed, slow verification",
+                        "D": "Interactive protocol, no computational requirements"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "SNARKs produce extremely small proofs (around 200 bytes regardless of computation size) that verify very quickly (~1 millisecond), making them ideal for blockchain applications. However, they require a 'trusted setup ceremony' where initial parameters are generated - if the random values used are compromised, fake proofs could be created. The 'S' means succinct (small), 'N' means non-interactive (one message, no back-and-forth), and 'ARK' means argument of knowledge."
+                },
+                {
+                    "id": 10,
+                    "question": "What are the key characteristics of STARKs (Scalable Transparent ARguments of Knowledge)?",
+                    "options": {
+                        "A": "Tiny proofs, requires trusted setup, quantum vulnerable",
+                        "B": "Large proofs (~50KB+), transparent setup (no trusted ceremony), quantum resistant",
+                        "C": "Same size as SNARKs but slower verification",
+                        "D": "Interactive protocol requiring multiple rounds"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "STARKs produce larger proofs (typically 50KB-1MB) but have significant advantages: they require no trusted setup (transparent - anyone can verify the setup was done correctly), and they're believed to be quantum-resistant because they rely on collision-resistant hash functions rather than elliptic curve cryptography. The 'T' in STARK stands for transparent. While proof size is larger, verification is still reasonably fast, and the security properties make STARKs attractive for applications requiring maximum security."
+                },
+                {
+                    "id": 11,
+                    "question": "What is a trusted setup and why is it needed for SNARKs?",
+                    "options": {
+                        "A": "A meeting where developers discuss the protocol",
+                        "B": "A ceremony that generates public parameters for the proof system; if the secret randomness is compromised, fake proofs could be created",
+                        "C": "A process to establish trust between prover and verifier",
+                        "D": "A security audit of the smart contract code"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "A trusted setup is a multi-party computation ceremony that generates public parameters for the SNARK system. Participants contribute randomness, and as long as at least one participant honestly deletes their secret randomness, the setup is secure. However, if all participants colluded or were compromised, they could create fake proofs that appear valid. This 'toxic waste' risk is why projects conduct elaborate ceremonies (Zcash's Powers of Tau had hundreds of participants) and why STARKs' transparent setup (no trusted ceremony needed) is appealing despite larger proof sizes."
+                },
+                {
+                    "id": 12,
+                    "question": "What is the Fiat-Shamir transformation?",
+                    "options": {
+                        "A": "A method to convert fiat currency to cryptocurrency",
+                        "B": "A technique to convert interactive proofs into non-interactive proofs using hash functions",
+                        "C": "A way to compress proof size",
+                        "D": "A protocol for cross-chain transactions"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "The Fiat-Shamir transformation converts an interactive proof (requiring multiple rounds of challenge-response) into a non-interactive proof (single message). Instead of the verifier sending random challenges, the prover uses a cryptographic hash function to generate the challenges deterministically from the proof data. This allows the prover to generate a complete proof that anyone can verify later without interaction. It's named after Amos Fiat and Adi Shamir, and is crucial for making ZK proofs practical in blockchain applications."
+                },
+                {
+                    "id": 13,
+                    "question": "What is the primary difference between ZK-rollups and Optimistic rollups?",
+                    "options": {
+                        "A": "ZK-rollups are faster but less secure",
+                        "B": "ZK-rollups provide instant finality with validity proofs; Optimistic rollups assume validity and have a challenge period (~7 days)",
+                        "C": "Optimistic rollups use zero-knowledge proofs",
+                        "D": "ZK-rollups are only for privacy applications"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "ZK-rollups bundle transactions and post a ZK proof proving all transactions are valid - the L1 blockchain verifies the proof and immediately accepts the state update (instant finality). Optimistic rollups assume transactions are valid by default and only execute them on-chain if someone submits a fraud proof during a challenge period (typically 7 days). This means ZK-rollups offer faster withdrawals to L1 but have higher computational costs for proof generation, while Optimistic rollups have simpler technology but require a long waiting period for finality."
+                },
+                {
+                    "id": 14,
+                    "question": "What is selective disclosure in the context of ZK proofs?",
+                    "options": {
+                        "A": "Revealing only specific attributes from a credential without revealing all information",
+                        "B": "Selecting which verifiers can see the proof",
+                        "C": "Choosing which blockchain to publish proofs on",
+                        "D": "Disclosing proofs only during certain time periods"
+                    },
+                    "correct": "A",
+                    "difficulty": "medium",
+                    "explanation": "Selective disclosure allows proving specific properties about data without revealing the entire dataset. For example, using ZK proofs for digital identity, you could prove you're over 21 without revealing your exact birthdate, prove you're a citizen without revealing your passport number, or prove your income is above a threshold without revealing the exact amount. This is powerful for privacy-preserving credentials and compliance - you can satisfy requirements without over-sharing personal information."
+                },
+                {
+                    "id": 15,
+                    "question": "What are the key trade-offs between SNARKs and STARKs?",
+                    "options": {
+                        "A": "SNARKs are quantum-resistant but STARKs require trusted setup",
+                        "B": "STARKs have smaller proofs but slower verification",
+                        "C": "SNARKs have smaller proofs (~200 bytes) and faster verification but require trusted setup and are not quantum-resistant; STARKs have larger proofs (~50KB) but transparent setup and quantum resistance",
+                        "D": "There is no significant trade-off; STARKs are strictly better"
+                    },
+                    "correct": "C",
+                    "difficulty": "hard",
+                    "explanation": "SNARKs produce tiny proofs (~200 bytes) and verify quickly (~1ms), making them efficient for blockchain where every byte costs gas. However, they require a trusted setup ceremony (if compromised, fake proofs could be created) and are vulnerable to quantum computers (rely on elliptic curve cryptography). STARKs have much larger proofs (~50KB-1MB) increasing on-chain costs, but require no trusted setup (transparent - anyone can verify parameters are correct) and are believed quantum-resistant (use collision-resistant hash functions). The choice depends on whether you prioritize efficiency (SNARKs) or security assumptions (STARKs)."
+                },
+                {
+                    "id": 16,
+                    "question": "What is the computational complexity of proof generation in ZK systems?",
+                    "options": {
+                        "A": "Proof generation is always faster than normal computation",
+                        "B": "Proof generation is significantly more expensive than normal computation, often 1000x or more, requiring specialized hardware",
+                        "C": "Proof generation and normal computation have the same cost",
+                        "D": "Proof generation is only 2-3x more expensive"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "ZK proof generation is computationally expensive - typically 1000x to 100,000x more expensive than simply executing the computation normally. Proving that you correctly added 1000 numbers might take milliseconds normally, but generating a ZK proof could take seconds or minutes. This is why ZK-rollups use specialized hardware (GPUs, FPGAs, ASICs) for proof generation and why there's a prover/verifier asymmetry - proving is hard, verifying is fast. This overhead is acceptable for blockchains because one expensive proof replaces thousands of re-executions by validators."
+                },
+                {
+                    "id": 17,
+                    "question": "Why are quantum computers a concern for some ZK proof systems?",
+                    "options": {
+                        "A": "Quantum computers can generate proofs faster",
+                        "B": "SNARKs rely on elliptic curve cryptography which quantum computers (via Shor's algorithm) can break; STARKs use hash functions believed quantum-resistant",
+                        "C": "Quantum computers make all ZK proofs obsolete",
+                        "D": "Quantum computers cannot verify ZK proofs"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "SNARK systems (like Groth16) rely on elliptic curve pairings and discrete logarithm problems. Quantum computers running Shor's algorithm can solve these problems efficiently, potentially breaking SNARK security by the 2030s-2040s. STARKs, however, rely on collision-resistant hash functions (like SHA-256 or Keccak), which are believed to remain secure against quantum computers (Grover's algorithm only provides quadratic speedup, which can be mitigated by doubling key sizes). This quantum resistance is a major reason projects like StarkNet chose STARKs despite larger proof sizes."
+                },
+                {
+                    "id": 18,
+                    "question": "What are the compliance challenges when using ZK proofs in regulated finance?",
+                    "options": {
+                        "A": "ZK proofs are illegal in most countries",
+                        "B": "Total privacy conflicts with KYC/AML requirements; solutions include selective disclosure and regulatory backdoors",
+                        "C": "ZK proofs are too slow for financial applications",
+                        "D": "Financial institutions cannot understand ZK mathematics"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "Regulators require Know Your Customer (KYC) and Anti-Money Laundering (AML) compliance, which conflicts with total transaction privacy. If transaction details are completely hidden, regulators cannot audit for illicit activity. Solutions being explored include: (1) Selective disclosure - users can prove compliance properties (e.g., 'I passed KYC') without revealing identity publicly, (2) View keys - special keys allowing authorized parties (like auditors) to decrypt specific transactions, (3) Threshold disclosure - requiring multi-party approval to reveal transaction details. Projects like Aleo and Mina are working on 'compliance-friendly' ZK systems."
+                },
+                {
+                    "id": 19,
+                    "question": "What are recursive proofs in ZK systems?",
+                    "options": {
+                        "A": "Proofs that repeat the same calculation multiple times",
+                        "B": "Proofs that prove other proofs are valid, allowing compression of multiple proofs into a single proof",
+                        "C": "Proofs that call themselves like recursive functions",
+                        "D": "Proofs that work backwards through the blockchain"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "Recursive proofs allow you to create a proof that verifies another proof, which can verify another proof, and so on. This enables powerful compression: you could have 1000 proofs, create a proof that verifies all 1000, then create a proof that verifies that proof, eventually getting a single small proof that indirectly proves all 1000 original statements. This is crucial for scaling - Mina blockchain uses recursion to keep the entire chain proof constant-size (~22KB), and zkSync uses recursion to batch multiple blocks. It's like proving 'I verified that Bob verified that Alice's proof is correct' in a single succinct proof."
+                },
+                {
+                    "id": 20,
+                    "question": "What do the ZK-EVM compatibility 'Types' (1, 2, 3, 4) represent?",
+                    "options": {
+                        "A": "Different versions of the Ethereum protocol",
+                        "B": "Security levels of ZK proofs",
+                        "C": "Levels of equivalence with Ethereum, from fully equivalent (Type 1) to high-level language compatible (Type 4)",
+                        "D": "Performance tiers of ZK hardware"
+                    },
+                    "correct": "C",
+                    "difficulty": "hard",
+                    "explanation": "ZK-EVM Types classify how closely a ZK-rollup matches Ethereum's execution environment: Type 1 is fully Ethereum-equivalent (can verify actual Ethereum blocks but very slow - hours per block). Type 2 is EVM-equivalent (same bytecode execution, minor differences in hash functions/state trees - proofs take 10-60 minutes). Type 3 is almost EVM-equivalent (some opcodes modified for efficiency - faster proofs but breaks some contracts). Type 4 is high-level language compatible (compiles Solidity/Vyper to different bytecode - fastest proofs but different debugging/tooling). Lower numbers = more compatible but harder/slower; higher numbers = faster but more divergence. Polygon zkEVM targets Type 2, zkSync is Type 4."
+                }
+            ]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

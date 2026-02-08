@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 3.5: Layer 2 Scaling Solutions | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #8b5cf6;
+            --quiz-light: #ede9fe;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--mlblue));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #7c3aed; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #7c3aed; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz 3.5: Layer 2 Scaling Solutions [ADVANCED]</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Quiz 3.5: Layer 2 Scaling Solutions</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                    "id": 1,
+                    "question": "What is a Layer 2 (L2) scaling solution?",
+                    "options": {
+                        "A": "A completely separate blockchain that doesn't interact with Ethereum",
+                        "B": "A system that processes transactions off the main chain while inheriting its security",
+                        "C": "A faster version of the Ethereum Virtual Machine",
+                        "D": "A centralized payment processor for blockchain transactions"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "Layer 2 solutions process transactions off the main blockchain (Layer 1) while still inheriting its security guarantees. They post proofs or data back to L1, allowing users to exit to L1 if needed. This differs from sidechains which have their own security model."
+                },
+                {
+                    "id": 2,
+                    "question": "Why are Layer 2 solutions needed for blockchains like Ethereum?",
+                    "options": {
+                        "A": "To make the blockchain completely private",
+                        "B": "To address the blockchain trilemma by improving scalability while maintaining security and some decentralization",
+                        "C": "To eliminate the need for validators",
+                        "D": "To replace the main blockchain entirely"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "The blockchain trilemma states that it's difficult to optimize for scalability, security, and decentralization simultaneously. Layer 1 blockchains like Ethereum prioritize security and decentralization but are limited in throughput (~15 TPS). Layer 2 solutions address this by moving transaction execution off-chain while leveraging L1 for security and settlement, achieving higher throughput without compromising security."
+                },
+                {
+                    "id": 3,
+                    "question": "What is a state channel?",
+                    "options": {
+                        "A": "A type of cryptocurrency wallet",
+                        "B": "An off-chain protocol where participants lock funds on L1, conduct unlimited transactions off-chain, and settle the final state back on L1",
+                        "C": "A consensus mechanism for validating blocks",
+                        "D": "A method to encrypt blockchain transactions"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "State channels (like Bitcoin's Lightning Network) allow participants to lock funds in a smart contract on L1, then conduct unlimited off-chain transactions by exchanging signed state updates. Only the final state is settled on-chain. This is ideal for frequent interactions between a fixed set of participants, achieving instant finality and near-zero fees for intermediate transactions."
+                },
+                {
+                    "id": 4,
+                    "question": "What is a rollup in the context of Layer 2 scaling?",
+                    "options": {
+                        "A": "A method to compress blockchain data",
+                        "B": "A system that executes transactions off-chain, bundles them, and posts transaction data plus a cryptographic proof to L1",
+                        "C": "A voting mechanism for governance",
+                        "D": "A type of cryptocurrency exchange"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "Rollups are L2 systems that execute transactions off-chain but post transaction data to L1. They 'roll up' hundreds of transactions into a single batch. The key is that they publish enough data to L1 so that anyone can reconstruct the L2 state and verify correctness. This maintains security while dramatically reducing per-transaction costs by amortizing the L1 posting cost across many transactions."
+                },
+                {
+                    "id": 5,
+                    "question": "What is the basic difference between Optimistic Rollups and ZK-Rollups?",
+                    "options": {
+                        "A": "Optimistic rollups are faster while ZK-rollups are cheaper",
+                        "B": "Optimistic rollups assume validity unless challenged (fraud proofs), while ZK-rollups provide cryptographic validity proofs for each batch",
+                        "C": "Optimistic rollups work on Bitcoin, ZK-rollups work on Ethereum",
+                        "D": "There is no meaningful difference between them"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "Optimistic rollups assume transactions are valid by default and rely on a challenge period (typically 7 days) where anyone can submit fraud proofs if they detect invalid state transitions. ZK-rollups (zero-knowledge rollups) generate cryptographic validity proofs (SNARKs/STARKs) for each batch, proving correctness mathematically. This allows instant L1 finality but requires expensive computation to generate proofs."
+                },
+                {
+                    "id": 6,
+                    "question": "What is a blockchain bridge?",
+                    "options": {
+                        "A": "A physical connection between data centers",
+                        "B": "A protocol that enables asset transfers and communication between different blockchains or layers",
+                        "C": "A type of consensus algorithm",
+                        "D": "A wallet that stores multiple cryptocurrencies"
+                    },
+                    "correct": "B",
+                    "difficulty": "easy",
+                    "explanation": "Bridges are protocols that connect different blockchains or layers, allowing assets and data to move between them. For L2 systems, bridges lock assets on L1 and mint corresponding assets on L2 (and vice versa). Bridges can be custodial (trusted third parties), optimistic (fraud proof-based), or light client-based (cryptographically verified). Bridge security is critical as exploits have led to major losses."
+                },
+                {
+                    "id": 7,
+                    "question": "How does the Lightning Network work?",
+                    "options": {
+                        "A": "It creates a separate blockchain parallel to Bitcoin",
+                        "B": "It establishes payment channels where participants lock Bitcoin on-chain, transact instantly off-chain via signed updates, and settle the final balance on-chain when closing the channel",
+                        "C": "It uses proof-of-stake to validate Bitcoin transactions faster",
+                        "D": "It compresses Bitcoin blocks to fit more transactions"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "Lightning Network is Bitcoin's state channel solution. Two parties open a channel by creating a multi-signature transaction that locks funds on Bitcoin's L1. They can then exchange unlimited signed transactions off-chain, updating the balance distribution. These signatures allow either party to close the channel unilaterally by broadcasting the latest state to L1. Channels can be routed through intermediaries, creating a network of payment channels for any two parties to transact without a direct channel."
+                },
+                {
+                    "id": 8,
+                    "question": "In an Optimistic Rollup, what is the typical challenge period for fraud proofs?",
+                    "options": {
+                        "A": "1 hour",
+                        "B": "24 hours",
+                        "C": "7 days",
+                        "D": "30 days"
+                    },
+                    "correct": "C",
+                    "difficulty": "medium",
+                    "explanation": "Optimistic Rollups typically use a 7-day challenge period. During this time, anyone can submit a fraud proof if they detect an invalid state transition. This delay is necessary to ensure sufficient time for validators to check transactions and for the fraud proof to be processed on L1, but it means withdrawals to L1 take about a week without using a third-party liquidity provider."
+                },
+                {
+                    "id": 9,
+                    "question": "Why is data availability important for rollups?",
+                    "options": {
+                        "A": "It determines how fast transactions are processed",
+                        "B": "Without transaction data being available on L1, users cannot reconstruct state, verify correctness, or safely exit the L2 system",
+                        "C": "It only matters for ZK-rollups, not Optimistic rollups",
+                        "D": "It determines the gas fees on Layer 2"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "Data availability is crucial for rollup security. Rollups must post transaction data to L1 so that anyone can reconstruct the complete L2 state independently. Without this data, users cannot verify if the sequencer is honest, cannot generate fraud proofs (Optimistic), and cannot safely exit if the L2 becomes unavailable. If data is withheld, the system breaks down. This is why rollups post compressed transaction data (calldata) to L1, which is their main cost driver."
+                },
+                {
+                    "id": 10,
+                    "question": "How does ZK-rollup verification work?",
+                    "options": {
+                        "A": "Validators vote on whether transactions are valid",
+                        "B": "The sequencer generates a cryptographic proof (SNARK/STARK) that mathematically proves correct execution, which L1 verifies in constant time regardless of batch size",
+                        "C": "L1 re-executes all transactions to verify them",
+                        "D": "Users must trust the sequencer's honesty"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "ZK-rollups use zero-knowledge proofs (specifically SNARKs or STARKs) to prove correct execution. The L2 sequencer executes a batch of transactions and generates a cryptographic proof that the state transition is valid. This proof is posted to L1 along with the new state root. L1 smart contracts verify the proof (which takes constant time regardless of batch size), providing mathematical certainty of correctness without re-executing transactions. This enables instant L1 finality but requires expensive prover hardware."
+                },
+                {
+                    "id": 11,
+                    "question": "What does it mean that Layer 2 inherits Layer 1 security?",
+                    "options": {
+                        "A": "L2 uses the same consensus mechanism as L1",
+                        "B": "L2 systems rely on L1's security guarantees for dispute resolution, data availability, and final settlement, rather than having their own validator set",
+                        "C": "L2 transactions are actually executed on L1",
+                        "D": "L2 is immune to all security vulnerabilities"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "L2 solutions inherit L1 security by anchoring their operations to L1. For rollups, transaction data is posted to L1 (ensuring availability), and either fraud proofs (Optimistic) or validity proofs (ZK) leverage L1 to adjudicate disputes. Users can always exit to L1 if L2 fails. This is different from sidechains which have independent validator sets and security assumptions. The trade-off is that L2 security depends on L1 liveness and correct smart contract implementation."
+                },
+                {
+                    "id": 12,
+                    "question": "What is a sequencer's role in a rollup?",
+                    "options": {
+                        "A": "To mine new blocks on Layer 1",
+                        "B": "To collect and order L2 transactions, execute them, batch them together, and post batches plus proofs to L1",
+                        "C": "To validate other users' signatures",
+                        "D": "To distribute tokens to validators"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "The sequencer is the entity responsible for ordering and executing transactions on a rollup. It receives user transactions, determines their order, executes them to compute the new state, batches many transactions together, and posts the batch to L1 (with fraud proof challenge period for Optimistic or validity proof for ZK). Most rollups currently have centralized sequencers (single entity), which creates efficiency but also centralization risks around censorship and MEV. Decentralized sequencer networks are being developed."
+                },
+                {
+                    "id": 13,
+                    "question": "How does settlement finality differ between Optimistic and ZK-rollups?",
+                    "options": {
+                        "A": "Both achieve instant finality",
+                        "B": "Optimistic rollups require a challenge period (~7 days) for L1 finality, while ZK-rollups achieve L1 finality as soon as the validity proof is verified on-chain",
+                        "C": "ZK-rollups are slower because proof generation takes longer",
+                        "D": "Settlement finality is the same for both"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "This is a key difference: ZK-rollups achieve L1 finality immediately once the validity proof is verified on L1 (minutes), because the proof mathematically guarantees correctness. Users can withdraw to L1 right away. Optimistic rollups assume validity but require a ~7-day challenge period to allow fraud proofs. During this time, the state is 'pending' - withdrawals must wait 7 days. In practice, liquidity providers can offer instant withdrawals for a fee, but the security guarantee requires the full challenge period."
+                },
+                {
+                    "id": 14,
+                    "question": "Why does transaction batching in rollups reduce costs?",
+                    "options": {
+                        "A": "Batching makes transactions process faster",
+                        "B": "The fixed costs of posting to L1 (gas for proof verification, state root update) are amortized across hundreds of transactions in a batch, drastically reducing per-transaction cost",
+                        "C": "Batched transactions don't need to be verified",
+                        "D": "Batching eliminates the need for L1 entirely"
+                    },
+                    "correct": "B",
+                    "difficulty": "medium",
+                    "explanation": "Rollups achieve cost reduction through amortization. Posting a batch to L1 involves fixed costs (verifying a proof, updating state root, some data posting), plus variable costs (transaction data). When you batch 1000 transactions, the fixed costs are divided by 1000. For example, if proof verification costs 500k gas, that's only 500 gas per transaction in the batch. The main remaining cost is posting transaction data (calldata), which is why innovations like EIP-4844 blob data (cheaper than calldata) provide additional cost savings."
+                },
+                {
+                    "id": 15,
+                    "question": "What is an escape hatch mechanism in Layer 2 systems?",
+                    "options": {
+                        "A": "A way to speed up transactions",
+                        "B": "A mechanism allowing users to exit to L1 independently if the L2 sequencer fails or censors them, by submitting a withdrawal proof directly to the L1 contract",
+                        "C": "A backup sequencer for high availability",
+                        "D": "A feature to undo transactions"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "An escape hatch (or forced inclusion) is a critical safety mechanism ensuring L2 users aren't held hostage by a malicious or failed sequencer. Even if the sequencer stops processing transactions or censors a user, that user can submit a transaction directly to the L1 rollup contract to force an exit. For Optimistic rollups, this involves submitting a withdrawal claim that becomes final after the challenge period. For ZK-rollups, users can submit a proof of their balance. This guarantees users always have access to their funds via L1, maintaining trustlessness despite sequencer centralization."
+                },
+                {
+                    "id": 16,
+                    "question": "What is the difference between calldata and blob data (EIP-4844)?",
+                    "options": {
+                        "A": "They are the same thing with different names",
+                        "B": "Calldata is permanent blockchain data accessible to smart contracts (~16 gas/byte), while blob data is temporary (~1 gas/byte), pruned after ~2 weeks, designed specifically for rollup data availability",
+                        "C": "Blob data is encrypted while calldata is public",
+                        "D": "Calldata is only for ZK-rollups, blob data is for Optimistic rollups"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "EIP-4844 (Proto-Danksharding) introduced a new transaction type with blob data specifically for rollups. Calldata (~16 gas/byte) is permanently stored in Ethereum's state and accessible to smart contracts. Blob data (~1 gas/byte) is attached to blocks but not accessible to EVM execution, and is pruned after ~18 days. This is sufficient for rollups because they only need data availability during the challenge period (7 days for Optimistic). The 10-15x cost reduction dramatically lowers rollup transaction fees. Full Danksharding will further increase blob capacity."
+                },
+                {
+                    "id": 17,
+                    "question": "What is the key trade-off between fraud proofs (Optimistic) and validity proofs (ZK)?",
+                    "options": {
+                        "A": "Fraud proofs are faster to verify but slower to generate",
+                        "B": "Validity proofs require trusted setup while fraud proofs are trustless",
+                        "C": "Fraud proofs enable instant finality while validity proofs require waiting periods",
+                        "D": "Validity proofs enable instant finality but require expensive computation to generate, while fraud proofs are cheap but require a challenge period"
+                    },
+                    "correct": "D",
+                    "difficulty": "hard",
+                    "explanation": "This is the fundamental trade-off: ZK/validity proofs are computationally expensive to generate (requiring specialized hardware and time, sometimes minutes per batch) but enable instant L1 finality once posted. Fraud proofs are cheap (just re-execute disputed transactions) but require a ~7-day challenge period to ensure security. This impacts user experience (withdrawal times) and operational costs (prover hardware). Optimistic rollups also have simpler implementations and better EVM compatibility, while ZK-rollups face challenges with complex computations (though zkEVM progress is addressing this)."
+                },
+                {
+                    "id": 18,
+                    "question": "What are the security assumptions of blockchain bridges?",
+                    "options": {
+                        "A": "All bridges are equally secure",
+                        "B": "Bridge security varies: custodial bridges trust specific validators, optimistic bridges rely on fraud proofs and economic incentives, light client bridges use cryptographic verification but depend on data availability",
+                        "C": "Bridges are completely trustless with no security assumptions",
+                        "D": "Bridge security only depends on the underlying blockchain"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "Bridge security is complex and varies by design: (1) Custodial/Multisig bridges rely on trusted validators holding locked funds - weakest security, highest risk. (2) Optimistic bridges assume honest majority of watchers will detect and prove fraud, with economic incentives - better but requires active monitoring. (3) Light client bridges cryptographically verify source chain state (e.g., via SNARKs) - strongest security but require data availability and are complex. Many major hacks (Ronin, Poly Network, Wormhole) exploited bridge vulnerabilities, with billions stolen. This makes bridge security one of the critical unsolved problems in cross-chain infrastructure."
+                },
+                {
+                    "id": 19,
+                    "question": "What is the main challenge with Layer 2 decentralization, specifically regarding sequencers?",
+                    "options": {
+                        "A": "L2 systems are already fully decentralized",
+                        "B": "Most current L2 rollups use centralized sequencers, creating risks of censorship, MEV extraction, and single points of failure; decentralizing sequencers requires solving leader election, consensus, and MEV redistribution",
+                        "C": "Decentralization makes L2 systems slower than centralized ones",
+                        "D": "Sequencer decentralization is impossible due to technical limitations"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "Most production rollups (Optimism, Arbitrum, zkSync) currently use centralized sequencers operated by the project team. This creates several issues: (1) Censorship - the sequencer can refuse to include transactions. (2) MEV - the sequencer captures all MEV without sharing with users. (3) Liveness - if the sequencer goes down, L2 transaction processing stops (though funds remain safe via escape hatch). (4) Trust - users must trust the sequencer isn't malicious. Decentralizing requires solving consensus (multiple sequencers agreeing on order), preventing MEV races, and maintaining performance. Solutions being explored include rotating leader election, threshold encryption, and sequencer staking/slashing."
+                },
+                {
+                    "id": 20,
+                    "question": "What are the main challenges for Layer 2 interoperability and cross-rollup communication?",
+                    "options": {
+                        "A": "There are no challenges - L2 systems communicate seamlessly",
+                        "B": "Different L2 systems are isolated: moving assets between them requires going through L1 (slow/expensive) or using bridges (security risks); native interoperability requires shared standards, liquidity, and message-passing protocols",
+                        "C": "Interoperability only matters for cross-chain, not L2s on the same L1",
+                        "D": "Users should just use a single L2 and avoid interoperability issues"
+                    },
+                    "correct": "B",
+                    "difficulty": "hard",
+                    "explanation": "L2 fragmentation is a growing problem: each rollup is its own execution environment with separate state, liquidity, and accounts. Moving assets between L2s currently requires: (1) Withdraw to L1 (7 days for Optimistic + L1 gas fees), then deposit to another L2, OR (2) Use a bridge (fast but introduces security assumptions). Neither is ideal. Native interoperability solutions being developed include: (1) Shared sequencing across rollups, (2) Cross-rollup message passing standards, (3) Shared liquidity layers, (4) Chain abstraction where users don't think about which L2 they're on. The ecosystem is moving toward a multi-rollup future, but seamless UX requires solving these interoperability challenges."
+                }
+            ]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

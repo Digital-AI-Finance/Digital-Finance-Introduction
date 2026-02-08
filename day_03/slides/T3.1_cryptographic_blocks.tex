@@ -374,6 +374,7 @@ SHA-256 is considered cryptographically secure for all practical purposes.
 \end{tikzpicture}
 
 \footnotesize\textbf{Merkle Tree}\\
+\textit{Like a family tree where you can verify any member by checking their parents}\\[1mm]
 Verify any transaction with $O(\log n)$ hashes
 \end{center}
 \end{column}
@@ -391,7 +392,10 @@ If two hashes match, the data is identical (with overwhelming probability).
 \begin{frame}{Merkle Trees: Efficient Data Verification}
 \textbf{Problem:} How do you verify one transaction out of thousands without downloading everything?
 
-\vspace{3mm}
+\vspace{1mm}
+\textit{Like verifying one page of a book by checking chapter summaries -- you don't need to read every page}
+
+\vspace{2mm}
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 % Root
@@ -620,7 +624,15 @@ If two hashes match, the data is identical (with overwhelming probability).
 \begin{frame}{Elliptic Curve Cryptography in Blockchain}
 \textbf{Why don't blockchains use RSA?}
 
-\vspace{3mm}
+\vspace{2mm}
+\textit{Two different mathematical approaches to creating unforgeable digital signatures:}
+
+\begin{itemize}
+\item \textbf{RSA:} Based on factoring large prime numbers
+\item \textbf{ECDSA (Elliptic Curve Digital Signature Algorithm):} Based on elliptic curve mathematics
+\end{itemize}
+
+\vspace{2mm}
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
@@ -634,10 +646,10 @@ Used by Bitcoin/Ethereum & No & Yes \\
 \end{tabular}
 \end{center}
 
-\vspace{5mm}
-\textbf{secp256k1:} The specific elliptic curve used by Bitcoin and Ethereum
+\vspace{3mm}
+\textbf{secp256k1:} The specific mathematical curve Bitcoin and Ethereum use for signatures
 \begin{itemize}
-\item Provides 256-bit security with smaller keys
+\item Provides 256-bit security (more combinations than atoms in the observable universe) with smaller keys
 \item Smaller signatures = lower transaction fees
 \item Well-studied and standardized
 \end{itemize}

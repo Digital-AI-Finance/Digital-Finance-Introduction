@@ -634,7 +634,7 @@ Target: 10 minutes per block on average
 \textbf{Step-by-Step Process:}
 \begin{enumerate}
 \item \textbf{Stake:} Lock cryptocurrency as collateral
-\item \textbf{Selection:} Protocol randomly selects a validator (weighted by stake)
+\item \textbf{Selection:} Protocol randomly selects a validator (weighted by stake -- the more coins you lock up, the higher your chance of being selected, like having more lottery tickets)
 \item \textbf{Propose:} Selected validator creates a new block
 \item \textbf{Attest:} Other validators verify and vote on the block
 \item \textbf{Finalize:} Block is added when enough validators agree
@@ -895,7 +895,7 @@ sacrifice 1
 \begin{column}{0.32\textwidth}
 \textbf{Scalability}
 \begin{itemize}\compactlist
-\item High throughput (TPS)
+\item High throughput (Transactions Per Second -- TPS)
 \item Low latency
 \item Low fees
 \item Handle demand spikes
@@ -905,10 +905,13 @@ sacrifice 1
 \end{columns}
 
 \vspace{5mm}
+\textbf{Performance comparison:} Compare how different systems balance speed, certainty, and decentralization
+
+\vspace{2mm}
 \begin{center}
 \begin{tabular}{l|ccc}
 \toprule
-\textbf{System} & \textbf{TPS} & \textbf{Finality} & \textbf{Validators} \\
+\textbf{System} & \textbf{TPS} & \textbf{Finality*} & \textbf{Validators} \\
 \midrule
 Bitcoin & 7 & 60 min & $\sim$15,000 nodes \\
 Ethereum & 15-30 & 12-15 min & $\sim$500,000 validators \\
@@ -916,6 +919,9 @@ Solana & 65,000 & 0.4 sec & $\sim$1,900 validators \\
 Visa & 24,000 & seconds & 1 (centralized) \\
 \bottomrule
 \end{tabular}
+
+\vspace{2mm}
+\footnotesize *Finality = when a transaction becomes permanent and irreversible
 \end{center}
 \end{frame}
 

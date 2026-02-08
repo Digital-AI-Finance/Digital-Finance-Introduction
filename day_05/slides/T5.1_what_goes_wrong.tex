@@ -29,22 +29,25 @@
 By the end of this session, you will be able to:
 
 \begin{enumerate}
+%% H14: Simplified learning objectives -- removed jargon like "reentrancy, flash loans, oracle manipulation"
 \item \textbf{Categorize} types of digital finance failures (technical, economic, human)
-\item \textbf{Explain} mechanics of major exploit types (reentrancy, flash loans, oracle manipulation)
+\item \textbf{Explain} how the major types of attacks work, using plain-English descriptions and analogies
 \item \textbf{Analyze} case studies of historical DeFi hacks
-\item \textbf{Assess} systemic risk implications of protocol interconnection
+\item \textbf{Assess} how the interconnection of protocols creates cascading risk
 \item \textbf{Develop} genuine risk awareness for evaluating digital finance systems
 \end{enumerate}
 
 \vspace{5mm}
 \begin{block}{Hands-On Component}
-Colab notebook (NB11) analyzing on-chain data from historical DeFi exploits---trace the anatomy of an attack through transaction data.
+Colab notebook (NB11) simulating historical DeFi exploits---run reentrancy, flash loan, and oracle manipulation scenarios to understand how attacks work.
 \end{block}
 \end{frame}
 
 % =============================================================================
 % Frame 3: Prerequisites/Background I
 % =============================================================================
+%% C1: Removed "Basic Solidity syntax" prerequisite; replaced with accessibility note
+%% C5: Day 4-to-Day 5 transition content integrated into this frame
 \begin{frame}{Prerequisites: What You Should Know}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -58,7 +61,7 @@ Colab notebook (NB11) analyzing on-chain data from historical DeFi exploits---tr
 \vspace{3mm}
 \textbf{Helpful but not required:}
 \begin{itemize}
-\item Basic Solidity syntax
+\item No coding knowledge needed---all technical concepts explained visually
 \item Knowledge of token standards (ERC-20)
 \item Experience with DeFi protocols
 \end{itemize}
@@ -83,7 +86,48 @@ Colab notebook (NB11) analyzing on-chain data from historical DeFi exploits---tr
 \end{frame}
 
 % =============================================================================
-% Frame 4: Prerequisites/Background II
+% Frame 4 (NEW): Transition from Day 4
+% =============================================================================
+%% C5: Dedicated transition frame bridging Day 4 to Day 5
+\begin{frame}{From Building to Breaking: Day 4 $\to$ Day 5}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape]
+% Day 4 box
+\node[blockchain, minimum width=3.5cm, minimum height=2cm, fill=dfgreen!15] (day4) at (0,0) {
+\begin{tabular}{c}
+\textbf{Days 3--4}\\
+\footnotesize Smart contracts\\
+\footnotesize DeFi protocols\\
+\footnotesize Automated markets
+\end{tabular}
+};
+
+% Arrow
+\draw[->, ultra thick, dfred] (2.5,0) -- (5,0) node[midway, above, font=\small] {What can go wrong?};
+
+% Day 5 box
+\node[blockchain, minimum width=3.5cm, minimum height=2cm, fill=dfred!15] (day5) at (7.5,0) {
+\begin{tabular}{c}
+\textbf{Day 5}\\
+\footnotesize Failures \& hacks\\
+\footnotesize Systemic risk\\
+\footnotesize Defenses
+\end{tabular}
+};
+\end{tikzpicture}
+\end{center}
+
+\vspace{5mm}
+In Days 3--4 we learned how DeFi creates value through smart contracts and automated markets. Today we ask: \textbf{what happens when things go wrong?}
+
+\vspace{3mm}
+\begin{alertblock}{The Stakes Are Real}
+Over \textbf{\$100 billion} has been lost to hacks, exploits, fraud, and collapses in digital finance. Understanding these failures is the key to understanding what makes---or breaks---the entire ecosystem.
+\end{alertblock}
+\end{frame}
+
+% =============================================================================
+% Frame 5: The Big Picture: Why Failures Matter
 % =============================================================================
 \begin{frame}{The Big Picture: Why Failures Matter}
 \begin{center}
@@ -133,7 +177,7 @@ Day 5 examines the ``dark side''---failures, regulation, governance, and privacy
 \end{frame}
 
 % =============================================================================
-% Frame 5: A Taxonomy of Failures
+% Frame 6: A Taxonomy of Failures
 % =============================================================================
 \begin{frame}{A Taxonomy of Failures}
 \begin{center}
@@ -164,25 +208,54 @@ Day 5 examines the ``dark side''---failures, regulation, governance, and privacy
 \end{frame}
 
 % =============================================================================
-% Frame 6: Category 1: Technical Failures
+% Frame 7 (NEW): Navigation Roadmap
 % =============================================================================
+%% M9: Roadmap frame between taxonomy and deep dives
+\begin{frame}{Roadmap: Where We Are Going}
+\begin{center}
+\begin{tikzpicture}[scale=0.7, transform shape, node distance=1.4cm]
+% Steps
+\node[blockchain, fill=dfgreen!20, minimum width=3cm] (tax) {Taxonomy \checkmark};
+\node[blockchain, below of=tax, minimum width=3cm, fill=dfred!15] (tech) {Technical Failures};
+\node[blockchain, below of=tech, minimum width=3cm] (econ) {Economic Attacks};
+\node[blockchain, below of=econ, minimum width=3cm] (human) {Human Failures};
+\node[blockchain, below of=human, minimum width=3cm] (defense) {Defenses};
+
+\draw[arrow] (tax) -- (tech);
+\draw[arrow] (tech) -- (econ);
+\draw[arrow] (econ) -- (human);
+\draw[arrow] (human) -- (defense);
+
+% Current marker
+\draw[->, ultra thick, dfred] (4,0) -- (2,0) node[pos=0, right, font=\small] {You are here};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+We will explore each category with \textbf{real-world case studies} and \textbf{everyday analogies} to make the concepts concrete. No coding knowledge is required.
+\end{frame}
+
+% =============================================================================
+% Frame 8: Category 1: Technical Failures
+% =============================================================================
+%% H1--H6: Added plain-English definitions/analogies for all jargon items
 \begin{frame}{Category 1: Technical Failures}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Smart Contract Bugs:}
 \begin{itemize}
 \item Reentrancy attacks
-\item Integer overflow/underflow
-\item Logic errors
-\item Access control flaws
+\item Integer overflow/underflow (like a car odometer rolling from 999,999 back to 000,000)
+\item Mistakes in the rules---like a vending machine that gives change before checking if you paid
+\item Access control flaws (when the wrong people can use restricted features)
 \end{itemize}
 
 \vspace{3mm}
 \textbf{Infrastructure Failures:}
 \begin{itemize}
-\item Oracle manipulation
-\item Bridge vulnerabilities
-\item Consensus bugs
+\item Oracle manipulation (the blockchain's ``window to the outside world''---we'll explain oracles in detail shortly)
+\item Bridge vulnerabilities (bridges connect different blockchains---we'll explore their risks later)
+\item Consensus bugs (errors in the agreement process between computers)
 \item Key management failures
 \end{itemize}
 \end{column}
@@ -205,8 +278,9 @@ Attacker minted unbacked tokens
 \end{frame}
 
 % =============================================================================
-% Frame 7: Deep Dive: Reentrancy Attack
+% Frame 9: Deep Dive: Reentrancy Attack
 % =============================================================================
+%% H12: Added bank teller analogy for reentrancy
 \begin{frame}{Deep Dive: Reentrancy Attack}
 \begin{center}
 \begin{tikzpicture}[scale=0.8, transform shape, node distance=2cm]
@@ -227,101 +301,98 @@ Attacker minted unbacked tokens
 };
 
 % Steps
-\draw[->, thick, dfblue] (attacker.west) -- node[above, font=\footnotesize] {1. withdraw()} (victim.east);
-\draw[->, thick, dfred] ([yshift=-5mm]victim.east) -- node[below, font=\footnotesize] {2. send ETH} ([yshift=-5mm]attacker.west);
-\draw[->, thick, dfred, dashed] ([yshift=-10mm]attacker.west) -- node[below, font=\footnotesize] {3. fallback calls withdraw() again!} ([yshift=-10mm]victim.east);
+\draw[->, thick, dfblue] (attacker.west) -- node[above, font=\footnotesize] {1. ``Give me my money''} (victim.east);
+\draw[->, thick, dfred] ([yshift=-5mm]victim.east) -- node[below, font=\footnotesize] {2. Sends money} ([yshift=-5mm]attacker.west);
+\draw[->, thick, dfred, dashed] ([yshift=-10mm]attacker.west) -- node[below, font=\footnotesize] {3. Immediately asks again!} ([yshift=-10mm]victim.east);
 
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
+\textbf{Analogy:} Imagine a bank teller who hands you cash and THEN checks your balance. A clever attacker keeps asking for cash before the teller finishes checking---getting paid multiple times from one withdrawal.
+
+\vspace{2mm}
 \textbf{The Problem:}
 \begin{enumerate}
-\item Victim sends ETH \textit{before} updating balance
-\item Attacker's fallback function calls withdraw() again
-\item Balance not yet updated, so check passes again
-\item Repeat until contract drained
+\item Victim sends money \textit{before} updating the balance record
+\item Attacker immediately requests another withdrawal
+\item Balance not yet updated, so the check passes again
+\item Repeat until the entire contract is drained
 \end{enumerate}
 
 \begin{block}{Prevention}
-Check-Effects-Interactions pattern: Update state BEFORE external calls.
+Check-Effects-Interactions pattern: Update records BEFORE sending money.
 \end{block}
 \end{frame}
 
 % =============================================================================
-% Frame 8: Solidity: Vulnerable vs. Safe
+% Frame 10: Vulnerable vs. Safe --- Plain English
 % =============================================================================
-\begin{frame}{Solidity: Vulnerable vs. Safe}
+%% C2, C3: Replaced Solidity code with plain-English pseudocode
+%% H16: Added note that no code reading is required
+\begin{frame}{Vulnerable vs. Safe: How the Fix Works}
+
+\begin{alertblock}{No Code Required}
+You don't need to understand programming---focus on the \textbf{order of steps} below.
+\end{alertblock}
+
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Vulnerable Code:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-function withdraw() public {
-    uint balance = balances[msg.sender];
-    require(balance > 0);
+\textbf{\textcolor{dfred}{Dangerous Order:}}
+\begin{enumerate}
+\item Check: ``Does this person have money?''
+\item \textcolor{dfred}{\textbf{Send the money out}} $\leftarrow$ external call
+\item Update records: ``They now have \$0''
+\end{enumerate}
 
-    // DANGER: External call before
-    // state update!
-    (bool success, ) = msg.sender
-        .call{value: balance}("");
-    require(success);
-
-    // State updated AFTER call
-    balances[msg.sender] = 0;
-}
-\end{lstlisting}
+\vspace{3mm}
+\textbf{Why it fails:} The contract sends money BEFORE updating its records---this is the vulnerability. The attacker can keep requesting money before step 3 ever runs.
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Safe Code:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-function withdraw() public {
-    uint balance = balances[msg.sender];
-    require(balance > 0);
+\textbf{\textcolor{dfgreen}{Safe Order:}}
+\begin{enumerate}
+\item Check: ``Does this person have money?''
+\item \textcolor{dfgreen}{\textbf{Update records first}}: ``They now have \$0''
+\item Send the money out
+\end{enumerate}
 
-    // State updated BEFORE call
-    balances[msg.sender] = 0;
-
-    // External call AFTER state update
-    (bool success, ) = msg.sender
-        .call{value: balance}("");
-    require(success);
-}
-\end{lstlisting}
+\vspace{3mm}
+\textbf{Why it works:} Even if the attacker tries to re-enter, the records already show \$0, so the check in step 1 fails.
 \end{column}
 \end{columns}
 
 \vspace{3mm}
-\begin{alertblock}{Check-Effects-Interactions Pattern}
+\begin{block}{Check-Effects-Interactions (CEI) Pattern}
 \begin{enumerate}
-\item \textbf{Check:} Validate conditions
-\item \textbf{Effects:} Update state
-\item \textbf{Interactions:} External calls last
+\item \textbf{Check:} Validate conditions (``Do they have enough?'')
+\item \textbf{Effects:} Update your own records
+\item \textbf{Interactions:} Only THEN send money or talk to other contracts
 \end{enumerate}
-\end{alertblock}
+\end{block}
 \end{frame}
 
 % =============================================================================
-% Frame 9: Integer Overflow and Underflow
+% Frame 11: Integer Overflow and Underflow
 % =============================================================================
+%% C6, H7: Replaced 2^{256}-1 with simple uint8 (0--255) example
 \begin{frame}{Integer Overflow and Underflow}
 \begin{columns}[T]
 \begin{column}{0.52\textwidth}
-\textbf{The Problem (Pre-Solidity 0.8):}
-\begin{itemize}
-\item uint256 max = $2^{256} - 1$
-\item Adding 1 to max wraps to 0
-\item Subtracting 1 from 0 wraps to max
-\item No automatic error!
-\end{itemize}
+\textbf{The Problem:}
+
+\textbf{Analogy:} Imagine a counter that can only store numbers 0 to 255. What happens when you add 1 to 255? It wraps around to 0---that's \textbf{overflow}. What happens when you subtract 1 from 0? It wraps to 255---that's \textbf{underflow}.
 
 \vspace{3mm}
-\textbf{Example Attack:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-// balance = 0
-balance -= 1;
-// balance now = 2^256 - 1
-// Attacker has "infinite" tokens!
-\end{lstlisting}
+Older smart contracts used counters like this but with much bigger numbers. Attackers exploited the wrapping to give themselves enormous fake balances.
+
+\vspace{3mm}
+\textbf{Example:}
+\begin{itemize}
+\item Attacker's balance = 0 tokens
+\item Attacker subtracts 1 token
+\item Balance wraps to a gigantic number
+\item Attacker now has ``infinite'' tokens!
+\end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{tikzpicture}[scale=0.7, transform shape]
@@ -339,67 +410,93 @@ balance -= 1;
 
 \vspace{3mm}
 \begin{block}{Solution}
-\textbf{Solidity 0.8+:} Built-in checks\\
-\textbf{Earlier:} SafeMath library
+Modern smart contracts include automatic checks that stop the transaction if a number would wrap around.
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 10: Access Control Vulnerabilities
+% Frame 12: Access Control Vulnerabilities
 % =============================================================================
+%% C2: Replaced Solidity code with plain-English descriptions
 \begin{frame}{Access Control Vulnerabilities}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Common Mistakes:}
 \begin{itemize}
-\item Missing \texttt{onlyOwner} modifier
-\item Public functions that should be internal
-\item Hardcoded addresses that can be changed
-\item Unprotected initialization
+\item No check on \textit{who} is calling a function
+\item Features meant to be private are left open to anyone
+\item Administrative powers not properly restricted
+\item Setup steps left unprotected
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Vulnerable:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-// Anyone can call!
-function setOwner(address _new)
-    public {
-    owner = _new;
-}
-\end{lstlisting}
+\textbf{\textcolor{dfred}{Vulnerable} (no lock on the door):}
+\begin{itemize}
+\item Anyone can call ``change the owner''
+\item Attacker makes \textit{themselves} the owner
+\item Attacker now controls the entire contract
+\end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Safe:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-modifier onlyOwner() {
-    require(msg.sender == owner,
-        "Not owner");
-    _;
-}
+\textbf{\textcolor{dfgreen}{Safe} (locked door):}
+\begin{itemize}
+\item Before running ``change the owner,'' the contract checks: ``Is the person asking \textit{actually} the current owner?''
+\item If not, the request is rejected
+\item Only the real owner can transfer control
+\end{itemize}
 
-function setOwner(address _new)
-    public onlyOwner {
-    owner = _new;
-}
-\end{lstlisting}
+\vspace{3mm}
+\textbf{Analogy:} Think of a house where the front door has no lock. Anyone can walk in and claim they own it. Adding access control is like installing a lock---only people with the right key can get in.
 
 \vspace{3mm}
 \begin{alertblock}{Best Practice}
-Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
+Every sensitive function should check ``who is asking?'' before executing.
 \end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 11: Category 2: Economic Attacks
+% Frame 13 (NEW): Pause & Reflect
 % =============================================================================
+%% C4: Breathing room after dense technical frames
+\begin{frame}{Pause \& Reflect}
+\begin{center}
+\textbf{\Large Let's take stock of what we've covered so far.}
+\end{center}
+
+\vspace{5mm}
+We've seen three types of \textbf{technical} vulnerabilities:
+
+\begin{enumerate}
+\item \textbf{Reentrancy} --- the ``ask-for-money-before-records-update'' trick
+\item \textbf{Integer overflow/underflow} --- the ``odometer wrapping around'' problem
+\item \textbf{Access control flaws} --- the ``unlocked front door'' problem
+\end{enumerate}
+
+\vspace{5mm}
+\begin{block}{Discussion Question}
+Which of these three do you think is the most dangerous, and why? Consider: which one is hardest to detect, and which one has caused the biggest losses?
+\end{block}
+
+\vspace{5mm}
+\textbf{Coming up next:} Economic attacks---where the code works exactly as written, but attackers find clever ways to exploit the \textit{design} itself.
+\end{frame}
+
+% =============================================================================
+% Frame 14: Category 2: Economic Attacks
+% =============================================================================
+%% H13: Added flash loan atomicity analogy
+%% M2: Added atomicity definition before use
 \begin{frame}{Category 2: Economic Attacks}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Flash Loan Attacks:}
+
+\textbf{Analogy:} Think of a flash loan like a time-travel movie: you can borrow millions, use them, and return them---all in a single instant. If anything goes wrong, it's as if it never happened.
+
 \begin{itemize}
 \item Borrow millions, attack, repay---all in one transaction
 \item No collateral needed
@@ -409,11 +506,14 @@ Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
 
 \vspace{3mm}
 \textbf{How Flash Loans Work:}
+
+``Atomic'' means all-or-nothing: either \textit{every} step succeeds, or the entire transaction is cancelled as if it never happened.
+
 \begin{enumerate}
-\item Borrow \$100M (uncollateralized)
+\item Borrow \$100M (no collateral)
 \item Execute attack strategy
-\item Repay \$100M + fee
-\item If any step fails, entire tx reverts
+\item Repay \$100M + small fee
+\item If any step fails, everything is reversed
 \end{enumerate}
 \end{column}
 \begin{column}{0.48\textwidth}
@@ -429,16 +529,22 @@ Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
 \draw[arrow] (profit) -- (repay);
 \draw[arrow, dashed] (repay.east) -- ++(0.8,0) |- (borrow.east);
 
-\node[right of=attack, node distance=2.5cm, font=\footnotesize, text width=2.5cm] {All in ONE atomic transaction};
+\node[right of=attack, node distance=2.5cm, font=\footnotesize, text width=2.5cm] {All in ONE ``atomic'' transaction (all-or-nothing)};
 \end{tikzpicture}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 12: Flash Loan Attack Example: bZx (2020)
+% Frame 15: Flash Loan Attack Example: bZx (2020)
 % =============================================================================
+%% C6, H8: Added definition of "shorting" before it appears
 \begin{frame}{Flash Loan Attack Example: bZx (2020)}
+
+\begin{block}{Key Term: Shorting}
+\textbf{Shorting} means betting that a price will go \textbf{down}. If Alice thinks Bitcoin will drop from \$50,000 to \$40,000, she can ``short'' it and profit if she's right. If the price goes up instead, she loses money.
+\end{block}
+
 \begin{center}
 \begin{tikzpicture}[scale=0.7, transform shape, node distance=2.5cm]
 % Steps
@@ -459,7 +565,7 @@ Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
 \node (step3) [process, right of=step2, minimum width=2.8cm, minimum height=1cm, fill=dfred!20] {
 \begin{tabular}{c}
 \footnotesize 3. Short ETH\\
-\footnotesize on Fulcrum
+\footnotesize (bet price drops)
 \end{tabular}
 };
 
@@ -498,7 +604,7 @@ Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
 \end{frame}
 
 % =============================================================================
-% Frame 13: The Atomic Property of Flash Loans
+% Frame 16: The Atomic Property of Flash Loans
 % =============================================================================
 \begin{frame}{The Atomic Property of Flash Loans}
 \begin{columns}[T]
@@ -508,7 +614,7 @@ Use OpenZeppelin's \texttt{Ownable} or \texttt{AccessControl} contracts.
 \item All operations must complete in ONE transaction
 \item Either everything succeeds, or nothing happens
 \item Loan + use + repay = single block
-\item No collateral at risk (tx reverts if unpaid)
+\item No collateral at risk (transaction reverses if unpaid)
 \end{itemize}
 
 \vspace{3mm}
@@ -550,12 +656,17 @@ Flash loans ``democratize'' access to large capital---for both legitimate arbitr
 \end{frame}
 
 % =============================================================================
-% Frame 14: Oracle Manipulation
+% Frame 17: Oracle Manipulation
 % =============================================================================
+%% M6: Added "thermometer that lies" analogy for oracle manipulation
+%% M3: Added parenthetical recall for DEX/spot price
 \begin{frame}{Oracle Manipulation}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{The Problem:}
+
+\textbf{Analogy:} An oracle is like a thermometer for the blockchain---it reports real-world information (like prices) that smart contracts cannot see on their own. \textbf{Oracle manipulation} is like tampering with that thermometer so it shows a wrong temperature, causing the system to make bad decisions.
+
 \begin{itemize}
 \item DeFi protocols need external price data
 \item Oracles provide this data on-chain
@@ -566,8 +677,8 @@ Flash loans ``democratize'' access to large capital---for both legitimate arbitr
 \textbf{Attack Pattern:}
 \begin{enumerate}
 \item Flash borrow large amount
-\item Trade on DEX to move spot price
-\item Protocol reads manipulated price
+\item Trade on a DEX (decentralized exchange---recall from Day 4) to move the current ``spot'' price
+\item Protocol reads the manipulated price
 \item Exploit (borrow more, liquidate others)
 \item Restore price, repay loan
 \end{enumerate}
@@ -602,7 +713,7 @@ Use TWAP (Time-Weighted Average Price) or decentralized oracles like Chainlink.
 \end{frame}
 
 % =============================================================================
-% Frame 15: Spot Price vs. TWAP Oracles
+% Frame 18: Spot Price vs. TWAP Oracles
 % =============================================================================
 \begin{frame}{Spot Price vs. TWAP Oracles}
 \begin{columns}[T]
@@ -649,14 +760,18 @@ Use decentralized oracles (Chainlink) with multiple data sources and TWAP for pr
 \end{frame}
 
 % =============================================================================
-% Frame 16: Category 3: Stablecoin Failures
+% Frame 19: Category 3: Stablecoin Failures
 % =============================================================================
+%% H9: Added 2--3 sentence refresher on algorithmic stablecoins from Day 4
+%% L4: Added "bank run" analogy for death spiral
 \begin{frame}{Category 3: Stablecoin Failures}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{UST/LUNA Collapse (May 2022):}
+
+\textit{Recall from Day 4:} Algorithmic stablecoins try to maintain their \$1 price through automatic mint/burn mechanisms rather than holding dollar reserves. UST was the largest such experiment.
+
 \begin{itemize}
-\item Algorithmic stablecoin
 \item Market cap: \$18B at peak
 \item De-pegged from \$1 to \$0.10
 \item LUNA: \$80 to \$0.0001
@@ -665,6 +780,9 @@ Use decentralized oracles (Chainlink) with multiple data sources and TWAP for pr
 
 \vspace{3mm}
 \textbf{The Death Spiral:}
+
+\textbf{Analogy:} This is similar to a traditional \textbf{bank run}---when everyone tries to withdraw at once, the system cannot handle it and collapses.
+
 \begin{enumerate}
 \item Large UST sell-off
 \item Peg breaks, panic ensues
@@ -697,15 +815,17 @@ Algorithmic stability requires robust mechanisms---``code'' alone is insufficien
 \end{frame}
 
 % =============================================================================
-% Frame 17: Category 4: Centralized Exchange Collapses
+% Frame 20: Category 4: Centralized Exchange Collapses
 % =============================================================================
+%% M8: Added definition of "proof of reserves"
+%% L3: Added relatable comparison for dollar amounts
 \begin{frame}{Category 4: Centralized Exchange Collapses}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{FTX Collapse (Nov 2022):}
 \begin{itemize}
 \item 2nd largest crypto exchange
-\item \$32B valuation
+\item \$32B valuation (more than many national airlines)
 \item Customer funds misappropriated
 \item \$8B+ missing
 \item CEO convicted of fraud
@@ -725,7 +845,7 @@ Algorithmic stability requires robust mechanisms---``code'' alone is insufficien
 \begin{enumerate}
 \item Opaque operations
 \item Commingled funds
-\item Lack of proof of reserves
+\item Lack of proof of reserves (a public demonstration that the exchange actually holds all the assets it claims to hold)
 \item Regulatory arbitrage
 \item Charismatic founders
 \end{enumerate}
@@ -739,14 +859,15 @@ Centralized custodians reintroduce the trust problems DeFi was designed to solve
 \end{frame}
 
 % =============================================================================
-% Frame 18: Category 5: Rug Pulls and Fraud
+% Frame 21: Category 5: Rug Pulls and Fraud
 % =============================================================================
+%% M4: Added parenthetical recall for LP tokens
 \begin{frame}{Category 5: Rug Pulls and Fraud}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{Types of Rug Pulls:}
 \begin{itemize}
-\item \textbf{Liquidity pull:} Developers drain LP tokens
+\item \textbf{Liquidity pull:} Developers drain LP tokens (recall: LP tokens represent your share of a liquidity pool)
 \item \textbf{Limiting sell orders:} Hidden code prevents selling
 \item \textbf{Dumping:} Team sells massive holdings
 \item \textbf{Exit scam:} Project disappears with funds
@@ -783,34 +904,30 @@ Centralized custodians reintroduce the trust problems DeFi was designed to solve
 
 \vspace{5mm}
 \textbf{2021 Stats:}\\
-\$2.8B lost to rug pulls\\
+\$2.8B lost to rug pulls (that's roughly the entire GDP of a small country)\\
 (Chainalysis)
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 19: Bridge Exploits - The Biggest Target
+% Frame 22: Bridge Exploits - The Biggest Target
 % =============================================================================
-\begin{frame}{Bridge Exploits - The Biggest Target}
+%% M7: Added "ferry between islands" analogy for bridge exploits
+%% M5: Expanded TVL definition
+\begin{frame}{Bridge Exploits --- The Biggest Target}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
+\textbf{Analogy:} A blockchain bridge is like a \textbf{ferry between islands}. Each island (blockchain) has its own currency. The ferry (bridge) locks your currency on one island and gives you equivalent currency on the other. If pirates (hackers) take over the ferry, they can steal everything on board.
+
+\vspace{3mm}
 \textbf{Why bridges are vulnerable:}
 \begin{itemize}
-\item Hold massive TVL (locked assets)
+\item Hold massive TVL (Total Value Locked---the total amount of assets deposited into the bridge)
 \item Complex multi-chain logic
 \item Multiple attack surfaces
 \item Validator key management
 \item Novel, less-tested code
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Common attack vectors:}
-\begin{itemize}
-\item Validator key compromise
-\item Signature verification bugs
-\item Fake deposit proofs
-\item Message replay attacks
 \end{itemize}
 \end{column}
 \begin{column}{0.42\textwidth}
@@ -838,8 +955,9 @@ Bridges accounted for 69\% of crypto stolen in 2022.
 \end{frame}
 
 % =============================================================================
-% Frame 20: Systemic Risk in Digital Finance
+% Frame 23: Systemic Risk in Digital Finance
 % =============================================================================
+%% L1: Added re-definition of composability
 \begin{frame}{Systemic Risk in Digital Finance}
 \begin{center}
 \begin{tikzpicture}[scale=0.75, transform shape]
@@ -870,7 +988,7 @@ Bridges accounted for 69\% of crypto stolen in 2022.
 \end{center}
 
 \vspace{3mm}
-\textbf{DeFi Composability = Systemic Risk:}
+\textbf{DeFi Composability (recall: building blocks that connect together) = Systemic Risk:}
 \begin{itemize}
 \item Protocols depend on each other (``money legos'')
 \item Stablecoins are systemic (USDC freeze = cascade)
@@ -880,9 +998,9 @@ Bridges accounted for 69\% of crypto stolen in 2022.
 \end{frame}
 
 % =============================================================================
-% Frame 21: Largest DeFi Exploits (2020-2024)
+% Frame 24: Largest DeFi Exploits (2020-2024)
 % =============================================================================
-\begin{frame}{Largest DeFi Exploits (2020-2024)}
+\begin{frame}{Largest DeFi Exploits (2020--2024)}
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|l|r|l|l|}
@@ -908,92 +1026,97 @@ Wintermute & \$160M & Key compromise & 2022 \\
 
 \vspace{3mm}
 \begin{alertblock}{Pattern Recognition}
-\textbf{Bridges are the weakest link.} Cross-chain bridges hold massive TVL but have complex attack surfaces.
+\textbf{Bridges are the weakest link.} Cross-chain bridges hold massive amounts of locked assets but have complex attack surfaces.
 \end{alertblock}
 \end{frame}
 
 % =============================================================================
-% Frame 22: Defense Patterns: ReentrancyGuard
+% Frame 25: Defense Patterns: ReentrancyGuard
 % =============================================================================
-\begin{frame}{Defense Patterns: ReentrancyGuard}
+%% H10: Replaced Solidity code with "door lock" diagram
+%% L2: Replaced "mutex" with "lock"
+\begin{frame}{Defense Patterns: Reentrancy Guard}
 \begin{columns}[T]
 \begin{column}{0.52\textwidth}
-\textbf{The Mutex Pattern:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-bool private locked;
+\textbf{The Door Lock Pattern:}
 
-modifier noReentrant() {
-    require(!locked, "No reentrancy");
-    locked = true;
-    _;
-    locked = false;
-}
+\textbf{Analogy:} When you enter a bathroom, you lock the door. If someone else tries to enter while you're inside, the lock stops them. Once you're done, you unlock it. A reentrancy guard works exactly the same way.
 
-function withdraw() public noReentrant {
-    uint balance = balances[msg.sender];
-    balances[msg.sender] = 0;
+\vspace{3mm}
+\begin{center}
+\begin{tikzpicture}[scale=0.8, transform shape, node distance=2cm]
+% Three steps
+\node[blockchain, fill=dfred!15, minimum width=3cm] (lock) {1. Lock the door};
+\node[blockchain, below of=lock, minimum width=3cm, fill=dfgreen!15] (work) {2. Do the work};
+\node[blockchain, below of=work, minimum width=3cm, fill=dflightblue2] (unlock) {3. Unlock the door};
 
-    (bool success, ) = msg.sender
-        .call{value: balance}("");
-    require(success);
-}
-\end{lstlisting}
+\draw[arrow] (lock) -- (work);
+\draw[arrow] (work) -- (unlock);
+
+% Blocked re-entry
+\draw[->, thick, dfred, dashed] (4.5,0) -- (2.2,0);
+\node[right, font=\footnotesize, text width=2cm] at (4.5,0) {\textcolor{dfred}{Re-entry blocked!}};
+\node at (3.35,0) {\footnotesize $\times$};
+\end{tikzpicture}
+\end{center}
 \end{column}
 \begin{column}{0.45\textwidth}
 \textbf{How it works:}
 \begin{enumerate}
-\item Set lock at function entry
-\item If reentrant call attempts entry...
-\item Lock is still set, call reverts
-\item Lock released only on normal exit
+\item Set the lock when someone enters
+\item If a re-entrant call tries to enter...
+\item The lock is still set, so the call is rejected
+\item Lock released only when the original operation finishes
 \end{enumerate}
 
 \vspace{3mm}
 \begin{block}{Best Practice}
-Use OpenZeppelin's \texttt{ReentrancyGuard} contract---battle-tested and audited.
+Production smart contracts use well-tested, pre-built reentrancy guard libraries (e.g., from OpenZeppelin) rather than writing their own.
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 23: Defense Patterns: Pull vs. Push
+% Frame 26: Defense Patterns: Pull vs. Push
 % =============================================================================
+%% H11: Replaced Solidity code with waiter/buffet analogy
 \begin{frame}{Defense Patterns: Pull vs. Push Payments}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Push Pattern (Risky):}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-// Contract sends to users
-function distribute() public {
-    for (uint i = 0; i < users.length; i++) {
-        // If one fails, all fail
-        users[i].transfer(amounts[i]);
-    }
-}
-\end{lstlisting}
 
+\textbf{Analogy:} A waiter brings food to every table. If one table is blocked (a difficult customer), the waiter is stuck and nobody else gets served.
+
+\vspace{3mm}
+\textbf{How it works:}
+\begin{itemize}
+\item The contract sends money to each user one by one
+\item If one recipient fails (bad address, malicious contract), the \textit{entire} payment process stops
+\end{itemize}
+
+\vspace{3mm}
 \textbf{Problems:}
 \begin{itemize}
-\item One bad recipient blocks all
+\item One bad recipient blocks all others
 \item Reentrancy risk
-\item Gas limit issues
+\item Can run out of processing power (``gas'')
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Pull Pattern (Safe):}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-// Users withdraw themselves
-mapping(address => uint) owed;
 
-function withdraw() public {
-    uint amount = owed[msg.sender];
-    owed[msg.sender] = 0;
-    payable(msg.sender)
-        .transfer(amount);
-}
-\end{lstlisting}
+\textbf{Analogy:} A buffet---everyone goes up and serves themselves when they're ready. If one person has trouble, it doesn't affect anyone else.
 
+\vspace{3mm}
+\textbf{How it works:}
+\begin{itemize}
+\item The contract records how much each user is owed
+\item Users come and withdraw their own funds whenever they want
+\item Each withdrawal is independent
+\end{itemize}
+
+\vspace{3mm}
 \textbf{Benefits:}
 \begin{itemize}
 \item Isolates failures
@@ -1005,12 +1128,12 @@ function withdraw() public {
 
 \vspace{3mm}
 \begin{alertblock}{Rule of Thumb}
-Let users ``pull'' funds rather than ``pushing'' to them.
+Let users ``pull'' funds rather than ``pushing'' to them---like a buffet instead of table service.
 \end{alertblock}
 \end{frame}
 
 % =============================================================================
-% Frame 24: Defense in Depth
+% Frame 27: Defense in Depth
 % =============================================================================
 \begin{frame}{Defense in Depth}
 \begin{center}
@@ -1041,74 +1164,74 @@ Let users ``pull'' funds rather than ``pushing'' to them.
 \end{frame}
 
 % =============================================================================
-% Frame 25: Hands-On Exercise I
+% Frame 28: Hands-On Exercise I
 % =============================================================================
 \begin{frame}{Hands-On: Analyzing an Exploit (NB11)}
 \begin{center}
-\textbf{\Large Trace an Attack Through On-Chain Data}
+\textbf{\Large Simulate Real Exploit Scenarios}
 \end{center}
 
 \vspace{5mm}
 \textbf{In the Colab notebook, we will:}
 \begin{enumerate}
-\item Fetch transaction data from a historical exploit
-\item Trace the flow of funds step-by-step
-\item Identify the attack pattern
-\item Calculate attacker profit
-\item Discuss what could have prevented it
+\item Run simulations of exploit scenarios (reentrancy, flash loans, oracle manipulation)
+\item Model how each attack type drains funds step-by-step
+\item Identify the attack patterns and vulnerabilities
+\item Calculate attacker profit in simulated scenarios
+\item Discuss what could have prevented each exploit
 \end{enumerate}
 
 \vspace{5mm}
 \begin{block}{Access the Notebook}
-\texttt{day\_05/notebooks/NB11\_exploit\_analysis.ipynb}
+\texttt{day\_05/notebooks/NB11\_DeFi\_Exploits.ipynb}
 
 \vspace{2mm}
-\footnotesize We'll analyze a real flash loan attack using Etherscan data.
+\footnotesize We'll simulate real exploit types to understand how they work. All code is pre-written---you interact with it, not write it.
 \end{block}
 
 \bottomnote{Time: 20-25 minutes for guided exploration}
 \end{frame}
 
 % =============================================================================
-% Frame 26: Hands-On Exercise II - What You'll Learn
+% Frame 29: Hands-On Exercise II - What You'll Learn
 % =============================================================================
 \begin{frame}{Notebook Objectives}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Part 1: Data Retrieval}
+\textbf{Part 1: Reentrancy Simulation}
 \begin{itemize}
-\item Query Etherscan API for transaction data
-\item Parse transaction traces
-\item Identify contract interactions
+\item Model a vulnerable contract
+\item Simulate the recursive withdrawal attack
+\item Observe how balance checks fail
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Part 2: Attack Analysis}
+\textbf{Part 2: Flash Loan Attack}
 \begin{itemize}
-\item Map the attack flow
-\item Identify flash loan source
+\item Simulate borrowing without collateral
+\item Model price manipulation
 \item Track fund movements
 \item Calculate profit margins
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Part 3: Lessons Learned}
+\textbf{Part 3: Oracle Manipulation}
 \begin{itemize}
-\item What vulnerability was exploited?
-\item How could it have been prevented?
-\item What defenses would help?
+\item Simulate spot price vs TWAP oracles
+\item Model how attackers move prices
+\item Compare defense mechanisms
 \end{itemize}
 
 \vspace{3mm}
 \begin{alertblock}{Key Takeaway}
-On-chain data is transparent---every attack leaves a trail that can be analyzed and learned from.
+Simulations help you understand exploit mechanics without risking real funds---learn the patterns that lead to vulnerabilities.
 \end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 27: Discussion: Risk Awareness
+% Frame 30: Discussion: Risk Awareness
 % =============================================================================
 \begin{frame}{Discussion: Risk Awareness}
 \begin{columns}[T]
@@ -1139,8 +1262,9 @@ For any protocol: What can go wrong technically? Economically? Who has the keys?
 \end{frame}
 
 % =============================================================================
-% Frame 28: The Security Audit Process
+% Frame 31: The Security Audit Process
 % =============================================================================
+%% H15: Connected audits back to case studies
 \begin{frame}{The Security Audit Process}
 \begin{center}
 \begin{tikzpicture}[scale=0.75, transform shape, node distance=2.8cm]
@@ -1167,13 +1291,15 @@ For any protocol: What can go wrong technically? Economically? Who has the keys?
 
 \vspace{3mm}
 \begin{block}{Important Caveat}
-Audits are NOT guarantees. Many exploited protocols had multiple audits. Audits reduce risk but don't eliminate it.
+Audits are NOT guarantees. Recall from our case studies: the Ronin Bridge (\$625M loss) and Wormhole (\$320M) were both audited. Audits reduce risk but don't eliminate it.
 \end{block}
 \end{frame}
 
 % =============================================================================
-% Frame 29: Bug Bounty Programs
+% Frame 32: Bug Bounty Programs
 % =============================================================================
+%% L5: Added global examples beyond Western platforms
+%% H15: Connected bounties to earlier case studies
 \begin{frame}{Bug Bounty Programs}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
@@ -1186,12 +1312,17 @@ Audits are NOT guarantees. Many exploited protocols had multiple audits. Audits 
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Major Platforms:}
+\textbf{Major Platforms (Global):}
 \begin{itemize}
-\item Immunefi (DeFi-focused)
-\item HackerOne
+\item Immunefi (DeFi-focused, global)
+\item HackerOne (global, general-purpose)
 \item Code4rena (audit competitions)
+\item Slowmist (Asia-Pacific focused)
+\item Hacken (Eastern Europe)
 \end{itemize}
+
+\vspace{2mm}
+\footnotesize \textit{Context:} Had the bZx (\$350K exploit) or Beanstalk (\$182M) protocols offered competitive bounties, ethical hackers might have reported the vulnerabilities first.
 \end{column}
 \begin{column}{0.42\textwidth}
 \textbf{Typical Rewards:}
@@ -1201,10 +1332,10 @@ Audits are NOT guarantees. Many exploited protocols had multiple audits. Audits 
 \hline
 \textbf{Severity} & \textbf{Reward} \\
 \hline
-Critical & \$50K-\$10M \\
-High & \$10K-\$50K \\
-Medium & \$1K-\$10K \\
-Low & \$100-\$1K \\
+Critical & \$50K--\$10M \\
+High & \$10K--\$50K \\
+Medium & \$1K--\$10K \\
+Low & \$100--\$1K \\
 \hline
 \end{tabular}
 
@@ -1217,8 +1348,9 @@ Good bounties make ethical disclosure more profitable than exploitation.
 \end{frame}
 
 % =============================================================================
-% Frame 30: Responsible Disclosure
+% Frame 33: Responsible Disclosure
 % =============================================================================
+%% H15: Connected disclosure to earlier case studies
 \begin{frame}{Responsible Disclosure}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -1244,7 +1376,7 @@ Good bounties make ethical disclosure more profitable than exploitation.
 \textbf{White Hat vs. Black Hat:}
 
 \vspace{3mm}
-\textbf{White Hat:}
+\textbf{White Hat (ethical):}
 \begin{itemize}
 \item Reports vulnerabilities
 \item Helps fix issues
@@ -1252,7 +1384,7 @@ Good bounties make ethical disclosure more profitable than exploitation.
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Black Hat:}
+\textbf{Black Hat (malicious):}
 \begin{itemize}
 \item Exploits for profit
 \item Causes financial harm
@@ -1261,14 +1393,14 @@ Good bounties make ethical disclosure more profitable than exploitation.
 
 \vspace{3mm}
 \begin{block}{Gray Area}
-Some hackers exploit then return funds---legally and ethically ambiguous.
+Some hackers exploit then return funds (like the Poly Network \$611M case)---legally and ethically ambiguous.
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =============================================================================
-% Frame 31: Executive Summary
+% Frame 34: Executive Summary
 % =============================================================================
 \begin{frame}{Executive Summary}
 \begin{center}
@@ -1279,7 +1411,7 @@ Some hackers exploit then return funds---legally and ethically ambiguous.
 \begin{enumerate}
 \item \textbf{Failures fall into three categories:} technical bugs, economic attacks, and human fraud
 
-\item \textbf{Technical exploits} (reentrancy, overflow, access control) can be prevented with secure coding patterns
+\item \textbf{Technical exploits} (reentrancy, overflow, access control) can be prevented with secure design patterns
 
 \item \textbf{Economic attacks} (flash loans, oracle manipulation) exploit protocol design assumptions
 
@@ -1295,7 +1427,7 @@ Understanding how things fail is essential for building secure systems. ``Code i
 \end{frame}
 
 % =============================================================================
-% Frame 32: Concept Map
+% Frame 35: Concept Map
 % =============================================================================
 \begin{frame}{Concept Map: Digital Finance Failures}
 \begin{center}
@@ -1352,7 +1484,7 @@ Understanding how things fail is essential for building secure systems. ``Code i
 \end{frame}
 
 % =============================================================================
-% Frame 33: Key Terms & Definitions I
+% Frame 36: Key Terms & Definitions I
 % =============================================================================
 \begin{frame}{Key Terms \& Definitions (I)}
 \begin{description}
@@ -1369,7 +1501,7 @@ Understanding how things fail is essential for building secure systems. ``Code i
 \end{frame}
 
 % =============================================================================
-% Frame 34: Key Terms & Definitions II
+% Frame 37: Key Terms & Definitions II
 % =============================================================================
 \begin{frame}{Key Terms \& Definitions (II)}
 \begin{description}
@@ -1386,7 +1518,7 @@ Understanding how things fail is essential for building secure systems. ``Code i
 \end{frame}
 
 % =============================================================================
-% Frame 35: Common Misconceptions
+% Frame 38: Common Misconceptions
 % =============================================================================
 \begin{frame}{Common Misconceptions}
 \begin{columns}[T]
@@ -1429,19 +1561,20 @@ Always ask: What are the assumptions? What happens if they're wrong? Who holds t
 \end{frame}
 
 % =============================================================================
-% Frame 36: Self-Assessment Question 1
+% Frame 39: Self-Assessment Question 1
 % =============================================================================
+%% M10: Added conceptual question alongside technical one
 \begin{frame}{Self-Assessment: Question 1}
 \begin{block}{Question}
-What is a reentrancy attack in the context of smart contracts?
+A bank teller hands you cash and THEN checks your account balance. If you keep asking for cash before the teller finishes checking, what type of smart contract attack does this resemble?
 \end{block}
 
 \vspace{3mm}
 \begin{enumerate}[A.]
-\item When a contract calls the same function multiple times in sequence
-\item When an external contract calls back into the original contract before the first execution completes
-\item When multiple users try to access a contract simultaneously
-\item When a contract fails to execute and automatically retries
+\item A flash loan attack
+\item A reentrancy attack
+\item An oracle manipulation
+\item A rug pull
 \end{enumerate}
 
 \vspace{5mm}
@@ -1449,27 +1582,28 @@ What is a reentrancy attack in the context of smart contracts?
 \textbf{Answer: B}
 
 \vspace{2mm}
-\textbf{Explanation:} A reentrancy attack occurs when a contract makes an external call (e.g., sending ETH) and that external address calls back into the original contract before the first execution completes. This allows attackers to exploit state that hasn't been updated yet, potentially draining funds.
+\textbf{Explanation:} A reentrancy attack occurs when a contract sends money (like the teller handing out cash) before updating its records. The attacker exploits this gap by requesting money again before the records are updated, draining the contract repeatedly.
 \end{frame}
 
 % =============================================================================
-% Frame 37: Self-Assessment Questions 2-3
+% Frame 40: Self-Assessment Questions 2-3
 % =============================================================================
-\begin{frame}{Self-Assessment: Questions 2-3}
+%% M10: Added conceptual question (Q2 rewritten for non-technical audience)
+\begin{frame}{Self-Assessment: Questions 2--3}
 \begin{block}{Question 2}
-What does ``atomic property'' mean in the context of flash loans?
+Why are flash loans especially dangerous, even though the attacker has to return the money?
 \end{block}
-\textbf{Answer:} All operations (borrow, use, repay) must happen in a single transaction or everything reverts. This all-or-nothing property is what allows flash loans to be uncollateralized---if repayment fails, the entire transaction is rolled back as if it never happened.
+\textbf{Answer:} Because the attacker can temporarily control enormous amounts of capital (millions of dollars) to manipulate prices or exploit vulnerabilities, and if the attack fails, they lose nothing---the transaction simply reverses. The risk is entirely one-sided.
 
 \vspace{5mm}
 \begin{block}{Question 3}
-What is the difference between pull and push payment patterns, and why does it matter for security?
+A restaurant where the waiter brings food to every table (push) vs. a buffet where guests serve themselves (pull)---which is safer for smart contracts and why?
 \end{block}
-\textbf{Answer:} In push pattern, the contract sends funds to recipients; in pull pattern, users withdraw funds themselves. Pull is safer against DoS (one bad recipient doesn't block others) and reentrancy (user controls when external calls happen, easier to apply CEI pattern).
+\textbf{Answer:} The pull (buffet) pattern is safer. In the push pattern, one problematic recipient can block payments to everyone else. In the pull pattern, each user withdraws independently, so one failure doesn't affect others. This also reduces reentrancy risk.
 \end{frame}
 
 % =============================================================================
-% Frame 38: What's Next - Preview T5.2
+% Frame 41: What's Next - Preview T5.2
 % =============================================================================
 \begin{frame}{What's Next: Topic 5.2}
 \begin{center}
@@ -1497,7 +1631,7 @@ Topic 5.2 examines \textit{how regulators respond} to these failures.
 \end{frame}
 
 % =============================================================================
-% Frame 39: Resources
+% Frame 42: Resources
 % =============================================================================
 \begin{frame}{Resources for Further Learning}
 \textbf{Essential Reading:}
@@ -1510,7 +1644,7 @@ Topic 5.2 examines \textit{how regulators respond} to these failures.
 \vspace{3mm}
 \textbf{Online Resources:}
 \begin{itemize}
-\item Course notebook: \texttt{NB11\_exploit\_analysis.ipynb}
+\item Course notebook: \texttt{NB11\_DeFi\_Exploits.ipynb}
 \item DeFiLlama Hacks Dashboard (\url{defillama.com/hacks})
 \item Immunefi Bug Bounty Platform (\url{immunefi.com})
 \end{itemize}
@@ -1530,7 +1664,7 @@ All slides and notebooks available on the course website.
 \end{frame}
 
 % =============================================================================
-% Frame 40: Questions?
+% Frame 43: Questions?
 % =============================================================================
 \begin{frame}{Questions?}
 \begin{center}
@@ -1546,7 +1680,7 @@ All slides and notebooks available on the course website.
 \end{tikzpicture}
 
 \vspace{10mm}
-\textbf{Contact:} joerg.osterrieder@gmail.com
+\textbf{Contact:} joerg.osterrieder@ifi.uzh.ch
 
 \vspace{3mm}
 \textbf{Next Topic:} T5.2 --- Regulatory Landscapes

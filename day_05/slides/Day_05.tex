@@ -74,7 +74,7 @@
 
 \vspace{5mm}
 \begin{block}{Hands-On Component}
-Colab notebook (NB11) analyzing on-chain data from historical DeFi exploits---trace the anatomy of an attack through transaction data.
+Colab notebook (NB11) simulating historical DeFi exploits---run reentrancy, flash loan, and oracle manipulation scenarios to understand how attacks work.
 \end{block}
 \end{frame}
 
@@ -182,51 +182,37 @@ Check-Effects-Interactions pattern: Update state BEFORE external calls.
 \end{block}
 \end{frame}
 
-\begin{frame}{Solidity: Vulnerable vs. Safe}
+\begin{frame}{Reentrancy: Vulnerable vs. Safe (Pseudocode)}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Vulnerable Code:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-function withdraw() public {
-    uint balance = balances[msg.sender];
-    require(balance > 0);
-
-    // DANGER: External call before
-    // state update!
-    (bool success, ) = msg.sender
-        .call{value: balance}("");
-    require(success);
-
-    // State updated AFTER call
-    balances[msg.sender] = 0;
-}
-\end{lstlisting}
+\textbf{Vulnerable Process:}
+\begin{enumerate}
+\item Check: Does user have a balance? \textcolor{dfgreen}{\checkmark}
+\item \textcolor{dfred}{\textbf{Send money to user}}
+\item[] \textcolor{dfred}{$\to$ Attacker calls back HERE}
+\item[] \textcolor{dfred}{$\to$ Repeat step 2 (loop!)}
+\item Update records: set balance to 0
+\item[] \textcolor{dfred}{$\to$ Too late---money already sent multiple times!}
+\end{enumerate}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Safe Code:}
-\begin{lstlisting}[style=soliditystyle, basicstyle=\ttfamily\tiny]
-function withdraw() public {
-    uint balance = balances[msg.sender];
-    require(balance > 0);
-
-    // State updated BEFORE call
-    balances[msg.sender] = 0;
-
-    // External call AFTER state update
-    (bool success, ) = msg.sender
-        .call{value: balance}("");
-    require(success);
-}
-\end{lstlisting}
+\textbf{Safe Process:}
+\begin{enumerate}
+\item Check: Does user have a balance? \textcolor{dfgreen}{\checkmark}
+\item \textcolor{dfgreen}{\textbf{Update records FIRST:}} set balance to 0
+\item \textcolor{dfgreen}{\textbf{Then send money}}
+\item[] \textcolor{dfgreen}{$\to$ If attacker calls back, balance is already 0}
+\item[] \textcolor{dfgreen}{$\to$ Attack fails!}
+\end{enumerate}
 \end{column}
 \end{columns}
 
 \vspace{3mm}
 \begin{alertblock}{Check-Effects-Interactions Pattern}
 \begin{enumerate}
-\item \textbf{Check:} Validate conditions
-\item \textbf{Effects:} Update state
-\item \textbf{Interactions:} External calls last
+\item \textbf{Check:} Validate conditions (is the request valid?)
+\item \textbf{Effects:} Update your records (mark as done)
+\item \textbf{Interactions:} Send money last (external calls at the end)
 \end{enumerate}
 \end{alertblock}
 \end{frame}
@@ -532,25 +518,25 @@ Wintermute & \$160M & Key compromise & 2022 \\
 
 \begin{frame}{Hands-On: Analyzing an Exploit (NB11)}
 \begin{center}
-\textbf{\Large Trace an Attack Through On-Chain Data}
+\textbf{\Large Simulate Real Exploit Scenarios}
 \end{center}
 
 \vspace{5mm}
 \textbf{In the Colab notebook, we will:}
 \begin{enumerate}
-\item Fetch transaction data from a historical exploit
-\item Trace the flow of funds step-by-step
-\item Identify the attack pattern
-\item Calculate attacker profit
-\item Discuss what could have prevented it
+\item Run simulations of exploit scenarios (reentrancy, flash loans, oracle manipulation)
+\item Model how each attack type drains funds step-by-step
+\item Identify the attack patterns and vulnerabilities
+\item Calculate attacker profit in simulated scenarios
+\item Discuss what could have prevented each exploit
 \end{enumerate}
 
 \vspace{5mm}
 \begin{block}{Access the Notebook}
-\texttt{day\_05/notebooks/NB11\_exploit\_analysis.ipynb}
+\texttt{day\_05/notebooks/NB11\_DeFi\_Exploits.ipynb}
 
 \vspace{2mm}
-\footnotesize We'll analyze a real flash loan attack using Etherscan data.
+\footnotesize We'll simulate real exploit types to understand how they work.
 \end{block}
 
 \bottomnote{Time: 20-25 minutes for guided exploration}
@@ -1505,7 +1491,7 @@ Code cannot encode intent, fairness, or context. Pure ``code is law'' may be unj
 
 \vspace{5mm}
 \begin{block}{Access the Notebook}
-\texttt{day\_05/notebooks/NB12\_dao\_governance\_simulation.ipynb}
+\texttt{day\_05/notebooks/NB12\_DAO\_Governance.ipynb}
 
 \vspace{2mm}
 \footnotesize See how 1 whale with 51\% can override 10,000 small holders.
@@ -2088,8 +2074,8 @@ Move from ``what can this do?'' to ``what can go wrong, and for whom?''
 \begin{frame}{Resources}
 \textbf{Notebooks:}
 \begin{itemize}
-\item \texttt{day\_05/notebooks/NB11\_exploit\_analysis.ipynb}
-\item \texttt{day\_05/notebooks/NB12\_dao\_governance\_simulation.ipynb}
+\item \texttt{day\_05/notebooks/NB11\_DeFi\_Exploits.ipynb}
+\item \texttt{day\_05/notebooks/NB12\_DAO\_Governance.ipynb}
 \end{itemize}
 
 \vspace{3mm}

@@ -44,34 +44,32 @@ Governance IS the attack surface. Secure code means nothing if governance can ch
 \end{frame}
 
 % =====================================================================
-% SLIDE 3: Prerequisites
+% SLIDE 3: Prerequisites  [C12, C14, C15 FIXED]
 % =====================================================================
 \begin{frame}{Prerequisites and Background}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Prior Knowledge Required:}
+\textbf{What You Should Already Know:}
 \begin{itemize}
-\item Basic blockchain concepts
-\item Smart contract fundamentals
-\item Token standards (ERC-20)
-\item DeFi protocol basics
+\item Basic blockchain concepts (from Days 1--3)
+\item Smart contract fundamentals (from T5.1)
+\item DeFi protocol basics (from T5.2)
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Mathematical Prerequisites:}
+\textbf{No Prior Knowledge Needed For:}
 \begin{itemize}
-\item Voting theory basics
-\item Understanding of ratios/percentages
-\item Square root calculations (for quadratic voting)
+\item Voting systems --- we explain everything from scratch
+\item Game theory --- we introduce concepts as we go
+\item Square root calculations --- we walk through every example
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Conceptual Foundations:}
 \begin{itemize}
-\item Traditional corporate governance
-\item Democratic voting systems
-\item Game theory fundamentals
-\item Principal-agent problems
+\item Traditional corporate governance (boards, shareholders)
+\item Democratic voting systems (elections, referendums)
+\item The challenge of making sure the people who manage an organization actually serve the members' interests, not their own
 \end{itemize}
 
 \vspace{3mm}
@@ -83,7 +81,7 @@ DAOs attempt to solve the coordination problem: How can groups make collective d
 \end{frame}
 
 % =====================================================================
-% SLIDE 4: Historical Context
+% SLIDE 4: Historical Context  [H42 FIXED]
 % =====================================================================
 \begin{frame}{Historical Context: The DAO}
 \begin{columns}[T]
@@ -92,7 +90,8 @@ DAOs attempt to solve the coordination problem: How can groups make collective d
 \begin{itemize}
 \item First major DAO experiment on Ethereum
 \item Raised \$150M in crowdfunding
-\item Hacker exploited reentrancy vulnerability
+\item Hacker exploited reentrancy vulnerability\\
+      {\footnotesize (Recall from T5.1: reentrancy = the bug where a contract can be tricked into sending money multiple times before updating its records)}
 \item Drained \$60M from the fund
 \item Led to Ethereum/Ethereum Classic split
 \end{itemize}
@@ -122,7 +121,7 @@ The ``code is law'' philosophy was tested---and the community chose human interv
 \end{frame}
 
 % =====================================================================
-% SLIDE 5: What is a DAO?
+% SLIDE 5: What is a DAO?  [C17 FIXED --- real-world analogy added]
 % =====================================================================
 \begin{frame}{What is a DAO?}
 \begin{columns}[T]
@@ -137,14 +136,13 @@ The ``code is law'' philosophy was tested---and the community chose human interv
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Common Functions:}
-\begin{itemize}
-\item Protocol upgrades
-\item Parameter changes
-\item Treasury allocation
-\item Grant distribution
-\item Strategic direction
-\end{itemize}
+\textbf{Analogy:} Imagine a club where:
+\begin{enumerate}
+\item The rules are written in a contract that nobody can secretly change
+\item Every member votes on decisions using tokens instead of raised hands
+\item The treasury is managed by code, not a treasurer who could run away with the money
+\end{enumerate}
+That's a DAO.
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{tikzpicture}[scale=0.7, transform shape]
@@ -210,7 +208,7 @@ The ``code is law'' philosophy was tested---and the community chose human interv
 \end{frame}
 
 % =====================================================================
-% SLIDE 7: Token-Based Voting
+% SLIDE 7: Token-Based Voting  [H45 FIXED --- shareholder analogy added]
 % =====================================================================
 \begin{frame}{Token-Based Voting (1 Token = 1 Vote)}
 \begin{columns}[T]
@@ -223,22 +221,20 @@ The ``code is law'' philosophy was tested---and the community chose human interv
 \item Most common mechanism
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
+\textbf{Analogy:} Token voting works like corporate shareholder voting: 1 share = 1 vote. If you own more shares (tokens), you have more say. Simple, but this creates a problem\ldots
+
+\vspace{2mm}
 \textbf{Example:}\\
 If you hold 100 tokens out of 1,000,000 total, you have 0.01\% voting power.
-
-\vspace{3mm}
-\textbf{Advantage:}\\
-Economic skin in the game---those most invested have most say.
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{The Plutocracy Problem:}
-\begin{itemize}
-\item Wealth = Power (by design)
-\item Large holders dominate decisions
-\item ``Decentralized'' often isn't
-\item Reflects crypto wealth inequality
-\end{itemize}
+\textbf{Advantage:}\\
+Economic skin in the game---those most invested have most say.
+
+\vspace{3mm}
+\textbf{Disadvantage:}\\
+Wealth equals power---by design. This is the \textbf{plutocracy problem}, and it is the central challenge of DAO governance.
 
 \vspace{3mm}
 \begin{alertblock}{Critical Issue}
@@ -249,7 +245,107 @@ If 10 wallets hold 60\% of tokens, democracy becomes oligarchy. The majority of 
 \end{frame}
 
 % =====================================================================
-% SLIDE 8: Quadratic Voting
+% SLIDE 8: The Plutocracy Problem  [H47 FIXED --- moved BEFORE solutions]
+% =====================================================================
+\begin{frame}{The Plutocracy Problem}
+\begin{center}
+\begin{tikzpicture}[scale=0.85, transform shape]
+% Token distribution pie chart
+\draw[thick, fill=dfblue!60] (0,0) -- (0:2.5) arc (0:216:2.5) -- cycle;
+\draw[thick, fill=dfteal!40] (0,0) -- (216:2.5) arc (216:288:2.5) -- cycle;
+\draw[thick, fill=dforange!40] (0,0) -- (288:2.5) arc (288:324:2.5) -- cycle;
+\draw[thick, fill=dfgreen!40] (0,0) -- (324:2.5) arc (324:360:2.5) -- cycle;
+
+% Labels
+\node at (108:1.5) {\textbf{60\%}};
+\node at (252:1.7) {20\%};
+\node at (306:1.7) {10\%};
+\node at (342:1.7) {10\%};
+
+% Legend
+\node[right] at (3.5,1.5) {Top 10 wallets: 60\%};
+\node[right] at (3.5,0.5) {Next 100: 20\%};
+\node[right] at (3.5,-0.5) {Next 1000: 10\%};
+\node[right] at (3.5,-1.5) {Everyone else: 10\%};
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\textbf{Reality:} Most DAOs have highly concentrated token distributions.\\
+\textbf{Result:} A few whales control most decisions. ``Decentralized'' in name only.
+\end{frame}
+
+% =====================================================================
+% SLIDE 9: Real DAO Concentration Data
+% =====================================================================
+\begin{frame}{Real-World Token Concentration}
+\begin{center}
+\textbf{Top 10 Holders' Share of Governance Tokens}
+
+\vspace{3mm}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{DAO} & \textbf{Top 10 Share} & \textbf{Implication} \\
+\hline
+MakerDAO (MKR) & 48.2\% & Near majority control \\
+\hline
+Uniswap (UNI) & 52.1\% & Majority control \\
+\hline
+Compound (COMP) & 57.8\% & Strong majority \\
+\hline
+Aave (AAVE) & 42.3\% & Significant influence \\
+\hline
+Curve (CRV) & 61.5\% & Dominant control \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{alertblock}{Key Insight}
+In most ``decentralized'' protocols, fewer than 10 entities can pass any proposal they want. This is not a bug---it reflects how token distributions naturally evolve.
+\end{alertblock}
+\end{frame}
+
+% =====================================================================
+% SLIDE 10: Why So Many Voting Systems?  [C16 FIXED --- motivation bridge]
+% =====================================================================
+\begin{frame}{Why So Many Voting Systems?}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{The Core Problem:}\\
+Simple token voting (1 token = 1 vote) has a fatal flaw: it turns ``decentralized governance'' into rule by the wealthiest token holders.
+
+\vspace{3mm}
+\textbf{So researchers and developers have proposed alternatives.} Each tries to fix plutocracy in a different way:
+
+\vspace{3mm}
+\begin{block}{Basic (next two slides)}
+\begin{itemize}
+\item \textbf{Quadratic Voting} --- make extra votes increasingly expensive
+\item \textbf{Conviction Voting} --- reward long-term commitment
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{block}{Advanced (later slides)}
+\begin{itemize}
+\item \textbf{Delegation} --- let experts vote on your behalf
+\item \textbf{Optimistic Governance} --- approve unless someone objects
+\item \textbf{Multi-Sig} --- require multiple keyholders
+\item \textbf{Futarchy} --- use prediction markets to decide
+\end{itemize}
+\end{block}
+
+\vspace{3mm}
+\begin{alertblock}{No Silver Bullet}
+Every mechanism trades one problem for another. The art of DAO design is choosing the right combination.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =====================================================================
+% SLIDE 11: Quadratic Voting  [H37, H40, C13 FIXED]
 % =====================================================================
 \begin{frame}{Quadratic Voting}
 \begin{columns}[T]
@@ -257,15 +353,18 @@ If 10 wallets hold 60\% of tokens, democracy becomes oligarchy. The majority of 
 \textbf{Core Concept:}
 $$\text{Voting Power} = \sqrt{\text{Tokens Held}}$$
 
+\vspace{1mm}
+\textbf{Why the square root?} It makes each additional vote on the same issue increasingly expensive. Your 1st vote costs 1 token. Your 2nd vote costs 4 tokens total. Your 3rd costs 9. This means a passionate minority can express strong preferences, but cannot simply buy dominance.
+
 \vspace{2mm}
 \textbf{Example Calculations:}
 \begin{itemize}
 \item 100 tokens $\rightarrow \sqrt{100} = 10$ votes
-\item 10,000 tokens $\rightarrow \sqrt{10,000} = 100$ votes
-\item 1,000,000 tokens $\rightarrow \sqrt{1,000,000} = 1,000$ votes
+\item 10,000 tokens $\rightarrow \sqrt{10{,}000} = 100$ votes
+\item 1,000,000 tokens $\rightarrow \sqrt{1{,}000{,}000} = 1{,}000$ votes
 \end{itemize}
 
-\vspace{2mm}
+\vspace{1mm}
 \textbf{Impact:}\\
 A whale with 10,000x more tokens only gets 100x more votes (not 10,000x).
 \end{column}
@@ -277,21 +376,23 @@ A whale with 10,000x more tokens only gets 100x more votes (not 10,000x).
 \item Encourages broader participation
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Critical Vulnerability:}
 \begin{alertblock}{Sybil Attack}
-Split 10,000 tokens into 100 wallets:\\
-$100 \times \sqrt{100} = 1,000$ votes\\
-vs. $\sqrt{10,000} = 100$ votes
+A \textbf{Sybil attack} is when one person creates many fake identities to gain disproportionate influence (named after a book about multiple personalities).
 
-Quadratic voting requires identity!
+\vspace{1mm}
+\footnotesize
+Under regular voting: 1 person, 100 tokens = 100 votes. Split into 10 wallets of 10 each = still 100 votes.\\[1mm]
+Under quadratic voting: 1 person, 100 tokens = $\sqrt{100}=10$ votes. Split into 10 wallets: $10 \times \sqrt{10} \approx 31.6$ votes.\\[1mm]
+\textbf{Splitting INCREASES power!} Quadratic voting requires identity verification.
 \end{alertblock}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 9: Conviction Voting
+% SLIDE 12: Conviction Voting  [H38 FIXED --- worked example added]
 % =====================================================================
 \begin{frame}{Conviction Voting}
 \begin{columns}[T]
@@ -304,13 +405,16 @@ Quadratic voting requires identity!
 \item Prevents flash loan attacks
 \end{itemize}
 
-\vspace{3mm}
-\textbf{Formula:}
-$$\text{Conviction} = \text{Balance} \times (1 - d^t)$$
-where $d$ = decay rate, $t$ = time staked
-
 \vspace{2mm}
-Typically reaches maximum after $\sim$30 days.
+\textbf{Worked Example} (decay factor = 0.9):\\
+Alice stakes 100 tokens on Proposal A:
+\begin{itemize}
+\item Day 1: conviction = 100
+\item Day 2: conviction = 190 $(100 + 90)$
+\item Day 3: conviction = 271 $(190 + 81)$
+\item Day 4: conviction = 344 $(271 + 73)$
+\end{itemize}
+Her conviction grows over time but at a decreasing rate. When total conviction crosses the threshold, the proposal passes.
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{tikzpicture}[scale=0.7, transform shape]
@@ -330,16 +434,23 @@ Typically reaches maximum after $\sim$30 days.
 \vspace{2mm}
 \textbf{Tradeoff:}\\
 Slower decision-making. Emergencies require alternative mechanisms.
+
+\vspace{2mm}
+\textbf{Difficulty:} \textit{Intermediate} --- requires understanding how time affects voting power.
 \end{column}
 \end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 10: Delegation
+% SLIDE 13: Delegation  [H35 FIXED --- liquid democracy explained]
 % =====================================================================
 \begin{frame}{Vote Delegation (Liquid Democracy)}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
+\textbf{What Is Liquid Democracy?}\\
+In liquid democracy, you can either vote yourself OR delegate your vote to someone you trust---and take it back anytime. Think of it as a ``flexible proxy'' system.
+
+\vspace{2mm}
 \textbf{How Delegation Works:}
 \begin{itemize}
 \item Delegate votes to trusted experts
@@ -348,7 +459,7 @@ Slower decision-making. Emergencies require alternative mechanisms.
 \item Addresses voter apathy
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Popular Implementations:}
 \begin{itemize}
 \item Compound Finance delegates
@@ -390,11 +501,14 @@ Delegation can further concentrate power among a few prominent delegates.
 \end{frame}
 
 % =====================================================================
-% SLIDE 11: Multi-Sig Governance
+% SLIDE 14: Multi-Sig Governance  [H36 FIXED --- bank vault analogy]
 % =====================================================================
 \begin{frame}{Multi-Signature (Multi-Sig) Governance}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
+\textbf{Analogy:} Like a bank vault that needs 3 out of 5 keyholders to open. An N-of-M signature means N people (out of M total) must approve before a transaction goes through.
+
+\vspace{3mm}
 \textbf{N-of-M Signing:}
 \begin{itemize}
 \item N signers must approve out of M total
@@ -437,20 +551,14 @@ Many DAOs combine multi-sig for day-to-day operations with token voting for majo
 \end{frame}
 
 % =====================================================================
-% SLIDE 12: Optimistic Governance
+% SLIDE 15: Optimistic Governance  [H46 FIXED --- work analogy added]
 % =====================================================================
 \begin{frame}{Optimistic Governance}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Key Principle:}
-\begin{itemize}
-\item Proposals pass unless vetoed
-\item Execution happens immediately
-\item Challenge period for objections
-\item Efficient for routine decisions
-\end{itemize}
+\textbf{Analogy:} Like expense approvals at work: submit your receipt, and it is automatically approved UNLESS someone objects within 3 days. Most proposals pass without drama---only controversial ones get challenged.
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{How It Works:}
 \begin{enumerate}
 \item Proposal submitted
@@ -484,74 +592,55 @@ Low-risk parameter changes, not major protocol upgrades.
 \end{frame}
 
 % =====================================================================
-% SLIDE 13: The Plutocracy Problem
+% SLIDE 16: Voting Mechanism Comparison  [C16 FIXED --- comparison table]
 % =====================================================================
-\begin{frame}{The Plutocracy Problem}
+\begin{frame}{Voting Mechanism Comparison}
 \begin{center}
-\begin{tikzpicture}[scale=0.85, transform shape]
-% Token distribution pie chart
-\draw[thick, fill=dfblue!60] (0,0) -- (0:2.5) arc (0:216:2.5) -- cycle;
-\draw[thick, fill=dfteal!40] (0,0) -- (216:2.5) arc (216:288:2.5) -- cycle;
-\draw[thick, fill=dforange!40] (0,0) -- (288:2.5) arc (288:324:2.5) -- cycle;
-\draw[thick, fill=dfgreen!40] (0,0) -- (324:2.5) arc (324:360:2.5) -- cycle;
-
-% Labels
-\node at (108:1.5) {\textbf{60\%}};
-\node at (252:1.7) {20\%};
-\node at (306:1.7) {10\%};
-\node at (342:1.7) {10\%};
-
-% Legend
-\node[right] at (3.5,1.5) {Top 10 wallets: 60\%};
-\node[right] at (3.5,0.5) {Next 100: 20\%};
-\node[right] at (3.5,-0.5) {Next 1000: 10\%};
-\node[right] at (3.5,-1.5) {Everyone else: 10\%};
-\end{tikzpicture}
-\end{center}
-
-\vspace{3mm}
-\textbf{Reality:} Most DAOs have highly concentrated token distributions.\\
-\textbf{Result:} A few whales control most decisions. ``Decentralized'' in name only.
-\end{frame}
-
-% =====================================================================
-% SLIDE 14: Real DAO Concentration Data
-% =====================================================================
-\begin{frame}{Real-World Token Concentration}
-\begin{center}
-\textbf{Top 10 Holders' Share of Governance Tokens}
-
-\vspace{3mm}
-\begin{tabular}{|l|c|c|}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{DAO} & \textbf{Top 10 Share} & \textbf{Implication} \\
+\textbf{Mechanism} & \textbf{Whale-Proof?} & \textbf{Speed} & \textbf{Complexity} & \textbf{Identity Needed?} \\
 \hline
-MakerDAO (MKR) & 48.2\% & Near majority control \\
+Token Voting & No & Fast & Low & No \\
 \hline
-Uniswap (UNI) & 52.1\% & Majority control \\
+Quadratic & Partially & Fast & Medium & Yes \\
 \hline
-Compound (COMP) & 57.8\% & Strong majority \\
+Conviction & Yes & Slow & Medium & No \\
 \hline
-Aave (AAVE) & 42.3\% & Significant influence \\
+Delegation & No & Fast & Low & No \\
 \hline
-Curve (CRV) & 61.5\% & Dominant control \\
+Multi-Sig & N/A & Very Fast & Low & Yes \\
+\hline
+Optimistic & No & Very Fast & Low & No \\
 \hline
 \end{tabular}
 \end{center}
 
 \vspace{3mm}
-\begin{alertblock}{Key Insight}
-In most ``decentralized'' protocols, fewer than 10 entities can pass any proposal they want. This is not a bug---it reflects how token distributions naturally evolve.
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{Key Takeaway}
+No single mechanism solves all problems. Most successful DAOs combine multiple mechanisms for different types of decisions.
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{Real-World Pattern}
+Routine changes: optimistic or multi-sig.\\
+Major upgrades: token voting with timelock.\\
+Treasury grants: conviction or quadratic.
 \end{alertblock}
+\end{column}
+\end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 15: Governance Attack Vectors
+% SLIDE 17: Governance Attack Vectors  [H41, H43, H34 FIXED]
 % =====================================================================
 \begin{frame}{Governance Attack Vectors}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Flash Loan Governance Attack:}
+\textbf{Flash Loan Governance Attack:}\\
+{\footnotesize (Remember flash loans from T5.1: borrow millions instantly, use them, return them---all in one transaction.)}
 \begin{enumerate}
 \item Borrow millions in governance tokens
 \item Vote on malicious proposal
@@ -559,7 +648,7 @@ In most ``decentralized'' protocols, fewer than 10 entities can pass any proposa
 \item Repay loan, keep profits
 \end{enumerate}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Beanstalk Attack (2022):}
 \begin{itemize}
 \item Flash borrowed \$1B in tokens
@@ -569,25 +658,20 @@ In most ``decentralized'' protocols, fewer than 10 entities can pass any proposa
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Other Attack Vectors:}
-\begin{itemize}
-\item \textbf{Vote buying:} Purchase votes off-chain
-\item \textbf{Dark DAOs:} Coordinate attacks privately
-\item \textbf{51\% attack:} Accumulate majority
-\item \textbf{Delegation hijacking:} Compromise delegates
-\item \textbf{Social engineering:} Manipulate key members
-\end{itemize}
-
-\vspace{3mm}
-\begin{alertblock}{Key Insight}
-Governance is the attack surface. Secure code means nothing if governance can change it.
-\end{alertblock}
+\textbf{Other Attack Vectors} (ranked by prevalence):
+\begin{enumerate}
+\item \textbf{Whale dominance} (every major DAO)---large holders outvote everyone else
+\item \textbf{Voter apathy} (widespread)---too few people vote, making attacks easier
+\item \textbf{Flash loan attacks} (rare but devastating)---borrow tokens, vote, return them
+\item \textbf{Dark DAOs} (theoretical)---secret organizations that pay voters to vote a certain way, like a hidden lobby that bribes shareholders
+\item \textbf{Governance capture} (emerging)---slowly accumulating enough power to control the protocol
+\end{enumerate}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 16: Beanstalk Case Study
+% SLIDE 18: Beanstalk Case Study
 % =====================================================================
 \begin{frame}{Case Study: Beanstalk Governance Attack}
 \begin{center}
@@ -649,20 +733,23 @@ Governance is the attack surface. Secure code means nothing if governance can ch
 \end{frame}
 
 % =====================================================================
-% SLIDE 17: Governance Defenses - Timelocks
+% SLIDE 19: Governance Defenses - Timelocks  [M5 FIXED --- analogy added]
 % =====================================================================
 \begin{frame}{Governance Defense: Timelocks}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
+\textbf{Analogy:} A timelock is a mandatory ``cooling-off period'' --- like the waiting period when you buy a house, giving you time to reconsider before the deal is final.
+
+\vspace{2mm}
 \textbf{How Timelocks Work:}
 \begin{itemize}
 \item Delay between approval and execution
-\item Typically 24-72 hours minimum
+\item Typically 24--72 hours minimum
 \item Gives community time to react
 \item Critical security mechanism
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Real Examples:}
 \begin{itemize}
 \item Uniswap: 7-day timelock
@@ -688,11 +775,14 @@ Longer timelock = more security but slower operations. Emergency situations requ
 \end{frame}
 
 % =====================================================================
-% SLIDE 18: Vote Escrow (veTokens)
+% SLIDE 20: Vote Escrow (veTokens)  [H39, M1 FIXED]
 % =====================================================================
 \begin{frame}{Vote Escrow: The veToken Model}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
+\textbf{Intuition:} veTokens are a ``commitment multiplier.'' Lock your tokens for longer, get more voting power. Lock for 1 year = 1x votes. Lock for 4 years = 4x votes. This rewards long-term commitment over short-term speculation.
+
+\vspace{2mm}
 \textbf{How veTokens Work:}
 \begin{itemize}
 \item Lock tokens to gain voting power
@@ -701,7 +791,7 @@ Longer timelock = more security but slower operations. Emergency situations requ
 \item Pioneered by Curve Finance
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Voting Power Formula:}
 $$\text{vePower} = \text{Tokens} \times \frac{\text{Lock Time}}{\text{Max Lock}}$$
 
@@ -721,7 +811,7 @@ $= 100 \times \frac{2}{4} = 50$ veCRV
 \textbf{Additional Benefits:}
 \begin{itemize}
 \item Aligns long-term incentives
-\item Reduces token velocity
+\item Reduces token velocity (how quickly tokens change hands)
 \item Committed stakeholders decide
 \end{itemize}
 \end{column}
@@ -729,7 +819,7 @@ $= 100 \times \frac{2}{4} = 50$ veCRV
 \end{frame}
 
 % =====================================================================
-% SLIDE 19: Snapshot Voting Defense
+% SLIDE 21: Snapshot Voting Defense
 % =====================================================================
 \begin{frame}{Snapshot Voting as Defense}
 \begin{columns}[T]
@@ -768,20 +858,23 @@ Snapshot voting elegantly solves flash loan attacks without restricting token li
 \end{frame}
 
 % =====================================================================
-% SLIDE 20: Quorum Requirements
+% SLIDE 22: Quorum Requirements  [M6 FIXED --- meeting analogy added]
 % =====================================================================
 \begin{frame}{Quorum Requirements}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{What is Quorum?}
+\textbf{What is Quorum?}\\
+\textbf{Analogy:} Like needing a minimum number of people at a meeting before you can take a valid vote. If too few show up, any decision is invalid.
+
+\vspace{2mm}
 \begin{itemize}
 \item Minimum participation threshold
 \item Vote invalid if quorum not met
 \item Prevents minority rule
-\item Typical range: 4-10\%
+\item Typical range: 4--10\%
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Example:}\\
 If quorum = 4\% and total supply = 1B tokens:\\
 At least 40M tokens must vote for the result to be valid.
@@ -813,14 +906,14 @@ Too high: Nothing ever passes due to voter apathy
 \end{frame}
 
 % =====================================================================
-% SLIDE 21: Guardian/Veto Power
+% SLIDE 23: Guardian/Veto Power
 % =====================================================================
 \begin{frame}{Guardian and Veto Powers}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Guardian Multi-Sig:}
 \begin{itemize}
-\item Small trusted group (5-9 members)
+\item Small trusted group (5--9 members)
 \item Can veto malicious proposals
 \item ``Emergency brake'' function
 \item Used during timelock period
@@ -861,7 +954,84 @@ Sunset guardians over time as protocol matures and governance proves robust.
 \end{frame}
 
 % =====================================================================
-% SLIDE 22: On-Chain vs Off-Chain Governance
+% SLIDE 24: Governance Lifecycle  [H48 FIXED --- new slide]
+% =====================================================================
+\begin{frame}{How a DAO Proposal Actually Works}
+\begin{center}
+\begin{tikzpicture}[scale=0.75, transform shape, node distance=2.4cm]
+\node (step1) [process, minimum width=2.5cm, fill=dflightblue4] {
+\begin{tabular}{c}
+\footnotesize \textbf{1. Discussion}\\
+\footnotesize Forum / Discord
+\end{tabular}
+};
+
+\node (step2) [process, right of=step1, minimum width=2.5cm, fill=dflightblue4] {
+\begin{tabular}{c}
+\footnotesize \textbf{2. Proposal}\\
+\footnotesize Formally submitted
+\end{tabular}
+};
+
+\node (step3) [process, right of=step2, minimum width=2.5cm, fill=dflightblue3] {
+\begin{tabular}{c}
+\footnotesize \textbf{3. Voting}\\
+\footnotesize 3--7 days typically
+\end{tabular}
+};
+
+\node (step4) [process, right of=step3, minimum width=2.5cm, fill=dfteal!20] {
+\begin{tabular}{c}
+\footnotesize \textbf{4. Timelock}\\
+\footnotesize Cooling-off delay
+\end{tabular}
+};
+
+\node (step5) [process, right of=step4, minimum width=2.5cm, fill=dfgreen!20] {
+\begin{tabular}{c}
+\footnotesize \textbf{5. Execution}\\
+\footnotesize Auto or manual
+\end{tabular}
+};
+
+\draw[arrow] (step1) -- (step2);
+\draw[arrow] (step2) -- (step3);
+\draw[arrow] (step3) -- (step4);
+\draw[arrow] (step4) -- (step5);
+\end{tikzpicture}
+\end{center}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Typical Timeline:}
+\begin{itemize}
+\item Discussion: 1--2 weeks on forums
+\item Proposal: snapshot or on-chain submission
+\item Voting: 3--7 day window
+\item Timelock: 24 hours to 7 days
+\item Execution: immediate (on-chain) or manual (off-chain)
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Where Attacks Can Happen:}
+\begin{itemize}
+\item Step 2: Flash loan to create + vote instantly
+\item Step 3: Vote buying during voting period
+\item Step 4: This is where timelocks protect us
+\item Step 5: Malicious code in proposal payload
+\end{itemize}
+
+\vspace{2mm}
+\begin{block}{Key Point}
+Each step is a potential point of failure---and a potential point of defense.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =====================================================================
+% SLIDE 25: On-Chain vs Off-Chain Governance
 % =====================================================================
 \begin{frame}{On-Chain vs. Off-Chain Governance}
 \begin{center}
@@ -894,14 +1064,14 @@ Most successful DAOs use both: off-chain discussion/signaling, on-chain executio
 \end{frame}
 
 % =====================================================================
-% SLIDE 23: The Voter Apathy Problem
+% SLIDE 26: The Voter Apathy Problem  [L3 FIXED --- rational ignorance defined]
 % =====================================================================
 \begin{frame}{The Voter Apathy Problem}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{Reality of DAO Participation:}
 \begin{itemize}
-\item Typical turnout: 1-5\% of tokens
+\item Typical turnout: 1--5\% of tokens
 \item Most token holders never vote
 \item Few wallets dominate decisions
 \item Governance fatigue is real
@@ -912,7 +1082,7 @@ Most successful DAOs use both: off-chain discussion/signaling, on-chain executio
 \begin{itemize}
 \item Gas costs (on-chain)
 \item Time to understand proposals
-\item Rational ignorance (1 vote doesn't matter)
+\item Rational ignorance---when the cost of learning about an issue exceeds the impact your single vote can have, it is ``rational'' to stay uninformed
 \item Token holders $\neq$ users
 \end{itemize}
 \end{column}
@@ -939,7 +1109,7 @@ Most successful DAOs use both: off-chain discussion/signaling, on-chain executio
 \end{frame}
 
 % =====================================================================
-% SLIDE 24: Code is Law vs Rule of Law
+% SLIDE 27: Code is Law vs Rule of Law  [H44 FIXED --- mens rea defined; M9 cross-ref]
 % =====================================================================
 \begin{frame}{``Code is Law'' vs. Rule of Law}
 \begin{columns}[T]
@@ -953,7 +1123,7 @@ Most successful DAOs use both: off-chain discussion/signaling, on-chain executio
 \end{itemize}
 
 \vspace{3mm}
-\textbf{The DAO Hack Challenge:}
+\textbf{The DAO Hack Challenge} (see slide 4):
 \begin{itemize}
 \item Hacker used code as designed
 \item Was it theft or legitimate use?
@@ -964,7 +1134,7 @@ Most successful DAOs use both: off-chain discussion/signaling, on-chain executio
 \begin{column}{0.48\textwidth}
 \textbf{Traditional Rule of Law:}
 \begin{itemize}
-\item Intent matters (mens rea)
+\item Intent matters---\textit{mens rea} (Latin: ``guilty mind,'' the legal concept that you must intend to do wrong to be criminally liable)
 \item Fairness considerations
 \item Courts interpret disputes
 \item Law evolves with society
@@ -979,7 +1149,7 @@ Code cannot encode intent, fairness, or context. Pure ``code is law'' may be unj
 \end{frame}
 
 % =====================================================================
-% SLIDE 25: Hands-On Exercise Introduction
+% SLIDE 28: Hands-On Exercise Introduction  [M7 FIXED --- reduced to 3 exercises]
 % =====================================================================
 \begin{frame}{Hands-On: DAO Voting Simulation (NB12)}
 \begin{center}
@@ -989,11 +1159,9 @@ Code cannot encode intent, fairness, or context. Pure ``code is law'' may be unj
 \vspace{5mm}
 \textbf{In the Colab notebook, we will:}
 \begin{enumerate}
-\item Create token distributions with varying concentration
-\item Simulate voting on proposals
-\item Calculate Gini coefficients for voting power
-\item Test attack scenarios (whale dominance, flash loans)
-\item Explore defense mechanisms (quadratic voting, delegation)
+\item Create token distributions with varying concentration and simulate voting on proposals ($\sim$8 min)
+\item Test attack scenarios: whale dominance and flash loans ($\sim$7 min)
+\item Explore defense mechanisms: quadratic voting, delegation ($\sim$7 min)
 \end{enumerate}
 
 \vspace{5mm}
@@ -1004,60 +1172,52 @@ Code cannot encode intent, fairness, or context. Pure ``code is law'' may be unj
 \footnotesize See how 1 whale with 51\% can override 10,000 small holders.
 \end{block}
 
-\bottomnote{Time: 20-25 minutes for guided exploration}
+\bottomnote{Time: 20--25 minutes for guided exploration}
 \end{frame}
 
 % =====================================================================
-% SLIDE 26: Hands-On Exercise Details
+% SLIDE 29: Hands-On Exercise Details
 % =====================================================================
 \begin{frame}{NB12: Key Simulation Exercises}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Exercise 1: Token Distribution}
+\textbf{Exercise 1: Distribution \& Voting}
 \begin{itemize}
 \item Generate realistic Pareto distributions
 \item Visualize wealth concentration
 \item Calculate Gini coefficient
-\item Compare to real DAO data
+\item Simulate proposal voting
+\item Model whale vs.\ community outcomes
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Exercise 2: Voting Simulation}
-\begin{itemize}
-\item Simulate proposal voting
-\item Model whale vs. community
-\item Test different quorum levels
-\item Observe outcome patterns
-\end{itemize}
-\end{column}
-\begin{column}{0.48\textwidth}
-\textbf{Exercise 3: Attack Scenarios}
+\textbf{Exercise 2: Attack Scenarios}
 \begin{itemize}
 \item Model flash loan attack
 \item Test vote buying economics
 \item Simulate 51\% accumulation
 \item Measure attack costs
 \end{itemize}
-
-\vspace{3mm}
-\textbf{Exercise 4: Defense Mechanisms}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Exercise 3: Defense Mechanisms}
 \begin{itemize}
 \item Implement quadratic voting
 \item Test conviction voting
 \item Model delegation effects
-\item Compare outcomes
+\item Compare outcomes across mechanisms
 \end{itemize}
-\end{column}
-\end{columns}
 
 \vspace{3mm}
 \begin{block}{Key Question to Answer}
 How does changing from 1-token-1-vote to quadratic voting affect a whale's ability to pass self-serving proposals?
 \end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 27: Discussion - Governance Tradeoffs
+% SLIDE 30: Discussion - Governance Tradeoffs  [H49 FIXED --- trilemma expanded]
 % =====================================================================
 \begin{frame}{Discussion: Governance Tradeoffs}
 \begin{columns}[T]
@@ -1069,8 +1229,8 @@ How does changing from 1-token-1-vote to quadratic voting affect a whale's abili
 \item When is centralization acceptable?
 \item Can code ever fully replace human judgment?
 \end{enumerate}
-\end{column}
-\begin{column}{0.48\textwidth}
+
+\vspace{2mm}
 \textbf{Key Takeaways:}
 \begin{itemize}
 \item Governance IS the attack surface
@@ -1079,18 +1239,27 @@ How does changing from 1-token-1-vote to quadratic voting affect a whale's abili
 \item Hybrid models emerging
 \end{itemize}
 \end{column}
-\end{columns}
-
-\vspace{5mm}
+\begin{column}{0.48\textwidth}
 \begin{alertblock}{The Governance Trilemma}
 You can optimize for two of three: \textbf{Decentralization}, \textbf{Efficiency}, \textbf{Security}. Pick which one to sacrifice.
 \end{alertblock}
+
+\vspace{2mm}
+\textbf{Examples:}
+\begin{itemize}
+\item \textbf{Company board} = efficient + secure, but centralized
+\item \textbf{Bitcoin governance} = decentralized + secure, but slow (years to change)
+\item \textbf{Small DAO with optimistic voting} = decentralized + efficient, but vulnerable to attacks
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 28: Application - Real DAO Examples
+% SLIDE 31: Application - Real DAO Examples (Part 1)
+%   [M3, M4 FIXED --- Curve gauge/wars explained; split from 12-item slide M8]
 % =====================================================================
-\begin{frame}{Application: Real DAO Governance Examples}
+\begin{frame}{Application: Real DAO Governance Examples (1/2)}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{MakerDAO:}
@@ -1120,19 +1289,46 @@ You can optimize for two of three: \textbf{Decentralization}, \textbf{Efficiency
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Curve Finance:}
+\textbf{Aave:}
 \begin{itemize}
-\item veCRV model pioneer
-\item Up to 4-year locks
-\item Gauge voting for emissions
-\item ``Curve Wars'' for control
+\item AAVE token governance
+\item Two-tier proposal system
+\item Progressive decentralization
+\item Cross-chain governance emerging
 \end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
 % =====================================================================
-% SLIDE 29: Application - DAO Design Considerations
+% SLIDE 32: Application - Real DAO Examples (Part 2)  [M3, M4, M8 FIXED]
+% =====================================================================
+\begin{frame}{Application: Real DAO Governance Examples (2/2)}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Curve Finance:}
+\begin{itemize}
+\item veCRV model pioneer (lock tokens for votes)
+\item Up to 4-year locks
+\item \textbf{Gauge voting for emissions:} token holders vote on which liquidity pools receive newly minted CRV rewards each week --- controlling where incentives flow
+\item \textbf{``Curve Wars'':} DAOs competing to accumulate veCRV so they can direct CRV rewards to their own pools --- a battle for governance power over the largest stablecoin exchange
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Why Curve Wars Matter:}
+
+The Curve Wars illustrate a key governance insight: when governance tokens control real economic flows (like reward emissions worth millions per week), governance power itself becomes a valuable asset that other protocols will fight to acquire.
+
+\vspace{3mm}
+\begin{block}{Pattern}
+Governance power $\rightarrow$ economic control $\rightarrow$ arms race for governance tokens $\rightarrow$ further concentration.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =====================================================================
+% SLIDE 33: Application - DAO Design Considerations
 % =====================================================================
 \begin{frame}{Application: Designing DAO Governance}
 \begin{columns}[T]
@@ -1174,7 +1370,8 @@ Standard, audited implementation covering the full governance lifecycle.
 \end{frame}
 
 % =====================================================================
-% SLIDE 30: Application - Future of DAO Governance
+% SLIDE 34: Application - Future of DAO Governance
+%   [M2, L1, L2 FIXED --- futarchy, soulbound, non-US legal]
 % =====================================================================
 \begin{frame}{Application: The Future of DAO Governance}
 \begin{columns}[T]
@@ -1182,27 +1379,19 @@ Standard, audited implementation covering the full governance lifecycle.
 \textbf{Emerging Innovations:}
 \begin{itemize}
 \item \textbf{Reputation-based voting:} Non-transferable credentials
-\item \textbf{Soulbound tokens:} Identity-linked voting power
-\item \textbf{Futarchy:} Markets predict outcomes
-\item \textbf{AI governance:} Automated analysis
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Legal Developments:}
-\begin{itemize}
-\item Wyoming DAO LLC law
-\item Marshall Islands recognition
-\item EU MiCA framework
-\item Regulatory clarity emerging
+\item \textbf{Soulbound tokens:} Identity-linked voting power (named after non-transferable items in video games --- once earned, they cannot be sold or given away)
+\item \textbf{Futarchy:} Governance by prediction markets --- bet on outcomes to decide policy. If the market predicts Policy A leads to better results, Policy A wins
+\item \textbf{AI governance:} Automated analysis of proposals
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Challenges Ahead:}
+\textbf{Legal Developments:}
 \begin{itemize}
-\item Scaling participation
-\item Preventing capture
-\item Balancing efficiency/decentralization
-\item Legal accountability
+\item Wyoming DAO LLC law (USA)
+\item Marshall Islands DAO recognition
+\item EU MiCA framework (Europe)
+\item Switzerland's ``DLT Act'' (enables tokenized securities and DAO-like structures)
+\item Regulatory clarity emerging globally
 \end{itemize}
 
 \vspace{3mm}
@@ -1214,7 +1403,7 @@ Can DAOs become the dominant organizational form of the 21st century, or are the
 \end{frame}
 
 % =====================================================================
-% SLIDE 31: Executive Summary
+% SLIDE 35: Executive Summary
 % =====================================================================
 \begin{frame}{Executive Summary}
 \begin{columns}[T]
@@ -1247,7 +1436,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 32: Concept Map
+% SLIDE 36: Concept Map
 % =====================================================================
 \begin{frame}{Concept Map: DAO Governance}
 \begin{center}
@@ -1307,7 +1496,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 33: Key Terms (Part 1)
+% SLIDE 37: Key Terms (Part 1)
 % =====================================================================
 \begin{frame}{Key Terms (1/2)}
 \begin{columns}[T]
@@ -1345,7 +1534,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 34: Key Terms (Part 2)
+% SLIDE 38: Key Terms (Part 2)
 % =====================================================================
 \begin{frame}{Key Terms (2/2)}
 \begin{columns}[T]
@@ -1371,6 +1560,9 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \textbf{Guardian:} Trusted entity with veto power for emergency situations.
 
 \vspace{2mm}
+\textbf{Sybil Attack:} One person creating many fake identities to gain disproportionate influence.
+
+\vspace{2mm}
 \textbf{On-Chain Governance:} Voting and execution happen on blockchain; automatic but costly.
 
 \vspace{2mm}
@@ -1383,7 +1575,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 35: Common Misconceptions
+% SLIDE 39: Common Misconceptions
 % =====================================================================
 \begin{frame}{Common Misconceptions}
 \begin{columns}[T]
@@ -1403,7 +1595,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \textbf{Misconception 3:}\\
 ``Quadratic voting solves whale dominance''
 
-\textbf{Reality:} Without identity systems, whales simply split tokens across wallets to game quadratic voting.
+\textbf{Reality:} Without identity systems, whales simply split tokens across wallets to game quadratic voting (Sybil attack).
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Misconception 4:}\\
@@ -1427,7 +1619,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 36: Self-Assessment Questions (Part 1)
+% SLIDE 40: Self-Assessment Questions (Part 1)
 % =====================================================================
 \begin{frame}{Self-Assessment Questions (1/2)}
 \textbf{Question 1:} What does DAO stand for in blockchain governance?
@@ -1456,7 +1648,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 37: Self-Assessment Questions (Part 2)
+% SLIDE 41: Self-Assessment Questions (Part 2)
 % =====================================================================
 \begin{frame}{Self-Assessment Questions (2/2)}
 \textbf{Question 3:} What is the most effective defense against flash loan governance attacks?
@@ -1482,7 +1674,7 @@ DAO governance attempts to solve collective decision-making without trusted inte
 \end{frame}
 
 % =====================================================================
-% SLIDE 38: What's Next
+% SLIDE 42: What's Next
 % =====================================================================
 \begin{frame}{What's Next: Topic 5.4 -- Privacy and Financial Inclusion}
 \begin{columns}[T]
@@ -1518,7 +1710,7 @@ Consider: How does the public nature of blockchain transactions affect governanc
 \end{frame}
 
 % =====================================================================
-% SLIDE 39: Resources
+% SLIDE 43: Resources
 % =====================================================================
 \begin{frame}{Resources for Further Learning}
 \begin{columns}[T]
@@ -1566,7 +1758,7 @@ Consider: How does the public nature of blockchain transactions affect governanc
 \end{frame}
 
 % =====================================================================
-% SLIDE 40: Questions?
+% SLIDE 44: Questions?
 % =====================================================================
 \begin{frame}{Questions?}
 \begin{center}

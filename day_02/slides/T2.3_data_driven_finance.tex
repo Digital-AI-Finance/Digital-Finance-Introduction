@@ -5,14 +5,14 @@
 \subtitle{Lending, Scoring, and Algorithmic Decision-Making}
 \author{Joerg Osterrieder}
 \institute{Digital Finance}
-\date{2025}
+\date{}
 
 \begin{document}
 
 % ============================================================================
 % SLIDE 1: Title
 % ============================================================================
-\begin{frame}
+\begin{frame}[plain]
 \titlepage
 \end{frame}
 
@@ -22,444 +22,502 @@
 \begin{frame}{Learning Objectives}
 \begin{block}{By the end of this topic, you will be able to:}
 \begin{enumerate}
-\item \textbf{Explain} how traditional credit scoring (FICO) works and its limitations
-\item \textbf{Identify} types of alternative data used in modern credit decisions
-\item \textbf{Compare} traditional statistical models with machine learning approaches
-\item \textbf{Recognize} sources of algorithmic bias in lending models
-\item \textbf{Understand} explainability requirements and regulatory frameworks
-\item \textbf{Analyze} how FinTech lenders use data advantages to compete
+\item \textbf{Explain} how credit scoring works and why it matters for access to finance
+\item \textbf{Identify} types of alternative data used in modern lending decisions
+\item \textbf{Compare} traditional models with machine learning approaches at a conceptual level
+\item \textbf{Recognize} sources of algorithmic bias and their real-world consequences
+\item \textbf{Understand} why explainability is both a regulatory requirement and an ethical imperative
+\item \textbf{Analyze} how data advantages create competitive moats in lending (NB04)
 \end{enumerate}
 \end{block}
 
 \vspace{3mm}
-\textbf{Key Competency}: Explain how alternative data and ML models change credit decisions, and identify potential sources of algorithmic bias.
+\textbf{Key Competency}: Explain how data and algorithms are transforming lending decisions, and identify the ethical tensions that arise.
 
 \bottomnote{Hands-on: Notebook NB04 -- Building a Credit Scoring Model}
 \end{frame}
 
 % ============================================================================
-% SLIDE 3: Prerequisites - What is Credit?
+% SLIDE 3: Prerequisites -- Understanding Credit
 % ============================================================================
 \begin{frame}{Prerequisites: Understanding Credit}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
+\begin{alertblock}{Why Does Borrowing Exist?}
+People need money \textit{now} for things they can afford over \textit{time}: a home, education, a car, or starting a business.
+\end{alertblock}
+
+\vspace{3mm}
 \textbf{What is Credit?}
 \begin{itemize}
-\item A contractual agreement where a borrower receives something of value now
-\item Promises to repay the lender at a later date
-\item Usually with interest (the ``price'' of borrowing)
+\item A promise to repay later, usually with interest
+\item Interest is the ``price'' of borrowing
+\item The lender takes a risk; the borrower gains opportunity
 \end{itemize}
 
 \vspace{3mm}
 \textbf{Types of Consumer Credit:}
 \begin{itemize}
-\item \textcolor{dfblue}{Revolving}: Credit cards, lines of credit
-\item \textcolor{dfteal}{Installment}: Mortgages, auto loans, personal loans
-\item \textcolor{dforange}{Point-of-sale}: Buy Now Pay Later (BNPL)
+\item \textcolor{dfblue}{Revolving}: Credit cards, lines of credit (borrow and repay flexibly)
+\item \textcolor{dfteal}{Installment}: Mortgages, auto loans, student loans (fixed repayment schedule)
+\item \textcolor{dforange}{Point-of-sale}: Buy Now Pay Later (split purchases into payments)
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{block}{Why Credit Matters}
 \begin{itemize}
-\item Enables major purchases (home, car, education)
+\item Enables major life purchases (home, education)
 \item Smooths consumption over time
-\item Fuels economic growth
+\item Fuels economic growth and entrepreneurship
 \item Access to credit = economic opportunity
 \end{itemize}
 \end{block}
 
-\vspace{2mm}
-\begin{alertblock}{The Core Problem}
-How does a lender know if a borrower will repay?
-\end{alertblock}
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 4: Prerequisites - Credit Risk Basics
-% ============================================================================
-\begin{frame}{Prerequisites: Credit Risk Fundamentals}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{What is Credit Risk?}
-\begin{itemize}
-\item The risk that a borrower will \textbf{default}---fail to repay as agreed
-\item Lenders must estimate this risk \textit{before} lending
-\item Higher risk = higher interest rate (risk premium)
-\end{itemize}
-
 \vspace{3mm}
-\textbf{Key Terms:}
-\begin{itemize}
-\item \textcolor{dfblue}{Default}: Failure to make required payments
-\item \textcolor{dfblue}{Delinquency}: Late payment (30, 60, 90 days)
-\item \textcolor{dfblue}{Principal}: Amount borrowed
-\item \textcolor{dfblue}{Interest}: Cost of borrowing
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Credit Scoring Purpose}
-A \textbf{credit score} estimates the \textbf{probability} that a borrower will default.
+\begin{block}{The Insight}
+Credit is so fundamental that being \textit{excluded} from it --- not being able to borrow at all --- is one of the biggest barriers to economic participation.
 \end{block}
-
-\vspace{3mm}
-\textbf{What Lenders Want to Know:}
-\begin{enumerate}
-\item Will this person repay? (Willingness)
-\item Can this person repay? (Capacity)
-\item What happens if they don't? (Collateral)
-\end{enumerate}
-
-\vspace{3mm}
-\textit{Credit scoring automates these judgments using data.}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 5: Traditional Credit Scoring - FICO Introduction
+% SLIDE 4: The Core Problem of Lending
 % ============================================================================
-\begin{frame}{Traditional Credit Scoring: The FICO Score}
+\begin{frame}{The Core Problem of Lending}
+\begin{alertblock}{The Problem}
+How does a lender decide whether to trust you with money they might never see again?
+\end{alertblock}
+
+\vspace{4mm}
+\textbf{The Three Questions Every Lender Asks:}
+
+\vspace{2mm}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{block}{\textcolor{dfblue}{1. Willingness}}
+\textit{Will} this person repay?
+\begin{itemize}
+\item Past payment behavior
+\item Reliability track record
+\item Character indicators
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{\textcolor{dfteal}{2. Capacity}}
+\textit{Can} this person repay?
+\begin{itemize}
+\item Income and stability
+\item Existing debts
+\item Monthly obligations
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{block}{\textcolor{dforange}{3. Collateral}}
+What if they \textit{don't} repay?
+\begin{itemize}
+\item Assets the lender can claim
+\item Secured vs. unsecured loans
+\item Recovery value
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+Credit scoring automates these three judgments using data --- turning subjective assessments into systematic, scalable decisions.
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 5: Traditional Credit Scoring
+% ============================================================================
+\begin{frame}{Traditional Credit Scoring}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{What is a FICO Score?}
+\begin{alertblock}{The Problem}
+Lenders used to rely on personal relationships and gut feelings. How do you scale that to millions of applicants?
+\end{alertblock}
+
+\vspace{3mm}
+\textbf{The Solution: Credit Scores}
 \begin{itemize}
-\item Created by Fair Isaac Corporation (1989)
-\item Most widely used credit score in the US
-\item Score range: \textbf{300--850}
-\item Higher score = lower predicted risk
+\item A credit score condenses your entire financial history into a \textbf{single number}
+\item The number represents predicted creditworthiness
+\item Scores span a range from \textbf{very poor to excellent}
+\item Higher score = lower predicted risk = better loan terms
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Score Categories:}
+\textbf{Where Scores Are Used:}
 \begin{itemize}
-\item 800--850: Exceptional
-\item 740--799: Very Good
-\item \textcolor{dfgreen}{670--739: Good (``Prime'')}
-\item \textcolor{dforange}{580--669: Fair}
-\item \textcolor{dfred}{300--579: Poor (``Subprime'')}
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{How FICO is Used}
-\begin{itemize}
-\item Loan approval decisions
-\item Interest rate determination
-\item Credit limit setting
+\item Loan approvals and interest rates
+\item Credit card limits
 \item Insurance pricing
 \item Rental applications
-\item Employment screening
+\item Sometimes even employment screening
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{What Goes Into a Score}
+Scores are built from categories of your financial behavior:
+\begin{itemize}
+\item How reliably you pay bills
+\item How much debt you carry
+\item How long you have been borrowing
+\item How often you apply for new credit
+\item What mix of credit types you use
 \end{itemize}
 \end{block}
 
-\vspace{2mm}
-\textbf{Impact}: Your FICO score affects the cost of nearly every major financial decision you make.
+\vspace{3mm}
+\begin{block}{The Insight}
+A single number determines the cost of many major life decisions --- your mortgage rate, your credit card limit, sometimes even whether you can rent an apartment.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 6: FICO Components
+% SLIDE 6: What Matters Most in a Credit Score
 % ============================================================================
-\begin{frame}{FICO Score Components: What Matters Most}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{FICO Score Breakdown:}
-\begin{itemize}
-\item \textcolor{dfblue}{\textbf{Payment History: 35\%}}\\
-On-time vs. late payments
-\item \textcolor{dfteal}{\textbf{Amounts Owed: 30\%}}\\
-Credit utilization ratio
-\item \textcolor{dfgreen}{\textbf{Length of Credit History: 15\%}}\\
-Average age of accounts
-\item \textcolor{dforange}{\textbf{New Credit: 10\%}}\\
-Recent inquiries and new accounts
-\item \textcolor{dfred}{\textbf{Credit Mix: 10\%}}\\
-Variety of account types
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{center}
-\begin{tikzpicture}[scale=0.8]
-% Pie chart segments
-\draw[fill=dfblue!80] (0,0) -- (0:2) arc (0:126:2) -- cycle;
-\draw[fill=dfteal!80] (0,0) -- (126:2) arc (126:234:2) -- cycle;
-\draw[fill=dfgreen!80] (0,0) -- (234:2) arc (234:288:2) -- cycle;
-\draw[fill=dforange!80] (0,0) -- (288:2) arc (288:324:2) -- cycle;
-\draw[fill=dfred!80] (0,0) -- (324:2) arc (324:360:2) -- cycle;
+\begin{frame}{What Matters Most in a Credit Score}
+\begin{alertblock}{The Problem}
+Not all financial behaviors matter equally. What should a score emphasize?
+\end{alertblock}
 
-% Labels
-\node[font=\scriptsize] at (63:1.3) {\textbf{35\%}};
-\node[font=\scriptsize] at (180:1.3) {\textbf{30\%}};
-\node[font=\scriptsize] at (261:1.3) {\textbf{15\%}};
-\node[font=\scriptsize] at (306:1.1) {\textbf{10\%}};
-\node[font=\scriptsize] at (342:1.1) {\textbf{10\%}};
+\vspace{3mm}
+\textbf{Credit Score Components --- Ranked by Importance:}
+
+\vspace{2mm}
+\begin{center}
+\begin{tikzpicture}[
+    bar/.style={rectangle, rounded corners=2pt, minimum height=0.6cm, anchor=west, font=\small},
+    label/.style={font=\small, anchor=east}
+]
+% Bars representing relative importance (qualitative, no percentages)
+\node[bar, fill=dfblue!80, minimum width=8cm] at (0,3) {};
+\node[label] at (-0.2,3) {\textbf{Payment History}};
+\node[font=\scriptsize, anchor=west] at (8.2,3) {Most important};
+
+\node[bar, fill=dfteal!70, minimum width=6.8cm] at (0,2.2) {};
+\node[label] at (-0.2,2.2) {\textbf{Amounts Owed}};
+\node[font=\scriptsize, anchor=west] at (7,2.2) {Very important};
+
+\node[bar, fill=dfgreen!60, minimum width=4.2cm] at (0,1.4) {};
+\node[label] at (-0.2,1.4) {\textbf{Length of History}};
+\node[font=\scriptsize, anchor=west] at (4.4,1.4) {Moderately important};
+
+\node[bar, fill=dforange!60, minimum width=2.8cm] at (0,0.6) {};
+\node[label] at (-0.2,0.6) {\textbf{New Credit}};
+\node[font=\scriptsize, anchor=west] at (3,0.6) {Somewhat important};
+
+\node[bar, fill=dfred!50, minimum width=2.8cm] at (0,-0.2) {};
+\node[label] at (-0.2,-0.2) {\textbf{Credit Mix}};
+\node[font=\scriptsize, anchor=west] at (3,-0.2) {Somewhat important};
 \end{tikzpicture}
 \end{center}
 
-\vspace{2mm}
-\textbf{Key Insight}: 65\% of your score depends on payment behavior and debt levels.
-\end{column}
-\end{columns}
+\vspace{3mm}
+\begin{block}{The Insight}
+Your behavior with existing debt --- whether you pay on time and how much you owe --- matters far more than anything else. The most important factors are the ones you control through everyday financial discipline.
+\end{block}
 \end{frame}
 
 % ============================================================================
-% SLIDE 7: FICO Limitations
+% SLIDE 7: Who Gets Left Behind?
 % ============================================================================
-\begin{frame}{FICO Limitations: Who Gets Left Behind?}
+\begin{frame}{Who Gets Left Behind?}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Critical Limitations}
-\begin{itemize}
-\item \textbf{45 million ``credit invisible''}:\\
-No credit score at all
-\item \textbf{Thin file problem}:\\
-Too little history to score
-\item \textbf{Stale data}:\\
-Updated only monthly
-\item \textbf{No income data}:\\
-Only credit behavior
-\item \textbf{Backward-looking}:\\
-Past predicts future?
-\end{itemize}
+\begin{alertblock}{The Problem}
+What about people who have \textit{no} credit history at all?
 \end{alertblock}
-\end{column}
-\begin{column}{0.5\textwidth}
-\textbf{Who is Credit Invisible?}
+
+\vspace{3mm}
+\textbf{``Credit Invisible'' --- No Score at All:}
 \begin{itemize}
-\item Young adults / students
-\item Recent immigrants
-\item People who use cash
-\item Divorced individuals (shared accounts)
-\item Those recovering from bankruptcy
+\item \textbf{Young adults}: Have not had time to build history
+\item \textbf{Recent immigrants}: Foreign credit history does not transfer
+\item \textbf{Cash-economy users}: Pay for everything without credit
+\item \textbf{Divorced individuals}: Shared accounts removed
+\item \textbf{Post-bankruptcy}: Wiped history, starting over
 \end{itemize}
 
 \vspace{3mm}
-\begin{block}{The Opportunity}
-Millions of \textbf{creditworthy} people are excluded by traditional scores---not because they can't repay, but because they lack traditional credit history.
+\textbf{The ``Thin File'' Problem:}\\
+Some people have \textit{some} history, but not enough for a reliable score. They fall into a gray zone --- not scoreable, but not invisible either.
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{The Scale of the Problem}
+Millions of people across every country are excluded from credit --- not because they are risky, but because the system has no data on them.
+\end{block}
+
+\vspace{3mm}
+\textbf{The Catch-22:}
+\begin{itemize}
+\item You need credit to build a credit history
+\item You need a credit history to get credit
+\item This traps millions in a cycle of exclusion
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Millions of creditworthy people are excluded not because they \textit{cannot} repay, but because they lack traditional history. This is the opportunity that alternative data and FinTech try to address.
 \end{block}
 \end{column}
 \end{columns}
-
-\vspace{2mm}
-\textbf{FinTech insight}: Alternative data can identify creditworthy thin-file borrowers.
 \end{frame}
 
 % ============================================================================
-% SLIDE 8: Credit Bureaus
+% SLIDE 8: The Credit Bureau System
 % ============================================================================
 \begin{frame}{The Credit Bureau System}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{Three Major Credit Bureaus (US):}
-\begin{enumerate}
-\item \textbf{Equifax} (founded 1899)
-\item \textbf{Experian} (founded 1996, UK origin)
-\item \textbf{TransUnion} (founded 1968)
-\end{enumerate}
+\begin{alertblock}{The Problem}
+Where does all this credit data come from? Who collects and manages it?
+\end{alertblock}
 
 \vspace{3mm}
-\textbf{What Bureaus Do:}
+\textbf{What Credit Bureaus Do:}
 \begin{itemize}
-\item Collect credit data from lenders
-\item Maintain individual credit files
-\item Sell credit reports to lenders
-\item Calculate credit scores
-\item Provide data for FICO models
+\item \textbf{Collect} credit data from banks, card companies, and lenders
+\item \textbf{Maintain} individual credit files over time
+\item \textbf{Sell} credit reports to lenders who request them
+\item \textbf{Calculate} (or support calculation of) credit scores
+\item \textbf{Resolve} consumer disputes about inaccuracies
 \end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Bureau Data Sources}
+
+\vspace{3mm}
+\textbf{Bureau Data Sources:}
 \begin{itemize}
 \item Banks and credit unions
 \item Credit card companies
-\item Mortgage lenders
-\item Auto lenders
+\item Mortgage and auto lenders
 \item Collection agencies
 \item Public records (bankruptcies)
 \end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{block}{Key Concept}
+Bureaus are \textbf{information intermediaries} --- they do \textit{not} make lending decisions. They provide the data infrastructure that lenders use to make their own decisions.
 \end{block}
 
-\vspace{2mm}
-\textbf{Key Point}: Bureaus are \textit{information intermediaries}---they don't make lending decisions, but provide the data infrastructure.
+\vspace{3mm}
+\textbf{How the System Works:}
+\begin{enumerate}
+\item Lenders report your payment behavior to bureaus
+\item Bureaus compile your credit file
+\item When you apply for credit, the new lender requests your report
+\item The lender uses the report (and a score) to decide
+\end{enumerate}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+The bureau system creates a shared record of trustworthiness --- but it only captures what lenders choose to report, leaving major gaps.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 9: Alternative Data Introduction
+% SLIDE 9: Alternative Data -- A New Lens
 % ============================================================================
-\begin{frame}{Alternative Data: Beyond the Credit Bureau}
-\begin{block}{Definition}
-\textbf{Alternative data}: Information not found in traditional credit bureau reports that can predict creditworthiness.
-\end{block}
+\begin{frame}{Alternative Data: A New Lens}
+\begin{alertblock}{The Problem}
+What if we could assess creditworthiness using everyday financial behavior --- not just formal credit history?
+\end{alertblock}
 
 \vspace{3mm}
 \begin{center}
-\begin{tabular}{p{3.2cm}p{4cm}p{3.5cm}}
+\begin{tabular}{p{3.5cm}p{5cm}p{3cm}}
 \toprule
-\textbf{Data Type} & \textbf{Signal} & \textbf{Used By} \\
+\textbf{Data Type} & \textbf{What It Reveals} & \textbf{Who Benefits} \\
 \midrule
-Bank transactions & Cash flow, spending patterns & Plaid, Petal \\
-Rent payments & Payment reliability & Experian Boost \\
-Utility bills & Consistent payments & FICO XD \\
-Employment/payroll & Income stability & Argyle, Pinwheel \\
-Social media & Network, behavior & (controversial) \\
-Device/browser data & Fraud signals & Socure, Sardine \\
-Education history & Future earning potential & Upstart \\
-Shopping behavior & Financial responsibility & Affirm \\
+Bank transactions & Cash flow patterns, income stability, spending habits & Thin-file borrowers \\
+Rent payments & Reliability of regular payments & Young adults, renters \\
+Utility bills & Consistent bill payment behavior & Cash-economy users \\
+Employment/payroll & Job stability, income verification & Immigrants, gig workers \\
+Education history & Future earning potential & Young graduates \\
+Shopping behavior & Financial responsibility signals & Underbanked consumers \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Alternative data can bring ``credit invisible'' people into the system --- scoring them on behaviors they already have, rather than formal credit products they lack.
+\end{block}
 \end{frame}
 
 % ============================================================================
-% SLIDE 10: Alternative Data Examples
+% SLIDE 10: Alternative Data -- Examples and Privacy
 % ============================================================================
-\begin{frame}{Alternative Data: Detailed Examples}
+\begin{frame}{Alternative Data: Examples and Privacy}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Bank Transaction Data:}
+\textbf{Bank Transaction Signals:}
 \begin{itemize}
 \item Income consistency and volatility
-\item Rent-to-income ratio
-\item Overdraft frequency
-\item Savings patterns
-\item Recurring bill payments
+\item Ratio of rent to income
+\item Frequency of overdrafts
+\item Savings patterns over time
+\item Recurring bill payment regularity
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Employment Data:}
+\textbf{Behavioral Data (More Controversial):}
 \begin{itemize}
-\item Job tenure
-\item Salary verification
-\item Industry/occupation
-\item Employer stability
+\item Time of day when applying
+\item Device type and browser used
+\item How form fields are completed
+\item Typing speed and patterns
+\item App usage patterns
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{Behavioral Data:}
-\begin{itemize}
-\item Time of day applying
-\item Device type and browser
-\item How form fields are completed
-\item Typing speed and patterns
-\end{itemize}
+\begin{alertblock}{The Privacy Tension}
+\textbf{More data} $\rightarrow$ better predictions $\rightarrow$ more inclusion
 
-\vspace{3mm}
-\begin{alertblock}{Privacy Tension}
-More data $\rightarrow$ better predictions\\
-More data $\rightarrow$ privacy concerns
+\vspace{2mm}
+\textbf{More data} $\rightarrow$ deeper surveillance $\rightarrow$ privacy erosion
 
 \vspace{2mm}
 \textit{Where should the line be drawn?}
 \end{alertblock}
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 11: Traditional vs ML Models
-% ============================================================================
-\begin{frame}{Machine Learning in Credit: How It Works}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{Traditional (Logistic Regression):}
-\begin{itemize}
-\item Linear combinations of features
-\item Easy to interpret (coefficients)
-\item Required by some regulations
-\item Limited to known relationships
-\end{itemize}
-
-\vspace{2mm}
-\textbf{ML Models (XGBoost, Neural Nets):}
-\begin{itemize}
-\item Non-linear relationships
-\item Feature interactions automatic
-\item Higher predictive accuracy
-\item ``Black box'' interpretability issues
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Accuracy Improvement}
-ML models can improve:
-\begin{itemize}
-\item Default prediction: \textcolor{dfgreen}{15--25\%}
-\item Approval rates: \textcolor{dfgreen}{10--20\% more}
-\item Loss rates: \textcolor{dfgreen}{10--15\% lower}
-\end{itemize}
-\vspace{2mm}
-\textbf{Upstart claim}: 27\% more approvals at same loss rate
-\end{block}
-\end{column}
-\end{columns}
 
 \vspace{3mm}
-\textbf{Key Trade-off}: Accuracy vs. Explainability
-\end{frame}
-
-% ============================================================================
-% SLIDE 12: Logistic Regression Explained
-% ============================================================================
-\begin{frame}{Logistic Regression: The Traditional Workhorse}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{How It Works:}
+\textbf{Key Questions:}
 \begin{itemize}
-\item Predicts probability of default: $P(\text{default})$
-\item Combines features linearly
-\item Applies sigmoid function to bound 0--1
+\item Should your typing speed affect your loan rate?
+\item Is using device data ``fair'' or invasive?
+\item Who decides what data is appropriate?
+\item Can consumers opt out of behavioral tracking?
 \end{itemize}
 
-\vspace{2mm}
-\textbf{Mathematical Form:}
-\[
-P(\text{default}) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 + ...)}}
-\]
-
-\vspace{2mm}
-\textbf{Interpreting Coefficients:}
-\begin{itemize}
-\item $\beta > 0$: Higher value $\rightarrow$ more risk
-\item $\beta < 0$: Higher value $\rightarrow$ less risk
-\item Magnitude indicates strength
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Why Regulators Like It}
-\begin{itemize}
-\item Each feature's impact is clear
-\item Can explain: ``You were declined because of high debt-to-income ratio''
-\item Easy to audit for bias
-\item Stable and well-understood
-\end{itemize}
+\vspace{3mm}
+\begin{block}{The Insight}
+Every new data source that improves lending accuracy also raises a privacy question. There is no ``free'' improvement --- better predictions always come with ethical tradeoffs.
 \end{block}
-
-\vspace{2mm}
-\textbf{Example Coefficients:}
-\begin{itemize}
-\item Debt-to-income: $+0.8$
-\item Payment history: $-1.2$
-\item Credit age: $-0.3$
-\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 13: Credit Scoring Pipeline
+% SLIDE 11: Machine Learning in Credit
 % ============================================================================
-\begin{frame}{Credit Scoring Pipeline}
+\begin{frame}{Machine Learning in Credit}
+\begin{alertblock}{The Problem}
+Can computers find patterns in data that humans miss?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{Traditional Models:}
+\begin{itemize}
+\item Simple, well-understood rules
+\item Easy to explain to regulators and applicants
+\item Limited to relationships humans define
+\item Proven track record over decades
+\end{itemize}
+
+\vspace{2mm}
+\textit{Think of it as}: a carefully designed checklist where each item has a clear weight.
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{Machine Learning Models:}
+\begin{itemize}
+\item Can discover complex, hidden patterns
+\item Handle hundreds of variables simultaneously
+\item Significantly better at predicting defaults
+\item Much harder to explain \textit{why} a decision was made
+\end{itemize}
+
+\vspace{2mm}
+\textit{Think of it as}: a system that learns its own rules from the data --- powerful, but opaque.
+\end{column}
+\end{columns}
+
+\vspace{4mm}
+\begin{block}{The Insight}
+Better accuracy comes at the cost of explainability. This is not just a technical annoyance --- it is a fundamental tension that shapes regulation, consumer trust, and business strategy in lending.
+\end{block}
+\end{frame}
+
+% ============================================================================
+% SLIDE 12: ML for Non-Programmers
+% ============================================================================
+\begin{frame}{Machine Learning for Non-Programmers}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{alertblock}{The Problem}
+What does ``machine learning'' actually mean in plain language?
+\end{alertblock}
+
+\vspace{3mm}
+\begin{block}{Simple Definition}
+Machine learning means \textbf{finding patterns in data} to make predictions about things you have not seen yet.
+\end{block}
+
+\vspace{3mm}
+\textbf{The Checklist Analogy:}\\
+Imagine a doctor's checklist for diagnosing illness:
+\begin{itemize}
+\item Some symptoms matter more than others
+\item The checklist weighs each factor differently
+\item The final diagnosis combines all factors
+\end{itemize}
+
+\vspace{2mm}
+A traditional credit model works the same way --- a \textbf{sophisticated checklist} that weighs factors like payment history (most important), debt level (very important), and credit age (moderately important).
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{What ML Adds:}
+\begin{itemize}
+\item Traditional: Humans design the checklist
+\item ML: The computer \textit{learns} its own checklist from data
+\item ML can find patterns humans would never think to look for
+\item But those patterns may be hard to explain
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Why Does This Matter for Lending?}
+\begin{itemize}
+\item Better patterns = fewer bad loans = lower costs
+\item More variables considered = more people included
+\item But: harder to explain = regulatory challenges
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+The concept is simpler than the name suggests. Machine learning is just ``automated pattern-finding'' --- but the consequences of those patterns in lending are profound.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% SLIDE 13: The Credit Scoring Pipeline
+% ============================================================================
+\begin{frame}{The Credit Scoring Pipeline}
+\begin{alertblock}{The Problem}
+How does raw data become a lending decision?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.8cm]
 % Pipeline nodes
-\node (data) [process] {Data\\Collection};
-\node (feature) [process, right of=data, xshift=1.5cm] {Feature\\Engineering};
-\node (model) [process, right of=feature, xshift=1.5cm] {Model\\Training};
-\node (score) [process, right of=model, xshift=1.5cm] {Score\\Generation};
-\node (decision) [decision, right of=score, xshift=1.5cm] {Decision};
+\node (data) [process, align=center] {Data\\Collection};
+\node (feature) [process, align=center, right of=data, xshift=1.5cm] {Feature\\Engineering};
+\node (model) [process, align=center, right of=feature, xshift=1.5cm] {Model\\Training};
+\node (score) [process, align=center, right of=model, xshift=1.5cm] {Score\\Generation};
+\node (decision) [process, right of=score, xshift=1.5cm] {Decision};
 
 % Arrows
 \draw[arrow] (data) -- (feature);
@@ -468,382 +526,318 @@ P(\text{default}) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 + ...)
 \draw[arrow] (score) -- (decision);
 
 % Labels below
-\node[below of=data, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Bureau + Alt data};
-\node[below of=feature, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Transform, normalize};
-\node[below of=model, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {XGBoost, NN};
-\node[below of=score, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {0--100 or PD\%};
-\node[below of=decision, yshift=0.3cm, font=\scriptsize, text width=2cm, align=center] {Approve/\\Decline/\\Price};
+\node[below of=data, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Bureau +\\alternative data};
+\node[below of=feature, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Transform raw\\data into signals};
+\node[below of=model, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Learn patterns\\from past outcomes};
+\node[below of=score, yshift=0.5cm, font=\scriptsize, text width=2cm, align=center] {Predicted\\creditworthiness};
+\node[below of=decision, yshift=0.3cm, font=\scriptsize, text width=2cm, align=center] {Approve /\\Decline /\\Set terms};
 \end{tikzpicture}
 \end{center}
 
 \vspace{3mm}
-\begin{block}{Key Decisions at Each Stage}
+\textbf{Key Decisions at Each Stage:}
 \begin{itemize}
-\item \textbf{Data}: What sources? Privacy implications?
-\item \textbf{Features}: What transformations? What to exclude?
-\item \textbf{Model}: Accuracy vs. interpretability trade-off?
-\item \textbf{Decision}: Cutoffs, pricing tiers, human review thresholds?
+\item \textbf{Data}: What sources? What are the privacy implications?
+\item \textbf{Features}: What transformations? What should we exclude?
+\item \textbf{Model}: How much accuracy vs. how much explainability?
+\item \textbf{Decision}: Where do we set the approval threshold? When does a human review?
 \end{itemize}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Bias can enter at \textit{every} stage of this pipeline --- not just in the model itself, but in which data is collected, how features are designed, and where thresholds are set.
 \end{block}
 \end{frame}
 
 % ============================================================================
 % SLIDE 14: Feature Engineering
 % ============================================================================
-\begin{frame}[fragile]{Feature Engineering: Transforming Raw Data}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
-# Raw transaction data
-transactions = [
-    {"date": "2024-01-15", "amount": -1200, "category": "rent"},
-    {"date": "2024-01-14", "amount": 3500, "category": "payroll"},
-    {"date": "2024-01-10", "amount": -45, "category": "food"},
-    ...
-]
+\begin{frame}[fragile]{Feature Engineering: From Raw Data to Useful Signals}
+\begin{alertblock}{The Problem}
+Raw data is messy. How do we turn it into inputs a model can use?
+\end{alertblock}
 
-# Engineered features
-features = {
-    "avg_monthly_income": 3500,
-    "income_volatility": 0.05,      # Low = stable
-    "rent_to_income_ratio": 0.34,   # Below 0.4 = good
-    "days_since_overdraft": 180,    # Higher = better
-    "recurring_payment_count": 12,  # Shows organization
-    "gambling_transaction_flag": 0, # Red flag if present
-}
+\vspace{2mm}
+\textbf{The Concept:} Feature engineering means creating meaningful signals from raw data. It is often the most important step in the pipeline --- a great feature matters more than a fancy algorithm.
+
+\vspace{2mm}
+\textbf{Conceptual Example --- Turning Transactions into Signals:}
+\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
+# Raw data: a list of bank transactions (dates, amounts, categories)
+
+# Engineered features (signals the model uses):
+#   income_stability   = how consistent is monthly income?
+#   spending_ratio     = spending relative to income
+#   overdraft_frequency = how often does the account go negative?
+#   bill_regularity    = are recurring bills paid on time?
+#   savings_trend      = is the balance growing or shrinking?
 \end{lstlisting}
 
 \vspace{2mm}
-\textbf{Key insight}: Raw data becomes predictive through thoughtful engineering.
+\textbf{Why It Matters:}
+\begin{itemize}
+\item The \textit{same raw data} can produce very different features depending on design choices
+\item Feature choices embed human assumptions about what matters
+\item Poorly chosen features can introduce bias even from ``neutral'' data
+\end{itemize}
 
-\bottomnote{Notebook NB04: Engineer features from transaction data and see how they affect model predictions}
+\bottomnote{Notebook NB04: Engineer features from transaction data and see how they affect predictions}
 \end{frame}
 
 % ============================================================================
-% SLIDE 15: Model Evaluation Metrics
+% SLIDE 15: Overfitting -- When Models Go Wrong
 % ============================================================================
-\begin{frame}{Model Evaluation: How Good is the Model?}
+\begin{frame}{When Models Go Wrong: Overfitting}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Key Metrics:}
+\begin{alertblock}{The Problem}
+What if a model memorizes the data instead of learning general patterns?
+\end{alertblock}
 
-\vspace{2mm}
-\textbf{1. AUC (Area Under ROC Curve):}
+\vspace{3mm}
+\textbf{The Exam Analogy:}\\
+Imagine studying for an exam by memorizing every answer from last year's test:
 \begin{itemize}
-\item Measures ranking ability
-\item 0.5 = random, 1.0 = perfect
-\item Industry standard: 0.70--0.80
+\item You ace the practice test perfectly
+\item But you fail the \textit{real} exam because the questions are different
+\item You memorized answers instead of understanding concepts
 \end{itemize}
 
-\vspace{2mm}
-\textbf{2. Gini Coefficient:}
+\vspace{3mm}
+\textbf{In Credit Scoring:}
 \begin{itemize}
-\item Gini = 2 $\times$ AUC $-$ 1
-\item Measures separation power
-\item Gini of 0.50 = AUC of 0.75
+\item A model might learn: ``everyone from a certain area defaults''
+\item In reality, that was just coincidence in the training data
+\item New applicants from that area are unfairly rejected
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{3. Calibration:}
-\begin{itemize}
-\item Do predicted probabilities match reality?
-\item If model says 20\% default, do 20\% actually default?
-\item Critical for pricing decisions
-\end{itemize}
+\begin{block}{The Solution: Training and Testing Split}
+Hide some data from the model, then test it on data it has never seen.
+\end{block}
 
-\vspace{2mm}
-\begin{block}{Why Both Matter}
-\begin{itemize}
-\item \textbf{AUC}: Can we \textit{rank} borrowers correctly?
-\item \textbf{Calibration}: Are probabilities \textit{accurate}?
-\end{itemize}
+\vspace{3mm}
+\textbf{How It Works:}
+\begin{enumerate}
+\item Split data: most for training, some held back for testing
+\item Train the model using only the training portion
+\item Test the model on the held-back data
+\item If test performance is similar to training: the model learned real patterns
+\item If test performance is much worse: the model overfitted
+\end{enumerate}
 
-A model can rank well but be poorly calibrated!
+\vspace{3mm}
+\begin{block}{The Insight}
+Always test on data the model has never seen. A model that looks perfect on training data but fails on new data is worse than useless --- it gives false confidence.
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 16: Algorithmic Bias Introduction
+% SLIDE 16: Algorithmic Bias -- The Dark Side
 % ============================================================================
 \begin{frame}{Algorithmic Bias: The Dark Side}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
+\begin{alertblock}{The Problem}
+Can a ``neutral'' algorithm discriminate?
+\end{alertblock}
+
+\vspace{3mm}
 \textbf{Sources of Bias:}
 \begin{enumerate}
-\item \textbf{Historical data}:\\
-Past discrimination encoded
+\item \textbf{Historical data bias}:\\
+If past lending was discriminatory, the data reflects those patterns --- and the model learns to repeat them
 \item \textbf{Proxy variables}:\\
-ZIP code $\approx$ race
+Features like location or school can correlate with race or socioeconomic status
 \item \textbf{Sample bias}:\\
-Training on existing customers only
-\item \textbf{Feature selection}:\\
-Human choices embedded
+Training only on existing customers misses the people who were already excluded
+\item \textbf{Feature selection bias}:\\
+Human choices about what data to include embed assumptions
 \end{enumerate}
-
-\vspace{2mm}
-\textbf{Legal Framework (US):}
-\begin{itemize}
-\item ECOA: No discrimination by protected class
-\item Disparate impact: Unintentional bias illegal
-\item Adverse action notices: Must explain denials
-\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Apple Card Investigation (2019)}
-Same household, shared finances:\\
-\textbf{Husband}: \$20,000 limit\\
-\textbf{Wife}: \$200 limit\\
-\vspace{2mm}
-Algorithm couldn't explain why.\\
-NY DFS investigation followed.
-\end{alertblock}
-
-\begin{block}{Testing for Bias}
+\textbf{Real-World Example:}
 \begin{itemize}
-\item Demographic parity
-\item Equal opportunity
-\item Calibration across groups
+\item A major technology company launched a credit card
+\item An algorithm set credit limits for applicants
+\item People in the same household, with shared finances, received \textbf{dramatically different credit limits}
+\item The algorithm could not explain why
+\item A regulatory investigation followed
 \end{itemize}
+
+\vspace{3mm}
+\textbf{Fairness Concepts:}
+\begin{itemize}
+\item \textbf{Demographic parity}: Approval rates similar across groups
+\item \textbf{Equalized odds}: Error rates similar across groups
+\item \textbf{Calibration}: Predictions equally accurate for all groups
+\end{itemize}
+
+\vspace{2mm}
+\begin{block}{The Insight}
+Bias in the data means bias in the decisions. Good intentions do not prevent harmful outcomes --- you must actively test for and mitigate bias.
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 17: Disparate Impact
+% SLIDE 17: Proxy Variables and Disparate Impact
 % ============================================================================
-\begin{frame}{Disparate Impact: Unintentional Discrimination}
+\begin{frame}{Proxy Variables and Disparate Impact}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
+\begin{alertblock}{The Problem}
+What if a ``neutral'' feature --- like your home address --- effectively codes for race?
+\end{alertblock}
+
+\vspace{3mm}
 \textbf{What is Disparate Impact?}
 \begin{itemize}
-\item Policies that \textit{appear} neutral
-\item But disproportionately harm protected groups
-\item Even without discriminatory \textit{intent}
-\item Still illegal under fair lending laws
+\item A policy that \textit{appears} neutral on its face
+\item But disproportionately harms a protected group
+\item Even without any discriminatory \textit{intent}
+\item Still illegal under fair lending laws in many jurisdictions
 \end{itemize}
 
 \vspace{3mm}
-\textbf{The Four-Fifths Rule:}
+\textbf{Common Proxy Variables:}
 \begin{itemize}
-\item Selection rate for protected group
-\item Should be $\geq$ 80\% of majority group
-\item Example: If 50\% of white applicants approved, need $\geq$ 40\% minority approval
+\item \textbf{Location} $\rightarrow$ can correlate with race (historical residential segregation)
+\item \textbf{Name patterns} $\rightarrow$ can correlate with ethnicity
+\item \textbf{School attended} $\rightarrow$ can correlate with socioeconomic status
+\item \textbf{Occupation type} $\rightarrow$ can correlate with gender
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Proxy Variables Problem}
-Features that correlate with protected characteristics:
-\begin{itemize}
-\item ZIP code $\rightarrow$ race
-\item Name patterns $\rightarrow$ ethnicity
-\item School attended $\rightarrow$ socioeconomic status
-\end{itemize}
-
-\vspace{2mm}
-Even if race isn't a feature, the model may learn to discriminate through proxies.
-\end{alertblock}
-\end{column}
-\end{columns}
-
-\vspace{3mm}
-\textbf{Key point}: Good intentions don't prevent illegal outcomes.
-\end{frame}
-
-% ============================================================================
-% SLIDE 18: Reject Inference Problem
-% ============================================================================
-\begin{frame}{The Reject Inference Problem}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{The Problem:}
-\begin{itemize}
-\item We only observe outcomes for \textit{approved} loans
-\item What about people we rejected?
-\item Their true default risk is unknown
-\item This creates \textbf{selection bias}
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Example:}
-\begin{itemize}
-\item Train model on approved loans only
-\item Model learns: ``low scores = bad''
-\item But some low-score rejects might have repaid!
-\item Model becomes overly conservative
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Solutions (Imperfect)}
-\begin{enumerate}
-\item \textbf{Clean sample}: Use only approved (biased)
-\item \textbf{Through-the-door}: Try to include all
-\item \textbf{Reject inference}: Impute outcomes
-\item \textbf{Champion/Challenger}: Randomly approve some rejects
-\end{enumerate}
+\begin{block}{Historical Context: Redlining}
+\textbf{Redlining} was the historical practice of refusing loans to people in certain neighborhoods, often based on race. Though outlawed, its effects persist in data: neighborhoods that were ``redlined'' decades ago still show different economic patterns today.
 \end{block}
 
-\vspace{2mm}
-\textbf{Trade-off}: All approaches involve assumptions about unknown data.
+\vspace{3mm}
+\textbf{The Challenge for Algorithms:}
+\begin{itemize}
+\item Even if race is \textit{not} a feature, the model can learn to discriminate through proxies
+\item Removing a proxy may reduce accuracy
+\item Multiple proxies can combine to reconstruct protected attributes
+\end{itemize}
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Even without explicit discrimination, algorithms can reproduce historical inequity. The question is not just ``is race in the model?'' but ``does the model \textit{behave differently} across racial groups?''
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 19: Explainability Challenge
+% SLIDE 18: Explainability -- The Right to Know Why
 % ============================================================================
-\begin{frame}{Explainability: The Interpretability Challenge}
+\begin{frame}{Explainability: The Right to Know Why}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
+\begin{alertblock}{The Problem}
+If a machine denies you a loan, who explains why?
+\end{alertblock}
+
+\vspace{3mm}
 \textbf{Why Explainability Matters:}
 \begin{itemize}
-\item Regulatory requirement (adverse action)
-\item Consumer trust and understanding
-\item Model debugging and validation
-\item Fairness auditing
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Explainability Techniques:}
-\begin{itemize}
-\item \textbf{SHAP values}: Feature contributions
-\item \textbf{LIME}: Local interpretable explanations
-\item \textbf{Feature importance}: Global rankings
-\item \textbf{Partial dependence}: Effect of single features
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Adverse Action Example}
-``Your application was declined because:
-\begin{enumerate}
-\item High credit utilization (78\%)
-\item Short credit history (2 years)
-\item Recent late payment (30+ days)
-\item High number of inquiries (6)
-\end{enumerate}''
-\end{block}
-\vspace{2mm}
-\textbf{Challenge}: ML models may not map cleanly to these simple reasons.
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 20: SHAP Values Explained
-% ============================================================================
-\begin{frame}{SHAP Values: Explaining Individual Predictions}
-\begin{columns}[T]
-\begin{column}{0.55\textwidth}
-\textbf{What is SHAP?}
-\begin{itemize}
-\item \textbf{SH}apley \textbf{A}dditive ex\textbf{P}lanations
-\item Based on game theory (Shapley values)
-\item Assigns each feature a contribution to the prediction
-\item Contributions sum to the prediction
+\item \textbf{Regulatory requirement}: In many jurisdictions, lenders \textit{must} tell you why you were declined (``adverse action notice'')
+\item \textbf{Consumer trust}: People need to understand decisions that affect their lives
+\item \textbf{Model debugging}: Developers need to find and fix errors
+\item \textbf{Fairness auditing}: Regulators need to verify the model is not discriminating
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Example Output:}
-\begin{itemize}
-\item Base score: 650
-\item Income (+40): High income helps
-\item Debt-to-income (-60): High ratio hurts
-\item Payment history (+25): Good history
-\item \textbf{Final score: 655}
-\end{itemize}
+\textbf{What an Adverse Action Notice Looks Like:}\\
+\textit{``Your application was declined because of: high debt relative to income, short credit history, and a recent late payment.''}
 \end{column}
-\begin{column}{0.45\textwidth}
-\begin{block}{Why SHAP for Credit}
+\begin{column}{0.5\textwidth}
+\textbf{Explainability Techniques (Conceptual):}
 \begin{itemize}
-\item Explains \textit{any} model (even neural nets)
-\item Consistent and fair allocation
-\item Can identify bias sources
-\item Regulatory-friendly documentation
+\item \textbf{Feature importance}: Which inputs matter most \textit{overall}?
+\item \textbf{SHAP values}: How much did each input push \textit{this specific} decision up or down?
+\item \textbf{Partial dependence}: How does changing one input affect the output?
 \end{itemize}
-\end{block}
 
-\vspace{2mm}
-\textbf{Limitation}: Computationally expensive for complex models with many features.
+\vspace{3mm}
+\textbf{SHAP in Plain Language:}\\
+Imagine you are splitting a restaurant bill fairly. SHAP assigns each feature its ``fair share'' of the prediction --- showing exactly which factors helped and which hurt.
+
+\vspace{3mm}
+\begin{block}{The Insight}
+Explainability is both a regulatory requirement and an ethical imperative. Consumers deserve to understand the decisions that shape their financial lives --- and to have a path to challenge those decisions.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 21: FinTech Lenders Business Models
+% SLIDE 19: Beyond Credit -- Algorithms Everywhere
 % ============================================================================
-\begin{frame}{FinTech Lenders: Business Models}
-\begin{center}
-\begin{tabular}{p{2.2cm}p{2.8cm}p{3cm}p{2.5cm}}
-\toprule
-\textbf{Company} & \textbf{Model} & \textbf{Data Edge} & \textbf{Economics} \\
-\midrule
-\textbf{Upstart} & AI underwriting & Education, employment & 25\% lower losses \\
-\textbf{SoFi} & Member ecosystem & Product usage & Cross-sell \\
-\textbf{Affirm} & POS lending & Purchase behavior & Merchant fees \\
-\textbf{LendingClub} & Marketplace & Platform data & Origination fees \\
-\textbf{Kabbage} & SMB lending & Accounting data & Higher rates \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{frame}{Beyond Credit: Algorithms Everywhere in Finance}
+\begin{alertblock}{The Problem}
+Credit scoring was just the beginning. Where else are algorithms making financial decisions about you?
+\end{alertblock}
 
-\vspace{4mm}
-\begin{block}{Key Insight}
-FinTech lenders compete on \textbf{data advantage}, not cost of capital.\\
-Banks have cheaper funding; FinTechs have better risk selection.
-\end{block}
-\end{frame}
-
-% ============================================================================
-% SLIDE 22: Beyond Credit - Algorithmic Decisions
-% ============================================================================
-\begin{frame}{Beyond Credit: Algorithmic Decisions in Finance}
+\vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Insurance (Insurtech):}
 \begin{itemize}
-\item Telematics (driving behavior)
-\item IoT sensors (home/health)
+\item Driving behavior from telematics devices
+\item Home sensor data from IoT devices
 \item Claims fraud detection
-\item Dynamic pricing
+\item Personalized, dynamic pricing
 \end{itemize}
 
-\vspace{2mm}
-\textbf{Investment (Robo-advisors):}
+\vspace{3mm}
+\textbf{Investment (Robo-Advisors):}
 \begin{itemize}
-\item Risk profiling algorithms
-\item Automated rebalancing
-\item Tax-loss harvesting
-\item Goal-based allocation
+\item Algorithmic risk profiling
+\item Automated portfolio rebalancing
+\item Tax-optimization strategies
+\item Goal-based financial planning
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{Fraud Detection:}
 \begin{itemize}
 \item Real-time transaction scoring
-\item Behavioral biometrics
+\item Behavioral biometrics (how you hold your phone)
 \item Device fingerprinting
-\item Network analysis
+\item Network analysis of suspicious patterns
 \end{itemize}
 
-\vspace{2mm}
-\textbf{AML/KYC:}
+\vspace{3mm}
+\textbf{Identity Verification (KYC):}
 \begin{itemize}
-\item Identity verification
-\item Document analysis (OCR)
-\item PEP/sanctions screening
-\item Suspicious activity patterns
+\item Automated document analysis
+\item Facial recognition matching
+\item Sanctions and watchlist screening
+\item Suspicious activity pattern detection
 \end{itemize}
 \end{column}
 \end{columns}
 
 \vspace{3mm}
-\textbf{Common thread}: Data + algorithms replacing human judgment across finance.
+\begin{block}{The Insight}
+Data and algorithms are replacing human judgment across \textit{all} of finance --- not just lending. The same tensions (accuracy vs. fairness, automation vs. explainability) apply everywhere.
+\end{block}
 \end{frame}
 
 % ============================================================================
-% SLIDE 23: The Data Flywheel
+% SLIDE 20: The Data Flywheel
 % ============================================================================
 \begin{frame}{The Data Flywheel}
+\begin{alertblock}{The Problem}
+Why do data-rich companies keep getting stronger while newcomers struggle to compete?
+\end{alertblock}
+
+\vspace{3mm}
 \begin{center}
 \begin{tikzpicture}[node distance=2.5cm]
 % Circular nodes
@@ -864,305 +858,116 @@ Banks have cheaper funding; FinTechs have better risk selection.
 \end{center}
 
 \vspace{3mm}
-\textbf{Implication}: First-mover advantage in data creates compounding moat
-
-\textbf{Challenge}: Incumbents have more historical data; FinTechs have more diverse data
-\end{frame}
-
-% ============================================================================
-% SLIDE 24: Regulatory Landscape
-% ============================================================================
-\begin{frame}{Regulatory Landscape for ML in Credit}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{US Framework:}
+\textbf{How It Works:}
 \begin{itemize}
-\item \textbf{ECOA}: Equal Credit Opportunity Act---fair lending
-\item \textbf{FCRA}: Fair Credit Reporting Act---data accuracy
-\item \textbf{CFPB}: Consumer Financial Protection Bureau oversight
-\item \textbf{SR 11-7}: OCC/Fed model risk guidance
-\end{itemize}
-
-\vspace{2mm}
-\textbf{EU Framework:}
-\begin{itemize}
-\item \textbf{GDPR}: Right to explanation
-\item \textbf{AI Act}: High-risk use case classification
-\item \textbf{EBA Guidelines}: ML in credit risk
+\item More data improves model accuracy
+\item Better models make better lending decisions
+\item Better decisions attract more customers
+\item More customers generate more data
+\item The cycle \textit{compounds} over time
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Emerging Requirements}
-\begin{itemize}
-\item Model documentation mandates
-\item Bias testing requirements
-\item Human-in-the-loop mandates
-\item Algorithmic audits
-\end{itemize}
-\end{alertblock}
-
-\vspace{2mm}
-\textbf{Trend}: Regulation catching up to ML adoption---expect more scrutiny, not less.
+\begin{block}{The Insight}
+First-mover advantage in data creates a compounding moat. Incumbents have more historical data; newer entrants often have more \textit{diverse} data. The winner is whoever spins the flywheel fastest.
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 25: Hands-On Exercise Introduction
+% SLIDE 21: Hands-On -- NB04
 % ============================================================================
-\begin{frame}{Hands-On: Notebook NB04 -- Building a Credit Scoring Model}
+\begin{frame}{Hands-On: Notebook NB04 -- Credit Scoring Model}
 \begin{block}{Exercise Overview}
-In this notebook, you will:
+In this notebook, you will walk through the entire credit scoring pipeline:
 \begin{enumerate}
-\item Load and explore a credit dataset
-\item Engineer features from raw transaction data
-\item Build both logistic regression and XGBoost models
-\item Compare accuracy and interpretability
-\item Use SHAP values to explain predictions
-\item Test for potential bias across demographic groups
+\item \textbf{Explore} a credit dataset and understand its structure
+\item \textbf{Engineer features} from raw data to create predictive signals
+\item \textbf{Build models} --- both a simple traditional model and a more complex one
+\item \textbf{Compare} accuracy and interpretability between the two approaches
+\item \textbf{Explain predictions} using feature importance and SHAP concepts
+\item \textbf{Test for bias} across demographic groups
 \end{enumerate}
 \end{block}
 
+\vspace{4mm}
+\textbf{What You Will Learn:}
+\begin{itemize}
+\item How the accuracy-explainability tradeoff works in practice
+\item Why feature engineering choices matter as much as model selection
+\item How to probe models for potential algorithmic bias
+\item The difference between a model that ranks well and one that predicts accurately
+\end{itemize}
+
 \vspace{3mm}
-\textbf{Learning Goals:}
-\begin{itemize}
-\item Experience the full credit scoring pipeline hands-on
-\item Understand the accuracy-explainability trade-off
-\item See how feature selection affects outcomes
-\item Probe models for potential algorithmic bias
-\end{itemize}
+\bottomnote{No programming experience required --- the notebook guides you step by step}
 \end{frame}
 
 % ============================================================================
-% SLIDE 26: Hands-On Key Activities
-% ============================================================================
-\begin{frame}{Notebook NB04: Key Activities}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Part 1: Data Exploration}
-\begin{itemize}
-\item Load credit application data
-\item Examine feature distributions
-\item Identify potential issues (missing values, outliers)
-\item Visualize default rates by segment
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Part 2: Feature Engineering}
-\begin{itemize}
-\item Create ratio features (debt-to-income)
-\item Bin continuous variables
-\item Handle categorical encoding
-\item Engineer interaction terms
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\textbf{Part 3: Model Building}
-\begin{itemize}
-\item Train/test split
-\item Logistic regression baseline
-\item XGBoost comparison
-\item Evaluate with AUC and Gini
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Part 4: Explainability \& Bias}
-\begin{itemize}
-\item SHAP value analysis
-\item Feature importance comparison
-\item Check approval rates by group
-\item Discuss trade-offs
-\end{itemize}
-
-\vspace{2mm}
-\begin{block}{Time Estimate}
-60--90 minutes
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 27: Discussion - Ethical Implications
+% SLIDE 22: Discussion -- Ethics of Algorithmic Lending
 % ============================================================================
 \begin{frame}{Discussion: The Ethics of Algorithmic Lending}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Arguments FOR ML Scoring:}
+\textbf{Arguments FOR ML-Based Scoring:}
 \begin{itemize}
-\item More accurate = fewer losses = lower rates
-\item Alternative data includes more people
-\item Consistent---no human bias in decisions
-\item Faster decisions improve access
+\item More accurate models mean fewer bad loans, which can mean lower interest rates for everyone
+\item Alternative data brings in people traditional scoring excludes
+\item Algorithms are consistent --- they do not have ``bad days'' or personal prejudices
+\item Faster decisions improve access to credit
 \end{itemize}
 
 \vspace{3mm}
 \textbf{Arguments AGAINST:}
 \begin{itemize}
-\item Historical bias gets encoded
-\item Lack of transparency is unfair
-\item Privacy concerns with alternative data
-\item Errors are harder to contest
+\item Historical bias gets encoded and automated at scale
+\item Lack of transparency is fundamentally unfair
+\item Alternative data raises serious privacy concerns
+\item Algorithmic errors are harder to detect and contest
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{alertblock}{Discussion Questions}
 \begin{enumerate}
-\item Should lenders be allowed to use social media data?
-\item Is it fair to use education level in credit decisions?
-\item Should algorithms be required to be fully explainable?
-\item Who bears responsibility for biased algorithms?
+\item Should lenders be allowed to use social media data in credit decisions?
+\item Is it fair to use education level as a factor in lending?
+\item Should all lending algorithms be required to be fully explainable?
+\item If an algorithm discriminates unintentionally, who bears responsibility --- the developer, the lender, or the regulator?
 \end{enumerate}
 \end{alertblock}
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 28: Discussion - Future of Credit Scoring
-% ============================================================================
-\begin{frame}{Discussion: The Future of Credit Scoring}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Current Trends:}
-\begin{itemize}
-\item Open banking enabling data sharing
-\item Real-time income verification
-\item BNPL challenging traditional credit
-\item AI Act creating new EU standards
-\end{itemize}
 
 \vspace{3mm}
-\textbf{Emerging Technologies:}
-\begin{itemize}
-\item Continuous credit monitoring
-\item Explainable AI (XAI) advances
-\item Federated learning for privacy
-\item Blockchain-based credit histories
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Prediction Questions}
-\begin{enumerate}
-\item Will FICO still exist in 10 years?
-\item Will all lending decisions be automated?
-\item Will consumers own their own credit data?
-\item Will AI make credit truly fair---or more biased?
-\end{enumerate}
-\end{block}
-
-\vspace{2mm}
-\textbf{Key Tension}: Innovation vs. consumer protection---regulators will shape the future.
+\textbf{Think About:}\\
+\textit{Is a biased algorithm better or worse than a biased human loan officer? Why?}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 29: Case Study - Upstart
-% ============================================================================
-\begin{frame}{Case Study: Upstart---AI-First Lending}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Company Background:}
-\begin{itemize}
-\item Founded 2012 by ex-Google employees
-\item First to get CFPB no-action letter (2017)
-\item Uses 1,000+ variables in underwriting
-\item Partners with 80+ banks/credit unions
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Alternative Data Used:}
-\begin{itemize}
-\item Education (school, degree, major)
-\item Employment history and income
-\item Cost of living in location
-\item Free cash flow analysis
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Claimed Results}
-\begin{itemize}
-\item 27\% more approvals at same loss rate
-\item 16\% lower APR on average
-\item 75\% of loans fully automated
-\item Expanded access to thin-file borrowers
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Controversy:}
-\begin{itemize}
-\item Using education = socioeconomic proxy?
-\item Explainability of 1,000+ variable model?
-\item Performance during economic stress?
-\end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 30: Application - Your Credit Footprint
-% ============================================================================
-\begin{frame}{Application: Understanding Your Credit Footprint}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Traditional Data About You:}
-\begin{itemize}
-\item Credit card payment history
-\item Loan balances and limits
-\item Length of oldest account
-\item Recent applications (inquiries)
-\item Public records (bankruptcy)
-\end{itemize}
-
-\vspace{2mm}
-\textbf{Alternative Data About You:}
-\begin{itemize}
-\item Bank account transactions
-\item Rent and utility payments
-\item Employment verification
-\item Online behavior patterns
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Action Items}
-\begin{enumerate}
-\item \textbf{Check your free credit reports}: AnnualCreditReport.com
-\item \textbf{Review for errors}: 20\% have mistakes
-\item \textbf{Understand your score}: What's helping/hurting?
-\item \textbf{Explore alternatives}: Experian Boost, FICO XD
-\end{enumerate}
-\end{block}
-
-\vspace{2mm}
-\textbf{Question}: Should you be able to see \textit{all} the data used to evaluate you?
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 31: Executive Summary
+% SLIDE 23: Executive Summary
 % ============================================================================
 \begin{frame}{Executive Summary: Key Takeaways}
-\begin{block}{The Five Things to Remember}
+\begin{block}{Five Things to Remember from This Topic}
 \begin{enumerate}
-\item \textbf{Traditional scoring excludes millions}: FICO misses 45M+ ``credit invisible'' Americans who may be creditworthy
-\item \textbf{Alternative data expands access}: Bank transactions, rent, employment data can score thin-file borrowers
-\item \textbf{ML improves accuracy}: 15--25\% better default prediction, but creates ``black box'' problems
-\item \textbf{Bias is real and dangerous}: Historical discrimination gets encoded; proxy variables can circumvent protections
-\item \textbf{Explainability is required}: Both regulatory mandate and ethical imperative---consumers deserve to understand decisions
+\item \textbf{Traditional scoring leaves people behind}: Credit scores are powerful but exclude millions of creditworthy people who lack formal credit history
+\item \textbf{Alternative data expands access}: Bank transactions, rent payments, and employment data can bring excluded people into the credit system
+\item \textbf{ML improves accuracy but reduces transparency}: Machine learning finds patterns humans miss, but creates ``black box'' challenges for regulators and consumers
+\item \textbf{Bias is real and requires active mitigation}: Historical discrimination gets encoded in data; proxy variables can circumvent legal protections; good intentions alone do not prevent harm
+\item \textbf{Explainability is non-negotiable}: Consumers have a right to know why they were denied credit --- this is both a legal requirement and an ethical imperative
 \end{enumerate}
 \end{block}
 
 \vspace{3mm}
-\textbf{Bottom Line}: Data-driven finance creates opportunities for financial inclusion but requires careful attention to fairness, transparency, and accountability.
+\textbf{Bottom Line}: Data-driven finance creates enormous opportunities for financial inclusion, but requires constant vigilance around fairness, transparency, and accountability.
 \end{frame}
 
 % ============================================================================
-% SLIDE 32: Concept Map
+% SLIDE 24: Concept Map
 % ============================================================================
-\begin{frame}{Concept Map: Data-Driven Finance Ecosystem}
+\begin{frame}{Concept Map: Data-Driven Finance}
 \begin{center}
 \begin{tikzpicture}[
     node distance=1.5cm,
@@ -1180,7 +985,7 @@ In this notebook, you will:
 \node[box] (bureau) at (-4,-1.5) {Credit\\Bureaus};
 
 % Model types (top)
-\node[box] (logreg) at (-1.5,2.5) {Logistic\\Regression};
+\node[box] (logreg) at (-1.5,2.5) {Traditional\\Models};
 \node[box] (ml) at (1.5,2.5) {Machine\\Learning};
 
 % Outputs (right)
@@ -1206,232 +1011,120 @@ In this notebook, you will:
 \end{center}
 
 \vspace{2mm}
-\textcolor{dfred}{Red}: Constrains/challenges \quad \textcolor{dfgreen}{Green}: Enables/improves
+\textcolor{dfred}{Red}: Constrains / challenges \quad \textcolor{dfgreen}{Green}: Enables / improves
+
+\vspace{2mm}
+\textbf{Reading the Map:} Data flows from the left into credit scoring models (top), which produce outputs on the right. Bias and explainability (bottom) act as constraints that shape how models can be built and deployed.
 \end{frame}
 
 % ============================================================================
-% SLIDE 33: Key Terms & Definitions (Part 1)
+% SLIDE 25: Key Terms
 % ============================================================================
-\begin{frame}{Key Terms \& Definitions (1/2)}
+\begin{frame}{Key Terms and Definitions}
 \begin{description}
-\item[Credit Score] A numerical summary of creditworthiness, predicting probability of default. FICO range: 300--850.
+\item[Credit Score] A numerical summary of creditworthiness, predicting the likelihood that a borrower will repay. Scores range from very poor to excellent.
 
-\item[Credit Bureau] Organizations (Equifax, Experian, TransUnion) that collect and sell credit data to lenders.
+\item[Credit Bureau] Organizations that collect credit data from lenders, maintain individual files, and sell reports to other lenders.
 
-\item[Alternative Data] Non-traditional information (bank transactions, rent, utilities) used to assess creditworthiness.
+\item[Alternative Data] Non-traditional information (bank transactions, rent, utilities) used to assess creditworthiness beyond formal credit history.
 
-\item[Thin-File Borrower] Individual with insufficient traditional credit history to generate a conventional score.
+\item[Thin-File Borrower] A person with insufficient traditional credit history to generate a reliable conventional score.
 
-\item[Credit Invisible] Person with no credit file at bureaus---approximately 45 million Americans.
+\item[Disparate Impact] When a ``neutral'' policy disproportionately harms a protected group, even without discriminatory intent.
+
+\item[Adverse Action Notice] A legally required explanation when credit is denied, citing the specific reasons for the decision.
+
+\item[SHAP Values] A technique for explaining how each input feature contributes to an individual model prediction --- assigning each feature its ``fair share.''
 \end{description}
 \end{frame}
 
 % ============================================================================
-% SLIDE 34: Key Terms & Definitions (Part 2)
+% SLIDE 26: Common Misconceptions + Self-Assessment
 % ============================================================================
-\begin{frame}{Key Terms \& Definitions (2/2)}
-\begin{description}
-\item[Disparate Impact] When neutral policies disproportionately harm protected groups, even without intent.
-
-\item[Adverse Action Notice] Required explanation when credit is denied, must cite specific reasons.
-
-\item[SHAP Values] Technique to explain how each feature contributes to an individual prediction.
-
-\item[AUC/Gini] Model evaluation metrics measuring ability to rank-order risk correctly.
-
-\item[Reject Inference] The problem of not knowing outcomes for rejected applicants---creates selection bias.
-\end{description}
-
-\vspace{3mm}
-\textbf{Tip}: Understanding these terms is essential for both building and auditing credit models.
-\end{frame}
-
-% ============================================================================
-% SLIDE 35: Common Misconceptions
-% ============================================================================
-\begin{frame}{Common Misconceptions: Myth vs. Reality}
+\begin{frame}{Common Misconceptions and Self-Assessment}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
+\textbf{Myth vs. Reality:}
+
+\vspace{2mm}
 \begin{alertblock}{Myth 1}
 ``My credit score is a single, universal number.''
 \end{alertblock}
-\textbf{Reality}: You have multiple scores---FICO has 28 versions, plus VantageScore and lender-specific models.
+\textbf{Reality}: Multiple scoring models exist, and different lenders may use different ones. Your score can vary depending on which model is used.
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{alertblock}{Myth 2}
+``ML models are automatically fair because they are objective.''
+\end{alertblock}
+\textbf{Reality}: Models learn from historical data. If that data contains discrimination, the model learns to discriminate. Bias in = bias out.
+
+\vspace{2mm}
+\begin{alertblock}{Myth 3}
 ``Checking my own credit hurts my score.''
 \end{alertblock}
-\textbf{Reality}: Soft inquiries (checking your own score) have no impact. Only hard inquiries from applications affect scores.
+\textbf{Reality}: Checking your own score (a ``soft inquiry'') has no impact. Only formal credit applications (``hard inquiries'') can affect your score.
 \end{column}
 \begin{column}{0.5\textwidth}
-\begin{alertblock}{Myth 3}
-``ML models are automatically fair because they're objective.''
-\end{alertblock}
-\textbf{Reality}: Models learn from historical data that may contain discrimination. Bias in = bias out.
+\textbf{Self-Assessment Questions:}
 
 \vspace{3mm}
-\begin{alertblock}{Myth 4}
-``Alternative data only helps FinTechs.''
-\end{alertblock}
-\textbf{Reality}: Incumbents like Experian (Boost) and FICO (XD) are incorporating alternative data too.
+\begin{block}{Conceptual Questions}
+\begin{enumerate}
+\item What is the fundamental problem that credit scoring tries to solve?
+\item Name two reasons why someone might be ``credit invisible'' through no fault of their own.
+\item Explain in your own words why better prediction accuracy can come at the cost of fairness.
+\item What is a proxy variable, and why is it dangerous in lending?
+\item Why is explainability not just ``nice to have'' but legally required in many places?
+\end{enumerate}
+\end{block}
+
+\vspace{2mm}
+\textit{If you can answer these questions, you have grasped the core concepts of this topic.}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% SLIDE 36: Self-Assessment Questions (1/2)
+% SLIDE 27: What's Next + Questions
 % ============================================================================
-\begin{frame}{Self-Assessment: Test Your Understanding (1/2)}
-\begin{block}{Question 1 (Easy)}
-What is the primary purpose of a credit scoring model?
-\begin{enumerate}[A)]
-\item To estimate the probability that a borrower will default on a loan
-\item To calculate the exact amount a borrower can afford to repay
-\item To determine the optimal interest rate for any loan
-\item To track a borrower's payment history over time
-\end{enumerate}
-\end{block}
-
-\vspace{2mm}
-\pause
-\textbf{Answer: A}---Credit scoring models estimate default probability. While this influences amounts and rates, the core purpose is probability estimation of repayment failure.
-
-\vspace{4mm}
-\begin{block}{Question 2 (Medium)}
-How are scorecard points typically calculated in traditional credit scoring?
-\begin{enumerate}[A)]
-\item By multiplying feature values by their coefficients and scaling to a point system
-\item By counting the number of positive features and subtracting negative ones
-\end{enumerate}
-\end{block}
-\pause
-\textbf{Answer: A}---Points derive from logistic regression coefficients, scaled to an intuitive range.
-\end{frame}
-
-% ============================================================================
-% SLIDE 37: Self-Assessment Questions (2/2)
-% ============================================================================
-\begin{frame}{Self-Assessment: Test Your Understanding (2/2)}
-\begin{block}{Question 3 (Hard)}
-What is the difference between ``through-the-door'' and ``clean-sample'' model development?
-\begin{enumerate}[A)]
-\item Through-the-door uses all applicants; clean-sample excludes rejected applicants
-\item Through-the-door is for online applications; clean-sample is for in-branch
-\item Through-the-door includes alternative data; clean-sample uses only traditional data
-\item Through-the-door is for new customers; clean-sample is for existing customers
-\end{enumerate}
-\end{block}
-
-\vspace{2mm}
-\pause
-\textbf{Answer: A}---Through-the-door development attempts to use all applicants (handling reject inference), while clean-sample uses only approved applicants with observed outcomes. Clean-sample is simpler but suffers from selection bias.
-
-\vspace{4mm}
-\textbf{Reflection}: Can you explain why selection bias matters for model accuracy?
-\end{frame}
-
-% ============================================================================
-% SLIDE 38: What's Next
-% ============================================================================
-\begin{frame}{What's Next: Topic 2.4 -- Platform Economics}
+\begin{frame}{What's Next}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
-\textbf{Preview: Platform Economics}
+\textbf{Up Next: Topic 2.4 --- Platform Economics}
 \begin{itemize}
 \item Network effects in FinTech
 \item Two-sided marketplaces
 \item Winner-take-most dynamics
-\item Platform vs. pipeline business models
+\item Why some FinTechs dominate and others fail
 \end{itemize}
 
 \vspace{3mm}
-\textbf{Key Question}: Understanding which FinTech innovations are sustainable vs. venture-subsidized.
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Connection to This Topic}
+\textbf{Connection to This Topic:}
 \begin{itemize}
-\item Data flywheel creates platform advantages
-\item Lending marketplaces use network effects
-\item Data network effects compound over time
-\item Platform economics explains FinTech valuations
-\end{itemize}
-\end{block}
-
-\vspace{2mm}
-\textbf{Preparation}: Think about platforms you use---what makes them ``sticky''?
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 39: Resources
-% ============================================================================
-\begin{frame}{Resources for Further Learning}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\textbf{Academic Papers:}
-\begin{itemize}
-\item Fuster et al. (2022): ``Predictably Unequal?''---ML and mortgage lending
-\item Bartlett et al. (2022): ``Consumer Lending Discrimination''
-\item Kleinberg et al. (2018): ``Discrimination in Age of Algorithms''
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Industry Reports:}
-\begin{itemize}
-\item CFPB: ``Big Data'' reports
-\item Federal Reserve: ``Alternative Data'' analysis
-\item Brookings: Financial inclusion studies
+\item The data flywheel is a platform concept
+\item Lending marketplaces rely on network effects
+\item Data advantages compound over time
+\item Understanding platform economics explains FinTech competition
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\textbf{Books:}
+\begin{block}{Before Next Session}
 \begin{itemize}
-\item \textit{Weapons of Math Destruction} (O'Neil)
-\item \textit{The Credit Scoring Toolkit} (Anderson)
-\item \textit{Automating Inequality} (Eubanks)
+\item Complete \textbf{Notebook NB04} (Credit Scoring Model)
+\item Think about: what data would \textit{you} want a lender to consider?
+\item Consider: is algorithmic lending more or less fair than human judgment?
 \end{itemize}
-
-\vspace{3mm}
-\textbf{Online Tools:}
-\begin{itemize}
-\item AnnualCreditReport.com (free reports)
-\item SHAP library documentation
-\item Kaggle: Credit scoring datasets
-\end{itemize}
-
-\vspace{3mm}
-\textbf{Regulatory:}
-\begin{itemize}
-\item ECOA, FCRA, GDPR texts
-\item EU AI Act (credit = high-risk)
-\end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-
-% ============================================================================
-% SLIDE 40: Questions
-% ============================================================================
-\begin{frame}
-\centering
-\vspace{15mm}
-{\Huge\textbf{Questions?}}
-
-\vspace{10mm}
-\textbf{Topic 2.3: Data-Driven Finance}\\
-\textit{Lending, Scoring, and Algorithmic Decision-Making}
-
-\vspace{10mm}
-\begin{block}{}
-\centering
-Joerg Osterrieder\\
-Digital Finance\\
-\texttt{joerg.osterrieder@ifi.uzh.ch}
 \end{block}
 
 \vspace{5mm}
-\textbf{Next Up}: Topic 2.4 -- Platform Economics
+\centering
+{\Large\textbf{Questions?}}
+
+\vspace{5mm}
+\textit{Topic 2.3: Data-Driven Finance}\\
+\textit{Lending, Scoring, and Algorithmic Decision-Making}
+\end{column}
+\end{columns}
 \end{frame}
 
 \end{document}

@@ -50,7 +50,7 @@ NB10: Analyze stablecoin price stability data---examine de-peg events and compar
 \begin{column}{0.48\textwidth}
 \textbf{The Volatility Problem:}
 \begin{itemize}
-\item Bitcoin: 60\%+ annual volatility
+\item Bitcoin: 60\%+ annual volatility (Example: If you bought \$100 of Bitcoin, it might be worth \$40-\$160 by year end)
 \item Unsuitable for everyday payments
 \item Merchant pricing becomes impossible
 \item DeFi needs stable base assets
@@ -63,6 +63,9 @@ NB10: Analyze stablecoin price stability data---examine de-peg events and compar
 \item DeFi primitives (T4.2)
 \item Smart contracts (T4.1)
 \end{itemize}
+
+\vspace{2mm}
+\textit{Quick check: If ``DeFi primitives'' is unfamiliar, briefly review T4.2 first.}
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{tikzpicture}[scale=0.65, transform shape]
@@ -87,7 +90,7 @@ NB10: Analyze stablecoin price stability data---examine de-peg events and compar
 
 \vspace{3mm}
 \begin{alertblock}{Key Insight}
-Stablecoins bridge TradFi and crypto by providing price predictability in a volatile ecosystem.
+Stablecoins bridge Traditional Finance (TradFi) and crypto by providing price predictability in a volatile ecosystem.
 \end{alertblock}
 \end{column}
 \end{columns}
@@ -132,7 +135,7 @@ Stablecoins bridge TradFi and crypto by providing price predictability in a vola
 
 \vspace{3mm}
 \begin{block}{Why \$1 Peg?}
-USD is the global reserve currency. A dollar-pegged stablecoin inherits this network effect.
+USD is the global reserve currency. A dollar-pegged stablecoin inherits this network effect (``network effect'' means more people use dollars, so dollar-based coins are more useful).
 \end{block}
 \end{column}
 \end{columns}
@@ -241,8 +244,8 @@ How do you create ``digital dollars'' that maintain purchasing power without the
 \vspace{0.3cm}
 \textbf{Examples:}
 \begin{itemize}
-\item \textbf{USDT} (Tether): \$110B, largest
-\item \textbf{USDC} (Circle): \$35B, regulated
+\item \textbf{USDT} (Tether): \$110B, largest --- ``Tether USD'' token
+\item \textbf{USDC} (Circle): \$35B, regulated --- ``USD Coin'' token
 \item \textbf{PYUSD} (PayPal): Newest entrant
 \end{itemize}
 \end{column}
@@ -269,7 +272,7 @@ How do you create ``digital dollars'' that maintain purchasing power without the
 \vspace{0.3cm}
 \textbf{Peg Maintenance:}
 \begin{itemize}
-\item Arbitrage keeps price at \$1
+\item Arbitrage keeps price at \$1 (arbitrage = buying low in one place and selling high in another until prices match)
 \item If price $>$ \$1: mint and sell
 \item If price $<$ \$1: buy and redeem
 \end{itemize}
@@ -300,6 +303,9 @@ How do you create ``digital dollars'' that maintain purchasing power without the
 \item Secured loans: small \%
 \item Other investments: small \%
 \end{itemize}
+
+\vspace{2mm}
+\textit{What could go wrong? Example: Tether faced controversy over whether reserves actually existed (2017-2021).}
 \end{column}
 
 \begin{column}{0.48\textwidth}
@@ -339,12 +345,13 @@ Fiat-backing provides strong stability but reintroduces the centralization that 
 \item User deposits \$150 ETH
 \item Protocol mints 100 DAI
 \item Collateral ratio: 150\%
-\item If ETH drops, liquidation
+\item If ETH drops, liquidation (like a pawn shop loan --- if your collateral loses value, they sell it to cover the loan)
 \end{enumerate}
 
 \vspace{0.3cm}
 \textbf{MakerDAO/DAI:}
 \begin{itemize}
+\item DAI is the largest crypto-backed stablecoin
 \item Decentralized governance
 \item Multiple collateral types
 \item Stability fee (interest)
@@ -423,8 +430,11 @@ Fiat-backing provides strong stability but reintroduces the centralization that 
 \end{enumerate}
 
 \vspace{3mm}
-\begin{alertblock}{Liquidation Cascades}
+\begin{alertblock}{Liquidation Cascades: The Domino Effect}
 During market crashes, mass liquidations can cause collateral fire sales, pushing prices lower, triggering more liquidations---a dangerous feedback loop.
+
+\vspace{2mm}
+\textit{Think of dominoes: When one person is forced to sell, prices drop, forcing more sales, creating a chain reaction.}
 \end{alertblock}
 \end{frame}
 

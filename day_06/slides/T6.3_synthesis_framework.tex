@@ -1,10 +1,15 @@
+% =====================================================================
+% Topic 6.3: Building Your Digital Finance Worldview
+% Course: Digital Finance (BSc) -- Day 6, Topic 3
+% CANONICAL SOURCE for the Innovation Scorecard (6 Questions)
+% =====================================================================
 \input{../../template_beamer.tex}
 
 \title{Topic 6.3: Building Your Digital Finance Worldview}
 \subtitle{A Framework for Evaluating Innovation}
 \author{Joerg Osterrieder}
 \institute{Digital Finance}
-\date{2025}
+\date{2026}
 
 \begin{document}
 
@@ -44,25 +49,23 @@ Equip you with a \textbf{thinking framework} that remains useful for years, not 
 \begin{column}{0.48\textwidth}
 \textbf{Days 1-3 Foundation:}
 \begin{itemize}
-\item Nature of money and trust
-\item Financial system pain points
-\item FinTech vs. Crypto/DeFi distinctions
-\item Digital payments and APIs
-\item Platform economics
+\item Day 1: FinTech vs. DeFi landscape
+\item Day 2: Digital payments and FinTech platforms
+\item Day 3: Blockchain fundamentals
 \item Cryptographic foundations
-\item Blockchain mechanics
+\item Platform economics
+\item APIs and data-driven finance
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Days 4-6 Applications:}
 \begin{itemize}
-\item Smart contracts
+\item Day 4: Smart contracts and DeFi
 \item DeFi primitives and stablecoins
 \item Tokenization and CBDCs
-\item What goes wrong (failures)
-\item Regulatory landscapes
+\item Day 5: Risks and regulation
 \item Privacy and inclusion
-\item AI in digital finance
+\item Day 6: AI and convergence
 \end{itemize}
 \end{column}
 \end{columns}
@@ -191,7 +194,7 @@ A clear, urgent problem with an underserved audience is the foundation of any vi
 \item What are the core smart contracts or algorithms?
 \item What are the economic incentives that make it function?
 \item What assumptions must hold for it to work?
-\item What are the dependencies? (Oracles, other protocols, infrastructure)
+\item What are the dependencies? (Oracles (services that feed real-world data to smart contracts), other protocols, infrastructure)
 \end{itemize}
 \end{block}
 
@@ -223,7 +226,7 @@ A clear, urgent problem with an underserved audience is the foundation of any vi
 \vspace{0.3cm}
 \textbf{Example: Uniswap V2}
 \begin{itemize}
-\item Constant product formula: $x \times y = k$
+\item Recall from Topic 4.2: AMMs (Automated Market Makers) use the constant product formula $x \times y = k$---the pool must always maintain the same total value
 \item Liquidity pools hold token pairs
 \item Price determined algorithmically
 \end{itemize}
@@ -408,10 +411,15 @@ Most failures combine multiple risk types. Analyzing past failures helps identif
 Security & Must register with SEC or use exemptions \\
 Commodity & CFTC oversight for derivatives \\
 Money transmission & State licenses required \\
-Banking product & OCC/Fed/FDIC oversight \\
+Banking product & OCC/Fed/FDIC\footnotemark{} oversight \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\footnotetext{FDIC = Federal Deposit Insurance Corporation (US). Similar schemes: FSCS (UK), Einlagensicherung (EU).}
+
+\vspace{0.2cm}
+\footnotesize{\textit{Note: These categories are illustrative and US-focused. Internationally, the EU uses the MiCA framework, the UK has its FCA regime, and Asian markets follow varying approaches (see Topic 5.2). Always check your own jurisdiction.}}
 \end{frame}
 
 % ---------------------------------------------------------------------
@@ -525,16 +533,16 @@ Understanding value distribution reveals who has incentives to maintain and impr
 \begin{table}[h]
 \centering
 \footnotesize
-\begin{tabular}{clp{6cm}}
+\begin{tabular}{clp{5.5cm}}
 \toprule
-\textbf{Day} & \textbf{Dimension} & \textbf{What It Measures} \\
+\textbf{Topics} & \textbf{Dimension} & \textbf{What It Measures} \\
 \midrule
-1 & Trust Architecture & How is trust established and maintained? \\
-2 & Platform Dynamics & Network effects, ecosystem, switching costs \\
-3 & Technical Soundness & Security, scalability, reliability \\
-4 & Programmability & Smart contracts, composability, automation \\
-5 & Risk Profile & Technical, economic, regulatory risks \\
-6 & Future Potential & Growth trajectory, convergence potential \\
+1.1--1.4 (Foundations) & Trust Architecture & How is trust established and maintained? \\
+2.1--2.4 (FinTech) & Platform Dynamics & Network effects, ecosystem, switching costs \\
+3.1--3.4 (Blockchain) & Technical Soundness & Security, scalability, reliability \\
+4.1--4.4 (DeFi) & Programmability & Smart contracts, composability, automation \\
+5.1--5.4 (Risk \& Reg.) & Risk Profile & Technical, economic, regulatory risks \\
+6.1--6.4 (Future) & Future Potential & Growth trajectory, convergence potential \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -548,7 +556,7 @@ Each dimension: 5 criteria scored 1-5. Total: 30 evaluation points per innovatio
 % ---------------------------------------------------------------------
 % Slide 19: Trust Architecture Dimension
 % ---------------------------------------------------------------------
-\begin{frame}{Dimension 1: Trust Architecture (Day 1)}
+\begin{frame}{Dimension 1: Trust Architecture (Topics 1.1--1.4)}
 \textbf{How is trust established and maintained?}
 
 \vspace{0.3cm}
@@ -591,7 +599,7 @@ No trust model is inherently superior---each suits different contexts and risk t
 % ---------------------------------------------------------------------
 % Slide 20: Platform Dynamics Dimension
 % ---------------------------------------------------------------------
-\begin{frame}{Dimension 2: Platform Dynamics (Day 2)}
+\begin{frame}{Dimension 2: Platform Dynamics (Topics 2.1--2.4)}
 \textbf{Criteria for Platform Assessment:}
 
 \begin{enumerate}
@@ -603,11 +611,11 @@ No trust model is inherently superior---each suits different contexts and risk t
 \end{enumerate}
 
 \vspace{0.3cm}
-\begin{exampleblock}{Platform Comparison}
+\begin{exampleblock}{Platform Comparison (illustrative scores for class discussion)}
 \begin{itemize}
 \item \textbf{Stripe}: Strong two-sided network effects, excellent developer ecosystem (5/5)
-\item \textbf{Uniswap}: Liquidity network effects, low switching costs (4.2/5)
-\item \textbf{Digital Euro}: Not yet launched, mandatory adoption likely (2.8/5)
+\item \textbf{Uniswap}: Liquidity network effects, low switching costs (4/5)
+\item \textbf{Digital Euro}: Not yet launched, mandatory adoption likely (3/5)
 \end{itemize}
 \end{exampleblock}
 \end{frame}
@@ -615,7 +623,7 @@ No trust model is inherently superior---each suits different contexts and risk t
 % ---------------------------------------------------------------------
 % Slide 21: Technical Soundness Dimension
 % ---------------------------------------------------------------------
-\begin{frame}{Dimension 3: Technical Soundness (Day 3)}
+\begin{frame}{Dimension 3: Technical Soundness (Topics 3.1--3.4)}
 \textbf{Criteria for Technical Assessment:}
 
 \begin{enumerate}
@@ -650,12 +658,12 @@ No trust model is inherently superior---each suits different contexts and risk t
 % ---------------------------------------------------------------------
 % Slide 22: Programmability Dimension
 % ---------------------------------------------------------------------
-\begin{frame}{Dimension 4: Programmability (Day 4)}
+\begin{frame}{Dimension 4: Programmability (Topics 4.1--4.4)}
 \textbf{Criteria for Programmability Assessment:}
 
 \begin{enumerate}
 \item \textbf{Smart Contract Support}: Native or none?
-\item \textbf{Composability}: Can combine with other protocols?
+\item \textbf{Composability}: Can combine with other protocols? (Composability means combining DeFi building blocks like Lego pieces, introduced in Day 4)
 \item \textbf{Automation}: Programmable conditions and triggers?
 \item \textbf{API/SDK Quality}: Developer tools available?
 \item \textbf{Extensibility}: Can third parties build on it?
@@ -670,10 +678,12 @@ No trust model is inherently superior---each suits different contexts and risk t
 \textbf{Feature} & \textbf{Stripe} & \textbf{Uniswap} & \textbf{Digital Euro} \\
 \midrule
 Smart Contracts & Limited & Full (Turing-complete) & Minimal \\
-Composability & API-based & ``Money Legos'' & Restricted \\
-Score & 3.8/5 & 5.0/5 & 3.0/5 \\
+Composability & API-based & ``Money Legos'' (composable DeFi protocols) & Restricted \\
+Score & 4/5 & 5/5 & 3/5 \\
 \bottomrule
 \end{tabular}
+
+\footnotesize{\textit{Note: Scores are illustrative examples for classroom discussion, not definitive ratings.}}
 \end{table}
 
 \textbf{Key tension:} Higher programmability often means higher regulatory uncertainty.
@@ -682,7 +692,7 @@ Score & 3.8/5 & 5.0/5 & 3.0/5 \\
 % ---------------------------------------------------------------------
 % Slide 23: Risk Profile Dimension
 % ---------------------------------------------------------------------
-\begin{frame}{Dimension 5: Risk Profile (Day 5)}
+\begin{frame}{Dimension 5: Risk Profile (Topics 5.1--5.4)}
 \textbf{Criteria for Risk Assessment:}
 
 \begin{enumerate}
@@ -695,7 +705,7 @@ Score & 3.8/5 & 5.0/5 & 3.0/5 \\
 
 \vspace{0.3cm}
 \begin{alertblock}{Impermanent Loss Example}
-Uniswap liquidity providers face ``impermanent loss'' when token prices diverge---an economic risk unique to AMMs that becomes permanent when liquidity is withdrawn.
+\textbf{Impermanent loss} = the potential loss liquidity providers face when token prices change compared to simply holding the tokens. When you deposit tokens into an AMM pool and the price moves, the pool rebalances automatically, leaving you with less value than if you had just kept the tokens in your wallet. This loss is called ``impermanent'' because it reverses if prices return to their original ratio---but it becomes permanent when you withdraw your liquidity.
 \end{alertblock}
 
 \textbf{Pattern:} Higher programmability and decentralization often correlate with higher regulatory risk.
@@ -704,7 +714,7 @@ Uniswap liquidity providers face ``impermanent loss'' when token prices diverge-
 % ---------------------------------------------------------------------
 % Slide 24: Future Potential Dimension
 % ---------------------------------------------------------------------
-\begin{frame}{Dimension 6: Future Potential (Day 6)}
+\begin{frame}{Dimension 6: Future Potential (Topics 6.1--6.4)}
 \textbf{Criteria for Future Assessment:}
 
 \begin{enumerate}
@@ -721,6 +731,7 @@ Uniswap liquidity providers face ``impermanent loss'' when token prices diverge-
 \item \textbf{Uniswap}: V3 concentrated liquidity (100x capital efficiency), V4 hooks
 \item \textbf{Stripe}: Expanding to crypto, embedded finance, global coverage
 \item \textbf{Digital Euro}: Pilot phase, 2025-2027 potential launch
+\item \textbf{ESG} (Environmental, Social, and Governance criteria for responsible investing): Integration with tokenized assets
 \end{itemize}
 \end{exampleblock}
 \end{frame}
@@ -748,7 +759,7 @@ Uniswap liquidity providers face ``impermanent loss'' when token prices diverge-
 \item Central Bank Digital Currencies
 \item Prediction markets
 \item Decentralized insurance
-\item Tokenized treasuries
+\item Tokenized treasuries (government bonds represented as digital tokens on blockchain)
 \item Cross-chain bridges
 \end{itemize}
 \end{multicols}
@@ -868,9 +879,9 @@ WHO BENEFITS & Issuers (interest on reserves), traders (liquidity), DeFi (compos
 \draw[thick, ->] (0,0) -- (0,5) node[above, font=\small] {Regulatory Clarity};
 
 % Points
-\node[circle, fill=dfblue, minimum size=10pt, label=right:{\footnotesize Digital Euro (3.0, 5.0)}] at (2.4,4) {};
-\node[circle, fill=dforange, minimum size=10pt, label=right:{\footnotesize Stripe (3.8, 4.0)}] at (3.04,3.2) {};
-\node[circle, fill=dfteal, minimum size=10pt, label=right:{\footnotesize Uniswap (5.0, 2.0)}] at (4,1.6) {};
+\node[circle, fill=dfblue, minimum size=10pt, label=right:{\footnotesize Digital Euro (3, 5)}] at (2.4,4) {};
+\node[circle, fill=dforange, minimum size=10pt, label=right:{\footnotesize Stripe (4, 4)}] at (3.04,3.2) {};
+\node[circle, fill=dfteal, minimum size=10pt, label=right:{\footnotesize Uniswap (5, 2)}] at (4,1.6) {};
 
 % Trend line
 \draw[dashed, dfred, thick] (1.5,4.5) -- (5,1);
@@ -892,10 +903,10 @@ Is this tradeoff inevitable, or can future innovations achieve both high program
 \node[process, minimum width=4cm, minimum height=1.5cm, font=\bfseries, align=center] (center) at (0,0) {Digital Finance\\Innovation};
 
 % Four lenses
-\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (tech) at (-5,2.5) {Technical Lens\\(Days 2, 3)};
-\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (econ) at (5,2.5) {Economic Lens\\(Days 1, 4)};
-\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (reg) at (-5,-2.5) {Regulatory Lens\\(Day 5)};
-\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (social) at (5,-2.5) {Social Lens\\(All Days)};
+\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (tech) at (-5,2.5) {Technical Lens\\(Topics 2--3)};
+\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (econ) at (5,2.5) {Economic Lens\\(Topics 1, 4)};
+\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (reg) at (-5,-2.5) {Regulatory Lens\\(Topic 5)};
+\node[blockchain, minimum width=3cm, font=\footnotesize, align=center] (social) at (5,-2.5) {Social Lens\\(All Topics)};
 
 % Arrows
 \draw[arrow] (tech) -- (center);
@@ -921,12 +932,12 @@ Is this tradeoff inevitable, or can future innovations achieve both high program
 \begin{block}{The Innovation Scorecard Framework}
 \textbf{Six Questions} to ask about ANY digital finance innovation:
 \begin{enumerate}
-\item PROBLEM: What real problem does this solve?
-\item MECHANISM: How does it actually work?
-\item TRADEOFFS: What was sacrificed for what gain?
-\item RISKS: What could go wrong?
-\item REGULATORY: Where does it fit legally?
-\item WHO BENEFITS: Who captures value vs. bears costs?
+\item PROBLEM: What real problem does this solve, and for whom?
+\item MECHANISM: How does it actually work (technically and economically)?
+\item TRADEOFFS: What are the key tradeoffs and design choices?
+\item RISKS: What could go wrong (technical, economic, regulatory)?
+\item REGULATORY STATUS: Where does it fit in the regulatory landscape?
+\item WHO BENEFITS: Who captures value, and who bears costs?
 \end{enumerate}
 \end{block}
 
@@ -998,7 +1009,7 @@ Is this tradeoff inevitable, or can future innovations achieve both high program
 
 \item[Trust Architecture] How an innovation establishes and maintains trust (centralized, federated, or decentralized)
 
-\item[Composability] Ability of protocols to combine like ``money legos''---building complex products from simple primitives
+\item[Composability] Ability of protocols to combine like ``money legos'' (a nickname for composable DeFi protocols)---building complex products from simple primitives
 
 \item[Impermanent Loss] Economic risk for AMM liquidity providers when token prices diverge from initial ratio
 
@@ -1077,7 +1088,13 @@ What is the primary purpose of the Innovation Scorecard framework presented in N
 \end{enumerate}
 
 \vspace{0.5cm}
-\pause
+\textit{Think about your answer before moving to the next slide.}
+\end{frame}
+
+% ---------------------------------------------------------------------
+% Slide 36b: Self-Assessment Answer 1
+% ---------------------------------------------------------------------
+\begin{frame}{Self-Assessment Answer 1}
 \begin{exampleblock}{Answer: B}
 The Innovation Scorecard evaluates innovations across six dimensions: trust architecture, platform dynamics, technical soundness, programmability, risk profile, and future potential. It provides systematic assessment rather than focusing on a single metric.
 \end{exampleblock}
@@ -1147,25 +1164,30 @@ Bring your completed Innovation Scorecard analysis from NB14 to discuss emerging
 \textbf{Course Materials:}
 \begin{itemize}
 \item NB14: Innovation Scorecard (hands-on exercise)
-\item Day 1-6 slide decks (reference for each dimension)
+\item Topics 1.1--6.4 slide decks (reference for each dimension)
 \end{itemize}
 
-\vspace{0.3cm}
-\textbf{Further Reading:}
+\vspace{0.2cm}
+\textbf{Foundational Papers:}
 \begin{itemize}
 \item Nakamoto, S. (2008). ``Bitcoin: A Peer-to-Peer Electronic Cash System''
 \item Buterin, V. (2014). ``Ethereum Whitepaper''
 \item Adams, H. et al. (2020). ``Uniswap v2 Core''
-\item ECB (2023). ``Digital Euro: Progress Report''
-\item BIS (2024). ``Annual Economic Report'' - Chapter on Digital Currencies
 \end{itemize}
 
-\vspace{0.3cm}
-\textbf{Tools:}
+\vspace{0.2cm}
+\textbf{Institutional Reports:}
 \begin{itemize}
-\item DeFi Llama (defillama.com) - Protocol analytics
-\item L2Beat (l2beat.com) - Layer 2 comparison
-\item Token Terminal - Financial metrics for protocols
+\item ECB (2023). ``Digital Euro: Progress Report''
+\item BIS (2024). ``Annual Economic Report'' -- Chapter on Digital Currencies
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Analytics Tools:}
+\begin{itemize}
+\item DeFi Llama (defillama.com) -- Protocol analytics
+\item L2Beat (l2beat.com) -- Layer 2 comparison
+\item Token Terminal -- Financial metrics for protocols
 \end{itemize}
 \end{frame}
 

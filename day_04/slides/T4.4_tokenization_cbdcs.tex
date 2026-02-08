@@ -41,41 +41,65 @@ How will the digitization of money and assets reshape finance, and what design c
 % =====================================================================
 % SLIDES 3-4: PREREQUISITES/BACKGROUND
 % =====================================================================
-\begin{frame}{Prerequisites: What You Should Know}
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\textbf{From Previous Topics:}
-\begin{itemize}
-    \item Blockchain fundamentals (T1.3)
-    \item Smart contracts basics (T4.1)
-    \item Stablecoin mechanisms (T4.3)
-    \item DeFi primitives (T4.2)
-\end{itemize}
-
-\vspace{0.3cm}
-\textbf{Key Concepts to Recall:}
-\begin{itemize}
-    \item Distributed ledger technology
-    \item Token standards (ERC-20, ERC-721)
-    \item Fiat-backed vs. algorithmic stability
-\end{itemize}
-\end{column}
-
-\begin{column}{0.48\textwidth}
-\begin{block}{Core Understanding}
-Tokens are programmable digital representations that can:
-\begin{itemize}
-    \item Transfer value 24/7
-    \item Execute automated logic
-    \item Enable fractional ownership
-    \item Operate across borders
-\end{itemize}
+\begin{frame}{Prerequisites: Quick Recap (1/4)}
+\begin{block}{Blockchain Fundamentals (T1.3)}
+\textbf{Key takeaway:} A blockchain is a distributed database where transactions are grouped into blocks and linked cryptographically, making records tamper-resistant without central authority.
 \end{block}
 
+\vspace{0.3cm}
+\textbf{Why it matters here:}
+\begin{itemize}
+    \item Tokenization uses blockchain to create tamper-proof records of asset ownership
+    \item CBDCs leverage blockchain technology for programmable, auditable digital currency
+    \item The trustless nature enables 24/7 trading without intermediaries
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Prerequisites: Quick Recap (2/4)}
+\begin{block}{Smart Contracts (T4.1)}
+\textbf{Key takeaway:} Smart contracts are self-executing code on blockchains that automatically enforce agreements when conditions are met---no lawyers or intermediaries needed.
+\end{block}
+
+\vspace{0.3cm}
+\textbf{Why it matters here:}
+\begin{itemize}
+    \item Tokenized assets use smart contracts to automate dividend payments
+    \item CBDCs can use smart contracts for programmable money (e.g., expiring stimulus)
+    \item Security tokens enforce regulatory compliance automatically (KYC/AML)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Prerequisites: Quick Recap (3/4)}
+\begin{block}{Stablecoins (T4.3)}
+\textbf{Key takeaway:} Stablecoins are cryptocurrencies pegged to fiat currency (like the US dollar), providing crypto's speed without volatility. They can be backed by reserves or use algorithms.
+\end{block}
+
+\vspace{0.3cm}
+\textbf{Why it matters here:}
+\begin{itemize}
+    \item CBDCs compete directly with private stablecoins like USDC and Tether
+    \item Both represent digital dollars, but CBDCs are sovereign (government-issued)
+    \item Understanding stablecoin limitations helps explain why CBDCs exist
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Prerequisites: Quick Recap (4/4)}
+\begin{block}{DeFi Primitives (T4.2)}
+\textbf{Key takeaway:} DeFi protocols enable lending, borrowing, and trading without banks using smart contracts. They're like financial Lego blocks you can combine.
+\end{block}
+
+\vspace{0.3cm}
+\textbf{Why it matters here:}
+\begin{itemize}
+    \item Tokenized assets can plug into DeFi for instant liquidity
+    \item CBDCs may enable DeFi composability with sovereign money
+    \item Real-world assets + DeFi = the convergence of traditional and crypto finance
+\end{itemize}
+
 \vspace{0.2cm}
-\textbf{New Ground:} We now extend tokenization to traditional assets and sovereign money.
-\end{column}
-\end{columns}
+\begin{block}{Token Standards Explained}
+\textbf{ERC-20 \& ERC-721} are blueprints that tell tokens how to behave---like using standard electrical outlets so any device works. ERC-20 is for fungible tokens (like currency), ERC-721 for unique tokens (like art NFTs).
+\end{block}
 \end{frame}
 
 \begin{frame}{Background: The Digitization of Value}
@@ -104,7 +128,7 @@ Tokens are programmable digital representations that can:
 
 \vspace{0.2cm}
 \begin{block}{Market Context}
-Boston Consulting Group projects \textbf{\$16 trillion} in tokenized assets by 2030. Over \textbf{130 countries} are exploring CBDCs.
+Boston Consulting Group projects \textbf{\$16 trillion} in tokenized assets by 2030---roughly the size of China's entire economy. Over \textbf{130 countries} are exploring CBDCs (research $\to$ pilot $\to$ limited launch $\to$ full launch).
 \end{block}
 \end{frame}
 
@@ -241,19 +265,19 @@ Boston Consulting Group projects \textbf{\$16 trillion} in tokenized assets by 2
 \begin{frame}{RWA Tokenization Examples}
 \begin{center}
 \footnotesize
-\begin{tabular}{p{2.5cm}|p{3cm}|p{3cm}|p{3.5cm}}
+\begin{tabular}{p{2.5cm}|p{2.8cm}|p{4cm}}
 \toprule
-\textbf{Asset Class} & \textbf{Example} & \textbf{Platform} & \textbf{Value Proposition} \\
+\textbf{Asset Class} & \textbf{Platform} & \textbf{What They Do} \\
 \midrule
-Real Estate & Tokenized apartments & RealT, Lofty & Fractional ownership, rental income \\
+Real Estate & RealT, Lofty & Buy fractions of rental properties starting at \$50; earn daily rent automatically \\
 \addlinespace
-US Treasuries & T-bills on-chain & Ondo, Franklin Templeton & DeFi-compatible yield \\
+US Treasuries & Ondo, Franklin Templeton & Invest in government bonds on-chain; earn ~5\% yield in your crypto wallet \\
 \addlinespace
-Private Credit & Corporate loans & Centrifuge, Goldfinch & Access to institutional yields \\
+Private Credit & Centrifuge, Goldfinch & Access corporate loans normally reserved for institutions; 8-15\% yields \\
 \addlinespace
-Commodities & Gold tokens & Paxos Gold (PAXG) & Redeemable for physical \\
+Commodities & Paxos Gold (PAXG) & Each token = 1 oz gold in vault; trade 24/7 or redeem for physical bars \\
 \addlinespace
-Art & Fractionalized art & Masterworks & Access to blue-chip art \\
+Art & Masterworks & Own \$5M Banksy for \$100/share; platform handles storage, insurance, resale \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -294,9 +318,45 @@ Tokens represent claims on assets, but enforcement still requires legal systems.
 \end{columns}
 
 \vspace{0.3cm}
-\begin{alertblock}{Regulatory Gray Zone}
-The Howey Test determines if a token is a security. Many tokens blur the line, leading to SEC enforcement actions. When in doubt, assume it's a security.
+\begin{alertblock}{The Howey Test (Plain English)}
+US courts use 4 criteria to determine if something is a security: (1) investment of money, (2) in a common enterprise, (3) with expectation of profits, (4) from others' efforts. If all 4 apply, it's a security requiring SEC registration.
 \end{alertblock}
+\end{frame}
+
+\begin{frame}{KYC/AML Regulatory Terms Explained}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{KYC (Know Your Customer)}
+\textbf{What it means:} Financial institutions must verify who their customers are before providing services.
+\begin{itemize}
+    \item Collect government ID, address proof
+    \item Screen against sanctions lists
+    \item Understand customer's business
+    \item Ongoing monitoring
+\end{itemize}
+\end{block}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{block}{AML (Anti-Money Laundering)}
+\textbf{What it means:} Rules to prevent criminals from disguising illegally obtained money as legitimate income.
+\begin{itemize}
+    \item Monitor suspicious transactions
+    \item Report large transactions (\$10K+ in US)
+    \item Track source of funds
+    \item File SARs (Suspicious Activity Reports)
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Why it matters for tokenization:}
+\begin{itemize}
+    \item Security tokens require full KYC/AML compliance like traditional securities
+    \item Tokenization platforms (Securitize, Polymath) automate compliance checks
+    \item Trade-off: Privacy vs. regulatory legitimacy
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Tokenization Infrastructure: Key Players}
@@ -345,10 +405,11 @@ A \textbf{CBDC} is a digital form of central bank money, denominated in the nati
 \vspace{0.3cm}
 \textbf{Global Status (2024):}
 \begin{itemize}
-    \item 130+ countries exploring
-    \item 3 fully launched (Bahamas, Nigeria, Jamaica)
-    \item 20+ in pilot phase
-    \item Major economies in research
+    \item \textbf{130+ countries exploring}
+    \item \textbf{Research:} Studying feasibility (US, UK)
+    \item \textbf{Pilot:} Testing with users (China, India)
+    \item \textbf{Limited launch:} Small-scale deployment (Nigeria)
+    \item \textbf{Full launch:} Nationally available (Bahamas, Jamaica)
 \end{itemize}
 \end{column}
 
@@ -417,6 +478,13 @@ A \textbf{CBDC} is a digital form of central bank money, denominated in the nati
     \item \textbf{Intermediated:} Preserves banking system, but less innovative
     \item \textbf{Hybrid:} Balance, but complex implementation
 \end{itemize}
+
+\vspace{0.3cm}
+\begin{block}{What Does This Mean for YOU?}
+\textbf{Direct:} Bank at the Federal Reserve directly---your wallet is your Fed account\\
+\textbf{Intermediated:} Keep using Chase/Wells Fargo, but your dollars are CBDCs behind the scenes\\
+\textbf{Hybrid:} Choose either option depending on your needs (both available)
+\end{block}
 \end{frame}
 
 \begin{frame}{Two-Tier CBDC Architecture}

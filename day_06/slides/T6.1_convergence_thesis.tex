@@ -7,10 +7,10 @@
 \subtitle{FinTech and DeFi Coming Together}
 \author{Joerg Osterrieder}
 \institute{Digital Finance}
-\date{2025}
+\date{2026}
 
 % Additional TikZ styles for this presentation
-\tikzstyle{aibox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=dforange, fill=dflightblue3, thick]
+% (aibox style inherited from template_beamer.tex line 148)
 
 \begin{document}
 
@@ -62,7 +62,7 @@ The future of finance is neither purely centralized nor purely decentralized---i
 \begin{itemize}
 \item Finance rebuilt on \textbf{blockchain}
 \item Decentralized protocols (Uniswap, Aave)
-\item Permissionless, pseudonymous
+\item Permissionless, pseudonymous (identities hidden behind addresses, but transactions visible)
 \item Trust in \textbf{code} (smart contracts)
 \item Crypto-native, no intermediaries
 \end{itemize}
@@ -70,7 +70,10 @@ The future of finance is neither purely centralized nor purely decentralized---i
 \end{column}
 \end{columns}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
+{\footnotesize \textbf{Quick refresher from earlier days:} Day~1 introduced \emph{what money is} and the FinTech vs.\ DeFi distinction shown above. Day~2 covered \emph{digital payments, APIs, and platform economics}. Day~3 explained \emph{blockchain cryptography, wallets, and Bitcoin vs.\ Ethereum}. Day~4 explored \emph{smart contracts, DeFi lending/trading, stablecoins, and tokenization}. Day~5 examined \emph{risks, regulation, DAOs, and privacy}.}
+
+\vspace{0.3cm}
 \centering
 \textbf{This framing served us well throughout the course...}\\
 \textbf{But it is dissolving in practice.}
@@ -108,9 +111,9 @@ The future of finance is neither purely centralized nor purely decentralized---i
 \textbf{Key Question:} Are these philosophies incompatible, or are they converging toward common ground?
 
 \begin{itemize}
-\item \textbf{2017-2020}: Clear separation---crypto enthusiasts vs. banking innovators
-\item \textbf{2021-2024}: Boundaries blur---PayPal adds crypto, Aave adds compliance
-\item \textbf{2025+}: Convergence accelerates---hybrid models dominate
+\item \textbf{2017--2020}: Clear separation---ICO boom (2017), crypto winter (2018), DeFi Summer begins (2020)
+\item \textbf{2021--2024}: Boundaries blur---PayPal adds crypto buying (2021), Visa settles in USDC (2021), Aave Arc launches (2022), BlackRock files Bitcoin ETF (2023), spot Bitcoin ETFs approved in the US (Jan 2024)
+\item \textbf{2025+}: Convergence accelerates---hybrid models dominate new product launches
 \end{itemize}
 \end{frame}
 
@@ -122,11 +125,11 @@ The future of finance is neither purely centralized nor purely decentralized---i
 \begin{tikzpicture}[scale=0.9]
 % Left circle - FinTech
 \draw[thick, dfblue, fill=dfblue!20] (-2.5,0) circle (2.2cm);
-\node[font=\bfseries] at (-3.8,1.5) {FinTech};
+\node[font=\bfseries] at (-3.8,1.5) {FinTech (blue)};
 
 % Right circle - DeFi
 \draw[thick, dfteal, fill=dfteal!20] (2.5,0) circle (2.2cm);
-\node[font=\bfseries] at (3.8,1.5) {DeFi};
+\node[font=\bfseries] at (3.8,1.5) {DeFi (teal)};
 
 % Overlap region
 \begin{scope}
@@ -137,7 +140,7 @@ The future of finance is neither purely centralized nor purely decentralized---i
 % Labels
 \node[align=center, font=\small] at (-3.5,0) {Mobile\\Banking\\Payment\\Apps};
 \node[align=center, font=\small] at (3.5,0) {Pure\\DeFi\\DEXs\\DAOs};
-\node[align=center, font=\small\bfseries, text=dfred] at (0,0) {Convergence\\Zone};
+\node[align=center, font=\small\bfseries, text=dfred] at (0,0) {Convergence\\Zone\\(orange)};
 
 % Arrow below
 \draw[->, ultra thick, dforange] (0,-2.8) -- (0,-3.5);
@@ -192,7 +195,7 @@ Convergence is driven by \textbf{pragmatism}---both sides recognize that pure ap
 \item Regulatory survival
 \item Institutional capital access
 \item User experience expectations
-\item Fiat on/off ramps
+\item Fiat (government-issued money like USD or EUR) on-ramp/off-ramp (converting between traditional money and crypto)
 \item Compliance requirements
 \end{itemize}
 
@@ -228,7 +231,7 @@ Programmability & Limited & Smart contracts \\
 
 \vspace{0.3cm}
 \textbf{Why FinTech cares:} Lower costs, better margins, competitive advantage\\
-\textbf{Why banks care:} Operational efficiency, reduced counterparty risk
+\textbf{Why banks care:} Operational efficiency, reduced counterparty risk (the danger that the other side of a deal defaults)
 \end{frame}
 
 \begin{frame}{Convergence Driver 2: Regulatory Pressure}
@@ -261,29 +264,29 @@ The choice is increasingly binary: add compliance and survive, or remain pure an
 
 \begin{frame}{Convergence Driver 3: Institutional Demand}
 \begin{block}{Trillions in Capital Waiting}
-Institutional investors want blockchain exposure but require:
+Global assets under management exceeded \$120\,trillion in 2024 (BCG Global Asset Management Report). A growing share of these institutional investors want blockchain exposure but require:
 \end{block}
 
 \begin{itemize}
 \item \textbf{Regulatory clarity}: Clear legal status of assets
-\item \textbf{Custody solutions}: Qualified custodians, insurance
-\item \textbf{Counterparty verification}: KYC/AML compliance
+\item \textbf{Custody solutions}: Qualified custodians (firms licensed to hold assets on behalf of clients) with insurance
+\item \textbf{Counterparty verification}: KYC/AML (Know Your Customer / Anti-Money Laundering---identity checks required by law) compliance
 \item \textbf{Risk management}: Understood, quantifiable risks
-\item \textbf{Familiar structures}: Funds, ETFs, regulated vehicles
+\item \textbf{Familiar structures}: Funds, ETFs (Exchange-Traded Funds---investment products traded on stock exchanges like shares), and other regulated vehicles
 \end{itemize}
 
 \vspace{0.3cm}
 \textbf{Institutional DeFi emerges to serve this demand:}
 \begin{itemize}
 \item Same smart contracts, restricted access
-\item Whitelisted wallet addresses
+\item Whitelisted wallet addresses (pre-approved cryptocurrency wallet addresses that have passed identity verification)
 \item Compliance layer on-chain or off-chain
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Convergence Example 1: Institutional DeFi}
 \begin{block}{Definition}
-DeFi protocols or pools designed for institutions with KYC/AML, permissioned access, and regulatory compliance.
+DeFi protocols or pools designed for institutions with KYC/AML (Know Your Customer / Anti-Money Laundering regulations), permissioned (requiring approval to join) access, and regulatory compliance.
 \end{block}
 
 \begin{columns}[T]
@@ -299,7 +302,7 @@ DeFi protocols or pools designed for institutions with KYC/AML, permissioned acc
 \begin{column}{0.48\textwidth}
 \textbf{Key examples:}
 \begin{itemize}
-\item \textbf{Aave Arc}: Permissioned Aave for institutions
+\item \textbf{Aave Arc}: Permissioned Aave for institutions (launched 2022; saw limited adoption---institutional DeFi access has since shifted to platforms like Fireblocks and Copper)
 \item \textbf{Compound Treasury}: Institutional lending product
 \item \textbf{Maple Finance}: Institutional credit pools
 \item \textbf{Centrifuge}: Real-world asset financing
@@ -338,7 +341,7 @@ Same DeFi rails, different access model. The technology does not change; the \em
 \end{tikzpicture}
 \end{center}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{Key Features:}
 \begin{itemize}
 \item Fireblocks provides identity verification and custody
@@ -346,6 +349,19 @@ Same DeFi rails, different access model. The technology does not change; the \em
 \item Smart contracts identical to permissionless Aave
 \item Institutions get DeFi yields with compliance
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Aave Arc: What It Means for Beginners}
+\begin{exampleblock}{Translation for Beginners}
+Think of Aave Arc like a \textbf{members-only club version} of an open marketplace. The marketplace (Aave) is the same, but Arc adds a bouncer at the door who checks your ID. Only verified members can enter and trade. The goods and prices inside are identical---only the entry rules differ.
+\end{exampleblock}
+
+\vspace{0.3cm}
+\textbf{Note:} Aave Arc launched in 2022 but saw limited uptake. The institutional DeFi market has since moved toward custody-first platforms such as Fireblocks and Copper, though the concept of permissioned DeFi pools remains influential.
+
+\begin{alertblock}{Key Takeaway}
+The \emph{concept} of permissioned DeFi pools---where identity-verified users access decentralized protocols---remains influential even as specific products come and go.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}{Convergence Example 2: Tokenized Deposits}
@@ -366,10 +382,12 @@ Bank deposits represented as tokens on a blockchain, combining bank liability wi
 \node[blockchain, minimum width=3.5cm, align=center] (token) at (4,0) {Tokenized\\Deposit};
 
 % Properties below
-\node[below, font=\footnotesize, align=center, text=dfgray] at (-4,-1.2) {FDIC insured\\Bank liability\\Traditional rails};
-\node[below, font=\footnotesize, align=center, text=dfteal] at (4,-1.2) {FDIC insured\\Bank liability\\Blockchain rails};
+\node[below, font=\footnotesize, align=center, text=dfgray] at (-4,-1.2) {FDIC insured*\\Bank liability\\Traditional rails};
+\node[below, font=\footnotesize, align=center, text=dfteal] at (4,-1.2) {FDIC insured*\\Bank liability\\Blockchain rails};
 \end{tikzpicture}
 \end{center}
+
+{\scriptsize *FDIC = Federal Deposit Insurance Corporation, the US government agency that insures bank deposits up to \$250{,}000. Most countries have equivalent schemes (e.g., FSCS in the UK, Einlagensicherung in Germany/EU).}
 
 \textbf{Key players:} JPMorgan (JPM Coin), Citi, Wells Fargo, Societe Generale
 
@@ -383,7 +401,7 @@ Bank deposits represented as tokens on a blockchain, combining bank liability wi
 \textbf{Feature} & \textbf{Tokenized Deposit} & \textbf{Stablecoin (e.g., USDC)} \\
 \midrule
 Liability type & Bank liability & Issuer liability \\
-Deposit insurance & Yes (if applicable) & No \\
+Deposit insurance & Yes (in jurisdictions with schemes, e.g.\ FDIC in the US, FSCS in the UK) & No \\
 Issuer & Commercial bank & Crypto company \\
 Backing & Bank balance sheet & Reserve assets \\
 Regulation & Banking regulation & Varies by jurisdiction \\
@@ -429,7 +447,7 @@ Financial services seamlessly integrated into non-financial platforms and workfl
 \begin{itemize}
 \item Shopify Capital (e-commerce lending)
 \item Uber driver instant pay
-\item Apple Pay Later
+\item Klarna Buy Now Pay Later
 \item Amazon lending to sellers
 \item Tesla insurance
 \end{itemize}
@@ -482,7 +500,7 @@ The merchant sees one platform; underneath, multiple financial rails.
 \begin{column}{0.48\textwidth}
 \textbf{Examples:}
 \begin{itemize}
-\item \textbf{MakerDAO}: DAI backed by RWA vaults
+\item \textbf{MakerDAO} (rebranded to \textbf{Sky} in 2024, with DAI transitioning to USDS): DAI/USDS backed by RWA vaults
 \item \textbf{Ondo Finance}: Tokenized treasuries
 \item \textbf{Backed Finance}: Tokenized ETFs
 \item \textbf{Goldfinch}: Credit to emerging markets
@@ -491,16 +509,16 @@ The merchant sees one platform; underneath, multiple financial rails.
 \end{columns}
 
 \vspace{0.5cm}
-\begin{exampleblock}{MakerDAO's RWA Strategy}
-MakerDAO now allocates \$2B+ to real-world assets (US Treasuries, corporate bonds). A ``DeFi'' protocol holding TradFi assets---convergence in action.
+\begin{exampleblock}{MakerDAO's RWA Strategy (now Sky)}
+MakerDAO (rebranded to Sky in 2024) allocated \$2B+ to real-world assets (US Treasuries, corporate bonds) as of mid-2024. A ``DeFi'' protocol holding TradFi assets---convergence in action. The rebrand also transitioned DAI to a new token called USDS.
 \end{exampleblock}
 \end{frame}
 
-\begin{frame}{Deep Dive: MakerDAO's Real-World Assets}
+\begin{frame}{Deep Dive: MakerDAO (now Sky) -- Real-World Assets}
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
 % DAI
-\node[blockchain, minimum width=2.5cm] (dai) at (0,2) {DAI Stablecoin};
+\node[blockchain, minimum width=2.5cm] (dai) at (0,2) {DAI / USDS};
 
 % Collateral types
 \node[process, minimum width=2cm, font=\footnotesize] (eth) at (-4,0) {ETH\\Collateral};
@@ -560,6 +578,7 @@ Visa did not become a ``crypto company.'' It integrated blockchain where it made
 \item Maximum sovereignty
 \item Requires technical knowledge
 \end{itemize}
+{\footnotesize \textit{Analogy: Keeping cash in a home safe---only you have access, but if you lose the combination, no one can help.}}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Pure Institutional Custody:}
@@ -569,16 +588,17 @@ Visa did not become a ``crypto company.'' It integrated blockchain where it made
 \item Counterparty risk
 \item Familiar to traditional users
 \end{itemize}
+{\footnotesize \textit{Analogy: A bank safe-deposit box---the bank secures it for you, but you must trust the bank to stay solvent.}}
 \end{column}
 \end{columns}
 
 \vspace{0.3cm}
 \begin{block}{Hybrid Custody Solutions}
 \begin{itemize}
-\item \textbf{Multi-sig wallets}: 2-of-3 keys (user, institution, backup)
-\item \textbf{Social recovery}: Designated guardians can restore access
-\item \textbf{Tiered access}: Small amounts self-custody, large amounts require verification
-\item \textbf{MPC (Multi-Party Computation)}: Key shares distributed, no single point of failure
+\item \textbf{Multi-sig wallets}: 2-of-3 keys (user, institution, backup). \textit{Like a safe that needs two of three keyholders to open.}
+\item \textbf{Social recovery}: Designated guardians can restore access. \textit{Like naming trusted friends who can vouch for you if you lose your key.}
+\item \textbf{Tiered access}: Small amounts self-custody, large amounts require verification. \textit{Like using a debit card for small purchases but needing extra approval for big ones.}
+\item \textbf{MPC (Multi-Party Computation---splitting a secret key among multiple parties)}: Key shares distributed, no single point of failure. \textit{Like splitting a treasure map into pieces held by different people.}
 \end{itemize}
 \end{block}
 \end{frame}
@@ -611,44 +631,48 @@ Value proposition & Clear efficiency gain & Ideological appeal only \\
 
 \begin{frame}{Technology Stack Blending}
 \begin{block}{Definition}
-Architectures that strategically combine traditional infrastructure with blockchain layers for optimal efficiency.
+Building systems that use \textbf{both} traditional technology and blockchain, picking the best tool for each job---rather than forcing everything onto one platform.
 \end{block}
 
 \textbf{Examples:}
 \begin{itemize}
-\item \textbf{Hybrid databases}: Traditional DB for non-critical data, blockchain for settlement
-\item \textbf{Layer 2 solutions}: Centralized sequencers, decentralized verification
-\item \textbf{Private + Public chains}: Internal private blockchain, public chain for finality
-\item \textbf{API gateways}: Centralized access to decentralized protocols
+\item \textbf{Hybrid databases}: Use a normal database for everyday records, but record final settlements (confirmed transactions) on a blockchain for tamper-proof proof
+\item \textbf{Layer 2 solutions}: A fast centralized processor handles transactions quickly, then a decentralized blockchain double-checks the results (as covered in Day~3)
+\item \textbf{Private + Public chains}: A company runs its own private blockchain internally, then periodically anchors a summary to a public blockchain for transparency
+\item \textbf{API gateways}: A traditional web interface (API) that lets apps connect to decentralized protocols without users needing to understand blockchain directly
 \end{itemize}
 
 \vspace{0.3cm}
 \begin{alertblock}{Design Principle}
-Not everything needs to be on-chain. Optimal systems blend technologies based on what each does best.
+Not everything needs to be on a blockchain. The best systems combine technologies based on what each does best.
 \end{alertblock}
 \end{frame}
 
 \begin{frame}{Cross-Chain Interoperability: The Connector}
+
+{\footnotesize \textbf{Key terms:} \textit{Cross-chain} means moving assets or data between different blockchains (e.g., Ethereum to Solana). \textit{Interoperability} means different systems can work together seamlessly. A \textit{bridge} is software that locks an asset on one chain and issues an equivalent on another.}
+
+\vspace{0.2cm}
 \textbf{Why Interoperability Matters for Convergence:}
 \begin{itemize}
 \item Enables value transfer between different blockchains
 \item Connects blockchain and traditional systems
-\item Breaks down liquidity silos
+\item Breaks down liquidity silos (pools of money trapped on a single platform)
 \item Improves user experience (no manual bridging)
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{Solutions:}
 \begin{itemize}
-\item \textbf{Bridges}: Cross-chain asset transfers (security challenges)
-\item \textbf{Chain abstraction}: Hide chain complexity from users
-\item \textbf{Standardized protocols}: Common messaging formats
-\item \textbf{SWIFT integration}: Traditional banking meeting blockchain
+\item \textbf{Bridges}: Cross-chain asset transfers (but with security challenges---bridge hacks have caused billions in losses)
+\item \textbf{Chain abstraction}: Hide blockchain complexity from users so they do not need to know which chain they are on
+\item \textbf{Standardized protocols}: Common messaging formats so different chains can ``speak the same language''
+\item \textbf{SWIFT integration}: Traditional banking networks connecting to blockchain
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \begin{exampleblock}{SWIFT + Chainlink}
-SWIFT (traditional interbank messaging) partnered with Chainlink to enable blockchain interoperability---a direct FinTech-DeFi bridge.
+SWIFT (the messaging network used by 11{,}000+ banks worldwide for cross-border transfers) partnered with Chainlink to enable blockchain interoperability---a direct FinTech-DeFi bridge.
 \end{exampleblock}
 \end{frame}
 
@@ -692,7 +716,7 @@ SWIFT (traditional interbank messaging) partnered with Chainlink to enable block
 % =====================================================================
 \begin{frame}{Case Study 1: BlackRock's BUIDL Fund}
 \begin{block}{Background}
-In 2024, BlackRock (world's largest asset manager, \$10T+ AUM) launched BUIDL---a tokenized fund for US Treasury exposure on Ethereum.
+In March 2024, BlackRock (world's largest asset manager, \$10T+ AUM) launched BUIDL---a tokenized fund for US Treasury exposure on Ethereum. Within months BUIDL attracted over \$500M in assets, making it the largest tokenized Treasury fund.
 \end{block}
 
 \textbf{Key Features:}
@@ -847,6 +871,9 @@ For a proposed convergence initiative, evaluate:
 \end{itemize}
 
 Which has the highest convergence likelihood? Why?
+
+\vspace{0.2cm}
+{\footnotesize \textbf{Step-by-step hints:} (1)~Pick one innovation above. (2)~Score each of the five factors as ``high'' or ``low.'' (3)~Count your ``high'' scores---more highs = higher convergence likelihood. (4)~Compare with a classmate's choice and discuss where you disagree.}
 \end{frame}
 
 % =====================================================================
@@ -886,7 +913,7 @@ The future of finance is neither purely centralized nor purely decentralized---i
 % DeFi side
 \node[blockchain, minimum width=2.2cm, font=\small] (defi) at (5,0) {DeFi};
 \node[blockchain, minimum width=2cm, font=\footnotesize] (aave) at (5,2) {Aave Arc};
-\node[blockchain, minimum width=2cm, font=\footnotesize] (maker) at (5,-2) {MakerDAO};
+\node[blockchain, minimum width=2cm, font=\footnotesize] (maker) at (5,-2) {Maker/Sky};
 
 % Convergence examples
 \node[aibox, minimum width=2cm, font=\footnotesize] (inst) at (0,2.5) {Institutional\\DeFi};
@@ -967,6 +994,7 @@ What is the fundamental concept of the Convergence Thesis?
 \end{enumerate}
 \end{block}
 \vspace{0.2cm}
+\pause
 \textit{Answer: B. The Convergence Thesis describes how FinTech and DeFi are adopting each other's features---FinTech adopts crypto for efficiency, DeFi adds compliance for institutional access.}
 \end{frame}
 
@@ -980,6 +1008,7 @@ Visa's strategy of settling transactions in USDC stablecoin represents:
 \item Visa becoming a cryptocurrency exchange
 \end{enumerate}
 \end{block}
+\pause
 \textit{Answer: B. Visa remains a traditional, regulated network but integrated blockchain settlement for efficiency.}
 
 \vspace{0.3cm}
@@ -992,6 +1021,7 @@ What are the primary trade-offs LOST in the convergence process?
 \item Profitability and market share
 \end{enumerate}
 \end{block}
+\pause
 \textit{Answer: B. Convergence sacrifices key crypto-native properties for mainstream adoption.}
 \end{frame}
 
@@ -1074,7 +1104,7 @@ How might AI accelerate or change the convergence between FinTech and DeFi? Cons
 {\normalsize FinTech and DeFi Coming Together}
 
 \vspace{1.5cm}
-\textcolor{dfgray}{Digital Finance | Joerg Osterrieder | 2025}
+\textcolor{dfgray}{Digital Finance | Joerg Osterrieder | 2026}
 \end{center}
 \end{frame}
 

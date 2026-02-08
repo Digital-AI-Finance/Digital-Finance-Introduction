@@ -218,17 +218,21 @@ Direct barter requires both parties to want what the other has, at the same time
 \begin{frame}{Money as a Social Technology}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
+\textbf{Think about the last time you paid for something...}
+
+\vspace{2mm}
 \textbf{The Three Functions of Money:}
 \begin{enumerate}
 \item \textbf{Medium of Exchange}\\
-\footnotesize Accepted for transactions
+\footnotesize Accepted for transactions\\
+\footnotesize \textcolor{dfteal}{Example: Your Starbucks gift card is a medium of exchange---but only within Starbucks}
 \item \textbf{Unit of Account}\\
 \footnotesize Common measure of value
 \item \textbf{Store of Value}\\
 \footnotesize Holds purchasing power over time
 \end{enumerate}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{What makes something ``money''?}\\
 \textcolor{dfteal}{Collective belief that others will accept it.}
 \end{column}
@@ -296,6 +300,16 @@ Debt and credit systems (ledgers) predate physical currency by thousands of year
 \item Each stage = more \textbf{abstract}
 \item Each stage = more \textbf{scalable}
 \item Each stage = requires more \textbf{trust}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{Why did gold win?}
+\begin{itemize}\compactlist
+\item Durable (doesn't rot)
+\item Divisible (can be split)
+\item Portable (easy to carry)
+\item Recognizable (hard to fake)
+\item Scarce (limited supply)
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
@@ -412,7 +426,7 @@ How do we ensure these properties without trusting any single party?
 \item Identity verified
 \item Balances in database
 \item Transfers update records
-\item \textbf{Example:} Bank accounts
+\item \textbf{Example:} Bank app showing your balance
 \end{itemize}
 \end{block}
 \end{column}
@@ -432,13 +446,16 @@ How do we ensure these properties without trusting any single party?
 \item Possession = ownership
 \item No identity needed
 \item Physical handoff
-\item \textbf{Example:} Cash, gold
+\item \textbf{Example:} Cash in your wallet
 \end{itemize}
 \end{block}
 \end{column}
 \end{columns}
 
 \vspace{3mm}
+\textbf{Visual comparison:} Checking your bank app balance (account-based) vs. counting cash in your wallet (token-based)
+
+\vspace{2mm}
 \begin{alertblock}{The Digital Dilemma}
 Physical tokens can be handed over. Digital files can be \textbf{copied}. How do you hand over a digital token without copying it?
 \end{alertblock}
@@ -549,7 +566,11 @@ If money is just a file, what stops someone from copying it and spending it twic
 \item Need to prevent copies from both being valid
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
+\textbf{How ledgers solve this:}\\
+\footnotesize By keeping a single record everyone trusts
+
+\vspace{2mm}
 \textbf{Before 2008, only one solution existed:}\\
 \textcolor{dfteal}{A trusted central authority}
 \end{column}
@@ -778,6 +799,10 @@ The risk that the other party (bank) might fail to fulfill its obligations.
 \item Government seizes assets
 \item Cyberattack compromises systems
 \end{itemize}
+
+\vspace{2mm}
+\textbf{2008 Financial Crisis:}
+\footnotesize In 2008, banks didn't trust each other's IOUs---the interbank lending system froze
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{tikzpicture}[scale=0.65, transform shape]
@@ -793,7 +818,10 @@ The risk that the other party (bank) might fail to fulfill its obligations.
 
 \vspace{3mm}
 \begin{block}{Fractional Reserve Banking}
-Banks keep only 10\% of deposits as reserves. If everyone withdraws at once, the bank cannot pay. This is called a \textbf{bank run}.
+\textbf{Simple example:} You deposit \$100. The bank keeps \$10 and lends \$90 to someone else. Your account still shows \$100.
+
+\vspace{2mm}
+If everyone withdraws at once, the bank cannot pay. This is called a \textbf{bank run}.
 \end{block}
 \end{frame}
 
@@ -810,6 +838,10 @@ Banks keep only 10\% of deposits as reserves. If everyone withdraws at once, the
 \item Access can be revoked
 \item No permission = no participation
 \end{itemize}
+
+\vspace{2mm}
+\textbf{What happens when the TTP fails?}
+\footnotesize Example: What if PayPal freezes your account?
 
 \vspace{3mm}
 \textbf{Financial Exclusion:}
@@ -845,7 +877,95 @@ Should access to money require permission?
 \end{frame}
 
 % =============================================================================
-% Frame 22: The Quest for Digital Cash
+% Frame 22: The Byzantine Generals Problem
+% =============================================================================
+\begin{frame}{The Coordination Problem: Byzantine Generals}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{The Thought Experiment:}
+
+Several generals surround an enemy city. They must coordinate to attack together or retreat together. But:
+\begin{itemize}
+\item Generals can only communicate via messengers
+\item Some messengers might be \textbf{traitors}
+\item Some generals might be \textbf{traitors}
+\end{itemize}
+
+\vspace{3mm}
+\textbf{The Challenge:}\\
+How do loyal generals agree on a plan when they can't trust all messages or all participants?
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{tikzpicture}[scale=0.65, transform shape]
+% City in center
+\draw[thick, dfblue, fill=dflightblue4] (0,0) circle (0.8cm);
+\node at (0,0) {\footnotesize City};
+
+% Generals around city
+\node[transaction, minimum size=0.8cm, fill=dfgreen!30] (g1) at (0,2.5) {\tiny G1};
+\node[transaction, minimum size=0.8cm, fill=dfgreen!30] (g2) at (2.2,1.5) {\tiny G2};
+\node[transaction, minimum size=0.8cm, fill=dfred!30] (g3) at (2.2,-1.5) {\tiny G3};
+\node[transaction, minimum size=0.8cm, fill=dfgreen!30] (g4) at (0,-2.5) {\tiny G4};
+\node[transaction, minimum size=0.8cm, fill=dfgreen!30] (g5) at (-2.2,-1.5) {\tiny G5};
+\node[transaction, minimum size=0.8cm, fill=dfred!30] (g6) at (-2.2,1.5) {\tiny G6};
+
+% Message arrows (some solid, some dashed for unreliable)
+\draw[->, dfteal, thick] (g1) -- (g2);
+\draw[->, dfteal, thick, dashed] (g3) -- (g4);
+\draw[->, dfteal, thick] (g4) -- (g5);
+\draw[->, dfteal, thick, dashed] (g6) -- (g1);
+
+% Labels
+\node[above, text width=1.5cm, align=center] at (0,3.2) {\tiny \textcolor{dfgreen}{Loyal}};
+\node[below right, text width=1.5cm, align=center] at (2.2,-2) {\tiny \textcolor{dfred}{Traitor}};
+\end{tikzpicture}
+
+\vspace{2mm}
+\begin{alertblock}{Key Insight}
+This is the fundamental problem of \textbf{consensus without trust}.
+\end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+% Frame 23: Byzantine Generals and Money
+% =============================================================================
+\begin{frame}{From Generals to Money: The Same Problem}
+\begin{center}
+\textbf{\Large ``How do strangers agree on who owns what without trusting each other?''}
+\end{center}
+
+\vspace{5mm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{The Parallel:}
+\begin{itemize}
+\item \textbf{Generals} = Network participants
+\item \textbf{City attack plan} = Transaction history
+\item \textbf{Traitors} = Malicious actors trying to double-spend
+\item \textbf{Messages} = Transaction broadcasts
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{The Challenge:}
+\begin{itemize}
+\item Alice sends conflicting messages: ``I paid Bob'' and ``I paid Carol''
+\item Bob and Carol each see one message
+\item Who should they believe?
+\item How do they agree on what really happened?
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{5mm}
+\begin{block}{Why This Matters}
+Before Bitcoin (2008), there was \textbf{no known solution} to the Byzantine Generals Problem for large, open networks. This is why digital money required trusted banks. Blockchain changed everything.
+\end{block}
+\end{frame}
+
+% =============================================================================
+% Frame 24: The Quest for Digital Cash
 % =============================================================================
 \begin{frame}{The Quest for Digital Cash}
 \begin{center}
@@ -883,7 +1003,7 @@ How do you prevent double-spending digitally \textbf{without} a central authorit
 \end{frame}
 
 % =============================================================================
-% Frame 23: Early Attempts at Digital Cash
+% Frame 25: Early Attempts at Digital Cash
 % =============================================================================
 \begin{frame}{Early Attempts at Digital Cash}
 \begin{center}
@@ -926,7 +1046,7 @@ How do you prevent double-spending digitally \textbf{without} a central authorit
 \end{frame}
 
 % =============================================================================
-% Frame 24: The Bitcoin Breakthrough (Preview)
+% Frame 26: The Bitcoin Breakthrough (Preview)
 % =============================================================================
 \begin{frame}{The Bitcoin Breakthrough (Preview)}
 \begin{center}
@@ -971,7 +1091,7 @@ For now, understand that \textbf{blockchain} is one answer to: ``How do we have 
 \end{frame}
 
 % =============================================================================
-% Frame 25: Hands-On Exercise I
+% Frame 27: Hands-On Exercise I
 % =============================================================================
 \begin{frame}{Hands-On: Ledger Simulation}
 \begin{center}
@@ -1000,7 +1120,7 @@ For now, understand that \textbf{blockchain} is one answer to: ``How do we have 
 \end{frame}
 
 % =============================================================================
-% Frame 26: Hands-On Exercise II - What You'll Learn
+% Frame 28: Hands-On Exercise II - What You'll Learn
 % =============================================================================
 \begin{frame}{Notebook Objectives}
 \begin{columns}[T]
@@ -1037,7 +1157,7 @@ Understanding \textit{why} the problem is hard helps you appreciate blockchain's
 \end{frame}
 
 % =============================================================================
-% Frame 27: Discussion: Money in the Digital Age
+% Frame 29: Discussion: Money in the Digital Age
 % =============================================================================
 \begin{frame}{Discussion: Money in the Digital Age}
 \begin{columns}[T]
@@ -1068,7 +1188,7 @@ How should we build the trust infrastructure for a digital economy?
 \end{frame}
 
 % =============================================================================
-% Frame 28: Application: Comparing Money Systems
+% Frame 30: Application: Comparing Money Systems
 % =============================================================================
 \begin{frame}{Application: Comparing Money Systems}
 \begin{center}
@@ -1096,7 +1216,7 @@ Every money system makes choices about what to prioritize. Understanding these t
 \end{frame}
 
 % =============================================================================
-% Frame 29: Real-World Applications
+% Frame 31: Real-World Applications
 % =============================================================================
 \begin{frame}{Real-World Applications}
 \begin{columns}[T]
@@ -1144,7 +1264,7 @@ Understanding money's foundations helps evaluate proposed solutions.
 \end{frame}
 
 % =============================================================================
-% Frame 30: The Future of Money
+% Frame 32: The Future of Money
 % =============================================================================
 \begin{frame}{The Future of Money}
 \begin{center}
@@ -1177,7 +1297,7 @@ Understanding money's foundations helps evaluate proposed solutions.
 \end{frame}
 
 % =============================================================================
-% Frame 31: Executive Summary
+% Frame 33: Executive Summary
 % =============================================================================
 \begin{frame}{Executive Summary}
 \begin{center}
@@ -1208,7 +1328,7 @@ Understanding \textit{why} digital money is hard helps you appreciate \textit{ho
 \end{frame}
 
 % =============================================================================
-% Frame 32: Concept Map
+% Frame 34: Concept Map
 % =============================================================================
 \begin{frame}{Concept Map: Money and Trust}
 \begin{center}
@@ -1269,7 +1389,7 @@ Understanding \textit{why} digital money is hard helps you appreciate \textit{ho
 \end{frame}
 
 % =============================================================================
-% Frame 33: Key Terms & Definitions I
+% Frame 35: Key Terms & Definitions I
 % =============================================================================
 \begin{frame}{Key Terms \& Definitions (I)}
 \begin{description}
@@ -1286,7 +1406,7 @@ Understanding \textit{why} digital money is hard helps you appreciate \textit{ho
 \end{frame}
 
 % =============================================================================
-% Frame 34: Key Terms & Definitions II
+% Frame 36: Key Terms & Definitions II
 % =============================================================================
 \begin{frame}{Key Terms \& Definitions (II)}
 \begin{description}
@@ -1305,7 +1425,7 @@ Understanding \textit{why} digital money is hard helps you appreciate \textit{ho
 \end{frame}
 
 % =============================================================================
-% Frame 35: Common Misconceptions
+% Frame 37: Common Misconceptions
 % =============================================================================
 \begin{frame}{Common Misconceptions}
 \begin{columns}[T]
@@ -1348,7 +1468,7 @@ Always ask: What problem does this solve? What trade-offs does it introduce?
 \end{frame}
 
 % =============================================================================
-% Frame 36: Self-Assessment Question 1
+% Frame 38: Self-Assessment Question 1
 % =============================================================================
 \begin{frame}{Self-Assessment: Question 1}
 \begin{block}{Question}
@@ -1372,7 +1492,7 @@ Which of the following is NOT one of the three fundamental functions of money?
 \end{frame}
 
 % =============================================================================
-% Frame 37: Self-Assessment Questions 2-3
+% Frame 39: Self-Assessment Questions 2-3
 % =============================================================================
 \begin{frame}{Self-Assessment: Questions 2-3}
 \begin{block}{Question 2}
@@ -1391,7 +1511,7 @@ What is fractional reserve banking?
 \end{frame}
 
 % =============================================================================
-% Frame 38: What's Next - Preview T1.2
+% Frame 40: What's Next - Preview T1.2
 % =============================================================================
 \begin{frame}{What's Next: Topic 1.2}
 \begin{center}
@@ -1418,7 +1538,7 @@ Topic 1.2 introduces the \textit{solution} (blockchain).
 \end{frame}
 
 % =============================================================================
-% Frame 39: Resources
+% Frame 41: Resources
 % =============================================================================
 \begin{frame}{Resources for Further Learning}
 \textbf{Essential Reading:}
@@ -1449,7 +1569,7 @@ All slides and notebooks available on the course website.
 \end{frame}
 
 % =============================================================================
-% Frame 40: Questions?
+% Frame 42: Questions?
 % =============================================================================
 \begin{frame}{Questions?}
 \begin{center}
