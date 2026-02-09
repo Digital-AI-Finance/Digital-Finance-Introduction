@@ -1,0 +1,232 @@
+\input{template_summary.tex}
+
+\title{\textcolor{mlpurple}{\textbf{Module 5: Risk, Regulation, and the Dark Side}}\\[0.3cm]
+{\Large What Goes Wrong and Who Decides What's Allowed}}
+\author{Joerg Osterrieder\\Digital Finance}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+% ===========================================================================
+% SECTION: The Big Question
+% ===========================================================================
+\section{The Big Question}
+
+If code is law and no one is in charge, who do you call when things go wrong---and they \emph{will} go wrong?
+
+This is the question that hangs over every smart contract, every decentralized exchange, every algorithmic stablecoin, and every governance token in existence. The first four modules of this course showed you how digital finance \emph{works}---how blockchains record transactions, how smart contracts automate agreements, how DeFi protocols create lending markets and exchanges without intermediaries. Module 5 asks the uncomfortable follow-up: what happens when it \emph{breaks}?
+
+The answer, as you will discover, is more nuanced than the marketing suggests. ``Trustless'' systems still require trust---in the code, in the oracles, in the governance mechanisms, in the people who deploy and maintain these protocols. ``Decentralized'' organizations often concentrate power in the hands of a few large token holders. ``Permissionless'' access sounds liberating until you realize there is no customer service line, no fraud department, no insurance fund, and no court with clear jurisdiction.
+
+Module 5 takes you through four interconnected dimensions of this dark side. First, you will learn to categorize the failures themselves---technical bugs, economic exploits, and human fraud. Then you will explore how regulators around the world are responding, from comprehensive frameworks to enforcement-by-lawsuit. Next, you will examine governance from the inside: how decentralized organizations make decisions, and why those decision-making systems are themselves attack surfaces. Finally, you will confront the deepest tension of all: the collision between transparency and privacy, between surveillance and autonomy, between the promise of financial inclusion and the reality of who actually benefits.
+
+By the end, you will not just understand digital finance. You will understand its limits.
+
+% ===========================================================================
+% SECTION: The Story
+% ===========================================================================
+\section{The Story}
+
+\begin{storybox}
+\textbf{The Morning Everything Disappeared}
+
+\vspace{3mm}
+You wake up on a Tuesday and check your portfolio. The number staring back at you is zero. Not down. Not volatile. \emph{Zero.}
+
+Yesterday, you had a healthy balance in a lending protocol you had been using for months. You had done your homework---the protocol had been audited, the team was public, the community was active. You felt confident. And now it is gone.
+
+\vspace{3mm}
+\textbf{What happened?}
+
+\vspace{3mm}
+You start piecing it together from social media posts and community forums. Overnight, someone discovered that the protocol's withdrawal function had a subtle ordering problem. It sent funds before updating its internal records. An attacker exploited this gap, calling the withdrawal function over and over in a loop, draining the entire pool before the contract ever realized the money was gone. The technical name for this is a \keyterm{reentrancy attack}, and the analogy is painfully simple: imagine a bank teller who hands you cash and \emph{then} checks your balance. If you keep asking for cash fast enough, the teller never catches up.
+
+But here is what makes this story different from a traditional bank robbery. There is no vault with a broken lock. There is no getaway car. There is no physical crime scene. The attacker used a \keyterm{flash loan}---borrowing an enormous sum, executing the attack, and repaying the loan, all within a single atomic transaction. If any step had failed, the entire thing would have been reversed as if it never happened. The attacker risked nothing. The victims lost everything.
+
+\vspace{3mm}
+\textbf{Who do you call?}
+
+\vspace{3mm}
+You try to find help. But this is where the ``decentralized'' part becomes a problem. The protocol is governed by a DAO---a \keyterm{decentralized autonomous organization}---where decisions are made by token-holder votes. There is no CEO to contact, no corporate headquarters, no board of directors. You post in the governance forum, but the response is muted. The large token holders---the ones who actually have enough voting power to matter---are debating whether the exploit was even ``illegal'' in the code-is-law sense. The attacker, after all, used the contract exactly as it was written.
+
+Meanwhile, you wonder about the regulators. Surely someone in government is responsible for this? The answer depends entirely on where you live. If you are in the European Union, there is a new framework called MiCA that is beginning to bring crypto-asset service providers under clear rules. If you are in the United States, the situation is murkier---multiple agencies claim jurisdiction, but none has written comprehensive crypto legislation. Instead, they establish rules by suing companies after the fact. If you are in China, you would not have been using the protocol in the first place, because all crypto trading is banned. If you are in Singapore, you might have some recourse through the Monetary Authority's licensing regime. Same technology, completely different regulatory landscape.
+
+\vspace{3mm}
+\textbf{The governance fight.}
+
+\vspace{3mm}
+Back in the DAO, a proposal surfaces: use the protocol's emergency mechanism to freeze the attacker's address and attempt a recovery. But the vote reveals the governance problem at its starkest. A handful of wallets control the majority of governance tokens. They vote in their own interest, not yours. The quorum threshold is met by a small fraction of all token holders. Most people who use the protocol do not even hold governance tokens, let alone vote with them. You realize that ``decentralized governance'' can mean rule by the wealthiest few---a \keyterm{plutocracy} dressed in democratic language.
+
+\vspace{3mm}
+\textbf{The bigger picture.}
+
+\vspace{3mm}
+As you zoom out, the questions multiply. Your lost funds are traceable on the blockchain---every transaction is public, permanently recorded, visible to anyone with a block explorer. This transparency was supposed to be a feature. But it cuts both ways. The attacker's movements are visible, yet they used a mixing protocol to obscure the trail. Blockchain analysis firms are tracing the funds, but the privacy tools are effective. You are left wondering: is blockchain transparency a tool for accountability, or a surveillance mechanism that only catches the unsophisticated?
+
+And then the hardest question of all: who was this system actually built for? The protocol's marketing promised ``financial inclusion''---access for the unbanked, the underserved, the people locked out of traditional finance. But you, a technically literate person with internet access, a smartphone, and spare capital to invest, just lost everything. What chance did the genuinely unbanked ever have?
+
+\vspace{3mm}
+This is Module 5. Welcome to the dark side.
+\end{storybox}
+
+% ===========================================================================
+% SECTION: Why This Matters
+% ===========================================================================
+\section{Why This Matters}
+
+Understanding failures is not pessimism---it is the most practical skill you can develop in digital finance. Every seasoned professional, every serious investor, every thoughtful regulator will tell you the same thing: knowing what can go wrong matters more than knowing what can go right.
+
+This module matters for three reasons.
+
+\textbf{First, the stakes are enormous.} The cumulative losses from hacks, exploits, fraud, and collapses in digital finance are staggering. Bridge exploits alone have accounted for the majority of crypto theft in recent years. Exchange collapses have wiped out customer funds on a massive scale. Algorithmic stablecoins have imploded, destroying value that took years to build. These are not theoretical risks. They are historical facts, and they will happen again in new forms.
+
+\textbf{Second, the regulatory landscape is being written now.} The rules that will govern digital finance for the next decade are being drafted, debated, and enforced in real time. Whether you plan to build products, invest capital, advise clients, or simply use these systems as a consumer, understanding regulation is not optional. It determines which products you can access, whether your investments are protected, and which innovations survive.
+
+\textbf{Third, these are fundamentally questions about values.} Who should have power over money? How much surveillance is acceptable in exchange for security? When code produces an unjust outcome, should humans intervene? Can organizations truly govern themselves without central authority? Is financial inclusion a genuine goal or a marketing narrative? These are not technical questions. They are political, philosophical, and deeply personal.
+
+\begin{insightbox}
+\textbf{The Risk Framework.} For any digital finance system, learn to ask seven questions: What can go wrong technically? What economic attacks are possible? Who has power and might abuse it? What jurisdiction risks exist? Who decides changes, and how? Who sees what? And who benefits versus who is harmed? If you can answer these seven questions for any protocol, you understand its real risk profile---not the version in the marketing deck.
+\end{insightbox}
+
+% ===========================================================================
+% SUBSECTION: What Goes Wrong (T5.1)
+% ===========================================================================
+\subsection{What Goes Wrong}
+
+Digital finance failures fall into three broad categories, and understanding the taxonomy is the first step toward genuine risk awareness.
+
+\textbf{Technical failures} are bugs in code---smart contract vulnerabilities that allow attackers to drain funds. The most notorious is the \keyterm{reentrancy attack}, where a contract sends money before updating its records, allowing the attacker to request withdrawals in a loop. The defense is elegant in its simplicity: the \keyterm{Check-Effects-Interactions pattern}, which mandates that you validate conditions, update your records, and only then interact with external contracts. Other technical failures include \keyterm{integer overflow} (where a number wraps around like a car odometer rolling past its maximum), access control flaws (leaving administrative functions unprotected), and oracle manipulation (feeding false price data to contracts that depend on external information).
+
+\textbf{Economic attacks} exploit the design logic of protocols even when the code works exactly as written. \keyterm{Flash loans} are the paradigmatic example: an attacker borrows an enormous sum with no collateral, executes a complex attack strategy, and repays the loan---all within a single atomic transaction. If any step fails, the entire transaction reverts as if nothing happened. The attacker risks nothing. Flash loans have been used to manipulate prices on decentralized exchanges, exploit governance voting mechanisms, and drain lending pools. The defense against oracle-based attacks is to use \keyterm{time-weighted average prices} (TWAP) rather than spot prices, making manipulation far more expensive to sustain.
+
+\textbf{Human failures} encompass fraud, rug pulls, and social engineering. A \keyterm{rug pull} occurs when project developers drain funds from a liquidity pool or abandon a project after collecting investments. Exchange collapses represent another category: centralized platforms that commingle customer funds, engage in fraudulent accounting, or operate without adequate reserves. The common thread is the reintroduction of trust---the very thing decentralized systems were supposed to eliminate.
+
+\keyterm{Systemic risk} emerges from the interconnection of these three categories. DeFi protocols depend on each other through shared liquidity, common oracles, and stablecoin dependencies. When one protocol fails, the effects can cascade through the ecosystem like dominoes. The composability that makes DeFi powerful---the ``money legos'' metaphor---is also what makes it fragile. An oracle failure or stablecoin de-peg does not just affect one protocol; it affects every protocol that depends on that oracle or stablecoin.
+
+The defense philosophy is \keyterm{defense in depth}: multiple independent security layers (the Check-Effects-Interactions pattern, reentrancy guards, access controls, professional audits, and bug bounty programs) that collectively reduce risk. No single layer is sufficient on its own---audited protocols have still been exploited---but the combination dramatically improves resilience.
+
+\begin{insightbox}
+\textbf{Bridges are the biggest target.} Cross-chain bridges hold massive amounts of locked assets and have complex multi-chain logic, making them especially attractive to attackers. Bridge exploits have consistently accounted for the largest share of crypto stolen in recent years. If you interact with a bridge, understand that you are trusting the most attacked category of infrastructure in all of DeFi.
+\end{insightbox}
+
+% ===========================================================================
+% SUBSECTION: Regulatory Landscapes (T5.2)
+% ===========================================================================
+\subsection{Regulatory Landscapes}
+
+Every major digital finance disaster follows the same cycle: innovation, growth, failure, public outrage, and new regulation. Understanding this cycle helps you predict not just what regulators will do next, but why.
+
+The \textbf{United States} presents the most complex regulatory environment. There is no single crypto regulator. Instead, multiple agencies claim jurisdiction. The central question is classification: is a given token a \keyterm{security} (regulated by the SEC) or a \keyterm{commodity} (regulated by the CFTC)? The answer is determined by the \keyterm{Howey Test}, which asks whether there is an investment of money in a common enterprise with an expectation of profits derived from the efforts of others. Think of buying a rental property managed by someone else---that is an investment contract, which is a security. The US approach has been described as ``regulation by enforcement'': rather than writing clear rules in advance, regulators establish precedent by suing companies after the fact. This creates significant uncertainty for innovators but reflects the political difficulty of passing comprehensive legislation.
+
+The \textbf{European Union} has taken a fundamentally different approach with \keyterm{MiCA} (Markets in Crypto-Assets), the first comprehensive regulatory framework for digital assets. MiCA creates clear token categories (utility tokens, asset-referenced tokens, and e-money tokens), establishes licensing requirements for crypto-asset service providers, mandates reserve requirements for stablecoin issuers, and enables ``passporting''---a license obtained in one EU member state is valid across all of them. Where the US approach is fragmented and reactive, the EU approach is harmonized and proactive.
+
+\textbf{Asia} demonstrates the full spectrum of regulatory philosophy. China has implemented a complete ban on crypto trading and mining while aggressively developing a central bank digital currency. Singapore has positioned itself as an innovation hub with clear licensing through the Monetary Authority. Japan was the first major country to license crypto exchanges, driven by the lessons of early exchange failures. South Korea enforces strict real-name trading accounts and the FATF Travel Rule.
+
+The \keyterm{Travel Rule} itself deserves attention: it requires virtual asset service providers to share sender and receiver information for transfers above certain thresholds---like putting a return address on registered mail. The thresholds vary dramatically by jurisdiction, and the rule creates a fundamental challenge for DeFi: how do you apply sender/receiver identification requirements to non-custodial wallets and decentralized exchanges with no central operator?
+
+The emerging regulatory approach targets \keyterm{chokepoints}---the few places where regulators can exert control over otherwise decentralized systems. These include fiat on-ramps and off-ramps (where crypto meets traditional money), centralized frontends (the websites users interact with), and infrastructure providers (the companies running blockchain access services). The lesson for anyone building in this space: ``regulatory arbitrage'' has limits, compliance is expensive but unavoidable, and regulatory clarity---even if strict---is often preferred over uncertainty.
+
+\begin{insightbox}
+\textbf{Principles-based versus rules-based regulation.} The US and EU represent two fundamentally different philosophies. The US applies existing principles (securities law, commodity law) to new technology through case-by-case enforcement. The EU writes new rules specifically designed for the technology. Neither approach is perfect: principles-based regulation creates uncertainty; rules-based regulation risks becoming obsolete. Understanding this distinction helps you evaluate any country's regulatory approach.
+\end{insightbox}
+
+% ===========================================================================
+% SUBSECTION: DAO Governance (T5.3)
+% ===========================================================================
+\subsection{DAO Governance}
+
+A \keyterm{Decentralized Autonomous Organization} encodes its rules in smart contracts and makes decisions through token-holder voting. The premise is radical: collective decision-making without trusted intermediaries. The reality is more complicated.
+
+The most common governance mechanism is \keyterm{token-weighted voting}: one token equals one vote. This is simple, transparent, and aligns voting power with economic stake. It is also, by design, plutocratic. When a handful of wallets hold the majority of governance tokens---and in most major DAOs, they do---``decentralized governance'' becomes rule by the wealthiest few. The data is stark: in many leading protocols, the top ten token holders control more than half of all governance power.
+
+Alternative voting mechanisms attempt to address this concentration. \keyterm{Quadratic voting} sets voting power equal to the square root of tokens held, so a participant with vastly more tokens gets proportionally less additional influence. The problem is that quadratic voting is vulnerable to \keyterm{Sybil attacks}: a single actor can split their tokens across many wallets to game the system, since the total square-root-based power of many small wallets exceeds the square-root-based power of one large wallet. Quadratic voting therefore requires identity verification, which undermines pseudonymity. \keyterm{Conviction voting} lets votes accumulate over time, rewarding long-term commitment and making flash loan attacks impossible, but at the cost of much slower decision-making. \keyterm{Delegation} (also called liquid democracy) allows token holders to lend their voting power to trusted representatives, addressing voter apathy but potentially concentrating power among a few prominent delegates. \keyterm{Optimistic governance} auto-approves proposals unless someone objects within a challenge period---fast and efficient, but risky for anything beyond routine parameter changes.
+
+Governance attacks are real and devastating. The most dramatic involve \keyterm{flash loan governance attacks}: an attacker borrows a massive quantity of governance tokens, votes to pass a malicious proposal, executes it, and repays the loan---all in a single transaction. The defense toolkit includes \keyterm{timelocks} (mandatory delays between approval and execution, giving the community time to react), \keyterm{snapshot voting} (basing voting power on historical token balances recorded before the proposal was created, making flash-loan-acquired tokens worthless for voting), and \keyterm{vote escrow} (requiring tokens to be locked for extended periods to earn voting power, since flash loans cannot lock tokens across blocks). \keyterm{Quorum requirements} set a minimum participation threshold, and \keyterm{guardian mechanisms} give a small trusted group emergency veto power.
+
+The deeper tension is philosophical. ``Code is law'' suggests that smart contract code defines all valid behavior---if the code allows it, it is allowed. But code cannot encode intent, fairness, or context. When the original DAO was hacked, the attacker arguably used the contract as written. The community chose human intervention---a hard fork---over code finality. This tension between code determinism and human judgment remains unresolved and is perhaps irresolvable.
+
+The \keyterm{governance trilemma} captures the fundamental design constraint: you can optimize for two of three properties---decentralization, efficiency, and security---but not all three simultaneously. A corporate board is efficient and secure but centralized. Bitcoin governance is decentralized and secure but agonizingly slow. A small DAO with optimistic voting is decentralized and efficient but vulnerable to attack. Every DAO must decide which property to sacrifice.
+
+\begin{insightbox}
+\textbf{Governance IS the attack surface.} You can write perfectly secure smart contract code, but if the governance mechanism can be manipulated to change that code, security is meaningless. Understanding governance is not an optional add-on to understanding DeFi---it is the foundation on which everything else rests.
+\end{insightbox}
+
+% ===========================================================================
+% SUBSECTION: Privacy, Surveillance, and Inclusion (T5.4)
+% ===========================================================================
+\subsection{Privacy, Surveillance, and Inclusion}
+
+The final topic in Module 5 confronts the collision between two seemingly desirable properties: transparency (which enables accountability, fraud prevention, and regulatory compliance) and privacy (which protects individual autonomy, prevents surveillance abuse, and preserves the fungibility of money). Every financial system sits somewhere on a spectrum between full privacy and full surveillance, and there is no neutral position.
+
+On the privacy end, \keyterm{privacy coins} like Monero use a combination of techniques---ring signatures (hiding the sender among a group), stealth addresses (generating unique one-time addresses for each transaction), and confidential transactions (encrypting amounts while still proving no money was created or destroyed)---to make transactions functionally untraceable. \keyterm{Zero-knowledge proofs} offer an even more powerful primitive: the ability to prove a statement is true (``I am not on a sanctions list,'' ``My balance exceeds a threshold,'' ``I am old enough for this service'') without revealing any additional information. These proofs come in several variants, each with different tradeoffs between proof size, verification speed, and setup requirements.
+
+On the surveillance end, \keyterm{Central Bank Digital Currencies} represent the most powerful monitoring tool ever conceived for financial systems. A CBDC can provide complete transaction visibility, enable programmable spending restrictions, support automatic tax collection, implement expiring money (which loses value if not spent by a deadline), enforce geographic restrictions, and allow remote freezing or confiscation of funds. The design choices embedded in a CBDC---how much privacy to offer, at what transaction thresholds, to whom---are fundamentally political decisions that will shape the relationship between citizens and states for generations.
+
+Between these poles sits the reality of most existing systems. Bitcoin is \keyterm{pseudonymous}, not anonymous: transactions are linked to addresses rather than names, but blockchain analysis firms have become highly effective at linking addresses to real identities through exchange data, pattern recognition, and network analysis. The analogy is writing under a pen name---once someone discovers who you are, every transaction you have ever made is exposed retroactively.
+
+The \keyterm{financial inclusion} narrative deserves critical examination. The claim that digital finance will ``bank the unbanked'' is compelling in theory---permissionless access, lower fees, reach beyond physical bank branches. But the evidence is mixed. The most successful financial inclusion story (mobile money in East Africa) was built on basic SMS technology, human agent networks, and regulatory cooperation---not cryptocurrency. Meanwhile, the barriers that exclude people from traditional finance (lack of internet access, device costs, technical literacy requirements, identity documentation) often exclude them from digital finance too, sometimes in new forms. Scams disproportionately harm newcomers, volatile assets are most dangerous for those with the least margin for error, and the complexity of DeFi interfaces creates its own exclusion.
+
+The synthesis of Module 5's four topics reveals that every design choice in digital finance has \keyterm{distributional consequences}. Full transparency benefits regulators and auditors but harms dissidents and privacy-seekers. Full privacy benefits individuals and activists but impedes law enforcement and victim recovery. KYC requirements benefit compliance teams and banks but exclude the undocumented and unbanked. Permissionless access benefits the underserved and censored but may enable criminal use. Technology is not neutral. It embeds values and determines winners and losers.
+
+\begin{insightbox}
+\textbf{Privacy-preserving compliance is possible.} Zero-knowledge proofs offer a technically feasible path to both privacy and regulatory compliance---proving you meet requirements without revealing your identity or transaction details. This is not science fiction; the cryptographic tools exist today. The barriers are political and institutional, not technical. Watch this space.
+\end{insightbox}
+
+% ===========================================================================
+% SECTION: Hands-On Highlights
+% ===========================================================================
+\section{Hands-On Highlights}
+
+\begin{handsonbox}
+\textbf{\notebookref{NB11} --- DeFi Exploit Simulations}
+
+\vspace{2mm}
+In this notebook, you simulate the three major exploit categories hands-on. You model a reentrancy attack step by step, watching how a vulnerable contract drains as the attacker calls withdraw in a loop before the balance updates. You simulate a flash loan attack, tracing how an attacker borrows, manipulates, profits, and repays within a single transaction. And you compare spot-price oracles with time-weighted average price oracles, observing directly how manipulation succeeds against one and fails against the other. All code is pre-written---you interact with it and observe the mechanics, building intuition for what makes systems vulnerable.
+
+\vspace{4mm}
+\textbf{\notebookref{NB12} --- DAO Governance Simulation}
+
+\vspace{2mm}
+This notebook puts governance theory into practice. You create token distributions with varying levels of concentration and simulate proposal voting to see how whale dominance plays out numerically. You test attack scenarios---flash loan governance attacks and majority accumulation---and measure their costs and success rates. Then you implement defenses: quadratic voting, conviction voting, and delegation, comparing how each mechanism changes the outcome for small holders versus whales. The key experiment answers a concrete question: how does switching from one-token-one-vote to quadratic voting affect a whale's ability to pass self-serving proposals?
+\end{handsonbox}
+
+% ===========================================================================
+% SECTION: Key Takeaways
+% ===========================================================================
+\section{Key Takeaways}
+
+\begin{enumerate}
+    \item \textbf{Failures are categorical.} Technical bugs, economic exploits, and human fraud require different defenses. Defense in depth---multiple independent security layers---is the only robust strategy.
+
+    \item \textbf{Bridges and composability are the weakest links.} Cross-chain bridges hold massive value and have complex attack surfaces. DeFi composability creates systemic risk: when one protocol fails, the cascade can be devastating.
+
+    \item \textbf{Regulation is not optional.} The rules governing digital finance are being written now. The US fragments authority across agencies and regulates by enforcement. The EU harmonizes through MiCA. Asia spans the full spectrum from ban to innovation hub. Understanding regulatory logic is a competitive advantage in any digital finance career.
+
+    \item \textbf{Governance is the attack surface.} Perfectly secure code is meaningless if the governance mechanism can be manipulated to change it. Token concentration, voter apathy, and flash loan attacks are not theoretical---they are ongoing realities in major protocols.
+
+    \item \textbf{Privacy and transparency are political.} Every architectural choice has distributional consequences. There is no neutral design. The question is not whether to make tradeoffs, but who benefits and who is harmed by the tradeoffs you make.
+
+    \item \textbf{Financial inclusion is complex.} The gap between the narrative (``bank the unbanked'') and the evidence (adoption correlates more with speculation than exclusion) demands critical evaluation. The most successful inclusion stories were built on appropriate technology and human infrastructure, not cutting-edge crypto.
+
+    \item \textbf{The risk framework.} For any digital finance system, ask: What fails technically? What economic attacks are possible? Who holds power? What are the jurisdiction risks? Who governs? Who watches? Who benefits and who is harmed?
+\end{enumerate}
+
+% ===========================================================================
+% SECTION: Looking Ahead
+% ===========================================================================
+\section{Looking Ahead}
+
+Module 5 asked \emph{what goes wrong} and \emph{who decides what is allowed}. Module 6 asks \emph{where is this all going}?
+
+The final module of the course---\textbf{Convergence and the Future}---synthesizes everything you have learned into a forward-looking framework. You will explore the convergence thesis: the idea that traditional finance and decentralized finance are not separate worlds but are increasingly merging into a hybrid system. Institutional adoption is accelerating, with major banks, asset managers, and payment networks integrating blockchain infrastructure. CBDCs are moving from research to pilot programs. Artificial intelligence is intersecting with finance in ways that amplify both the opportunities and the risks you studied in Module 5.
+
+The regulatory frameworks you analyzed in T5.2 will determine which innovations survive this convergence. The governance mechanisms you studied in T5.3 will evolve as protocols mature and decentralize. The privacy-transparency tensions you examined in T5.4 will crystallize as CBDCs launch and surveillance tools advance.
+
+Module 6 will also ask you to build your own framework for evaluating the future of digital finance---combining the technical understanding from Modules 3--4 with the critical perspective from Module 5. The goal is not to predict the future with certainty, but to develop the analytical tools to evaluate whatever comes next.
+
+You have now seen how digital finance works, how it breaks, and who governs the pieces. The question that remains is: what will you do with this knowledge?
+
+\end{document}

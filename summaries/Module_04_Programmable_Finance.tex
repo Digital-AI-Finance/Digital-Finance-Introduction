@@ -1,0 +1,218 @@
+\input{template_summary.tex}
+
+\title{\textcolor{mlpurple}{\textbf{Module 4: Programmable Finance}}\\[0.3cm]
+{\Large Smart Contracts, DeFi, and Tokenization}}
+\author{Joerg Osterrieder\\Digital Finance}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ====================================================================
+% SECTION 1: THE BIG QUESTION
+% ====================================================================
+\section{The Big Question}
+
+What if financial agreements could execute themselves---no lawyers, no banks, no waiting---just code that runs exactly as written?
+
+That is the question at the heart of this module. Everything you have learned so far in this course has been building toward it. You know what money is and why the financial system has pain points. You understand cryptographic building blocks, how blockchains work, and what makes a transaction trustworthy without a central authority. Now we ask: what happens when you take that trustworthy, programmable infrastructure and use it to \emph{recreate financial services from scratch}?
+
+The answer is programmable finance---a world where lending, trading, insurance, and even the creation of new forms of money are handled by self-executing code rather than by institutions staffed with humans. It sounds like science fiction, but it is already operating at enormous scale. Billions of dollars flow through these systems every day, and some of the largest financial institutions in the world are now building on this technology.
+
+This module takes you through the full stack. You will start with the fundamental building block---the \keyterm{smart contract}---and then watch as those building blocks are assembled into \keyterm{decentralized finance (DeFi)} applications, stabilized with \keyterm{stablecoins}, and eventually extended to represent real-world assets through \keyterm{tokenization} and government-issued \keyterm{central bank digital currencies (CBDCs)}.
+
+By the end, you will understand not just what programmable finance is, but \emph{why} it matters, \emph{how} it works under the hood, and \emph{where} the genuine risks lie.
+
+% ====================================================================
+% SECTION 2: THE STORY
+% ====================================================================
+\section{The Story}
+
+\begin{storybox}
+Imagine you have some digital assets sitting in a wallet. They are not doing anything---just sitting there. Then someone tells you that you can lend those assets to strangers all over the world and earn interest on them, automatically, without any bank in the middle. No credit check on the borrower, no loan officer, no paperwork. Just code.
+
+You are skeptical, so you investigate. The first thing you discover is the \keyterm{smart contract}---the engine that makes all of this possible. Think of it as a vending machine for finance. You insert your inputs (your assets, your conditions), and the machine executes the agreement exactly as programmed. Nobody can tamper with it. Nobody can change the rules halfway through. The code is transparent, visible to anyone who cares to read it. Once deployed, it is carved in stone---immutable.
+
+That vending machine runs on the \keyterm{Ethereum Virtual Machine (EVM)}, a shared computer spread across thousands of nodes around the world. Every operation on this computer costs a small fee called \keyterm{gas}, which prevents abuse and compensates the people keeping the network running. Writing data to the blockchain's permanent storage is expensive; simple arithmetic is cheap. This fee structure shapes everything about how programmable finance is designed.
+
+But smart contracts have a critical limitation: they cannot see the outside world. They have no idea what the price of anything is, what the weather looks like, or who won a football match. To get that information, they depend on \keyterm{oracles}---data bridges that feed external information into the blockchain. Oracles are powerful, but they are also a point of vulnerability. If the oracle gives bad data, the contract executes faithfully on bad information. Garbage in, garbage out.
+
+Armed with this understanding, you turn to the financial applications people have built with smart contracts. The first one that catches your eye is an \keyterm{Automated Market Maker (AMM)}. In traditional finance, if you want to trade one asset for another, you place an order on an exchange with a centralized order book. An AMM replaces all of that with a simple mathematical formula: $x \cdot y = k$. Two pools of tokens sit in a smart contract; the ratio between them determines the price. When you trade, you add to one pool and remove from the other, and the formula automatically adjusts the price. No order book, no matching engine, no exchange operator.
+
+You notice something important: the bigger your trade relative to the pool, the worse the price you get. This is \keyterm{slippage}, and it grows non-linearly. It is why deep liquidity matters and why people are incentivized to deposit their assets into these pools as \keyterm{liquidity providers (LPs)}. In return, LPs earn a share of the trading fees.
+
+But being an LP is not free money. You learn about \keyterm{impermanent loss}---the phenomenon where providing liquidity can leave you worse off than if you had simply held your tokens in your wallet. The pool automatically rebalances as prices change, effectively selling your winners and buying your losers. If prices move significantly and you withdraw, that ``impermanent'' loss becomes very permanent.
+
+Next, you explore lending protocols. They work like algorithmic banks: lenders deposit assets into a pool, and borrowers take from that pool by posting collateral worth significantly more than what they borrow. This is called \keyterm{over-collateralization}, and it exists because there are no credit checks in this world---the code cannot assess your creditworthiness, so it demands extra collateral instead. If the value of your collateral drops too far, anyone can trigger a \keyterm{liquidation}, and your collateral is sold off to repay the loan. The interest rates are not set by a committee; they are determined algorithmically based on how much of the pool is currently borrowed.
+
+The real magic---and the real danger---emerges when these protocols start calling each other. This is \keyterm{composability}, often described as ``money LEGOs.'' You can deposit assets into a lending protocol, receive interest-bearing tokens in return, then deposit those tokens into a liquidity pool to earn trading fees on top of your lending interest. These strategies can be stacked indefinitely, and they can be executed atomically---meaning the entire chain of operations either succeeds completely or fails completely.
+
+The most dramatic example of composability is the \keyterm{flash loan}: an uncollateralized loan that must be borrowed and repaid within a single transaction. If the transaction cannot repay the loan, the entire thing reverts as if it never happened. Flash loans give anyone access to enormous amounts of capital for the duration of one transaction, enabling complex arbitrage strategies---but also enabling sophisticated attacks on vulnerable protocols.
+
+All of this DeFi infrastructure needs a stable unit of account, and that is where \keyterm{stablecoins} enter the picture. A stablecoin is a cryptocurrency designed to maintain a stable value, typically pegged to a single unit of fiat currency. There are three fundamentally different designs. \emph{Fiat-backed} stablecoins hold real currency in a bank account for every token in circulation---simple and stable, but centralized. \emph{Crypto-collateralized} stablecoins lock up volatile crypto assets at a ratio greater than one-to-one, creating decentralized stability at the cost of capital efficiency. And \emph{algorithmic} stablecoins attempt to maintain their peg through automated supply adjustments with no collateral at all---an experiment that has repeatedly ended in catastrophic failure, most notably when a major algorithmic stablecoin collapsed, destroying tens of billions of dollars in value within days through a \keyterm{death spiral} of self-reinforcing selling.
+
+The \keyterm{Stablecoin Trilemma} captures the fundamental constraint: you can optimize for decentralization, stability, or capital efficiency, but never all three at once. Every stablecoin design is a choice about which property to sacrifice.
+
+Finally, the frontier: \keyterm{tokenization} of real-world assets and \keyterm{central bank digital currencies}. Tokenization takes the principles of programmable finance and applies them to things like real estate, government bonds, commodities, and fine art. By representing these assets as tokens on a blockchain, you unlock fractional ownership, instant settlement, and global access. A building worth a fortune can be divided into thousands of tokens, each representing a proportional claim on the rental income and appreciation. The minimum investment drops from a large sum to a small one.
+
+CBDCs take a different approach: instead of private companies creating digital dollars, the central bank itself issues programmable sovereign money. This raises profound questions about privacy, control, and the architecture of the financial system. Programmable money could enable instant stimulus distribution, automatic tax withholding, and conditional payments---but it could also enable surveillance and financial exclusion at a scale never before possible.
+
+The module ends where it began: with the realization that programmable finance is not just a crypto phenomenon. It is a fundamental shift in how financial agreements are created, executed, and enforced. Whether it is a DeFi lending pool or a central bank digital currency, the underlying principle is the same---code that executes financial logic automatically, transparently, and without the need for trusted intermediaries.
+\end{storybox}
+
+% ====================================================================
+% SECTION 3: WHY THIS MATTERS
+% ====================================================================
+\section{Why This Matters}
+
+Programmable finance matters because it attacks the single most expensive element in the financial system: \emph{trust}. Every intermediary that sits between two parties in a financial transaction exists because those parties cannot fully trust each other. Banks, clearinghouses, custodians, escrow agents, lawyers---they all extract fees in exchange for being a trusted third party. Smart contracts do not eliminate the need for trust, but they \emph{shift} it. Instead of trusting institutions, you trust code and cryptographic verification. This is a profoundly different trust model, and understanding it is essential for anyone who wants to work in finance over the coming decades.
+
+\begin{insightbox}
+\textbf{The shift is already happening.} Major financial institutions are building tokenization infrastructure. Central banks around the world are actively developing digital currencies. DeFi protocols handle billions in daily volume. Whether you end up working in traditional finance, fintech, or crypto, the concepts in this module will be part of your professional landscape.
+\end{insightbox}
+
+The implications extend far beyond finance. Programmable contracts could automate supply chain management, insurance payouts, intellectual property royalties, and governance voting. The limitations are equally important to understand: smart contracts cannot handle ambiguity, they cannot access the physical world without oracles, and their immutability means that bugs cannot be patched---they are permanent. ``Code is law'' sounds powerful until you realize it also means ``bugs are law.''
+
+This module gives you the conceptual framework to evaluate these systems critically. You will know enough to assess whether a DeFi protocol's design is sound, why a particular stablecoin might be vulnerable, how tokenization changes the economics of asset ownership, and what trade-offs are embedded in CBDC design choices.
+
+% ====================================================================
+% SECTION 4: SMART CONTRACTS (T4.1)
+% ====================================================================
+\subsection{Smart Contracts: Code as Agreement}
+
+A \keyterm{smart contract} is a program stored on a blockchain that automatically executes when predetermined conditions are met. The concept was articulated long before blockchains existed, using the analogy of a vending machine: insert the correct input, and the machine delivers the output with no need to trust the operator. The machine \emph{enforces the rules} by design.
+
+Smart contracts have four defining properties. They are \keyterm{deterministic}---the same inputs always produce the same outputs. They are \keyterm{immutable}---once deployed, the code cannot be changed. They are \keyterm{transparent}---anyone can inspect the code. And they are \keyterm{self-executing}---no intermediary is needed to enforce the agreement.
+
+On Ethereum, smart contracts run on the \keyterm{EVM}, a sandboxed computation environment that operates identically on every node in the network. The EVM processes bytecode compiled from high-level languages like Solidity. Every computational step costs \keyterm{gas}, a unit of measurement that serves multiple purposes: it prevents spam by making attacks expensive, halts infinite loops by imposing a cost ceiling, incentivizes efficient code, and compensates validators for processing transactions. Storage operations are orders of magnitude more expensive than arithmetic, a design choice that profoundly influences how smart contracts are written.
+
+The \keyterm{oracle problem} represents one of the most significant limitations. Smart contracts can only access data that exists on the blockchain. To learn the price of an asset, the outcome of a sporting event, or the temperature in a particular city, they must rely on oracles---external services that feed off-chain data into on-chain contracts. Decentralized oracle networks aggregate data from multiple independent sources to reduce the risk of manipulation, but oracles remain a critical vulnerability. They are the bridge between the on-chain and off-chain worlds, and bridges are often the weakest link.
+
+\begin{insightbox}
+\textbf{``Trustless'' does not mean ``no trust.''} It means trust is shifted from institutions to code, auditors, oracles, and the underlying blockchain. When someone claims a system is trustless, always ask: \emph{what am I trusting instead?}
+\end{insightbox}
+
+The immutability of smart contracts creates what might be called the \keyterm{immutability paradox}. Immutability provides a security guarantee---nobody can tamper with the rules after deployment. But it also means bugs are permanent. A vulnerability discovered after launch cannot be patched. Solutions like proxy patterns and upgradeable contracts exist, but they reintroduce the trust assumptions that smart contracts were designed to eliminate. Security best practices---thorough testing, formal verification, multiple independent audits, bug bounties---are not optional luxuries; they are essential, and even they cannot guarantee safety.
+
+% ====================================================================
+% SECTION 5: DEFI PRIMITIVES (T4.2)
+% ====================================================================
+\subsection{DeFi Primitives: Lending, AMMs, and Financial LEGOs}
+
+\keyterm{Decentralized Finance (DeFi)} refers to financial services built on public blockchains that operate without traditional intermediaries. DeFi protocols are permissionless (anyone can participate), non-custodial (users control their own assets), transparent (all code and transactions are public), and composable (protocols can interact freely with each other).
+
+The \keyterm{Automated Market Maker (AMM)} is one of the most elegant innovations in DeFi. Instead of matching buyers and sellers through an order book, AMMs use liquidity pools---smart contracts that hold reserves of two tokens---and a mathematical formula to determine prices. The most common formula is the \keyterm{constant product formula}: $x \cdot y = k$, where $x$ and $y$ are the reserves of each token and $k$ is a constant. When you trade, you add to one reserve and remove from the other, and the formula ensures that the product remains constant, automatically adjusting the price.
+
+\keyterm{Slippage} (or price impact) is an inherent feature of AMMs. The larger your trade relative to the pool's reserves, the more you shift the ratio between the two tokens, and the worse the effective price you receive. This relationship is non-linear: doubling your trade size more than doubles the slippage. Deep liquidity pools (those with large reserves) offer better prices for the same trade size.
+
+\keyterm{Liquidity providers} deposit both tokens into the pool in equal value and receive LP tokens representing their proportional claim on the reserves. Trading fees accumulate in the pool, increasing the value of each LP token over time. However, LPs face \keyterm{impermanent loss}---the difference between the value of their LP position and the value they would have had if they had simply held the tokens. The formula for impermanent loss given a price ratio $r$ is:
+\[
+IL = \frac{2\sqrt{r}}{1+r} - 1
+\]
+Impermanent loss is ``impermanent'' only in the sense that it disappears if prices return to their original levels. If you withdraw at different prices, the loss becomes permanent.
+
+DeFi \keyterm{lending protocols} function as algorithmic banks. Lenders deposit assets into pools and earn interest. Borrowers draw from those pools by posting collateral worth significantly more than the loan---typically requiring a collateralization ratio above one hundred and fifty percent. Interest rates adjust algorithmically based on the \keyterm{utilization rate} (the fraction of supplied assets currently borrowed), using a kinked curve that makes borrowing dramatically more expensive as utilization approaches full capacity. If a borrower's collateral value drops below a safety threshold, anyone can trigger \keyterm{liquidation}, selling the collateral to repay the debt.
+
+\keyterm{Composability} is the property that allows DeFi protocols to call each other freely. Because every protocol is an open smart contract, any new protocol can integrate with existing ones without permission. This creates what practitioners call ``money LEGOs''---the ability to stack financial primitives into complex strategies. Composability is DeFi's superpower, but it is also its greatest source of systemic risk: a bug in one protocol can cascade through every protocol that depends on it.
+
+The \keyterm{flash loan} epitomizes composability's dual nature. It is an uncollateralized loan that must be borrowed and repaid within a single atomic transaction. If the borrower cannot repay, the entire transaction reverts. Flash loans democratize access to capital---anyone can borrow enormous sums for the duration of one block---but they have also been used to execute sophisticated attacks on DeFi protocols, manipulating oracle prices and exploiting design vulnerabilities.
+
+% ====================================================================
+% SECTION 6: STABLECOINS (T4.3)
+% ====================================================================
+\subsection{Stablecoins: The Bridge to Stable Value}
+
+Volatile cryptocurrencies are unsuitable for many financial applications. You cannot price a loan, denominate a contract, or run a payments business when the unit of account might swing dramatically in value overnight. \keyterm{Stablecoins} solve this problem by creating cryptocurrencies designed to maintain a stable value relative to a reference asset, typically a unit of fiat currency.
+
+There are three fundamental design approaches, each with distinct trust assumptions and trade-offs.
+
+\textbf{Fiat-backed stablecoins} are the simplest: a centralized issuer holds one unit of fiat currency (or equivalent reserves) in a bank account for every stablecoin token in circulation. When you want to mint tokens, you send fiat to the issuer; when you want to redeem, the issuer burns the tokens and returns the fiat. The peg is maintained through arbitrage---if the token trades above par, arbitrageurs mint and sell; if below, they buy and redeem. This design is stable and capital-efficient, but it is centralized. The issuer can freeze accounts, and the system depends on the solvency of the issuer and its banking partners. When a major bank failed and a leading stablecoin had significant reserves deposited there, the token briefly lost a substantial portion of its peg value before a government backstop restored confidence.
+
+\textbf{Crypto-collateralized stablecoins} replace the centralized issuer with smart contracts. Users lock up volatile crypto assets---worth significantly more than the stablecoins they mint---in on-chain vaults. If the collateral's value drops too far, the vault is liquidated. This design is decentralized, transparent, and censorship-resistant, but it is capital-inefficient (you must lock up more value than you create) and complex.
+
+\textbf{Algorithmic stablecoins} attempt to maintain their peg through automated supply adjustments without any collateral. When the price is above the peg, the protocol mints more tokens to increase supply and push the price down. When the price is below the peg, it contracts supply. The fatal flaw is that contraction requires someone to absorb losses, and when confidence breaks, no one is willing to do so. This creates a \keyterm{death spiral}---a reflexive feedback loop where falling prices trigger further selling, which pushes prices lower, which triggers more selling. A major algorithmic stablecoin collapsed in exactly this manner, destroying tens of billions of dollars in value in a matter of days and sending shockwaves through the entire crypto ecosystem.
+
+The \keyterm{Stablecoin Trilemma} states that no stablecoin can simultaneously achieve decentralization, stability, and capital efficiency. Fiat-backed stablecoins sacrifice decentralization. Crypto-collateralized stablecoins sacrifice capital efficiency. Algorithmic stablecoins sacrifice stability. Every design is a choice about which property to compromise.
+
+\begin{insightbox}
+\textbf{If you cannot identify where the yield comes from, you are the yield.} Unsustainably high interest rates on stablecoin deposits are a warning sign, not a feature. Legitimate yield comes from lending demand, trading fees, or underlying asset returns. Everything else is subsidy---and subsidies run out.
+\end{insightbox}
+
+Regulators have taken notice. The EU's MiCA framework imposes licensing requirements, reserve mandates, and redemption guarantees on stablecoin issuers, effectively banning purely algorithmic designs. Other jurisdictions are following with their own frameworks, recognizing that stablecoins have grown large enough to pose systemic risks.
+
+% ====================================================================
+% SECTION 7: TOKENIZATION AND CBDCs (T4.4)
+% ====================================================================
+\subsection{Tokenization and CBDCs: The Frontier}
+
+\keyterm{Tokenization} is the process of creating a digital representation of a real-world asset on a blockchain. It takes the principles of programmable finance and applies them to traditional assets: real estate, government bonds, commodities, art, intellectual property, and more.
+
+The core value proposition is \keyterm{fractional ownership}. A high-value asset can be divided into thousands or millions of tokens, each representing a proportional claim on the underlying asset's income and appreciation. This dramatically lowers the minimum investment required to access asset classes that were previously available only to wealthy or institutional investors. Beyond fractional ownership, tokenization enables instant settlement (rather than the multi-day settlement cycles of traditional finance), continuous trading (rather than business-hours-only markets), and global access (rather than geographically restricted exchanges).
+
+But tokenization faces a fundamental challenge that pure DeFi does not: the \keyterm{dual reality problem}. A token on a blockchain is a digital entry; the asset it represents is a physical or legal entity governed by real-world law. If you lose your private key to a tokenized property, you still own the property legally---but you have lost access to the token that represents it. If the building is damaged by a natural disaster, the smart contract does not know or care. Legal wrappers, regulated custodians, and clear jurisdictional frameworks are necessary to bridge this gap.
+
+\keyterm{Security tokens} are tokens that represent ownership or economic rights in an underlying asset and are subject to securities regulations. They must comply with KYC (Know Your Customer) and AML (Anti-Money Laundering) requirements, and platforms like Securitize and Polymath automate much of this compliance. \keyterm{Utility tokens}, by contrast, provide access to products or services rather than ownership rights and are generally (though not always) treated differently under securities law.
+
+\keyterm{Central Bank Digital Currencies (CBDCs)} represent the intersection of programmable finance and sovereign money. A CBDC is a digital form of central bank money---a direct liability of the central bank, denominated in the national currency. Unlike stablecoins, which are issued by private companies and backed by reserves, CBDCs carry the full faith of the sovereign.
+
+CBDC architecture involves critical design choices. \emph{Direct} models give citizens accounts directly at the central bank, maximizing control but turning the central bank into a retail bank. \emph{Intermediated} models preserve the existing banking system by distributing CBDCs through commercial banks. \emph{Hybrid} models attempt to balance both approaches. The \keyterm{two-tier architecture}---where the central bank issues the currency and private intermediaries handle customer-facing operations---is the most widely favored design.
+
+\keyterm{Programmable money} opens extraordinary possibilities: stimulus payments that expire if not spent, aid that can only be used at approved vendors, automatic tax withholding. But it also raises profound concerns about surveillance, exclusion, and government control over individual spending. The technology for both full privacy and full surveillance already exists; the choice is political, not technical.
+
+\begin{insightbox}
+\textbf{Programmable money is coming.} Whether through stablecoins, CBDCs, or tokenized assets, the shift toward programmable value is well underway. The design choices being made today---about privacy, programmability, and control---will shape the financial system for decades.
+\end{insightbox}
+
+Cross-border CBDC projects are already being piloted. Multi-CBDC platforms aim to enable direct central bank-to-central bank settlements, bypassing the correspondent banking system and potentially reducing the dominance of any single currency in international trade. The geopolitical implications are significant.
+
+% ====================================================================
+% SECTION 8: HANDS-ON HIGHLIGHTS
+% ====================================================================
+\section{Hands-On Highlights}
+
+\begin{handsonbox}
+\textbf{\notebookref{NB08}: Smart Contract Interaction.} You connect to an Ethereum testnet, read smart contract state variables, call contract functions, and observe how transactions consume gas and produce events. This notebook demystifies the mechanics of interacting with deployed contracts---reading state is free, but writing state costs gas and requires signing a transaction. You learn to interpret transaction receipts and debug failed transactions.
+
+\textbf{\notebookref{NB09}: AMM Simulation.} You build a constant-product AMM from scratch, execute swaps, and watch the bonding curve in action. You provide liquidity, receive LP tokens, and calculate impermanent loss across a range of price scenarios. Interactive visualizations show how slippage grows non-linearly with trade size and how arbitrage keeps AMM prices aligned with external markets. This is where the formula $x \cdot y = k$ transforms from abstract mathematics into concrete intuition.
+
+\textbf{\notebookref{NB10}: Stablecoin Analysis.} You compare stability metrics across stablecoin types, simulate a crypto-collateralized system with liquidation mechanics, model liquidation cascades under market stress, and reproduce the dynamics of an algorithmic stablecoin death spiral. The simulations reveal risks that theory alone cannot convey---you will see exactly how feedback loops amplify small shocks into systemic collapses.
+
+\textit{Note: For advanced students, optional materials on zero-knowledge technology (T4.5) and a corresponding notebook (\notebookref{NB16}) are available. These are not required but provide a deeper look at privacy-preserving cryptographic techniques that underpin several of the concepts discussed in this module.}
+\end{handsonbox}
+
+% ====================================================================
+% SECTION 9: KEY TAKEAWAYS
+% ====================================================================
+\section{Key Takeaways}
+
+\begin{enumerate}[leftmargin=*, itemsep=6pt]
+
+\item \textbf{Smart contracts are the foundation.} They are self-executing programs on a blockchain that enable trustless, transparent, and automated financial agreements. Their defining properties---determinism, immutability, transparency, and self-execution---make them powerful but also unforgiving. Bugs are permanent.
+
+\item \textbf{DeFi rebuilds finance from primitives.} AMMs replace order books with mathematical formulas. Lending protocols replace banks with algorithmic interest rates and over-collateralization. Composability allows these primitives to be combined in ways their creators never anticipated---for both productive and destructive purposes.
+
+\item \textbf{Impermanent loss is real.} Providing liquidity to an AMM exposes you to impermanent loss when prices move. Fees may or may not compensate. Always model the risk before committing capital.
+
+\item \textbf{Stablecoins are essential but imperfect.} Every stablecoin design involves trade-offs between decentralization, stability, and capital efficiency. Algorithmic designs without collateral have proven fragile. Fiat-backed designs reintroduce centralization. Know what backs the stablecoin you use.
+
+\item \textbf{Tokenization extends programmable finance to the real world.} It enables fractional ownership, continuous trading, and global access---but physical assets require legal enforcement that smart contracts cannot provide on their own.
+
+\item \textbf{CBDCs are programmable sovereign money.} Their design involves critical choices about privacy, control, and the role of intermediaries. These are political decisions with profound implications for individual liberty and financial inclusion.
+
+\item \textbf{``Trustless'' means trust is shifted, not eliminated.} You trust code instead of institutions. Whether that is better depends on the quality of the code, the robustness of the oracles, and the governance of the protocol.
+
+\end{enumerate}
+
+% ====================================================================
+% SECTION 10: LOOKING AHEAD
+% ====================================================================
+\section{Looking Ahead}
+
+You now understand how programmable finance works---from the individual smart contract to the global CBDC. But understanding how something works is only half the story. The other half is understanding \emph{what can go wrong}.
+
+Module 5 turns to the dark side: risk and regulation. You will examine what happens when smart contracts contain exploitable vulnerabilities, when DeFi protocols are attacked by sophisticated adversaries, and when markets built on composability experience cascading failures. You will explore the global regulatory landscape---from the EU's MiCA framework to the ongoing debates in the United States---and grapple with questions about governance, privacy, and financial inclusion.
+
+The tools from this module will be essential. When you analyze a DeFi exploit in Module 5, you will draw on your understanding of smart contracts, flash loans, and oracle manipulation. When you evaluate a regulatory proposal, you will bring your knowledge of stablecoin design trade-offs and CBDC architecture. Programmable finance is not just a technology; it is a new surface for both innovation and risk, and Module 5 will teach you how to think critically about both.
+
+\end{document}

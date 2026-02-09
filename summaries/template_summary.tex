@@ -1,0 +1,101 @@
+% template_summary.tex -- Shared preamble for module summaries
+% Digital Finance Course -- Joerg Osterrieder
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{mdframed}
+
+% Color scheme (matching course slides)
+\definecolor{mlpurple}{RGB}{51,51,178}
+\definecolor{mllavender}{RGB}{173,173,224}
+\definecolor{mllavender2}{RGB}{193,193,232}
+\definecolor{mllavender3}{RGB}{204,204,235}
+\definecolor{mllavender4}{RGB}{214,214,239}
+\definecolor{mlblue}{RGB}{0,102,204}
+\definecolor{mlorange}{RGB}{255,127,14}
+\definecolor{mlgreen}{RGB}{44,160,44}
+\definecolor{mlred}{RGB}{214,39,40}
+\definecolor{mlgray}{RGB}{127,127,127}
+
+% Hyperlinks
+\hypersetup{colorlinks=true, linkcolor=mlpurple, urlcolor=mlblue, citecolor=mlpurple}
+
+% Section formatting (purple headings)
+\titleformat{\section}{\Large\bfseries\color{mlpurple}}{}{0em}{}[\color{mllavender}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{mlblue}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{mlpurple}}{}{0em}{}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{mlgray}{Digital Finance -- Module Summary}}
+\fancyhead[R]{\small\textcolor{mlgray}{\leftmark}}
+\fancyfoot[C]{\small\textcolor{mlgray}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{mllavender}\leaders\hrule height \headrulewidth\hfill}}
+
+% Custom environments
+\newmdenv[
+  linecolor=mlpurple,
+  backgroundcolor=mllavender4,
+  linewidth=2pt,
+  leftline=true,
+  rightline=false,
+  topline=false,
+  bottomline=false,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt
+]{storybox}
+
+\newmdenv[
+  linecolor=mlorange,
+  backgroundcolor=mlorange!5,
+  linewidth=2pt,
+  leftline=true,
+  rightline=false,
+  topline=false,
+  bottomline=false,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt
+]{insightbox}
+
+\newmdenv[
+  linecolor=mlgreen,
+  backgroundcolor=mlgreen!5,
+  linewidth=2pt,
+  leftline=true,
+  rightline=false,
+  topline=false,
+  bottomline=false,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt
+]{handsonbox}
+
+% Spacing
+\setstretch{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% Custom commands
+\newcommand{\modulenum}[1]{\textcolor{mlpurple}{\textbf{Module #1}}}
+\newcommand{\topicref}[1]{\textcolor{mlblue}{\textit{#1}}}
+\newcommand{\keyterm}[1]{\textbf{\textcolor{mlpurple}{#1}}}
+\newcommand{\notebookref}[1]{\textcolor{mlgreen}{\texttt{#1}}}
