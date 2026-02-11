@@ -1,0 +1,44 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+texput.log
+compile.log
+
+# Backup files
+*.bak
+
+# Windows artifacts
+nul
+Thumbs.db
+
+# OMC state
+.omc/
+
+# One-off scripts (not part of course)
+fix_*.py
+enhance_*.py
+verify_*.py
+
+# Report artifacts
+NB*_REPORT.md
+NB*_SUMMARY.md
+NB*_FIXES*.md
+NB*_COMPLETION_SUMMARY.md
+NB*_BEFORE_AFTER_EXAMPLES.md
+NB*_ENHANCEMENTS_SUMMARY.md
+NB*_ENHANCEMENT_REPORT.md
+NB*_ACCESSIBILITY*.md
+verification_results.json
+
+# Template backups
+template_beamer_final.tex

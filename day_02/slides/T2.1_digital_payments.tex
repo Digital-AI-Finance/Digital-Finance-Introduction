@@ -95,8 +95,10 @@ Why does a simple coffee purchase involve so many parties?
 \node[right of=l4, xshift=4.5cm, rotate=-90, anchor=south, font=\footnotesize] {Each layer extracts value};
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{2mm}
+% ---- The Hidden Journey of a Payment (cont.) ----
+\begin{frame}{The Hidden Journey of a Payment (cont.)}
 \begin{block}{The Insight}
 Each layer in the payment stack captures a portion of every transaction. Understanding the stack reveals who profits from your purchase --- and where disruption is possible.
 \end{block}
@@ -112,16 +114,16 @@ How does money \textit{actually} move between banks?
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Concept:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Settlement} = the final, irrevocable transfer of money between banks
 \item Operated by central banks or banking consortia
 \item The foundation on which all other payment layers are built
 \item Different systems exist for domestic vs.\ international transfers
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Authorization vs.\ Settlement:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Authorization}: ``Yes, this payment is approved'' --- happens in seconds (like making a reservation)
 \item \textbf{Settlement}: ``Money has actually moved'' --- can take days (like completing the transaction)
 \end{itemize}
@@ -130,9 +132,9 @@ How does money \textit{actually} move between banks?
 \begin{block}{The Float}
 You can spend money in seconds that takes days to actually move. This gap is called \textbf{float}\footnotemark --- and it creates both risk and opportunity.
 
-\vspace{2mm}
+\vspace{1mm}
 \textit{During the float period:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item The merchant does not yet have the funds
 \item The payer's bank has reserved but not released the money
 \item Intermediaries may earn interest on funds in transit
@@ -141,8 +143,10 @@ You can spend money in seconds that takes days to actually move. This gap is cal
 \footnotetext{Float --- the time money is ``in transit'' between accounts, during which neither party can fully use it.}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- Layer 1: Settlement Systems (cont.) ----
+\begin{frame}{Layer 1: Settlement Systems (cont.)}
 \begin{block}{The Insight}
 The delay between ``approved'' and ``settled'' is not a bug --- it is where significant economic value is created.
 \end{block}
@@ -154,11 +158,11 @@ The delay between ``approved'' and ``settled'' is not a bug --- it is where sign
 How does your card work at a store on the other side of the world?
 \end{alertblock}
 
-\vspace{2mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Concept:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Card networks connect \textbf{issuing banks}\footnotemark[1] to \textbf{acquiring banks}\footnotemark[2]
 \item They route authorization requests across borders
 \item They set rules, standards, and manage fraud liability
@@ -184,7 +188,7 @@ How does your card work at a store on the other side of the world?
 \end{column}
 \end{columns}
 
-\vspace{2mm}
+\vspace{1mm}
 \begin{block}{The Insight}
 Network effects create a self-reinforcing cycle --- once a card network reaches critical mass, it becomes extremely difficult to displace.
 \end{block}
@@ -200,7 +204,7 @@ Why can't merchants just connect directly to card networks?
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Concept:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Connecting directly to networks requires complex technical integration and regulatory compliance
 \item \textbf{Payment processors} handle this complexity on behalf of merchants
 \item They provide fraud detection, developer tools (APIs), and multi-network routing
@@ -210,16 +214,16 @@ Why can't merchants just connect directly to card networks?
 \begin{column}{0.5\textwidth}
 \begin{block}{Before vs.\ After Processors}
 \textbf{Without processors:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Custom bank integration
 \item Months of development
 \item Complex compliance requirements
 \item Network-by-network negotiation
 \end{itemize}
 
-\vspace{2mm}
+\vspace{1mm}
 \textbf{With processors:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Simple API integration
 \item Fast setup
 \item Bundled compliance and fraud protection
@@ -228,8 +232,10 @@ Why can't merchants just connect directly to card networks?
 \end{block}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- Layer 3: Payment Processors (cont.) ----
+\begin{frame}{Layer 3: Payment Processors (cont.)}
 \begin{block}{The Insight}
 By simplifying integration, processors unlocked payment innovation for millions of businesses that could never have connected to networks on their own.
 \end{block}
@@ -245,15 +251,15 @@ Why is every tech company building a wallet or payment app?
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Concept:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item The interface layer is the user-facing payment experience
 \item It stores payment credentials securely
 \item Types include: mobile wallets, peer-to-peer apps, e-commerce checkout, point-of-sale terminals, bank apps
 \end{itemize}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Why Everyone Wants This Layer:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Owns the \textbf{customer relationship}
 \item Captures \textbf{spending data}
 \item Enables \textbf{cross-selling} other products
@@ -264,18 +270,20 @@ Why is every tech company building a wallet or payment app?
 \begin{alertblock}{Where Competition Happens}
 Most FinTech innovation targets this layer because it is closest to the customer.
 
-\vspace{2mm}
+\vspace{1mm}
 The underlying rails (networks, settlement) remain largely unchanged --- the battle is over who controls the experience on top.
 \end{alertblock}
 
-\vspace{2mm}
+\vspace{1mm}
 \begin{exampleblock}{Think About It}
 How many different payment apps are on your phone right now? Each one is competing for this layer.
 \end{exampleblock}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- Layer 4: Consumer Interfaces (cont.) ----
+\begin{frame}{Layer 4: Consumer Interfaces (cont.)}
 \begin{block}{The Insight}
 The real battle in payments is not moving money --- it is \textbf{owning the customer relationship}.
 \end{block}
@@ -306,8 +314,10 @@ When you swipe your card, who is involved and what happens?
 \draw[arrow, dashed, color=dfgreen] (issuer) |- ++(0,-1.5) -| node[below, pos=0.25] {6. Settlement (days later)} (acquirer);
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{2mm}
+% ---- The Four-Party Model (cont.) ----
+\begin{frame}{The Four-Party Model (cont.)}
 \begin{block}{The Insight}
 Authorization happens in seconds; settlement takes days. The merchant sees ``approved'' almost instantly, but the actual money moves much later in batch processing.
 \end{block}
@@ -350,11 +360,11 @@ The \textbf{issuing bank} receives the largest share because it bears the credit
 Why do card payments cost merchants more than a simple bank transfer?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{What Interchange Fees Pay For:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Fraud protection}: The issuing bank covers fraudulent transactions
 \item \textbf{Rewards funding}: Points, cashback, and miles are funded by merchant fees
 \item \textbf{Network maintenance}: Infrastructure for global real-time authorization
@@ -368,19 +378,21 @@ Why do card payments cost merchants more than a simple bank transfer?
 \begin{column}{0.5\textwidth}
 \begin{block}{Regional Variation}
 Different regions regulate these fees very differently:
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Some regions \textbf{cap interchange fees} by law, resulting in much lower costs for merchants
 \item Other regions allow the market to set fees, resulting in significantly higher rates
 \item This creates vastly different payment landscapes around the world
 \end{itemize}
 \end{block}
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- The Cost of Convenience (cont.) ----
+\begin{frame}{The Cost of Convenience (cont.)}
 \begin{exampleblock}{Think About It}
 If interchange fees were capped everywhere, what would happen to credit card rewards programs?
 \end{exampleblock}
-\end{column}
-\end{columns}
 
 \vspace{2mm}
 \begin{block}{The Insight}
@@ -431,27 +443,31 @@ Every payment method is a tradeoff --- there is no single ``best'' option. The r
 What if payments could be instant \textit{and} nearly free?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Concept:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Governments around the world are building \textbf{real-time payment infrastructure}
 \item These are public systems --- instant, low-cost, available to all banks
 \item Examples exist across many countries: Brazil, India, the UK, the EU, and the US have all launched or are rolling out such systems
 \item They settle in seconds, not days
 \end{itemize}
-
-\vspace{2mm}
+\end{column}
+\begin{column}{0.5\textwidth}
 \textbf{How They Differ from Cards:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Government-operated (public good)
 \item Near-zero transaction cost
 \item Bank-to-bank (no intermediary network)
 \item Irrevocable (no chargebacks)
 \end{itemize}
 \end{column}
-\begin{column}{0.5\textwidth}
+\end{columns}
+\end{frame}
+
+% ---- Real-Time Payment Systems (cont.) ----
+\begin{frame}{Real-Time Payment Systems (cont.)}
 \begin{block}{Impact on the Payment Landscape}
 \begin{itemize}
 \item \textbf{Commoditizes payment rails}: Basic money movement becomes free
@@ -460,8 +476,6 @@ What if payments could be instant \textit{and} nearly free?
 \item \textbf{Shifts competition}: Value moves from moving money to services built on top
 \end{itemize}
 \end{block}
-\end{column}
-\end{columns}
 
 \vspace{2mm}
 \begin{block}{The Insight}
@@ -493,17 +507,19 @@ Why is sending money abroad still slow and expensive?
 \end{tikzpicture}
 \end{center}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Why It Is Broken:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Money must ``hop'' through several \textbf{correspondent banks}\footnotemark --- each one charges a fee and adds delay
 \item Currency conversion happens at each hop, often at unfavorable rates
 \item Compliance checks (anti-money laundering) at every intermediary slow the process further
 \item The sender often does not know the total cost until the money arrives
 \end{itemize}
 \footnotetext{Correspondent banking --- a system where banks maintain accounts at other banks in foreign countries to facilitate international transfers.}
+\end{frame}
 
-\vspace{2mm}
+% ---- Cross-Border Payments (cont.) ----
+\begin{frame}{Cross-Border Payments: The Broken System (cont.)}
 \begin{block}{The Insight}
 Cross-border payments are the most expensive, slowest part of the payment system --- making them a prime target for FinTech disruption.
 \end{block}
@@ -515,11 +531,11 @@ Cross-border payments are the most expensive, slowest part of the payment system
 How are companies trying to fix international payments?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.33\textwidth}
 \begin{block}{Approach 1:\\Local Rail Matching}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Match senders and receivers in different countries
 \item Use \textit{local} payment rails on each end
 \item Money never actually crosses borders
@@ -529,7 +545,7 @@ How are companies trying to fix international payments?
 \end{column}
 \begin{column}{0.33\textwidth}
 \begin{block}{Approach 2:\\Blockchain Settlement}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Use a shared digital ledger to transfer value
 \item No correspondent banks needed
 \item Settlement in minutes, not days
@@ -539,7 +555,7 @@ How are companies trying to fix international payments?
 \end{column}
 \begin{column}{0.33\textwidth}
 \begin{block}{Approach 3:\\Stablecoin Transfers}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Send digital tokens pegged to a currency
 \item Available around the clock
 \item Recipient converts to local currency
@@ -549,7 +565,7 @@ How are companies trying to fix international payments?
 \end{column}
 \end{columns}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{block}{The Insight}
 Each approach trades off different dimensions: speed, cost, regulatory clarity, and adoption requirements. No single solution dominates yet --- the race to fix cross-border payments is still open.
 \end{block}
@@ -561,11 +577,11 @@ Each approach trades off different dimensions: speed, cost, regulatory clarity, 
 What happens when a payment is declined --- and why does it matter more than you think?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Common Reasons Payments Fail:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Insufficient funds}: The most common cause
 \item \textbf{Fraud blocks}: Automated systems flag suspicious activity
 \item \textbf{Expired or invalid card}: Outdated payment credentials
@@ -583,20 +599,22 @@ A \textbf{false positive} occurs when a legitimate transaction is incorrectly bl
 
 \vspace{2mm}
 \textit{Why this matters:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item The customer may abandon the purchase entirely
 \item The merchant loses revenue permanently
 \item Customer trust and loyalty suffer
 \item Blocking good transactions often costs \textbf{more} than the fraud it prevents
 \end{itemize}
 \end{block}
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- When Payments Fail (cont.) ----
+\begin{frame}{When Payments Fail (cont.)}
 \begin{exampleblock}{Think About It}
 Has a legitimate purchase of yours ever been declined? How did it affect your experience?
 \end{exampleblock}
-\end{column}
-\end{columns}
 
 \vspace{2mm}
 \begin{block}{The Insight}
@@ -610,20 +628,20 @@ Payment optimization is not just about preventing fraud --- it is about finding 
 Why would a merchant pay \textit{higher} fees for installment payments?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{How BNPL Works:}
-\begin{enumerate}
+\begin{enumerate}\compactlist
 \item Consumer selects BNPL at checkout
 \item BNPL provider pays the merchant (minus a fee)
 \item Consumer repays in several installments
 \item Typically no interest if payments are on time
 \end{enumerate}
 
-\vspace{3mm}
+\vspace{2mm}
 \textbf{Why Merchants Accept Higher Fees:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Increases average order value
 \item Attracts customers who might not buy otherwise
 \item Converts browsers into buyers
@@ -632,14 +650,18 @@ Why would a merchant pay \textit{higher} fees for installment payments?
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{block}{BNPL Revenue Sources}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Merchant fees}: Higher than standard card fees --- the provider's main revenue
 \item \textbf{Late payment fees}: Charged when consumers miss installments
 \item \textbf{Interest}: On longer-term loan products
 \end{itemize}
 \end{block}
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- Buy Now Pay Later (cont.) ----
+\begin{frame}{Buy Now Pay Later (BNPL) (cont.)}
 \begin{alertblock}{Business Model Tensions}
 \begin{itemize}
 \item Credit losses without traditional underwriting\footnotemark
@@ -649,8 +671,6 @@ Why would a merchant pay \textit{higher} fees for installment payments?
 \end{itemize}
 \end{alertblock}
 \footnotetext{Underwriting --- the process of assessing whether a borrower is likely to repay.}
-\end{column}
-\end{columns}
 
 \vspace{2mm}
 \begin{block}{The Insight}
@@ -664,10 +684,10 @@ BNPL shifts credit risk from consumers to providers, creating new business model
 How do we analyze payment data to make better business decisions?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{block}{Notebook Overview}
 Analyze simulated payment transaction data to understand:
-\begin{itemize}
+\begin{itemize}\compactlist
 \item How different payment methods compare in practice
 \item How fee structures affect merchant profitability
 \item How settlement times vary and why it matters for cash flow
@@ -675,11 +695,11 @@ Analyze simulated payment transaction data to understand:
 \end{itemize}
 \end{block}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{What You Will Do:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Work with a realistic simulated payment dataset
 \item Compare multiple payment methods across key dimensions
 \item Visualize cost and settlement trade-offs
@@ -692,8 +712,10 @@ The notebook is self-guided with code provided. Your job is to \textbf{interpret
 \end{exampleblock}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ---- Hands-On NB02 (cont.) ----
+\begin{frame}{Hands-On: NB02 Payment Transaction Analysis (cont.)}
 \begin{block}{The Insight}
 Data analysis reveals patterns invisible in individual transactions --- what seems random at the single-payment level becomes predictable at scale.
 \end{block}

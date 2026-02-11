@@ -91,8 +91,10 @@ Banks built closed, proprietary systems for decades. How could a startup innovat
 \draw[arrow] (cust) -- (bank);
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{3mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{The Traditional Banking Problem (cont.)}
 \textbf{The Concept:}
 \begin{itemize}
 \item \textbf{Closed Systems}: Each bank built its own proprietary technology
@@ -280,8 +282,10 @@ What happens when you break a monolithic bank into separate, independently acces
 \node[right of=cards, xshift=1.5cm, font=\footnotesize, text=dfgray] {(card issuers)};
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{3mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{The Unbundling of Banking (cont.)}
 \textbf{The Concept:}
 \begin{itemize}
 \item Each banking function becomes a standalone service accessible via API
@@ -392,10 +396,10 @@ What can third parties actually \textit{do} with your banking data --- and how i
 \begin{block}{AISP --- Account Information}
 \textbf{Account Information Service Provider}
 \vspace{2mm}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{What}: Reads your account data
 \item \textbf{Use cases}:
-  \begin{itemize}
+  \begin{itemize}\compactlist
   \item Budgeting apps that show all your accounts in one place
   \item Credit assessment based on transaction history
   \item Financial planning tools
@@ -408,10 +412,10 @@ What can third parties actually \textit{do} with your banking data --- and how i
 \begin{block}{PISP --- Payment Initiation}
 \textbf{Payment Initiation Service Provider}
 \vspace{2mm}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{What}: Initiates payments from your account
 \item \textbf{Use cases}:
-  \begin{itemize}
+  \begin{itemize}\compactlist
   \item E-commerce checkout directly from your bank
   \item Bill payment services
   \item Money transfer apps
@@ -421,8 +425,10 @@ What can third parties actually \textit{do} with your banking data --- and how i
 \end{block}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{3mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{AISP and PISP: Read Access vs.\ Write Access (cont.)}
 \begin{block}{The Insight}
 Read access and write access are regulated differently because the risks differ. Seeing your balance is far less risky than moving your money.
 \end{block}
@@ -439,9 +445,9 @@ Read access and write access are regulated differently because the risks differ.
 How does the consent flow actually work --- and how is your data kept secure?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{center}
-\begin{tikzpicture}[node distance=1.8cm]
+\begin{tikzpicture}[node distance=1.4cm]
 % Layers
 \node (consumer) [blockchain, fill=dfgreen!20] {Consumer};
 \node (tpp) [blockchain, below of=consumer] {Third Party Provider};
@@ -459,8 +465,10 @@ How does the consent flow actually work --- and how is your data kept secure?
 \node[right of=bank, xshift=2.5cm, text width=2.5cm, font=\footnotesize, align=left] {Bank never shares\\your password};
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{3mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{Open Banking Architecture: The Consent Flow (cont.)}
 \begin{block}{The Insight}
 You never share your password with the third party. Instead, the bank issues a temporary \textit{token} --- like a concert wristband that grants limited access and can be revoked at any time.
 \end{block}
@@ -516,7 +524,7 @@ What if you want to offer banking products to your customers --- but you do not 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Without BaaS:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Obtaining a banking license requires enormous capital and years of effort
 \item Must build compliance infrastructure from scratch
 \item Need to hire regulatory and legal experts
@@ -525,7 +533,7 @@ What if you want to offer banking products to your customers --- but you do not 
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{With BaaS:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item ``Rent'' a license from a partner bank
 \item Use pre-built compliance tools
 \item Focus entirely on customer experience
@@ -533,8 +541,10 @@ What if you want to offer banking products to your customers --- but you do not 
 \end{itemize}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{3mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{Banking-as-a-Service: The Concept (cont.)}
 \begin{block}{The Insight}
 BaaS separates ``who builds the experience'' from ``who holds the license.'' This is what allows technology companies to offer bank accounts, cards, and loans.
 \end{block}
@@ -550,6 +560,7 @@ In a BaaS arrangement, what does the FinTech actually build --- and what does it
 
 \vspace{3mm}
 \begin{center}
+\begin{adjustbox}{max width=\textwidth}
 \begin{tikzpicture}[node distance=0.9cm]
 % Stack
 \node (brand) [process, minimum width=10cm, fill=dfgreen!20] {\textbf{Brand Layer}: Your Company's Brand and Identity};
@@ -566,9 +577,12 @@ In a BaaS arrangement, what does the FinTech actually build --- and what does it
     ([xshift=-5.3cm]middle.north west) -- ([xshift=-5.3cm]reg.south west)
     node[midway, left=12pt, align=right, font=\footnotesize] {FinTech\\Rents};
 \end{tikzpicture}
+\end{adjustbox}
 \end{center}
+\end{frame}
 
-\vspace{3mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{The BaaS Stack: What You Build vs.\ What You Rent (cont.)}
 \begin{block}{The Insight}
 The FinTech only needs to build what the customer sees and touches. Everything underneath --- the license, the compliance, the ledger --- is rented from specialized providers.
 \end{block}
@@ -585,11 +599,11 @@ The FinTech only needs to build what the customer sees and touches. Everything u
 If a FinTech is not a bank, how does revenue flow in a BaaS arrangement --- and who captures the most value?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Revenue Sources:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Interchange fees}: When a customer uses a card, a small fee is generated and split among all parties
 \item \textbf{Subscription fees}: Monthly charges for premium features
 \item \textbf{Interest spread}: Difference between deposit and lending rates
@@ -598,23 +612,23 @@ If a FinTech is not a bank, how does revenue flow in a BaaS arrangement --- and 
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{Who Gets What (Conceptually):}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{FinTech brand}: Captures the largest share because it owns the customer relationship
 \item \textbf{BaaS platform}: Takes a cut for technology and compliance orchestration
 \item \textbf{Partner bank}: Receives fees for providing the license and deposit insurance
 \end{itemize}
 
-\vspace{2mm}
+\vspace{1mm}
 \textit{The party closest to the customer typically captures the most value.}
 \end{column}
 \end{columns}
 
-\vspace{4mm}
+\vspace{2mm}
 \begin{block}{The Insight}
 In the API economy, value accrues to whoever owns the customer relationship --- not necessarily to whoever holds the banking license.
 \end{block}
 
-\vspace{2mm}
+\vspace{1mm}
 \footnotesize{\textcolor{dfteal}{\textbf{Jargon explained:}} \textit{Interchange} = a fee paid between banks when processing card transactions; a major revenue source for card issuers and now also for FinTechs.}
 \end{frame}
 
@@ -634,7 +648,7 @@ Financial services integrated directly into non-financial platforms and experien
 
 \vspace{3mm}
 \textbf{Conceptual Examples:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item An e-commerce platform offering merchant loans based on sales data
 \item A ride-sharing app providing driver banking and instant payouts
 \item A retail checkout offering installment payments
@@ -643,7 +657,7 @@ Financial services integrated directly into non-financial platforms and experien
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{block}{Why Non-Banks Have Advantages}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Distribution}: They already have the customers
 \item \textbf{Data}: They know customer behavior intimately
 \item \textbf{Context}: They can offer finance at the exact moment of need
@@ -652,8 +666,10 @@ Financial services integrated directly into non-financial platforms and experien
 \end{block}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{4mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{Embedded Finance: Financial Services at the Moment of Need (cont.)}
 \begin{block}{The Insight}
 When finance is embedded where you already are --- shopping, working, traveling --- the traditional bank becomes invisible. The bank still exists in the background, but the customer never interacts with it directly.
 \end{block}
@@ -715,7 +731,7 @@ What can go wrong when a FinTech depends on a partner bank for its entire bankin
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Risks for FinTechs:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textcolor{dfred}{\textbf{Partner bank failures}}: If the partner bank faces regulatory action, the FinTech's customers may lose access to their accounts
 \item \textcolor{dfred}{\textbf{Regulatory scrutiny}}: Regulators increasingly hold banks responsible for their FinTech partners' behavior
 \item \textcolor{dfred}{\textbf{Concentration risk}}: Only a small number of banks serve as BaaS partners
@@ -724,21 +740,23 @@ What can go wrong when a FinTech depends on a partner bank for its entire bankin
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Risks for Partner Banks:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Reputation damage from FinTech failures
 \item Compliance responsibility for FinTech actions
 \item Anti-money-laundering obligations extend to FinTech customers
 \item Capital requirements may increase with growth
 \end{itemize}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{alertblock}{Key Trend}
 Regulators are increasingly demanding that banks ``know their FinTech partners' customers'' --- adding cost and complexity to BaaS relationships.
 \end{alertblock}
 \end{column}
 \end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{frame}{Risks and Challenges in BaaS (cont.)}
 \begin{block}{The Insight}
 Renting infrastructure means sharing someone else's risks. A FinTech's fate is tied to its partner bank's regulatory standing.
 \end{block}
@@ -821,7 +839,7 @@ In Notebook NB03, you will build a simulated open banking environment:
 \begin{frame}{Discussion: Building a FinTech with BaaS}
 \textbf{Scenario}: You want to launch a neobank for freelancers. Walk through the key decisions.
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{center}
 \begin{tikzpicture}[node distance=0.8cm]
 \node (step1) [process, fill=dfgreen!20, minimum width=10cm] {1. Define product: Accounts, cards, invoicing, tax savings};
@@ -832,9 +850,9 @@ In Notebook NB03, you will build a simulated open banking environment:
 \end{tikzpicture}
 \end{center}
 
-\vspace{4mm}
+\vspace{1mm}
 \begin{block}{Discussion Questions}
-\begin{enumerate}
+\begin{enumerate}\compactlist
 \item What are the biggest risks in this model?
 \item What happens if your partner bank faces regulatory problems?
 \item How would you differentiate your product from existing neobanks?

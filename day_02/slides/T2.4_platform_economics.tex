@@ -152,6 +152,7 @@ A \textcolor{dfblue}{\textbf{platform}} is a business that creates value by faci
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{center}
+\begin{adjustbox}{max width=\textwidth}
 \begin{tikzpicture}[node distance=2cm, scale=0.9, transform shape]
 % Platform model
 \node (side1) [blockchain, fill=dfgreen!20, align=center] {Side A\\(e.g., Consumers)};
@@ -165,6 +166,7 @@ A \textcolor{dfblue}{\textbf{platform}} is a business that creates value by faci
 % Value labels
 \node[above of=platform, yshift=-0.5cm, font=\footnotesize] {Orchestrates};
 \end{tikzpicture}
+\end{adjustbox}
 \end{center}
 
 \vspace{5mm}
@@ -231,8 +233,12 @@ More users on Side A makes the platform more attractive to Side B, and vice vers
 \begin{column}{0.5\textwidth}
 \textbf{What is an Externality?}\\
 When your action affects others who didn't choose to be affected. Network effects are a \textit{positive externality} --- each new user makes the platform better for all existing users.
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{5mm}
+% ============================================================================
+\begin{frame}{Network Effects: The Core Mechanism (cont.)}
 \begin{block}{The Insight}
 Each new user adds value for \textit{all} existing users --- this is what makes platforms so powerful and why they invest so heavily in early growth.
 \end{block}
@@ -243,8 +249,6 @@ Does this company have \textbf{real} network effects, or just \textbf{growth}?\\
 \vspace{2mm}
 \textit{Growth without network effects is just expensive customer acquisition.}
 \end{alertblock}
-\end{column}
-\end{columns}
 \end{frame}
 
 % ============================================================================
@@ -285,13 +289,15 @@ A group chat with three friends has three possible conversations. Add a fourth f
 \node[dfblue, font=\footnotesize] at (4.5,3.7) {Network};
 \end{tikzpicture}
 \end{center}
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{3mm}
+% ============================================================================
+\begin{frame}{Why Networks Grow So Fast (cont.)}
 \begin{block}{The Insight}
 Doubling the number of users far more than doubles the value of a network. This is why platforms invest enormous sums in early growth --- the payoff compounds with every new user.
 \end{block}
-\end{column}
-\end{columns}
 \end{frame}
 
 % ============================================================================
@@ -342,8 +348,10 @@ How do you launch a platform when each side needs the other to exist first?
 \node[below of=no_buyers, xshift=3cm, yshift=1cm, font=\bfseries] {Death Spiral};
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{3mm}
+% ============================================================================
+\begin{frame}{The Chicken-and-Egg Problem (cont.)}
 \textbf{Three Launch Strategies:}
 \begin{columns}[T]
 \begin{column}{0.33\textwidth}
@@ -415,13 +423,15 @@ Why do some platforms succeed spectacularly while nearly identical ones fail com
 \node[font=\tiny] at (3.5,2.7) {Dominance};
 \end{tikzpicture}
 \end{center}
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{2mm}
+% ============================================================================
+\begin{frame}{Critical Mass: The Tipping Point (cont.)}
 \begin{block}{The Insight}
 Below critical mass, platforms collapse. Above it, they dominate. This is why FinTechs raise enormous amounts of venture capital --- to reach that tipping point before running out of money.
 \end{block}
-\end{column}
-\end{columns}
 \end{frame}
 
 % ============================================================================
@@ -432,39 +442,39 @@ Below critical mass, platforms collapse. Above it, they dominate. This is why Fi
 Why do some markets end up with one dominant player while others sustain healthy competition?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{The Concept:}\\
 A market ``tips'' toward a single dominant player when three conditions align:
 
-\vspace{3mm}
-\begin{enumerate}
+\vspace{1mm}
+\begin{enumerate}\compactlist
 \item \textbf{Strong network effects} --- each new user significantly increases value for all
 \item \textbf{High switching costs} --- it is expensive or difficult to move to a competitor
 \item \textbf{Low multi-homing} --- users find it impractical to use multiple platforms
 \end{enumerate}
 
-\vspace{3mm}
+\vspace{1mm}
 \textbf{Key Distinction:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Winner-take-all}: One company captures nearly the entire market
 \item \textbf{Winner-take-most}: A dominant player emerges but competition survives at the margins
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{FinTech Examples:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item \textbf{Tips}: Card networks --- strong network effects, high switching costs for merchants
 \item \textbf{Does not tip}: Neobanks --- low switching costs, easy to hold multiple accounts
 \end{itemize}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{block}{The Insight}
 Not all markets tip --- understanding \textit{when} they do is the key to evaluating any FinTech investment. The conditions must all be present simultaneously.
 \end{block}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{alertblock}{Key Question}
 Does this FinTech's market have the conditions to tip, or will competition persist?
 \end{alertblock}
@@ -480,15 +490,15 @@ Does this FinTech's market have the conditions to tip, or will competition persi
 What prevents a single platform from monopolizing a market?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \textbf{The Concept:}\\
 \textcolor{dfblue}{\textbf{Multi-homing}} means using multiple competing platforms simultaneously. When multi-homing is easy, no single platform can lock users in.
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Low Multi-Homing Costs:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Easy to switch or use both platforms
 \item Competition remains intense
 \item No clear winner emerges
@@ -500,7 +510,7 @@ What prevents a single platform from monopolizing a market?
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{High Multi-Homing Costs:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Expensive or difficult to switch
 \item Users commit to one platform
 \item Market tips toward a winner
@@ -512,7 +522,7 @@ What prevents a single platform from monopolizing a market?
 \end{column}
 \end{columns}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{block}{The Insight}
 Successful platforms try to \textit{increase} switching costs to lock users in. Regulators try to \textit{decrease} them to preserve competition. Understanding this tension is central to platform strategy.
 \end{block}
@@ -526,7 +536,7 @@ Successful platforms try to \textit{increase} switching costs to lock users in. 
 How do you systematically analyze any FinTech's business model?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{center}
 \begin{tabular}{p{3cm}p{4.5cm}p{4.5cm}}
 \toprule
@@ -556,19 +566,19 @@ Use this framework to analyze any FinTech company systematically --- it separate
 How do FinTechs actually make money, especially when many products appear ``free''?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \textbf{Transaction-Based:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item A small percentage of each transaction plus a flat fee
 \item Interchange revenue from card spending
 \item Foreign exchange markups on currency conversion
 \end{itemize}
 
-\vspace{3mm}
+\vspace{1mm}
 \textbf{Subscription:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Premium tiers with additional features
 \item Business-to-business software-as-a-service
 \item Membership models with bundled services
@@ -576,15 +586,15 @@ How do FinTechs actually make money, especially when many products appear ``free
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{Interest and Float:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Earning interest on customer deposits held temporarily
 \item Lending margin: borrow at a low rate, lend at a higher rate
 \item Holding funds in transit and earning interest on the ``float''
 \end{itemize}
 
-\vspace{3mm}
+\vspace{1mm}
 \textbf{Data and Ecosystem:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Selling order flow to market makers
 \item Cross-selling additional products to existing customers
 \item Licensing aggregated, anonymized insights
@@ -592,7 +602,7 @@ How do FinTechs actually make money, especially when many products appear ``free
 \end{column}
 \end{columns}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{block}{The Insight}
 The most resilient FinTechs combine multiple revenue streams. Dependence on a single source creates vulnerability --- especially if regulators restrict it.
 \end{block}
@@ -628,8 +638,12 @@ Does each customer eventually pay back \textit{more} than it cost to acquire the
 \item Payback should happen within a \textbf{reasonable timeframe}
 \item Churn should be \textbf{low enough} that customers stay long enough to generate returns
 \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
 
-\vspace{3mm}
+% ============================================================================
+\begin{frame}{Unit Economics: The Health Check (cont.)}
 \begin{block}{FinTech CAC Challenges}
 \begin{itemize}
 \item Trust is required for financial products
@@ -638,10 +652,8 @@ Does each customer eventually pay back \textit{more} than it cost to acquire the
 \item Referral programs can be costly
 \end{itemize}
 \end{block}
-\end{column}
-\end{columns}
 
-\vspace{2mm}
+\vspace{3mm}
 \begin{block}{The Insight}
 Growth without healthy unit economics is just burning money. Always ask: is each new customer profitable, or is the company paying more to acquire them than they will ever earn back?
 \end{block}
@@ -666,8 +678,8 @@ If a product is free or extremely cheap, is the demand real --- or artificial?
 \item Achieve network effects and lock-in
 \item Raise prices once dominant
 \end{enumerate}
-
-\vspace{3mm}
+\end{column}
+\begin{column}{0.5\textwidth}
 \textbf{When This Works:}
 \begin{itemize}
 \item The market truly tips (winner-take-most)
@@ -675,7 +687,11 @@ If a product is free or extremely cheap, is the demand real --- or artificial?
 \item Switching costs prevent users from leaving when prices rise
 \end{itemize}
 \end{column}
-\begin{column}{0.5\textwidth}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Venture Subsidies: Real Growth or Fake Economics? (cont.)}
 \begin{alertblock}{When It Doesn't Work}
 \begin{itemize}
 \item Multi-homing prevents lock-in
@@ -691,10 +707,8 @@ If a product is free or extremely cheap, is the demand real --- or artificial?
 \textbf{Test}: Mentally remove the subsidies --- what happens to demand?\\
 \textbf{If demand collapses}: The growth was artificial.
 \end{block}
-\end{column}
-\end{columns}
 
-\vspace{2mm}
+\vspace{3mm}
 \begin{block}{The Insight}
 Always ask: would customers stay at sustainable prices? If the answer is unclear, the company may be building on sand.
 \end{block}
@@ -727,8 +741,10 @@ Why do data-rich platforms keep getting stronger while newcomers struggle to cat
 \node[font=\large\bfseries] at (0,0) {Flywheel};
 \end{tikzpicture}
 \end{center}
+\end{frame}
 
-\vspace{3mm}
+% ============================================================================
+\begin{frame}{The Data Flywheel in Platforms (cont.)}
 \textbf{How It Works in FinTech:}
 \begin{itemize}
 \item More transactions generate more data, which improves fraud detection, which reduces false declines, which attracts more merchants, which generates more transactions
@@ -749,8 +765,6 @@ Can government rules actually \textit{help} a company rather than hurt it?
 \end{alertblock}
 
 \vspace{3mm}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
 \textbf{The Concept:}\\
 Regulatory requirements (banking charters, insurance licenses, broker-dealer registrations, money transmitter licenses) are expensive and time-consuming to obtain.
 
@@ -762,8 +776,10 @@ Regulatory requirements (banking charters, insurance licenses, broker-dealer reg
 \item Relationships with regulators are valuable
 \item Compliance infrastructure, once built, is hard to replicate
 \end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Regulation as Moat (cont.)}
 \textbf{How FinTechs Navigate Regulation:}
 \begin{itemize}
 \item \textbf{Rent}: Use BaaS partnerships to operate under a partner bank's charter
@@ -776,12 +792,10 @@ Regulatory requirements (banking charters, insurance licenses, broker-dealer reg
 Once compliant, regulation becomes a competitive barrier. It is expensive to achieve but creates a powerful moat that protects from new entrants.
 \end{block}
 
-\vspace{2mm}
+\vspace{3mm}
 \begin{alertblock}{The Double Edge}
 Regulatory capture can flip: what protects you today can also restrict you tomorrow.
 \end{alertblock}
-\end{column}
-\end{columns}
 \end{frame}
 
 % ============================================================================
@@ -821,7 +835,7 @@ Traditional banks have significant advantages: trust, large deposit bases, exist
 How can a trading app offer ``free'' trades --- and what is the hidden business model?
 \end{alertblock}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \textbf{The Concept: Payment for Order Flow (PFOF)}
@@ -839,7 +853,7 @@ How can a trading app offer ``free'' trades --- and what is the hidden business 
 
 \vspace{2mm}
 \textbf{How It Works:}
-\begin{enumerate}
+\begin{enumerate}\compactlist
 \item You place a trade (no commission charged)
 \item The broker routes your order to a market maker
 \item The market maker pays the broker for that order flow
@@ -848,21 +862,21 @@ How can a trading app offer ``free'' trades --- and what is the hidden business 
 \end{column}
 \begin{column}{0.45\textwidth}
 \textbf{Arguments For:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Enables ``free'' trading for small investors
 \item Price improvement may still occur
 \item Democratizes access to markets
 \end{itemize}
 
-\vspace{3mm}
+\vspace{1mm}
 \textbf{Arguments Against:}
-\begin{itemize}
+\begin{itemize}\compactlist
 \item Hidden cost embedded in execution quality
 \item Conflict of interest: whose interests come first?
 \item Some regulators have restricted or banned it
 \end{itemize}
 
-\vspace{3mm}
+\vspace{1mm}
 \begin{block}{The Insight}
 ``Free'' products always have a hidden business model. When you are not paying for the product, you are likely the product --- or your order flow is.
 \end{block}
