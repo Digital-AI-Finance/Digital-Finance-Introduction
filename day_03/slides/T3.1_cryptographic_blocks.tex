@@ -207,6 +207,8 @@ You can't deny signing
 \item Any person $\rightarrow$ unique fingerprint (fixed size)
 \item Any data $\rightarrow$ unique hash (fixed size: 256 bits)
 \end{itemize}
+
+{\scriptsize SHA-256 = Secure Hash Algorithm producing a 256-bit output. Hexadecimal = a number system using 0--9 and a--f, common in computing.}
 \end{frame}
 
 % =======================================================================
@@ -240,6 +242,9 @@ You can't deny signing
 % SLIDE 8: The Five Properties Explained
 % =======================================================================
 \begin{frame}{Five Essential Properties of Hash Functions}
+\textit{Don't memorize all five -- the key insight is that hash functions are \textbf{one-way} and produce \textbf{unique} outputs.}
+
+\vspace{2mm}
 \begin{enumerate}
 \item \textbf{Deterministic}\\
 \textcolor{dfgray}{\small Hash(``Bitcoin'') today = Hash(``Bitcoin'') tomorrow = Hash(``Bitcoin'') forever}
@@ -344,13 +349,11 @@ SHA-256 is considered cryptographically secure for all practical purposes.
 \begin{frame}{What Hash Functions Guarantee}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{Use Cases in Blockchain}
+\textbf{Three Key Uses in Blockchain}
 \begin{itemize}\compactlist
-\item \textbf{Data integrity:} Verify nothing changed
-\item \textbf{Block linking:} Each block contains hash of previous
-\item \textbf{Transaction IDs:} Unique identifier for every transaction
-\item \textbf{Mining puzzles:} Finding hashes with specific properties
-\item \textbf{Merkle trees:} Efficiently verify large data sets
+\item \textbf{Data integrity:} Verify nothing changed -- if the hash matches, the data is untouched
+\item \textbf{Block linking:} Each block contains the hash of the previous block, creating a tamper-evident chain
+\item \textbf{Efficient verification:} Hash-based structures (covered next) let you check any single transaction with only a handful of checks, even among thousands
 \end{itemize}
 \end{column}
 \begin{column}{0.42\textwidth}
@@ -373,9 +376,9 @@ SHA-256 is considered cryptographically secure for all practical purposes.
 \draw[thick, dfblue] (h2) -- (root);
 \end{tikzpicture}
 
-\footnotesize\textbf{Merkle Tree}\\
+\footnotesize\textbf{Hash-Based Verification}\\
 \textit{Like a family tree where you can verify any member by checking their parents}\\[1mm]
-Verify any transaction with $O(\log n)$ hashes
+Only a handful of checks needed
 \end{center}
 \end{column}
 \end{columns}
@@ -622,39 +625,31 @@ If two hashes match, the data is identical (with overwhelming probability).
 % SLIDE 18: ECDSA vs RSA
 % =======================================================================
 \begin{frame}{Elliptic Curve Cryptography in Blockchain}
-\textbf{Why don't blockchains use RSA?}
+\textit{You don't need to understand the math. The key point is: blockchain uses a specific type of digital signature that is compact and secure.}
+
+\vspace{3mm}
+\textbf{Why do blockchains use elliptic curve signatures?}
 
 \vspace{2mm}
-\textit{Two different mathematical approaches to creating unforgeable digital signatures:}
-
-\begin{itemize}
-\item \textbf{RSA:} Based on factoring large prime numbers
-\item \textbf{ECDSA (Elliptic Curve Digital Signature Algorithm):} Based on elliptic curve mathematics
-\end{itemize}
+There are different mathematical approaches to creating digital signatures. Blockchains chose \textbf{Elliptic Curve Digital Signature Algorithm (ECDSA)} because it provides strong security with much smaller keys:
 
 \vspace{2mm}
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Property} & \textbf{RSA} & \textbf{ECDSA (secp256k1)} \\
+\textbf{Property} & \textbf{Older method (RSA)} & \textbf{Blockchain method (ECDSA)} \\
 \midrule
-Key Size (equiv. security) & 3072 bits & 256 bits \\
+Key Size (same security) & 3072 bits & 256 bits \\
 Signature Size & Large & Small \\
-Speed & Slower & Faster \\
-Used by Bitcoin/Ethereum & No & Yes \\
+Transaction Fee Impact & Higher & Lower \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \vspace{3mm}
-\textbf{secp256k1:} The specific mathematical curve Bitcoin and Ethereum use for signatures
-\begin{itemize}
-\item Provides 256-bit security (more combinations than atoms in the observable universe) with smaller keys
-\item Smaller signatures = lower transaction fees
-\item Well-studied and standardized
-\end{itemize}
+Bitcoin and Ethereum use a specific curve called secp256k1 -- you don't need to remember this name. What matters is that it provides extremely strong security (more combinations than atoms in the universe) with small, efficient signatures.
 
-\bottomnote{In NB05, we use RSA for simplicity, but real blockchains use ECDSA with secp256k1}
+\bottomnote{In NB05, we use RSA for simplicity, but real blockchains use ECDSA for efficiency}
 \end{frame}
 
 % =======================================================================
@@ -809,21 +804,21 @@ Provably unique? & No & Yes \\
 % SLIDE 23: Digital Signatures in Blockchain
 % =======================================================================
 \begin{frame}{Digital Signatures in Blockchain Transactions}
-Every blockchain transaction includes a digital signature proving authorization:
+Every blockchain transaction includes a digital signature proving authorization.
 
 \vspace{3mm}
+\textbf{A blockchain transaction contains four essential pieces:}
+
+\vspace{2mm}
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
-\textbf{Field} & \textbf{Value} \\
+\textbf{Component} & \textbf{What It Does} \\
 \hline
-From & 0x7a2b...9f3c \\
-To & 0x9c4d...e8f2 \\
-Value & 1.5 ETH \\
-Nonce & 42 \\
-Gas Limit & 21,000 \\
-Gas Price & 50 gwei \\
-\textbf{Signature} & \textit{v, r, s (proves authorization)} \\
+Who sends & Sender's address (e.g., 0x7a2b...) \\
+Who receives & Recipient's address (e.g., 0x9c4d...) \\
+How much & The amount to transfer \\
+\textbf{Digital signature} & Proves the sender authorized this transfer \\
 \hline
 \end{tabular}
 \end{center}
@@ -836,6 +831,8 @@ Gas Price & 50 gwei \\
 \item Network verifies signature using Alice's public key
 \item If valid: transaction is processed. If invalid: rejected
 \end{enumerate}
+
+\bottomnote{Technical details like gas fees and transaction ordering are covered in Topic 3.3.}
 \end{frame}
 
 % =======================================================================
@@ -1288,10 +1285,10 @@ A digital signature provides: (1) \textbf{Authentication} -- proves who signed, 
 \vspace{3mm}
 \hrule
 \vspace{3mm}
-\textbf{Question 3:} What is the ``birthday attack'' in hash functions?
+\textbf{Question 3:} Why is it important that hash functions are one-way?
 
 \pause
-Finding a collision requires only $2^{128}$ attempts for SHA-256 (not $2^{256}$) due to probability theory -- still astronomically large but worth knowing!
+\textbf{Answer:} Because someone who sees a hash cannot reverse-engineer the original data. This protects transaction details, passwords, and other sensitive information on the blockchain.
 \end{frame}
 
 % =======================================================================

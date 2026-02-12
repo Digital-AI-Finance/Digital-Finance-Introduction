@@ -350,20 +350,22 @@ Genesis & 2009 & 50 BTC \\
 \textbf{Core Properties}
 \begin{itemize}\compactlist
 \item \textbf{Smart contracts:} Self-executing code
-\item \textbf{EVM:} Ethereum Virtual Machine
+\item \textbf{EVM*:} Runs code on the blockchain
 \item \textbf{Programmable:} Any logic possible
-\item \textbf{Composable:} Contracts call contracts
+\item \textbf{Composable*:} Contracts call contracts
 \item \textbf{Tokens:} Create new assets easily
 \end{itemize}
 
 \vspace{3mm}
 \textbf{The Narrative}
 \begin{itemize}\compactlist
-\item Platform for decentralized apps
+\item Platform for dApps*
 \item ``DeFi'' -- finance without banks
 \item NFTs, DAOs, and more
 \item Base layer for Web3
 \end{itemize}
+
+{\scriptsize *EVM = Ethereum Virtual Machine (the ``computer'' running smart contracts). Composable = can be combined like LEGO bricks. dApps = decentralized applications.}
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{center}
@@ -392,17 +394,20 @@ Genesis & 2009 & 50 BTC \\
 \end{frame}
 
 \begin{frame}{Key Term: The Ethereum Virtual Machine (EVM)}
+\textit{You won't need to program -- this is just to understand what happens behind the scenes.}
+
+\vspace{2mm}
 \begin{block}{Definition: EVM}
 The \textbf{Ethereum Virtual Machine} is a runtime environment that executes smart contract code. Every Ethereum node runs the same EVM, ensuring consistent execution worldwide.
 \end{block}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{How it Works}
 \begin{enumerate}\compactlist
-\item Developer writes contract (Solidity)
-\item Code compiles to EVM bytecode
+\item Developer writes contract in Solidity*
+\item Code compiles to bytecode**
 \item Bytecode deployed to blockchain
 \item Every node can execute the code
 \item Results are deterministic
@@ -412,14 +417,15 @@ The \textbf{Ethereum Virtual Machine} is a runtime environment that executes sma
 \textbf{Key Properties}
 \begin{itemize}\compactlist
 \item \textbf{Deterministic:} Same input = same output
-\item \textbf{Isolated:} Sandboxed execution
+\item \textbf{Isolated:} Sandboxed*** execution
 \item \textbf{Metered:} Gas limits computation
 \item \textbf{Global:} Runs on all nodes
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{3mm}
+{\scriptsize *Solidity = programming language for Ethereum smart contracts. **Bytecode = machine-readable instructions. ***Sandboxed = runs in an isolated environment for safety.}
+
 \bottomnote{The EVM is like a global computer where everyone sees and verifies the same computation.}
 \end{frame}
 
@@ -542,15 +548,15 @@ A smart contract is code stored on a blockchain that automatically executes when
 \begin{itemize}\compactlist
 \item Lending/borrowing
 \item Decentralized exchanges
-\item Yield farming
-\item Derivatives
+\item Yield farming*
+\item Derivatives**
 \end{itemize}
 \end{column}
 \begin{column}{0.32\textwidth}
 \textbf{NFTs/Tokens}
 \begin{itemize}\compactlist
 \item Digital ownership
-\item Tokenized assets
+\item Tokenized assets***
 \item Loyalty programs
 \item Gaming items
 \end{itemize}
@@ -566,12 +572,15 @@ A smart contract is code stored on a blockchain that automatically executes when
 \end{column}
 \end{columns}
 
-\vspace{5mm}
+\vspace{2mm}
+{\scriptsize *Yield farming = earning rewards by lending or providing liquidity to DeFi protocols. **Derivatives = financial contracts whose value depends on an underlying asset. ***Tokenized assets = real-world assets (property, stocks) represented as blockchain tokens.}
+
+\vspace{2mm}
 \begin{center}
 All built on Ethereum's programmable foundation
 \end{center}
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{block}{The Power of Composability}
 Smart contracts can call other smart contracts. This means DeFi protocols can be combined like Lego blocks -- creating entirely new financial products.
 \end{block}
@@ -847,20 +856,20 @@ Major upgrades
 \vspace{5mm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Bitcoin Changes:}
+\textbf{Bitcoin:} Rare, carefully tested upgrades
 \begin{itemize}\compactlist
-\item SegWit (2017): Scaling fix
-\item Taproot (2021): Privacy + smart contracts
-\item Years of debate for each change
+\item Only a handful of major changes since 2009
+\item Years of community debate before each one
+\item Philosophy: stability and predictability above all
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{Ethereum Changes:}
+\textbf{Ethereum:} Frequent upgrades adding new features
 \begin{itemize}\compactlist
-\item EIP-1559 (2021): Fee mechanism
-\item The Merge (2022): PoW to PoS
-\item Dencun (2024): Blob transactions
-\item Regular hard forks
+\item New fee system (2021)
+\item Switched from PoW to PoS (2022)
+\item Regular hard forks with new capabilities
+\item Philosophy: improve and adapt continuously
 \end{itemize}
 \end{column}
 \end{columns}

@@ -318,9 +318,11 @@ Tokens represent claims on assets, but enforcement still requires legal systems.
 \end{columns}
 
 \vspace{0.3cm}
-\begin{alertblock}{The Howey Test (Plain English)}
-US courts use 4 criteria to determine if something is a security: (1) investment of money, (2) in a common enterprise, (3) with expectation of profits, (4) from others' efforts. If all 4 apply, it's a security requiring SEC registration.
+\begin{alertblock}{The Howey Test\footnotemark{} (Plain English)}
+US courts use 4 criteria to determine if something is a security: (1) investment of money, (2) in a common enterprise, (3) with expectation of profits, (4) from others' efforts. If all 4 apply, it's a security requiring SEC\footnotemark{} registration.
 \end{alertblock}
+\footnotetext[1]{Howey Test = the US legal test (from a 1946 Supreme Court case) for whether something is a security.}
+\footnotetext[2]{SEC = Securities and Exchange Commission, the main US financial regulator overseeing securities markets.}
 \end{frame}
 
 \begin{frame}{KYC/AML Regulatory Terms Explained}
@@ -600,11 +602,14 @@ Will CBDCs complement, compete with, or regulate away private stablecoins?
 \textbf{Design Choices That Matter:}
 \begin{itemize}
     \item \textbf{Token-based vs. Account-based:} Tokens offer more anonymity
-    \item \textbf{Privacy-preserving technology:} Zero-knowledge proofs
+    \item \textbf{Privacy-preserving technology:} Zero-knowledge proofs*
     \item \textbf{Offline capability:} Works without internet
-    \item \textbf{Holding limits:} Prevent bank disintermediation
+    \item \textbf{Holding limits:} Prevent bank disintermediation**
     \item \textbf{Tiered privacy:} Small transactions anonymous, large ones tracked
 \end{itemize}
+
+{\scriptsize *Zero-knowledge proofs = a way of proving something is true without revealing the underlying data (e.g., proving you have enough funds without showing your balance).\\
+**Disintermediation = removing banks as middlemen between central banks and customers.}
 \end{frame}
 
 \begin{frame}{Privacy Design Spectrum}
@@ -660,10 +665,14 @@ Privacy in CBDCs is a political choice, not a technical limitation. The technolo
 \textbf{Technical Approaches:}
 \begin{itemize}
     \item Hardware wallets with local storage
-    \item NFC-based peer-to-peer transfer
-    \item Store-and-forward protocols
-    \item Eventual consistency on reconnection
+    \item NFC*-based peer-to-peer transfer
+    \item Store-and-forward** protocols
+    \item Eventual consistency*** on reconnection
 \end{itemize}
+
+{\scriptsize *NFC = Near-Field Communication (tap-to-pay technology).\\
+**Store-and-forward = save the transaction locally, send when internet returns.\\
+***Eventual consistency = the central ledger catches up when devices reconnect.}
 \end{column}
 
 \begin{column}{0.48\textwidth}

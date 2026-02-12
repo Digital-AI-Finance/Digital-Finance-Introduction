@@ -360,19 +360,31 @@ The code's logic is the absolute and final arbiter---whatever the code does is w
 \footnotesize
     \item User creates and signs transaction calling contract function
     \item Transaction broadcast to network
-    \item Transaction waits in mempool
-    \item Validator selects transaction for block
-    \item Ethereum Virtual Machine (EVM) executes bytecode
+    \item Transaction waits in mempool\textsuperscript{a}
+    \item Validator\textsuperscript{b} selects transaction for block
+    \item Ethereum Virtual Machine (EVM) executes bytecode\textsuperscript{c}
     \item Contract logic runs with provided inputs
     \item State changes recorded (balances, storage)
     \item Changes finalized in blockchain block
 \end{enumerate}
+
+\vspace{-0.2cm}
+{\scriptsize
+\textsuperscript{a}\textbf{Mempool}: a waiting room for unconfirmed transactions. \quad
+\textsuperscript{b}\textbf{Validator}: a network participant that confirms transactions. \quad
+\textsuperscript{c}\textbf{Bytecode}: machine-readable instructions.
+}
 \end{frame}
 
 % =====================================================================
 % SLIDE 10: THE EVM - ETHEREUM VIRTUAL MACHINE
 % =====================================================================
 \begin{frame}{The Ethereum Virtual Machine (EVM)}
+
+\begin{alertblock}{Key Idea}
+You don't need to understand the technical details. The key idea: the EVM is a \textbf{virtual computer that every Ethereum node runs identically}, so everyone agrees on the result.
+\end{alertblock}
+
 \begin{columns}[T]
 \begin{column}{0.50\textwidth}
 \begin{block}{What is the EVM?}
@@ -526,17 +538,20 @@ Transaction reverts but gas is NOT refunded---you still pay for failed computati
 \begin{columns}[T]
 \begin{column}{0.50\textwidth}
 \begin{block}{What is Solidity?}
-A high-level, statically-typed programming language designed specifically for writing smart contracts on Ethereum.
+The main programming language used to write smart contracts on Ethereum. It was designed specifically for blockchain use.
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
+\begin{alertblock}{No Coding Required}
+You won't need to write Solidity in this course. The following slides show code examples so you can \textit{read} what a smart contract looks like.
+\end{alertblock}
+
+\vspace{0.2cm}
 \textbf{Key Features:}
 \begin{itemize}
     \item Syntax similar to JavaScript/C++
-    \item Compiles to EVM bytecode
-    \item Contract-oriented paradigm
-    \item Built-in cryptographic functions
-    \item Native support for ETH transfers
+    \item Compiles to EVM bytecode (machine-readable instructions)
+    \item Built-in support for ETH transfers
 \end{itemize}
 \end{column}
 
@@ -568,6 +583,12 @@ Solidity is the most widely used---understanding it transfers to other platforms
 % SLIDE 14: ANATOMY OF A SMART CONTRACT
 % =====================================================================
 \begin{frame}[fragile]{Anatomy of a Smart Contract (Solidity)}
+
+\begin{alertblock}{Optional: Code Deep Dive}
+\small The following slides show real smart contract code. This is \textbf{optional material} for those interested in programming. The key concepts are explained in plain language alongside each code example.
+\end{alertblock}
+
+\vspace{-0.2cm}
 \begin{lstlisting}[style=soliditystyle]
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -593,13 +614,20 @@ contract SimpleEscrow {
 }
 \end{lstlisting}
 
-\bottomnote{Hands-on: NB08 -- Interact with smart contracts on testnet}
+\vspace{-0.2cm}
+\begin{block}{Plain-English Summary}
+\scriptsize This is a simple \textbf{escrow} (a middleman that holds money). A buyer deposits funds; only the buyer can release them to the seller. The contract holds the money until the buyer says ``release.'' No bank or lawyer needed.
+\end{block}
 \end{frame}
 
 % =====================================================================
 % SLIDE 15: CONTRACT STRUCTURE BREAKDOWN
 % =====================================================================
 \begin{frame}{Understanding the Contract Structure}
+
+{\small\textit{If the code on the previous slide looked intimidating, don't worry---here is a plain-English guide to reading it.}}
+
+\vspace{0.1cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \begin{alertblock}{Reading Code 101}
@@ -665,6 +693,12 @@ contract SimpleEscrow {
 % SLIDE 16: STATE VARIABLES VS LOCAL VARIABLES
 % =====================================================================
 \begin{frame}[fragile]{State Variables vs. Local Variables}
+
+\begin{exampleblock}{Optional Advanced Material}
+\small State variables are \textbf{permanent data stored on the blockchain} (like entries in a shared database). Local variables exist \textbf{only during one function call} and are then discarded (like scratch paper).
+\end{exampleblock}
+
+\vspace{-0.1cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{State Variables:}
@@ -713,6 +747,12 @@ Minimize state variable writes. Use local variables for intermediate calculation
 % SLIDE 17: FUNCTION VISIBILITY AND MODIFIERS
 % =====================================================================
 \begin{frame}{Function Visibility and Modifiers}
+
+\begin{exampleblock}{Optional Advanced Material}
+\small Smart contracts can have \textbf{public functions} (anyone can call them) and \textbf{private functions} (only the contract itself can call them)---like the difference between a shop's front door and its staff-only entrance.
+\end{exampleblock}
+
+\vspace{-0.1cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Visibility Modifiers:}
@@ -757,6 +797,12 @@ Minimize state variable writes. Use local variables for intermediate calculation
 % SLIDE 18: CUSTOM MODIFIERS
 % =====================================================================
 \begin{frame}[fragile]{Custom Modifiers: Reusable Access Control}
+
+\begin{exampleblock}{Optional Advanced Material}
+\small Modifiers are \textbf{reusable checks} that run before a function executes---like a bouncer checking IDs before letting someone into a club. If the check fails, the function never runs.
+\end{exampleblock}
+
+\vspace{-0.2cm}
 \begin{lstlisting}[style=soliditystyle]
 contract Owned {
     address public owner;
@@ -791,6 +837,12 @@ contract Owned {
 % SLIDE 19: EVENTS - LOGGING TO THE BLOCKCHAIN
 % =====================================================================
 \begin{frame}[fragile]{Events: Logging to the Blockchain}
+
+\begin{exampleblock}{Optional Advanced Material}
+\small Events are \textbf{notifications} that a smart contract sends out when something happens---like a receipt you get after a purchase. External applications can ``listen'' for these events.
+\end{exampleblock}
+
+\vspace{-0.2cm}
 \begin{lstlisting}[style=soliditystyle]
 contract Token {
     event Transfer(
@@ -852,12 +904,18 @@ contract Token {
 \vspace{0.3cm}
 \textbf{Deployment Details:}
 \begin{enumerate}
-    \item \textbf{Compile}: Solidity $\rightarrow$ EVM bytecode + ABI
+    \item \textbf{Compile}: Solidity $\rightarrow$ EVM bytecode + ABI\textsuperscript{a}
     \item \textbf{Create Transaction}: Send bytecode to address 0x0 (null)
     \item \textbf{Execute Constructor}: Runs once, sets initial state
-    \item \textbf{Generate Address}: From deployer address + nonce (deterministic)
+    \item \textbf{Generate Address}: From deployer address + nonce\textsuperscript{b} (deterministic)
     \item \textbf{Store Code}: Runtime bytecode stored at new address---\textbf{immutable}
 \end{enumerate}
+
+\vspace{0.1cm}
+{\scriptsize
+\textsuperscript{a}\textbf{ABI} = Application Binary Interface---a menu listing what the contract can do (its public functions and their inputs/outputs).\\
+\textsuperscript{b}\textbf{Nonce} = a counter ensuring each transaction is unique, preventing replay attacks.
+}
 \end{frame}
 
 % =====================================================================
@@ -956,6 +1014,10 @@ Oracles are the bridge between on-chain and off-chain---and bridges are often th
 % SLIDE 23: SMART CONTRACT RISKS
 % =====================================================================
 \begin{frame}{Smart Contract Risks and Vulnerabilities}
+
+{\small\textit{These risks explain why smart contract security is so important. You don't need to understand the technical details of each attack---focus on the big picture.}}
+
+\vspace{0.1cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Technical Risks:}
@@ -1001,6 +1063,12 @@ Immutability provides security guarantees but makes bug fixes impossible.
 % SLIDE 24: REENTRANCY ATTACK EXPLAINED
 % =====================================================================
 \begin{frame}[fragile]{Reentrancy Attack: The DAO Hack Pattern}
+
+\begin{alertblock}{Optional: Technical Deep Dive}
+\small The reentrancy attack exploits a \textbf{timing flaw}: a malicious contract calls back into the victim before the first transaction finishes, draining funds repeatedly. The fix: \textbf{always update your records BEFORE sending money.}
+\end{alertblock}
+
+\vspace{-0.1cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Vulnerable Code:}
@@ -1091,6 +1159,12 @@ function withdraw() external {
 % SLIDE 26: HANDS-ON EXERCISE - KEY CONCEPTS
 % =====================================================================
 \begin{frame}[fragile]{NB08: Key Code Patterns}
+
+\begin{alertblock}{Optional: For Students with Programming Experience}
+\small In the notebook, all code runs automatically. You only need to \textbf{observe the outputs and answer the analysis questions}---no programming required.
+\end{alertblock}
+
+\vspace{-0.1cm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Reading Contract State (Free):}

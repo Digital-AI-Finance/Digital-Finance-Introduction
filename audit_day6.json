@@ -1,0 +1,2973 @@
+[
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 27,
+    "line_end": 42,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Prerequisite: The Day 1 Framing",
+    "frame_number": 2,
+    "line_start": 47,
+    "line_end": 80,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Day 1 FinTech vs DeFi distinction",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: provides a compact refresher of all five prior days in footnote-sized text",
+      "HIGH: Dense refresher paragraph at line 74 may overwhelm; consider letting students read it rather than presenting it"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Background: Two Philosophies of Financial Innovation",
+    "frame_number": 3,
+    "line_start": 82,
+    "line_end": 118,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Day 1 FinTech vs DeFi; basic crypto timeline awareness",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ICO"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: ICO (line 114) used without expansion; students may have forgotten this from Day 1/3",
+      "HIGH: Timeline bullet at line 115 is very dense with 5 events in one bullet -- high information density"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "The Convergence Thesis",
+    "frame_number": 4,
+    "line_start": 123,
+    "line_end": 150,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "FinTech vs DeFi from prior frame",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Purely visual Venn diagram with no spoken-word cues; good as a visual anchor but needs verbal narration"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "What Is the Convergence Thesis?",
+    "frame_number": 5,
+    "line_start": 152,
+    "line_end": 170,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear definition block; well-structured evidence list"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Why Is Convergence Happening?",
+    "frame_number": 6,
+    "line_start": 172,
+    "line_end": 211,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "staking, lending from Day 4; USDC from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "staking"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Staking (line 178) not expanded; was covered Day 3-4 but may be forgotten by Day 6",
+      "LOW: Aave Arc mentioned without context (first occurrence); explained later in frames 8-9"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Driver 1: Efficiency Gains",
+    "frame_number": 7,
+    "line_start": 213,
+    "line_end": 235,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T+2 settlement from Day 2; smart contracts from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Counterparty risk explained inline in parenthetical -- good accessibility practice"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Driver 2: Regulatory Pressure",
+    "frame_number": 8,
+    "line_start": 237,
+    "line_end": 263,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "MiCA from Day 5; SEC from Day 5; FATF from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FATF travel rule"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: FATF travel rule (line 244) assumed known; was in Day 5 but may need a brief reminder"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Driver 3: Institutional Demand",
+    "frame_number": 9,
+    "line_start": 265,
+    "line_end": 285,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "KYC/AML from Day 5; ETF concept",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: KYC/AML and ETF are expanded inline with parenthetical definitions",
+      "LOW: Whitelisted wallet addresses explained at line 282 -- good accessibility"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Example 1: Institutional DeFi",
+    "frame_number": 10,
+    "line_start": 287,
+    "line_end": 317,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi protocols from Day 4; KYC/AML from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Aave Arc note at line 305 provides honest context about limited adoption -- good"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Deep Dive: How Aave Arc Works",
+    "frame_number": 11,
+    "line_start": 319,
+    "line_end": 352,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Aave from Day 4; KYC concept from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Fireblocks"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Fireblocks (line 326) is a company name used without explanation of what they do beyond KYC; partially addressed at line 347"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Aave Arc: What It Means for Beginners",
+    "frame_number": 12,
+    "line_start": 354,
+    "line_end": 365,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Excellent beginner analogy (members-only club); good pedagogical pattern"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Example 2: Tokenized Deposits",
+    "frame_number": 13,
+    "line_start": 367,
+    "line_end": 395,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoins from Day 4; blockchain from Day 3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: FDIC explained inline with footnote -- good international awareness with FSCS and Einlagensicherung"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Tokenized Deposits vs. Stablecoins",
+    "frame_number": 14,
+    "line_start": 397,
+    "line_end": 417,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoins from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clean comparison table; distinction well-motivated"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Example 3: Embedded Finance",
+    "frame_number": 15,
+    "line_start": 419,
+    "line_end": 464,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "APIs from Day 2; platform economics from Day 2",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "NFT financing"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: NFT financing at checkout (line 460) introduced without explanation; NFTs covered Day 4 but financing angle is new"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Embedded Finance: The Convergence Catalyst",
+    "frame_number": 16,
+    "line_start": 466,
+    "line_end": 487,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "APIs from Day 2",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good concrete example with Shopify integrating multiple rails"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Convergence Example 4: Hybrid Protocols",
+    "frame_number": 17,
+    "line_start": 489,
+    "line_end": 515,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DAI/MakerDAO from Day 4; RWA concept",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "RWA"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: RWA (Real-World Assets) used at line 503 before being defined in Key Terms; first spelled out only at line 953",
+      "LOW: MakerDAO rebrand to Sky explained twice (lines 503 and 512-513) -- minor redundancy"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Deep Dive: MakerDAO (now Sky) -- Real-World Assets",
+    "frame_number": 18,
+    "line_start": 517,
+    "line_end": 550,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ETH collateral from Day 4; stablecoins from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "WBTC",
+      "PSM"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: WBTC (Wrapped Bitcoin) at line 525 not expanded",
+      "LOW: PSM (Peg Stability Module) at line 527 not expanded",
+      "HIGH: TikZ diagram plus implications list makes this a dense frame for end-of-course"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Visa Settling in USDC: A Milestone",
+    "frame_number": 19,
+    "line_start": 552,
+    "line_end": 569,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "USDC from Day 4; Ethereum/Solana from Day 3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Hybrid Custody: Blending Self-Custody and Institutional",
+    "frame_number": 20,
+    "line_start": 571,
+    "line_end": 604,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "private keys from Day 3; wallets from Day 3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Four hybrid custody solutions plus two pure models on one frame -- very dense",
+      "LOW: Good: every solution has an analogy in italics for accessibility",
+      "LOW: MPC expanded inline at line 601 -- good practice"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Which Innovations Cross the Divide?",
+    "frame_number": 21,
+    "line_start": 606,
+    "line_end": 630,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Useful evaluation framework; connects well to Innovation Scorecard in T6.3"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Technology Stack Blending",
+    "frame_number": 22,
+    "line_start": 632,
+    "line_end": 649,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Layer 2 from Day 3; APIs from Day 2",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good inline explanations for each bullet point"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Cross-Chain Interoperability: The Connector",
+    "frame_number": 23,
+    "line_start": 651,
+    "line_end": 677,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "multiple blockchains from Day 3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Dense frame: key terms block + why it matters + solutions + example block all on one slide",
+      "LOW: Good: cross-chain, interoperability, bridge all defined at top"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Barriers to Convergence",
+    "frame_number": 24,
+    "line_start": 679,
+    "line_end": 712,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good counterbalance after many pro-convergence frames"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Case Study 1: BlackRock's BUIDL Fund",
+    "frame_number": 25,
+    "line_start": 717,
+    "line_end": 737,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Ethereum from Day 3; KYC from Day 5; tokenization from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "AUM"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: AUM (Assets Under Management) at line 719 not expanded here; was used earlier at line 267 with expansion"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Case Study 2: Singapore's Project Guardian",
+    "frame_number": 26,
+    "line_start": 739,
+    "line_end": 756,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Case Study 3: Coinbase---From Exchange to Financial Institution",
+    "frame_number": 27,
+    "line_start": 758,
+    "line_end": 786,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Layer 2 from Day 3; USDC from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Base L2"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Base L2 (line 767) not explained; Coinbase's Layer 2 chain may be unknown to students"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Case Study 4: Circle and USDC---The Compliant Stablecoin",
+    "frame_number": 28,
+    "line_start": 788,
+    "line_end": 810,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoins from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "attestations"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Monthly attestations (line 795) -- students may not know what a financial attestation is"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Discussion: The Convergence Trade-offs",
+    "frame_number": 29,
+    "line_start": 815,
+    "line_end": 849,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "permissionlessness, censorship resistance from Day 3-5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good discussion slide with balanced lost-vs-gained framing",
+      "LOW: Provocative Q1 'Is permissioned DeFi still DeFi?' is excellent for engagement"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Application: Analyzing a Convergence Opportunity",
+    "frame_number": 30,
+    "line_start": 851,
+    "line_end": 877,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "framework from frame 21",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good step-by-step hints at line 876 lower the barrier for students",
+      "LOW: Connects framework from frame 21 to concrete exercise"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Executive Summary: The Convergence Thesis",
+    "frame_number": 31,
+    "line_start": 882,
+    "line_end": 897,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Concept Map: The Convergence Landscape",
+    "frame_number": 32,
+    "line_start": 902,
+    "line_end": 935,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Key Terms (1/2)",
+    "frame_number": 33,
+    "line_start": 940,
+    "line_end": 949,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Key Terms (2/2)",
+    "frame_number": 34,
+    "line_start": 951,
+    "line_end": 960,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "MEDIUM: RWA defined here at line 953 but was used much earlier at line 503 without expansion"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 35,
+    "line_start": 965,
+    "line_end": 981,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four misconceptions is the right number for end-of-topic energy levels"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Self-Assessment Questions (1/2)",
+    "frame_number": 36,
+    "line_start": 986,
+    "line_end": 999,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "convergence thesis from this topic",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Self-Assessment Questions (2/2)",
+    "frame_number": 37,
+    "line_start": 1001,
+    "line_end": 1026,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Visa USDC from frame 19; convergence trade-offs from frame 29",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Two questions on one frame; fine for pacing"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "What's Next: Topic 6.2 -- AI and Digital Finance",
+    "frame_number": 38,
+    "line_start": 1031,
+    "line_end": 1059,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "RegTech"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: RegTech (line 1047) not expanded; first occurrence in course"
+    ]
+  },
+  {
+    "file": "T6.1_convergence_thesis.tex",
+    "frame_title": "Resources for Further Study",
+    "frame_number": 39,
+    "line_start": 1064,
+    "line_end": 1090,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 26,
+    "line_end": 39,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "model opacity"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Model opacity (line 32) used in objectives before being taught; minor since it will be defined later"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Prerequisites and Background",
+    "frame_number": 2,
+    "line_start": 44,
+    "line_end": 78,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Days 1-5 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Rehashes course outline from T6.1 frame 2; mild redundancy but acceptable for standalone slides"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "The AI Revolution in Finance",
+    "frame_number": 3,
+    "line_start": 83,
+    "line_end": 110,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "AUM"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: AUM at line 98 not expanded; was expanded in T6.1 but not in this standalone file",
+      "LOW: Good: critical perspective block acknowledges hype"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI in Finance: The Landscape",
+    "frame_number": 4,
+    "line_start": 115,
+    "line_end": 138,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "NLP"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: NLP (Natural Language Processing) at line 127 not expanded; first use"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Application 1: Robo-Advisory",
+    "frame_number": 5,
+    "line_start": 143,
+    "line_end": 179,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "tax-loss harvesting",
+      "ESG"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Tax-loss harvesting mentioned at line 156 before being defined in frame 10 (line 389)",
+      "MEDIUM: ESG mentioned in bottomnote at line 214 without expansion until T6.3"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Robo-Advisory: The Intuition Behind It",
+    "frame_number": 6,
+    "line_start": 184,
+    "line_end": 215,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: MPT explained in plain English before any math",
+      "LOW: Risk-to-allocation table is very practical and concrete"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Portfolio Concepts: Return, Risk, and the Sharpe Ratio",
+    "frame_number": 7,
+    "line_start": 220,
+    "line_end": 256,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "basic arithmetic",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Dense for a no-prerequisites course: return, risk, AND Sharpe ratio all on one frame",
+      "LOW: Good: formula is small and accompanied by plain-English explanation",
+      "LOW: Consider splitting into two frames given end-of-course fatigue"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "The Efficient Frontier",
+    "frame_number": 8,
+    "line_start": 261,
+    "line_end": 302,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "portfolio return and risk from frame 7",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: Abstract financial concept; may be challenging for BSc students with no finance prerequisites",
+      "LOW: TikZ chart helps but axis labels could be more beginner-friendly"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Risk Profiling: From Questionnaire to Portfolio",
+    "frame_number": 9,
+    "line_start": 307,
+    "line_end": 344,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Concrete and relatable; good bridge between abstract theory and practical application"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Portfolio Rebalancing Strategies",
+    "frame_number": 10,
+    "line_start": 349,
+    "line_end": 384,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "portfolio allocation from frames 6-9",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Three rebalancing strategies plus trade-off note; well-structured"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Tax-Loss Harvesting",
+    "frame_number": 11,
+    "line_start": 389,
+    "line_end": 421,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Dense: definition + how it works + wash sale rule + international note all on one frame",
+      "LOW: Good: international note acknowledges US-centricity of the concept",
+      "LOW: Niche tax concept may be low-value for international BSc students"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Fee Comparison: Robo vs. Traditional",
+    "frame_number": 12,
+    "line_start": 426,
+    "line_end": 461,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "RIA"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: RIA (Registered Investment Advisor) at line 438 not expanded",
+      "LOW: Dollar impact example ($126,000 difference) is very effective for motivation"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Application 2: Fraud Detection",
+    "frame_number": 13,
+    "line_start": 466,
+    "line_end": 498,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Dense: rules-based vs ML + three ML approaches with inline definitions all on one frame",
+      "LOW: Good: gradient boosting, isolation forests, autoencoders all defined inline"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Fraud Detection: Performance Metrics",
+    "frame_number": 14,
+    "line_start": 503,
+    "line_end": 538,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "fraud detection from frame 13",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FPR"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: FPR in table header (line 524) -- defined as False Positive Rate in the text but abbreviated in table without expansion"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Application 3: Credit Scoring",
+    "frame_number": 15,
+    "line_start": 543,
+    "line_end": 582,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring concept from Day 2",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: FICO expanded at line 546 -- good",
+      "LOW: Good connection to Day 2 data-driven finance content"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Credit Scoring: Ethical and Legal Considerations",
+    "frame_number": 16,
+    "line_start": 587,
+    "line_end": 618,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring from frame 15; GDPR from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "proxy discrimination"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Proxy discrimination (line 601) not explained; important ethical concept deserves a brief definition",
+      "LOW: Good: ECOA, FCRA, GDPR all expanded with context"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Application 4: Algorithmic Trading",
+    "frame_number": 17,
+    "line_start": 623,
+    "line_end": 658,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Dense frame: four-decade evolution + trading signals list + reality check + institutional players",
+      "LOW: Good: statistical arbitrage and factor investing explained inline",
+      "LOW: Alpha explained inline at line 649 -- good accessibility"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Algorithmic Trading: Strategy Types",
+    "frame_number": 18,
+    "line_start": 663,
+    "line_end": 703,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algorithmic trading from frame 17",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "bid-ask spread",
+      "mean reversion",
+      "pairs trading",
+      "market neutral"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: Multiple undefined trading terms: bid-ask spread, mean reversion, pairs trading, market neutral",
+      "HIGH: This frame assumes finance knowledge that violates the no-prerequisites promise",
+      "LOW: Consider adding brief parenthetical definitions or relegating to appendix"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI in DeFi: Emerging Applications",
+    "frame_number": 19,
+    "line_start": 708,
+    "line_end": 736,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi from Day 4; DAOs from Day 5; yield farming from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "liquidation bots"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: MEV explained with postal-worker analogy at line 713",
+      "LOW: Liquidation bots (line 714) not explained",
+      "LOW: LLM-powered governance (line 726) very speculative; appropriate flagging as 'experimental'"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Risks in Finance: Model Opacity",
+    "frame_number": 20,
+    "line_start": 741,
+    "line_end": 772,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ECOA from frame 16; GDPR from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "surrogate models"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Surrogate models (line 762) not explained",
+      "LOW: SHAP/LIME explained inline at line 761 -- good"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Risks in Finance: Adversarial Attacks",
+    "frame_number": 21,
+    "line_start": 777,
+    "line_end": 808,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML models from prior frames; KYC from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Deepfake fraud alertblock at line 805 is timely and engaging"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Risks: Systemic and Concentration",
+    "frame_number": 22,
+    "line_start": 813,
+    "line_end": 847,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "OCC"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: OCC (Office of the Comptroller of the Currency) at line 842 not expanded",
+      "HIGH: Dense: herding risk + historical example + concentration risk + regulatory response all on one frame",
+      "LOW: Historical quant meltdown example at line 827 is excellent but long for one bullet"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "AI Claims: A Critical Evaluation Framework",
+    "frame_number": 23,
+    "line_start": 852,
+    "line_end": 868,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML concepts from prior frames",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Excellent critical-thinking framework; connects well to Innovation Scorecard in T6.3",
+      "LOW: Six questions is a lot to absorb but each is clearly phrased"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Hands-On: Robo-Advisor Simulation (NB13)",
+    "frame_number": 24,
+    "line_start": 873,
+    "line_end": 894,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "portfolio theory from frames 6-8",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "mean-variance optimization"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Mean-variance optimization (line 877) used in step list; defined in earlier frames but could use reminder"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "NB13: Implementation Details",
+    "frame_number": 25,
+    "line_start": 899,
+    "line_end": 936,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "portfolio theory from frames 6-8",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SPY",
+      "VEU",
+      "AGG",
+      "BWX",
+      "VNQ",
+      "GSG"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: ETF ticker symbols (SPY, VEU, etc.) used without full names; 'SPY proxy' is jargon for S&P 500 ETF",
+      "LOW: Note: these appear in the notebook where context may be clearer"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Discussion: AI vs. Human Advisors",
+    "frame_number": 26,
+    "line_start": 941,
+    "line_end": 973,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "robo-advisory from frames 5-12",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good balanced comparison; hybrid model example is practical"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Discussion: Market-Wide Implications of AI",
+    "frame_number": 27,
+    "line_start": 978,
+    "line_end": 1010,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algorithmic trading from frames 17-18",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good discussion questions; liability question is particularly thought-provoking"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Application: Career Implications",
+    "frame_number": 28,
+    "line_start": 1015,
+    "line_end": 1048,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Highly relevant for BSc audience; good forward-looking perspective"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Application: Regulatory Landscape for AI in Finance",
+    "frame_number": 29,
+    "line_start": 1053,
+    "line_end": 1081,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "MiFID II from Day 5; GDPR from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "MiFID II suitability",
+      "SR 11-7"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: MiFID II suitability and SR 11-7 are specialist regulatory references unlikely to be remembered from Day 5",
+      "LOW: Good: EU AI Act classification explained clearly"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 30,
+    "line_start": 1086,
+    "line_end": 1101,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Concept Map: AI and Digital Finance",
+    "frame_number": 31,
+    "line_start": 1106,
+    "line_end": 1139,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "MPT"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: MPT abbreviation in concept map node (line 1124) -- defined earlier but may confuse in visual summary"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Key Terms (1/2)",
+    "frame_number": 32,
+    "line_start": 1144,
+    "line_end": 1158,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Key Terms (2/2)",
+    "frame_number": 33,
+    "line_start": 1163,
+    "line_end": 1177,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 34,
+    "line_start": 1182,
+    "line_end": 1209,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "survivorship bias"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Survivorship bias (line 1188) not explained; statistical concept that needs definition for no-prerequisites audience"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Self-Assessment Questions (1/2)",
+    "frame_number": 35,
+    "line_start": 1214,
+    "line_end": 1235,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "robo-advisor fees from frame 12; Sharpe ratio from frame 7",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Self-Assessment Questions (2/2)",
+    "frame_number": 36,
+    "line_start": 1240,
+    "line_end": 1260,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "efficient frontier from frame 8",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "What's Next: Topic 6.3 -- Synthesis Framework",
+    "frame_number": 37,
+    "line_start": 1265,
+    "line_end": 1297,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 38,
+    "line_start": 1302,
+    "line_end": 1339,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Optional Deep Dive: Mathematical Details (1/2)",
+    "frame_number": 39,
+    "line_start": 1373,
+    "line_end": 1390,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "linear algebra basics (optional)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: Clearly marked as optional appendix; appropriate for advanced students",
+      "LOW: Good: every variable explained in plain English"
+    ]
+  },
+  {
+    "file": "T6.2_ai_digital_finance.tex",
+    "frame_title": "Optional Deep Dive: Mathematical Details (2/2)",
+    "frame_number": 40,
+    "line_start": 1392,
+    "line_end": 1412,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "appendix frame 39",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: Appropriate in appendix; plain-English italicized translations for each formula"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 26,
+    "line_end": 42,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Six learning objectives is ambitious for one topic; content delivers on all six"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Prerequisites: What You've Learned",
+    "frame_number": 2,
+    "line_start": 47,
+    "line_end": 77,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Days 1-6 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Third time course outline is rehearsed across Day 6 (T6.1 frame 2, T6.2 frame 2, here); purely retrospective with no new insight",
+      "LOW: Acceptable for standalone slide deck but repetitive if presented sequentially"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "The Challenge of Permanent Knowledge",
+    "frame_number": 3,
+    "line_start": 82,
+    "line_end": 110,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Excellent metacognitive frame; motivates the entire framework approach"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "The Digital Finance Innovation Scorecard",
+    "frame_number": 4,
+    "line_start": 115,
+    "line_end": 133,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: CANONICAL DEFINITION of the 6 questions; well-structured and memorable",
+      "LOW: Each question is one word + one sentence -- good mnemonic design"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Question 1: PROBLEM",
+    "frame_number": 5,
+    "line_start": 138,
+    "line_end": 157,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Red flags list is practical and memorable"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Problem Analysis: Real-World Examples",
+    "frame_number": 6,
+    "line_start": 162,
+    "line_end": 185,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Bitcoin from Day 3; Uniswap from Day 4; ICOs from Day 3; stablecoins from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good connection to prior days with critical assessment column adding new perspective"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Question 2: MECHANISM",
+    "frame_number": 7,
+    "line_start": 190,
+    "line_end": 209,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts from Day 4; oracles from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Oracles defined inline at line 197 -- good reminder"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Mechanism Deep Dive: Understanding How It Works",
+    "frame_number": 8,
+    "line_start": 214,
+    "line_end": 251,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Uniswap AMM from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: AMM and constant product formula referenced with 'Recall from Topic 4.2' at line 229",
+      "LOW: Yield source question in alertblock is the single most important DeFi lesson"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Question 3: TRADEOFFS",
+    "frame_number": 9,
+    "line_start": 256,
+    "line_end": 284,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain trilemma concept from Day 3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six tradeoff dimensions is comprehensive; connects to multiple prior days"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "The Tradeoff Spectrum: Visualizing Choices",
+    "frame_number": 10,
+    "line_start": 289,
+    "line_end": 310,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Bitcoin, Ethereum, Uniswap, CBDCs from prior days",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Ethereum L2s"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Excellent visual; positions are debatable which makes good discussion material",
+      "LOW: Ethereum L2s (line 300) assumed known; covered Day 3 but brief reminder would help"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Question 4: RISKS",
+    "frame_number": 11,
+    "line_start": 315,
+    "line_end": 356,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contract risks from Day 4-5; oracle concept from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "death spirals"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Death spirals (line 330) not defined here; was covered in Day 4 stablecoins context but may need reminder"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Risk Framework: Learning from Failures",
+    "frame_number": 12,
+    "line_start": 361,
+    "line_end": 386,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Terra/Luna, FTX, The DAO from Day 5; Mt. Gox from Day 3/5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "reentrancy"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Reentrancy (line 373) is a technical term from Day 4-5; students may have forgotten",
+      "LOW: Excellent pattern-recognition framing for failures"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Question 5: REGULATORY STATUS",
+    "frame_number": 13,
+    "line_start": 391,
+    "line_end": 423,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "SEC, CFTC from Day 5; MiCA from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FinCEN"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: FinCEN (line 395) not expanded; Financial Crimes Enforcement Network",
+      "LOW: Good: international note at line 422 acknowledges US-centric framing"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "The Regulatory Spectrum",
+    "frame_number": 14,
+    "line_start": 428,
+    "line_end": 460,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDCs from Day 4; stablecoins from Day 4; DeFi from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clean visual spectrum; CBDC advantage callout is well-motivated"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Question 6: WHO BENEFITS",
+    "frame_number": 15,
+    "line_start": 465,
+    "line_end": 495,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "token governance from Day 5; DeFi fee structures from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": []
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Value Distribution: Comparing Models",
+    "frame_number": 16,
+    "line_start": 500,
+    "line_end": 523,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Uniswap LPs from Day 4; DAO voting from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "LPs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: LPs (Liquidity Providers) at line 508 not expanded; was covered Day 4 but abbreviation may be forgotten"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "The Six Dimensions: Course-Aligned Evaluation",
+    "frame_number": 17,
+    "line_start": 528,
+    "line_end": 554,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all 24 topics overview",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Elegant mapping of 6 course dimensions to 6 scoring dimensions",
+      "LOW: 30 evaluation points (6x5) is complex; exercise in NB14 will need to scaffold this"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Dimension 1: Trust Architecture (Topics 1.1--1.4)",
+    "frame_number": 18,
+    "line_start": 559,
+    "line_end": 597,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Day 1 trust models",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clean three-column comparison with concrete examples"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Dimension 2: Platform Dynamics (Topics 2.1--2.4)",
+    "frame_number": 19,
+    "line_start": 602,
+    "line_end": 621,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "network effects from Day 2; platform economics from Day 2",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Illustrative scores for class discussion -- good pedagogical framing"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Dimension 3: Technical Soundness (Topics 3.1--3.4)",
+    "frame_number": 20,
+    "line_start": 626,
+    "line_end": 656,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain security from Day 3; smart contract audits from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "formal verification"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Formal verification (line 644) not explained; mathematical proof technique for code correctness"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Dimension 4: Programmability (Topics 4.1--4.4)",
+    "frame_number": 21,
+    "line_start": 661,
+    "line_end": 690,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts from Day 4; composability from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Turing-complete"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Turing-complete (line 680) not explained; means the system can run any computable program",
+      "LOW: Good: composability and Money Legos defined inline at lines 666 and 681"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Dimension 5: Risk Profile (Topics 5.1--5.4)",
+    "frame_number": 22,
+    "line_start": 695,
+    "line_end": 712,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM from Day 4; liquidity provision from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: Impermanent loss explanation at line 708 is thorough but very long for an alertblock",
+      "LOW: This concept was covered in Day 4; re-explanation is helpful but adds density"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Dimension 6: Future Potential (Topics 6.1--6.4)",
+    "frame_number": 23,
+    "line_start": 717,
+    "line_end": 737,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Uniswap versions from Day 4; convergence from T6.1",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "TAM",
+      "V3 concentrated liquidity",
+      "V4 hooks"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: TAM (Total Addressable Market) at line 721 not expanded",
+      "LOW: V3 concentrated liquidity and V4 hooks (line 731) are specialist Uniswap terms not covered earlier",
+      "LOW: ESG expanded inline at line 734 -- good"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Hands-On Exercise: Innovation Scorecard (NB14)",
+    "frame_number": 24,
+    "line_start": 742,
+    "line_end": 769,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "six questions from frame 4; six dimensions from frame 17",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: 8 suggested innovations span FinTech, DeFi, and CBDCs",
+      "LOW: Tokenized treasuries explained inline at line 762"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Exercise Walkthrough: Scorecard Methodology",
+    "frame_number": 25,
+    "line_start": 774,
+    "line_end": 802,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "scorecard from frame 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Clear time allocations (10+15+5+10 min = 40 min); realistic for classroom"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Applying the Framework: Stablecoins",
+    "frame_number": 26,
+    "line_start": 807,
+    "line_end": 828,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoins from Day 4; USDC/DAI from Day 4; Terra/UST from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Excellent worked example applying all 6 questions to stablecoins"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Comparing Three Paradigms",
+    "frame_number": 27,
+    "line_start": 833,
+    "line_end": 866,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Stripe from Day 2; Uniswap from Day 4; Digital Euro from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Radar chart is the visual centerpiece of the scorecard; connects well to NB14"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Discussion: Trade-off Patterns",
+    "frame_number": 28,
+    "line_start": 871,
+    "line_end": 894,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "programmability and regulatory concepts from frames 13-14, 21",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good forward-looking discussion question about breaking the tradeoff"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Synthesis: The Lenses We've Developed",
+    "frame_number": 29,
+    "line_start": 899,
+    "line_end": 926,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all course topics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four-lens model (Technical, Economic, Regulatory, Social) is a clean synthesis"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 30,
+    "line_start": 931,
+    "line_end": 951,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Six questions restated; good reinforcement"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Concept Map: Building Your Worldview",
+    "frame_number": 31,
+    "line_start": 956,
+    "line_end": 1001,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Key Terms (1/2)",
+    "frame_number": 32,
+    "line_start": 1006,
+    "line_end": 1020,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Impermanent loss and constant product formula included here; arguably Day 4 terms repackaged for T6.3"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Key Terms (2/2)",
+    "frame_number": 33,
+    "line_start": 1025,
+    "line_end": 1039,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Bank disintermediation (line 1035) is a new term defined here; good placement in key terms",
+      "LOW: Regulatory arbitrage (line 1037) defined clearly"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 34,
+    "line_start": 1044,
+    "line_end": 1072,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Five misconceptions with one-line rebuttals; efficient format"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Self-Assessment Question 1",
+    "frame_number": 35,
+    "line_start": 1077,
+    "line_end": 1092,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Innovation Scorecard from frame 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Self-Assessment Answer 1",
+    "frame_number": 36,
+    "line_start": 1097,
+    "line_end": 1101,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "frame 35 question",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Self-Assessment Questions 2-3",
+    "frame_number": 37,
+    "line_start": 1106,
+    "line_end": 1122,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architectures from Day 4; Digital Euro from T6.1",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Answers given immediately rather than on next slide; inconsistent with Q1 pattern (separate answer frame)"
+    ]
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "What's Next: Topic 6.4 - What's Next?",
+    "frame_number": 38,
+    "line_start": 1127,
+    "line_end": 1158,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Resources",
+    "frame_number": 39,
+    "line_start": 1163,
+    "line_end": 1192,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.3_synthesis_framework.tex",
+    "frame_title": "Questions?",
+    "frame_number": 40,
+    "line_start": 1197,
+    "line_end": 1216,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 23,
+    "line_end": 44,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Prerequisites: Building on Everything",
+    "frame_number": 2,
+    "line_start": 49,
+    "line_end": 89,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Days 1-6 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Fourth course-outline rehash across Day 6; purely retrospective",
+      "LOW: TikZ progression diagram at line 72 adds visual value at least"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "The Big Picture: Why 'What's Next' Matters",
+    "frame_number": 3,
+    "line_start": 94,
+    "line_end": 126,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "FinTech, DeFi, TradFi concepts from course",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "TradFi"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: TradFi (Traditional Finance) at line 100 not expanded; used throughout course informally but never formally defined"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "The Genuinely Open Questions",
+    "frame_number": 4,
+    "line_start": 131,
+    "line_end": 144,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all course concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Seven open questions; well-curated list that connects to all course days",
+      "LOW: Good: framed as genuinely open rather than making predictions"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Open Question: Interoperability",
+    "frame_number": 5,
+    "line_start": 149,
+    "line_end": 176,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Layer 1/Layer 2 from Day 3; bridges from T6.1",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Layer 2 explained inline at line 155 -- good reminder for Day 6 context"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Interoperability: Technical Deep Dive",
+    "frame_number": 6,
+    "line_start": 181,
+    "line_end": 223,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "bridges from T6.1 frame 23",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Bridge Trilemma"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: Bridge Trilemma introduced as a new concept without prior coverage; parallels blockchain trilemma from Day 3",
+      "LOW: Specific hack dollar amounts ($625M, $320M, $190M) are effective for impact"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Open Question: CBDCs vs. Private Digital Money",
+    "frame_number": 7,
+    "line_start": 228,
+    "line_end": 262,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDCs from Day 4; stablecoins from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: coexistence hypothesis introduced as most-likely outcome rather than binary framing"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "CBDC Implementation Models",
+    "frame_number": 8,
+    "line_start": 267,
+    "line_end": 318,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC concept from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "mBridge",
+      "Project Helvetia"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: mBridge and Project Helvetia (line 294) are specialist CBDC projects not previously covered",
+      "HIGH: Dense frame: three models + privacy spectrum + design choices"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Open Question: Decentralized Identity",
+    "frame_number": 9,
+    "line_start": 323,
+    "line_end": 353,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain from Day 3; privacy from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "LOW: DID/SSI expanded inline at line 330 -- good",
+      "HIGH: Watch list at line 352 introduces 5 new projects/concepts in one line; very dense",
+      "LOW: Good: each Watch item has inline expansion (eIDAS 2.0, Worldcoin, ENS, Soulbound tokens, Polygon ID)"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Open Question: Quantum Computing Threats",
+    "frame_number": 10,
+    "line_start": 358,
+    "line_end": 385,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ECDSA from Day 3 cryptography",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: ECDSA and RSA expanded inline at lines 363-364 -- good",
+      "LOW: Harvest Now, Decrypt Later concept is engaging and memorable"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Quantum: Timeline and Preparation",
+    "frame_number": 11,
+    "line_start": 390,
+    "line_end": 425,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "quantum threats from frame 10",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: NIST expanded at line 414 -- good",
+      "LOW: Three specific algorithms (ML-KEM, ML-DSA, SLH-DSA) with former names may be over-detailed for BSc course"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Open Question: AI Agents in Finance",
+    "frame_number": 12,
+    "line_start": 430,
+    "line_end": 459,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AI from T6.2; DAOs from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Clear current-vs-speculative framing; ethical questions are thought-provoking"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "AI Agents: Technical Architecture",
+    "frame_number": 13,
+    "line_start": 464,
+    "line_end": 503,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "wallets from Day 3; DeFi protocols from Day 4; oracles from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "LLM"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: LLM (Large Language Model) at line 471 not expanded; broadly known but formally undefined in course",
+      "LOW: Fetch.ai, Autonolas are very niche projects; appropriate as examples but students won't retain them"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Open Question: The Future of Money",
+    "frame_number": 14,
+    "line_start": 508,
+    "line_end": 539,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Day 1 money concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good bookend: connects back to Day 1 'What is money?'",
+      "LOW: Continuity vs Disruption framing is balanced and honest"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Emerging Technology: Zero-Knowledge Proofs",
+    "frame_number": 15,
+    "line_start": 544,
+    "line_end": 574,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "L1 security from Day 3; privacy from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "zkSync",
+      "StarkNet"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: zkSync and StarkNet (line 554) are specific projects; fine as examples",
+      "LOW: Good: ZK for scaling AND ZK for privacy presented as dual use cases"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Emerging Technology: Account Abstraction",
+    "frame_number": 16,
+    "line_start": 579,
+    "line_end": 610,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "wallets and seed phrases from Day 3; gas fees from Day 3-4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ERC-4337",
+      "session keys"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: ERC-4337 explained inline at line 581 -- good",
+      "LOW: Session keys (line 601) not explained; a technical wallet concept",
+      "LOW: Good: current problems vs AA enables structure clearly shows the value proposition"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Emerging Technology: DePIN",
+    "frame_number": 17,
+    "line_start": 615,
+    "line_end": 659,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "token incentives from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good: 'still experimental with limited real-world adoption' caveat at line 617",
+      "LOW: Four concrete examples (Helium, Filecoin, Render, Hivemapper) make the concept tangible"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Institutional DeFi: The Convergence Frontier",
+    "frame_number": 18,
+    "line_start": 664,
+    "line_end": 704,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Aave Arc from T6.1; KYC/AML from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "JPM Onyx",
+      "Securitize"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Rehashes institutional DeFi from T6.1 frames 10-12 without significant new insight",
+      "LOW: JPM Onyx and Securitize (line 680-681) are new company names without context"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Tokenized Deposits vs. Stablecoins",
+    "frame_number": 19,
+    "line_start": 709,
+    "line_end": 749,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenized deposits from T6.1; stablecoins from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Substantially repeats T6.1 frames 13-14 comparison table; adds Access row but otherwise redundant",
+      "LOW: FLAG: rehash without meaningful new perspective for end-of-course audience"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Career Paths in Digital Finance",
+    "frame_number": 20,
+    "line_start": 754,
+    "line_end": 799,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Overlaps significantly with T6.2 frame 28 (Career Implications); adds more specific roles",
+      "LOW: Highly relevant for BSc audience; appropriate despite partial overlap"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Skills for the Future of Digital Finance",
+    "frame_number": 21,
+    "line_start": 804,
+    "line_end": 844,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "market microstructure"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Market microstructure (line 821) is a specialist finance term; not beginner-friendly",
+      "LOW: Meta-skills list at lines 836-841 is the most durable content on this frame"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Regulatory Evolution: Three Scenarios",
+    "frame_number": 22,
+    "line_start": 849,
+    "line_end": 889,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "MiCA from Day 5; regulatory frameworks from Day 5",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Three-scenario framework (Restrictive/Balanced/Permissive) is clean and memorable",
+      "LOW: Country examples under each scenario ground the abstraction"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "The Innovation Scorecard: Your Framework",
+    "frame_number": 23,
+    "line_start": 894,
+    "line_end": 917,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Innovation Scorecard from T6.3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Innovation Scorecard 6 questions match T6.3 canonical source exactly -- VERIFIED CONSISTENT",
+      "LOW: Red flags added under each question add value beyond T6.3 presentation",
+      "LOW: Good reinforcement of the key framework for course finale"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Course Summary: The Six-Day Journey",
+    "frame_number": 24,
+    "line_start": 922,
+    "line_end": 939,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Fifth course-outline summary across Day 6; purely retrospective",
+      "LOW: Appropriate here as the course finale recap; table format is compact"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Key Competencies You've Developed",
+    "frame_number": 25,
+    "line_start": 944,
+    "line_end": 983,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four competency areas map cleanly to the four lenses from T6.3"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "The Durable Lessons",
+    "frame_number": 26,
+    "line_start": 988,
+    "line_end": 1004,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Seven durable lessons; each connects to specific course content",
+      "LOW: Excellent capstone slide -- these are the take-home messages"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Resources for Continued Learning",
+    "frame_number": 27,
+    "line_start": 1009,
+    "line_end": 1049,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Group Discussion: Your Hypotheses",
+    "frame_number": 28,
+    "line_start": 1054,
+    "line_end": 1068,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "open questions from frame 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Well-structured hypothesis format (Claim/Evidence/Assumptions/Risks/Implications)",
+      "LOW: 15 minutes is appropriate for small-group work"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Application: Scenario Planning Exercise",
+    "frame_number": 29,
+    "line_start": 1073,
+    "line_end": 1107,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDCs from Day 4; Bitcoin ETFs from T6.1; DeFi from Day 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Two contrasting 2030 scenarios; good for structured debate"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 30,
+    "line_start": 1112,
+    "line_end": 1139,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Strong closing message: uncertainty as opportunity"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Concept Map: The Digital Finance Landscape",
+    "frame_number": 31,
+    "line_start": 1144,
+    "line_end": 1188,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Course-wide concept map; convergence arrow is a nice visual touch"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Key Terms & Definitions (I)",
+    "frame_number": 32,
+    "line_start": 1193,
+    "line_end": 1205,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Key Terms & Definitions (II)",
+    "frame_number": 33,
+    "line_start": 1210,
+    "line_end": 1224,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Coexistence Hypothesis defined here -- good; introduced earlier at frame 7 without formal naming"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 34,
+    "line_start": 1229,
+    "line_end": 1267,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four misconceptions with one-line rebuttals; consistent with pattern across all Day 6 topics"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Self-Assessment: Question 1",
+    "frame_number": 35,
+    "line_start": 1272,
+    "line_end": 1291,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC statistics from frame 7",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Factual recall question; appropriate for self-assessment but low Bloom's level"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Self-Assessment: Questions 2-3",
+    "frame_number": 36,
+    "line_start": 1296,
+    "line_end": 1307,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "quantum threats from frames 10-11; interoperability from frames 5-6",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Next Steps: Your Continued Learning",
+    "frame_number": 37,
+    "line_start": 1312,
+    "line_end": 1356,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "CAIA"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: CAIA (Chartered Alternative Investment Analyst) at line 1336 not expanded",
+      "LOW: Good motivational framing for course ending"
+    ]
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Resources & References",
+    "frame_number": 38,
+    "line_start": 1361,
+    "line_end": 1387,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T6.4_whats_next.tex",
+    "frame_title": "Congratulations!",
+    "frame_number": 39,
+    "line_start": 1392,
+    "line_end": 1420,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Alan Kay quote is well-chosen and memorable",
+      "LOW: Good: three verbs (evaluate, participate, shape) give students agency"
+    ]
+  }
+]

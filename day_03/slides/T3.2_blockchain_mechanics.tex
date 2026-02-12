@@ -929,6 +929,9 @@ Visa & 24,000 & seconds & 1 (centralized) \\
 % SLIDE 24: SCALING SOLUTIONS
 % =======================================================================
 \begin{frame}{Scaling Solutions: Breaking the Trilemma?}
+\textit{These solutions are still evolving -- the key idea is that blockchains face a speed/security/decentralization tradeoff.}
+
+\vspace{2mm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Layer 1 Solutions}
@@ -938,7 +941,7 @@ Visa & 24,000 & seconds & 1 (centralized) \\
 \item Larger blocks (more data per block)
 \item Faster block times
 \item More efficient consensus
-\item Sharding (parallel processing)
+\item Sharding* (parallel processing)
 \end{itemize}
 
 \vspace{3mm}
@@ -964,13 +967,16 @@ Visa & 24,000 & seconds & 1 (centralized) \\
 \textbf{Examples:}
 \begin{itemize}\compactlist
 \item Lightning Network (Bitcoin)
-\item Optimism, Arbitrum (Ethereum)
-\item Polygon (Ethereum)
+\item Optimism, Arbitrum (rollups*)
+\item Polygon (sidechain*)
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{3mm}
+\vspace{1mm}
+{\scriptsize *Sharding = splitting the network into parallel sections. Rollups = bundling many transactions into one. Sidechains = separate chains connected to the main one.}
+
+\vspace{1mm}
 \begin{block}{Key Insight}
 Layer 2 solutions let blockchains scale WITHOUT sacrificing decentralization or security at the base layer.
 \end{block}
@@ -1176,18 +1182,21 @@ Before choosing blockchain, ask: ``Is the inefficiency worth the trust minimizat
 \textbf{Current Research Areas:}
 \begin{itemize}\compactlist
 \item \textbf{Hybrid consensus:} Combine PoW and PoS
-\item \textbf{DAG-based:} IOTA, Hedera
+\item \textbf{DAG-based*:} IOTA, Hedera
 \item \textbf{BFT variants:} Faster finality
-\item \textbf{Zero-knowledge proofs:} Privacy + scale
+\item \textbf{Privacy + scale:} Covered in Day 4
 \end{itemize}
 
 \vspace{3mm}
 \textbf{Emerging Solutions:}
 \begin{itemize}\compactlist
-\item Rollups (optimistic \& ZK)
-\item Data availability sampling
+\item Rollups (bundling transactions)
+\item Data availability sampling**
 \item Cross-chain bridges
 \end{itemize}
+
+{\scriptsize *DAG = Directed Acyclic Graph -- a different data structure where multiple blocks can be added in parallel.\\
+**Checking that data exists without downloading all of it.}
 \end{column}
 \begin{column}{0.48\textwidth}
 \textbf{Open Questions:}

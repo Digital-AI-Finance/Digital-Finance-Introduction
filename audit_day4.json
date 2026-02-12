@@ -1,0 +1,3331 @@
+[
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 34,
+    "line_end": 52,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "EVM",
+      "gas",
+      "Solidity",
+      "oracle problem",
+      "reentrancy"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: Six learning objectives introduce EVM, gas, Solidity, oracle problem, and reentrancy before any are defined. Students see all jargon cold.",
+      "LOW: Parenthetical glosses (e.g., 'a shared computer that runs programs') partially mitigate jargon but five new terms in one slide is high cognitive load."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Prerequisites: Blockchain Foundations Recap",
+    "frame_number": 2,
+    "line_start": 57,
+    "line_end": 94,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Day 3 blockchain basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good use of parenthetical analogies (e.g., 'digital fingerprints', 'password + username')."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Prerequisites: Ethereum Platform Basics",
+    "frame_number": 3,
+    "line_start": 99,
+    "line_end": 146,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain concept from previous frame",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "EOA"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: EOA acronym is introduced with full expansion and analogy. Good practice.",
+      "LOW: The 'World computer' metaphor is effective for non-technical students."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "What is a Smart Contract?",
+    "frame_number": 4,
+    "line_start": 151,
+    "line_end": 181,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain, Ethereum basics from frames 2-3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "deterministic"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Deterministic' defined inline as 'same input always produces same output'. Good.",
+      "LOW: Clear definition block is well-structured for BSc audience."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Nick Szabo's Vision (1994)",
+    "frame_number": 5,
+    "line_start": 186,
+    "line_end": 241,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contract definition from frame 4",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Vending machine analogy is excellent for no-prerequisite audience."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Traditional Contract vs. Smart Contract",
+    "frame_number": 6,
+    "line_start": 246,
+    "line_end": 266,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contract definition",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "oracles"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Oracles' mentioned in alertblock before being defined (not until frame 17). Students encounter term cold.",
+      "LOW: Comparison table format is effective for showing differences."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "The 'Code is Law' Principle",
+    "frame_number": 7,
+    "line_start": 271,
+    "line_end": 314,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, immutability",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "hard-forked",
+      "Ethereum Classic"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: 'Hard-forked' used without definition. Students may not know what a blockchain fork is.",
+      "MEDIUM: 'Ethereum Classic' introduced without explaining what a chain split means.",
+      "LOW: DAO Hack analogy (ATM giving money twice) is excellent for accessibility."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Smart Contract Execution Flow",
+    "frame_number": 8,
+    "line_start": 319,
+    "line_end": 370,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "EVM, transactions, blockchain",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "mempool",
+      "validator",
+      "bytecode"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Eight-step execution flow introduces mempool, validator, and bytecode simultaneously without definitions. Very high cognitive load for non-CS students.",
+      "MEDIUM: 'Bytecode' is a programming concept that violates no-CS-prerequisite promise.",
+      "MEDIUM: 'Mempool' is blockchain jargon not defined on this slide."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "The Ethereum Virtual Machine (EVM)",
+    "frame_number": 9,
+    "line_start": 375,
+    "line_end": 424,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain, smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "runtime environment",
+      "stack",
+      "bytecode"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 'Runtime environment', 'stack', and 'bytecode' are CS concepts. The 'sealed box' analogy helps but the diagram showing Stack/Memory/Storage assumes CS knowledge.",
+      "MEDIUM: Definition uses 'deterministic, isolated environment across all network nodes' -- very technical language for BSc non-CS students."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Gas: The Fuel of Smart Contracts",
+    "frame_number": 10,
+    "line_start": 429,
+    "line_end": 472,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "EVM from frame 9",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SHA3 Hash"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Gas cost table lists 'SHA3 Hash' -- cryptographic operation name unfamiliar to non-CS students.",
+      "LOW: Postage analogy ('paying postage for a letter') is accessible and effective."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Gas Price vs. Gas Limit",
+    "frame_number": 11,
+    "line_start": 477,
+    "line_end": 520,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "gas concept from frame 10",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Gwei",
+      "reverts"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Formula Fee = Gas Used x Gas Price uses mathematical notation ($10^{-9}$) but the course promises no math prerequisites. The arithmetic example is accessible though.",
+      "MEDIUM: 'Gwei' is crypto-specific unit introduced without much context beyond '1 Gwei = 10^-9 ETH'.",
+      "LOW: 'Reverts' is blockchain jargon but contextually understandable."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Solidity: The Smart Contract Language",
+    "frame_number": 12,
+    "line_start": 525,
+    "line_end": 565,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "EVM, smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "statically-typed",
+      "contract-oriented paradigm",
+      "compiles"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "HIGH: 'High-level, statically-typed programming language' and 'contract-oriented paradigm' are CS jargon that violates the no-programming-prerequisite promise.",
+      "MEDIUM: 'Syntax similar to JavaScript/C++' means nothing to students without programming background.",
+      "MEDIUM: 'Compiles to EVM bytecode' assumes understanding of compilation."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Anatomy of a Smart Contract (Solidity)",
+    "frame_number": 13,
+    "line_start": 570,
+    "line_end": 597,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "programming concepts",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "pragma",
+      "constructor",
+      "payable",
+      "msg.sender",
+      "msg.value",
+      "external",
+      "require",
+      "address",
+      "uint256",
+      "bool"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Full Solidity code listing shown to students with NO programming prerequisites. Code includes pragma, constructor, payable, msg.sender, address types, uint256, require() -- all programming concepts.",
+      "CRITICAL: 22 lines of raw Solidity code with no line-by-line explanation on this slide. The explanation comes on the NEXT frame, but students see raw code first.",
+      "HIGH: Ten or more undefined programming terms on a single slide massively exceeds cognitive load guidelines."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Understanding the Contract Structure",
+    "frame_number": 14,
+    "line_start": 602,
+    "line_end": 662,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Solidity code from frame 13",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "Checks-Effects-Interactions pattern"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: While 'Reading Code 101' alertblock defines address/uint256/bool/require/msg.sender, this explanation should precede the raw code on the previous slide, not follow it.",
+      "MEDIUM: 'Checks-Effects-Interactions' pattern introduced without full explanation -- named but not walked through.",
+      "MEDIUM: Function visibility modifiers (external, public, view, pure) listed -- programming-specific concepts."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "State Variables vs. Local Variables",
+    "frame_number": 15,
+    "line_start": 667,
+    "line_end": 710,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "programming, Solidity basics",
+    "prerequisite_violated": true,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Two Solidity code blocks shown. Concepts of 'state variables vs local variables', 'contract level vs function level' declarations are pure programming concepts requiring CS knowledge.",
+      "HIGH: 'Gas Optimization Tip' assumes students understand variable scope and when writes happen -- CS prerequisite knowledge."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Function Visibility and Modifiers",
+    "frame_number": 16,
+    "line_start": 715,
+    "line_end": 754,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "programming, Solidity",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "inheriting contracts",
+      "off-chain",
+      "on-chain"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Tables of function visibility (public/external/internal/private) and state modifiers (view/pure/payable) are pure programming concepts. This slide cannot be understood without programming background.",
+      "HIGH: 'Inheriting contracts' references object-oriented programming inheritance -- advanced CS concept."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Custom Modifiers: Reusable Access Control",
+    "frame_number": 17,
+    "line_start": 759,
+    "line_end": 788,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Solidity, programming",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "modifier",
+      "underscore placeholder"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Full Solidity code showing custom modifier pattern with underscore placeholder (_). Requires understanding of function decorators/modifiers -- an intermediate programming concept.",
+      "HIGH: 'Reentrancy guards' mentioned as common use case but not yet explained in detail."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Events: Logging to the Blockchain",
+    "frame_number": 18,
+    "line_start": 793,
+    "line_end": 829,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Solidity, programming",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "indexed",
+      "emit",
+      "dApps"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Solidity code with event declaration, indexed parameters, and emit keyword. Pure programming content.",
+      "MEDIUM: 'dApps' mentioned without definition (decentralized applications).",
+      "MEDIUM: 'Off-chain searching' concept assumes understanding of on-chain vs off-chain data model."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Contract Deployment Process",
+    "frame_number": 19,
+    "line_start": 834,
+    "line_end": 861,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Solidity, compilation, EVM",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "ABI",
+      "nonce",
+      "address 0x0"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 'ABI (Application Binary Interface)', 'nonce', 'address 0x0 (null)' are deep technical concepts requiring CS background.",
+      "MEDIUM: Five-step deployment process includes compilation, bytecode, constructor execution -- all programming concepts."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "The Oracle Problem",
+    "frame_number": 20,
+    "line_start": 866,
+    "line_end": 912,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Chainlink",
+      "API3",
+      "Band Protocol",
+      "UMA"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Four oracle solution names (Chainlink, API3, Band Protocol, UMA) dropped without explanation of how they work.",
+      "LOW: The core oracle concept is well explained and accessible."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Oracle Trust Tradeoffs",
+    "frame_number": 21,
+    "line_start": 917,
+    "line_end": 953,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "oracles from frame 20",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "flash loan attacks",
+      "MEV"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Flash loan attacks' mentioned before flash loans are defined (they appear in T4.2).",
+      "MEDIUM: 'Aggregated data (median)' assumes basic statistics knowledge."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Smart Contract Risks and Vulnerabilities",
+    "frame_number": 22,
+    "line_start": 958,
+    "line_end": 998,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, oracles, gas",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "integer overflow",
+      "MEV extraction",
+      "proxy patterns",
+      "upgradeable contracts"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Six technical risk categories plus four design limitations on one slide. Over five new concepts.",
+      "MEDIUM: 'Integer overflow', 'MEV extraction', 'proxy patterns' are advanced technical terms used without definition.",
+      "MEDIUM: 'Pre-0.8 Solidity' assumes version awareness of a programming language."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Reentrancy Attack: The DAO Hack Pattern",
+    "frame_number": 23,
+    "line_start": 1003,
+    "line_end": 1050,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Solidity, programming, smart contracts",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "fallback",
+      "msg.sender.call",
+      "ReentrancyGuard"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Two Solidity code blocks showing vulnerable and safe withdraw patterns. Requires understanding of function calls, state updates, external calls -- intermediate programming.",
+      "HIGH: 'Fallback' function is an advanced Solidity concept. 'msg.sender.call{value: bal}(\"\")' is complex syntax.",
+      "MEDIUM: Five-step attack explanation is clear conceptually but the code backing it requires programming knowledge."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Hands-On Exercise: NB08 -- Smart Contract Interaction",
+    "frame_number": 24,
+    "line_start": 1055,
+    "line_end": 1088,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, Ethereum basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "web3.py",
+      "testnet",
+      "faucet",
+      "ABI"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'web3.py', 'testnet', 'faucet' are developer tools/concepts not previously defined.",
+      "MEDIUM: 'Contract ABI (interface)' repeated from frame 19 but still jargon-heavy for non-programmers."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "NB08: Key Code Patterns",
+    "frame_number": 25,
+    "line_start": 1093,
+    "line_end": 1141,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Python, web3.py, smart contracts",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "HTTPProvider",
+      "nonce",
+      "rawTx",
+      "sign_transaction"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Two Python code blocks showing web3.py usage. Requires Python programming knowledge (imports, method calls, dictionary syntax). Directly violates no-programming-prerequisite promise.",
+      "HIGH: Code includes nonce management, gas price configuration, transaction signing -- deep blockchain development concepts."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Discussion: Real-World Smart Contract Applications",
+    "frame_number": 26,
+    "line_start": 1146,
+    "line_end": 1188,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "NFTs",
+      "DAOs",
+      "parametric payouts"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'NFTs', 'DAOs', 'parametric payouts' listed without definition. NFTs and DAOs are covered later in the course but students see them cold here.",
+      "LOW: Discussion questions are well-formulated and accessible."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "When Smart Contracts Are NOT the Answer",
+    "frame_number": 27,
+    "line_start": 1193,
+    "line_end": 1222,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "composability"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'Composability' listed under Good Fit without definition, but concept is intuitive from context.",
+      "LOW: Excellent framing for critical thinking -- showing limitations alongside strengths."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "What 'Trustless' Really Means",
+    "frame_number": 28,
+    "line_start": 1227,
+    "line_end": 1258,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, oracles",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Trust spectrum diagram is clear and accessible. Good conceptual frame for BSc students."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Smart Contract Security Best Practices",
+    "frame_number": 29,
+    "line_start": 1263,
+    "line_end": 1303,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, reentrancy, oracles",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "formal verification",
+      "OpenZeppelin",
+      "timelock"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: 'Formal verification' (mathematical proofs of code correctness) is a graduate-level CS concept.",
+      "MEDIUM: 'OpenZeppelin' is a developer library -- meaningless to non-programmers.",
+      "MEDIUM: 'Timelock' is a smart contract pattern not explained."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 30,
+    "line_start": 1308,
+    "line_end": 1331,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good recap that summarizes key concepts with brief explanations."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Concept Map: Smart Contracts",
+    "frame_number": 31,
+    "line_start": 1336,
+    "line_end": 1369,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Visual concept map effectively ties together the topic's themes."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Key Terms (1/2)",
+    "frame_number": 32,
+    "line_start": 1374,
+    "line_end": 1434,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good glossary practice. All key terms defined concisely."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Key Terms (2/2)",
+    "frame_number": 33,
+    "line_start": 1439,
+    "line_end": 1499,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Continues glossary. ABI, constructor, payable, view/pure all defined here -- but these terms were used many slides earlier without definition.",
+      "MEDIUM: These definitions should appear BEFORE the code slides (frames 13-18) where the terms are first used."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 34,
+    "line_start": 1504,
+    "line_end": 1550,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six myth/reality pairs are well-structured and accessible.",
+      "LOW: Good critical thinking exercise for BSc students."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Self-Assessment Questions (1/2)",
+    "frame_number": 35,
+    "line_start": 1555,
+    "line_end": 1573,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contract definition, gas",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Well-designed multiple choice question at appropriate level."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Self-Assessment Questions (2/2)",
+    "frame_number": 36,
+    "line_start": 1578,
+    "line_end": 1607,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "gas, modifiers",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Question 3 on Solidity modifiers assumes students understood the code-heavy modifier slides (frames 16-17). Students without programming background may struggle."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "What's Next: Topic 4.2 -- DeFi Primitives",
+    "frame_number": 37,
+    "line_start": 1612,
+    "line_end": 1647,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "AMMs",
+      "Uniswap",
+      "liquidity mining"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Preview of next topic with good connecting question.",
+      "LOW: 'AMMs', 'Uniswap', 'liquidity mining' are previewed but will be defined in T4.2."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 38,
+    "line_start": 1652,
+    "line_end": 1702,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good resource list including interactive tutorials (CryptoZombies) appropriate for beginners."
+    ]
+  },
+  {
+    "file": "T4.1_smart_contracts.tex",
+    "frame_title": "Questions?",
+    "frame_number": 39,
+    "line_start": 1707,
+    "line_end": 1723,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 29,
+    "line_end": 46,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts (T4.1)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "AMM",
+      "constant product formula",
+      "slippage",
+      "impermanent loss",
+      "LP token",
+      "flash loans"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Six learning objectives introduce AMM, constant product formula, slippage, impermanent loss, LP tokens, and flash loans before any are defined. Extremely high jargon density.",
+      "MEDIUM: LO#1 includes formula x*y=k with parenthetical analogy (see-saw) which helps but is still math-forward.",
+      "MEDIUM: LO#4 asks students to 'Compute impermanent loss' -- implies math prerequisite."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Prerequisites: Smart Contract Foundations",
+    "frame_number": 2,
+    "line_start": 51,
+    "line_end": 100,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T4.1 smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good recap with quick-check questions engaging students.",
+      "LOW: 'Composable' added as fifth property -- well placed for DeFi context."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "From Smart Contracts to DeFi",
+    "frame_number": 3,
+    "line_start": 105,
+    "line_end": 136,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T4.1 smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear progression diagram T4.1 -> T4.2 -> T4.3. Good scaffolding."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "What is DeFi?",
+    "frame_number": 4,
+    "line_start": 141,
+    "line_end": 181,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, blockchain",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "TVL",
+      "non-custodial",
+      "permissionless"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: TVL defined inline but with heavy parenthetical. 'Non-custodial' and 'permissionless' are jargon used before formal definition.",
+      "LOW: Concrete example of borrowing without a bank is excellent for accessibility."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "DeFi vs. Traditional Finance",
+    "frame_number": 5,
+    "line_start": 186,
+    "line_end": 206,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi definition",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "T+2 settlement",
+      "KYC"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: KYC expanded inline. T+2 explained in parentheses. Good accessibility practice.",
+      "LOW: Flash loan mention in alertblock previews concept defined later (frame 18)."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "The DeFi Stack",
+    "frame_number": 6,
+    "line_start": 211,
+    "line_end": 236,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ERC-20",
+      "yield aggregators"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'ERC-20 Tokens' mentioned without explanation (token standard). Defined later in T4.4.",
+      "LOW: Five-layer stack diagram is clear and well-labeled."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Automated Market Makers (AMMs)",
+    "frame_number": 7,
+    "line_start": 241,
+    "line_end": 294,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "order book",
+      "bids/asks",
+      "liquidity pools",
+      "market makers",
+      "Curve",
+      "Balancer"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 'Order book', 'bids/asks', 'market makers', 'liquidity pools' plus four protocol names (Uniswap, SushiSwap, Curve, Balancer) introduced on one slide. Over five new concepts.",
+      "MEDIUM: 'Order book with bids/asks' has parenthetical ('like an auction') but assumes basic market knowledge."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Follow the Money: How AMMs Work (Step-by-Step)",
+    "frame_number": 8,
+    "line_start": 299,
+    "line_end": 325,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM concept, basic arithmetic",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Step 2 uses arithmetic (100 x 300,000 = 30,000,000; 30,000,000 / 101 = 297,030). While basic division, the course promises no math prerequisites.",
+      "LOW: Step-by-step walkthrough is excellent pedagogy for this concept."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "The Constant Product Formula: x * y = k",
+    "frame_number": 9,
+    "line_start": 330,
+    "line_end": 385,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM basics, algebra",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "invariant"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Three mathematical formulas (x*y=k, Price=y/x, delta_y formula) shown with algebraic notation. Directly violates no-math-prerequisite promise.",
+      "HIGH: 'Invariant' is a mathematical/CS term. The formula derivation assumes algebraic manipulation skills.",
+      "MEDIUM: The bonding curve graph requires understanding of mathematical functions to interpret."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "AMM Numerical Example",
+    "frame_number": 10,
+    "line_start": 390,
+    "line_end": 414,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "constant product formula, arithmetic",
+    "prerequisite_violated": true,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Aligned mathematical equations with prime notation (x', y'), division to decimals, and percentage calculation. Requires algebra skills not in prerequisites.",
+      "HIGH: Slippage percentage calculation (30000-27272.73)/30000 = 9.09% assumes comfort with fraction arithmetic."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Why Larger Trades Have More Slippage",
+    "frame_number": 11,
+    "line_start": 419,
+    "line_end": 478,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "slippage, AMM formula",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Table with dollar cost column makes slippage tangible. Good accessibility.",
+      "LOW: Non-linear concept explained well without requiring formula understanding."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Liquidity Pool Mechanics",
+    "frame_number": 12,
+    "line_start": 483,
+    "line_end": 524,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM, liquidity pools",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "LP tokens"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: LP tokens defined implicitly through diagram showing deposit -> receive LP tokens flow.",
+      "LOW: 0.3% fee mention is concrete and accessible."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "LP Tokens: Ownership and Fee Accrual",
+    "frame_number": 13,
+    "line_start": 529,
+    "line_end": 565,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "liquidity pools",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Formula LP = sqrt(x * y) for first deposit involves square root -- math prerequisite.",
+      "LOW: Percentage-based example (10% of pool) is accessible."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Impermanent Loss Explained",
+    "frame_number": 14,
+    "line_start": 570,
+    "line_end": 589,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "liquidity pools, LP tokens",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "arbitrageurs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Arbitrageurs' used without definition (people who profit from price differences).",
+      "LOW: Dollar-denominated example is concrete and accessible for non-math students."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Impermanent Loss Formula and Visualization",
+    "frame_number": 15,
+    "line_start": 594,
+    "line_end": 658,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algebra, square roots",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "concentrated liquidity",
+      "Uniswap V3"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: IL formula IL = 2*sqrt(r)/(1+r) - 1 with square root, fraction, and variable substitution. This is intermediate algebra violating no-math-prerequisite promise.",
+      "HIGH: Table mapping price changes to IL percentages is useful but the formula behind it requires math background.",
+      "MEDIUM: 'Concentrated liquidity (Uniswap V3)' is advanced DeFi concept mentioned without explanation."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Impermanent Loss: Worked Example",
+    "frame_number": 16,
+    "line_start": 663,
+    "line_end": 713,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "IL formula, arithmetic",
+    "prerequisite_violated": true,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Mathematical computation of IL with formula substitution: IL = 2*sqrt(2)/(1+2) - 1 = -5.72%. Requires algebra and square root computation.",
+      "MEDIUM: Dollar amounts ($5,657 vs $6,000) make the concept tangible even if formula is opaque."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "The Role of Arbitrage in AMMs",
+    "frame_number": 17,
+    "line_start": 718,
+    "line_end": 765,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM pricing",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Binance"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Arbitrage concept explained clearly with concrete ETH price example.",
+      "LOW: Diagram effectively shows buy-low/sell-high flow."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "DeFi Lending: How It Works",
+    "frame_number": 18,
+    "line_start": 770,
+    "line_end": 808,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics, smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "over-collateralization",
+      "utilization",
+      "liquidation"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Three new concepts (over-collateralization, algorithmic rates, liquidation) introduced simultaneously.",
+      "LOW: Diagram showing lender/borrower/collateral flow is clear."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Algorithmic Interest Rates",
+    "frame_number": 19,
+    "line_start": 813,
+    "line_end": 866,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algebra, lending basics",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "kinked model",
+      "R_slope1",
+      "U_opt"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Piecewise mathematical function with subscripts, conditional notation (cases), and multiple variables (R_0, R_slope1, U_opt, R_2). This is university-level math notation.",
+      "HIGH: Three formulas (utilization rate, borrow rate with kinked model, supply rate) on one slide. Extreme math density.",
+      "MEDIUM: The kinked interest rate graph helps visually but the formulas require calculus-adjacent understanding."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "DeFi Lending: Worked Example",
+    "frame_number": 20,
+    "line_start": 871,
+    "line_end": 911,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "lending, collateralization, arithmetic",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "LTV",
+      "Health Factor",
+      "APR"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: Health Factor formula (30000 x 0.825 / 15000 = 1.65) uses arithmetic that is accessible but the concept (HF) is new jargon.",
+      "MEDIUM: LTV (Loan-to-Value) mentioned without expansion.",
+      "MEDIUM: APR (Annual Percentage Rate) assumed known -- may not be for all BSc students."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Flash Loans: Innovation or Attack Vector?",
+    "frame_number": 21,
+    "line_start": 916,
+    "line_end": 946,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, DeFi",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "uncollateralized",
+      "atomic transaction",
+      "collateral swaps",
+      "self-liquidation"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Atomic transaction' is CS jargon (all-or-nothing execution).",
+      "LOW: Flash loan concept well explained with clear diagram showing single-transaction flow."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Composability: The 'Money Legos' Concept",
+    "frame_number": 22,
+    "line_start": 951,
+    "line_end": 996,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi protocols",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "aETH",
+      "Yearn",
+      "systemic risk"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'aETH (interest-bearing)' is protocol-specific token not explained.",
+      "LOW: Lego block analogy and stacking diagram are accessible and effective."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Understanding DeFi Metrics",
+    "frame_number": 23,
+    "line_start": 1001,
+    "line_end": 1046,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "APY",
+      "Lido"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'APY' (Annual Percentage Yield) used without distinguishing from APR. Finance jargon for non-finance students.",
+      "LOW: TVL table with protocol names gives concrete market context."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "DeFi Risks: A Complete Picture",
+    "frame_number": 24,
+    "line_start": 1051,
+    "line_end": 1093,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi protocols, smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "liquidation cascades",
+      "bank runs on pools",
+      "contagion effects"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Liquidation cascades', 'bank runs on pools', 'contagion effects' are finance concepts that may be unfamiliar to non-finance BSc students.",
+      "LOW: Four-category risk framework is well-organized."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Hands-On Exercise: NB09 -- AMM Simulation",
+    "frame_number": 25,
+    "line_start": 1098,
+    "line_end": 1122,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM formula, liquidity pools",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear enumeration of five tasks students will perform."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "NB09 Preview: Core AMM Functions",
+    "frame_number": 26,
+    "line_start": 1127,
+    "line_end": 1151,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Python programming",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "class",
+      "__init__",
+      "self",
+      "sqrt"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Python class definition with __init__, self, method definitions. Requires Python OOP knowledge violating no-programming-prerequisite promise.",
+      "HIGH: 'class SimpleAMM' with constructor and methods assumes object-oriented programming understanding."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Discussion: DeFi in Practice",
+    "frame_number": 27,
+    "line_start": 1156,
+    "line_end": 1174,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "rug pulls",
+      "gas wars"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": [
+      "MEDIUM: 'Rug pulls' and 'gas wars' are crypto slang not defined.",
+      "LOW: Discussion questions are well-crafted and accessible."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Real-World DeFi Applications",
+    "frame_number": 28,
+    "line_start": 1179,
+    "line_end": 1218,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "yield farming",
+      "DeFi-TradFi bridges"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Concrete success stories with dollar figures make DeFi tangible."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Critical Analysis: Is DeFi Really Decentralized?",
+    "frame_number": 29,
+    "line_start": 1223,
+    "line_end": 1258,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics, governance",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "RPC providers",
+      "block builders",
+      "VC funding"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'RPC providers' and 'block builders' are infrastructure jargon.",
+      "LOW: 'Disintermediated vs decentralized' distinction is sophisticated and valuable."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "The Future of DeFi",
+    "frame_number": 30,
+    "line_start": 1263,
+    "line_end": 1299,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Layer 2",
+      "account abstraction",
+      "intent-based"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Layer 2', 'account abstraction', 'intent-based' are advanced concepts mentioned without explanation."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 31,
+    "line_start": 1304,
+    "line_end": 1331,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Key Equations section lists four formulas -- good for review but reinforces math-heavy nature of this topic."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Concept Map: DeFi Primitives",
+    "frame_number": 32,
+    "line_start": 1336,
+    "line_end": 1371,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Visual concept map ties together four main branches effectively."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Key Terms (Part 1)",
+    "frame_number": 33,
+    "line_start": 1376,
+    "line_end": 1412,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Eight terms defined concisely. Good glossary practice."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Key Terms (Part 2)",
+    "frame_number": 34,
+    "line_start": 1417,
+    "line_end": 1453,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Sandwich Attack' and 'MEV attack' introduced in glossary but never explained in the main slides."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 35,
+    "line_start": 1458,
+    "line_end": 1498,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six misconception/reality pairs well structured."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Self-Assessment Questions (1/2)",
+    "frame_number": 36,
+    "line_start": 1503,
+    "line_end": 1524,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AMM, IL formula",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Question 2 asks students to identify the IL formula -- tests math recall which may disadvantage students without math comfort."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Self-Assessment Questions (2/2)",
+    "frame_number": 37,
+    "line_start": 1529,
+    "line_end": 1547,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "LP tokens, fee mechanics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Question on fee accrual is conceptual and accessible."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "What's Next: Topic 4.3 -- Stablecoins",
+    "frame_number": 38,
+    "line_start": 1552,
+    "line_end": 1600,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good preview connecting DeFi pools to stablecoin stability."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 39,
+    "line_start": 1605,
+    "line_end": 1646,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good mix of academic and practical resources."
+    ]
+  },
+  {
+    "file": "T4.2_defi_primitives.tex",
+    "frame_title": "Questions?",
+    "frame_number": 40,
+    "line_start": 1651,
+    "line_end": 1671,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 23,
+    "line_end": 43,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T4.1 smart contracts, T4.2 DeFi basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "de-peg",
+      "Stablecoin Trilemma"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'De-peg' and 'Stablecoin Trilemma' used before defined. Both are explained later.",
+      "LOW: Five learning objectives at appropriate level."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Prerequisites: Why Price Stability Matters",
+    "frame_number": 2,
+    "line_start": 48,
+    "line_end": 97,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "cryptocurrency basics, DeFi (T4.2)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "volatility"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Volatility explained with concrete example ($100 -> $40-$160). Excellent accessibility.",
+      "LOW: Good self-check advice ('If DeFi primitives is unfamiliar, review T4.2 first')."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "The Problem Stablecoins Solve",
+    "frame_number": 3,
+    "line_start": 102,
+    "line_end": 142,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "crypto basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "remittances",
+      "network effect"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Network effect' defined inline. Good practice.",
+      "LOW: Market size figures ($170B+, $50B+ daily) provide concrete context."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "What Are Stablecoins?",
+    "frame_number": 4,
+    "line_start": 147,
+    "line_end": 187,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "cryptocurrency basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear definition and well-framed central question."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Stablecoin Design Taxonomy",
+    "frame_number": 5,
+    "line_start": 192,
+    "line_end": 228,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin definition",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "LUSD",
+      "sUSD",
+      "FRAX",
+      "sout{UST}"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Multiple token names (LUSD, sUSD, FRAX) listed without explanation of what makes each different beyond category.",
+      "LOW: Trust spectrum arrow at bottom is a good visual aid."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Fiat-Backed Stablecoins: How They Work",
+    "frame_number": 6,
+    "line_start": 233,
+    "line_end": 281,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "arbitrage"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Arbitrage defined inline ('buying low in one place and selling high in another until prices match'). Excellent.",
+      "LOW: Four-step mechanism is clear and accessible."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Fiat-Backed Stablecoins: Trust Requirements",
+    "frame_number": 7,
+    "line_start": 286,
+    "line_end": 335,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "fiat-backed stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "corporate bonds",
+      "attestations"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Corporate bonds' assumes basic finance knowledge. Not all BSc students will know this term.",
+      "LOW: Tether controversy context helps students understand real risks."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Crypto-Collateralized Stablecoins",
+    "frame_number": 8,
+    "line_start": 340,
+    "line_end": 393,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types, smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "CDP",
+      "stability fee"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'CDP' (Collateralized Debt Position) in diagram label but not expanded in text.",
+      "LOW: Pawn shop analogy for liquidation is excellent for non-finance students."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Liquidation Mechanics",
+    "frame_number": 9,
+    "line_start": 398,
+    "line_end": 439,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "crypto-collateralized stablecoins, collateral ratio",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "liquidation penalty"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Timeline visualization of vault ratio declining is very effective.",
+      "LOW: Domino analogy for cascades is accessible."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Crypto-Collateralized: Trade-offs",
+    "frame_number": 10,
+    "line_start": 444,
+    "line_end": 481,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "crypto stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Synthetix"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Pros/cons format with checkmarks/crosses is visually clear.",
+      "LOW: Capital efficiency point ($150 for $100) is concrete."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Algorithmic Stablecoins: The Experiment",
+    "frame_number": 11,
+    "line_start": 486,
+    "line_end": 527,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "dual-token",
+      "governance token",
+      "insolvent"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Governance token' used without definition (token that gives voting rights in protocol decisions).",
+      "LOW: Death spiral enumeration is clear and sequential."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Case Study: Terra/UST Collapse",
+    "frame_number": 12,
+    "line_start": 532,
+    "line_end": 558,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algorithmic stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Death spiral cycle diagram is visually powerful and self-explanatory.",
+      "LOW: Key lesson at bottom is clearly stated."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Algorithmic Mechanism: Mint/Burn",
+    "frame_number": 13,
+    "line_start": 563,
+    "line_end": 598,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "arbitrage, stablecoin mechanisms",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Two-column showing above-peg vs below-peg mechanisms is effective.",
+      "LOW: Red text highlighting the fragile direction is good visual emphasis."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Stablecoin Design Comparison",
+    "frame_number": 14,
+    "line_start": 603,
+    "line_end": 627,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all three stablecoin types",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Comprehensive comparison table is well-structured.",
+      "LOW: Stablecoin Trilemma introduced at bottom -- good placement after comparison."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "The Stablecoin Trilemma",
+    "frame_number": 15,
+    "line_start": 632,
+    "line_end": 661,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Triangle visualization with positioned stablecoins (USDC, DAI, UST) is effective.",
+      "LOW: Annotations explain each corner's trade-off clearly."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "De-Peg Events: Historical Analysis",
+    "frame_number": 16,
+    "line_start": 666,
+    "line_end": 703,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types, peg concept",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SVB",
+      "Silvergate"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'SVB' (Silicon Valley Bank) and 'Silvergate' mentioned without full context -- explained on next slide.",
+      "LOW: Timeline chart showing de-peg events is informative."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Case Study: USDC and Silicon Valley Bank",
+    "frame_number": 17,
+    "line_start": 708,
+    "line_end": 749,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "fiat-backed stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "bank run",
+      "Fed backstop",
+      "T-bill"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Bank run', 'Fed backstop', 'T-bill' are finance terms. Non-finance BSc students may not know these.",
+      "LOW: Chronological narrative with key numbers is accessible and compelling."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Measuring Stablecoin Stability",
+    "frame_number": 18,
+    "line_start": 754,
+    "line_end": 803,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "basic statistics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "standard deviation"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Standard deviation' and 'mean deviation' are statistics terms. Course promises no math prerequisites.",
+      "LOW: Distribution visualization effectively communicates stability differences."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Peg Maintenance: The Role of Arbitrage",
+    "frame_number": 19,
+    "line_start": 808,
+    "line_end": 840,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "arbitrage, stablecoin mechanisms",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Three-panel diagram (above peg, at peg, below peg) is clear and self-explanatory."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Stablecoins in the DeFi Ecosystem",
+    "frame_number": 20,
+    "line_start": 845,
+    "line_end": 873,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi basics (T4.2)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Synthetix"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Well-structured diagram showing stablecoins at center of DeFi ecosystem."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Stablecoin Yield: Where Does It Come From?",
+    "frame_number": 21,
+    "line_start": 878,
+    "line_end": 914,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi lending, liquidity provision",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "RWA yield",
+      "Anchor Protocol",
+      "APY"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'APY' used repeatedly without distinguishing from APR.",
+      "LOW: 'If you can't identify the source, you ARE the yield' is memorable and accessible."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "What's Actually Backing Stablecoins?",
+    "frame_number": 22,
+    "line_start": 919,
+    "line_end": 949,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types, basic finance",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "commercial paper",
+      "duration risk",
+      "T-bills"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Commercial paper', 'duration risk' are finance jargon. Non-finance BSc students may struggle.",
+      "LOW: Reserve composition table is concrete and informative."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Global Stablecoin Landscape",
+    "frame_number": 23,
+    "line_start": 954,
+    "line_end": 999,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "XSGD"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Market share data with pie chart is accessible."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Hands-On: NB10 -- Stablecoin Stability Analysis",
+    "frame_number": 24,
+    "line_start": 1004,
+    "line_end": 1028,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear five-step task list for notebook exercise."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "NB10: Key Analysis Tasks",
+    "frame_number": 25,
+    "line_start": 1033,
+    "line_end": 1076,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "reflexivity"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Reflexivity' is an economics/finance concept (prices affecting fundamentals which affect prices).",
+      "LOW: Four-part structure gives clear roadmap for hands-on work."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Discussion: Which Stablecoin Should You Use?",
+    "frame_number": 26,
+    "line_start": 1081,
+    "line_end": 1129,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types and trade-offs",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Practical advice framework with portfolio approach. Highly accessible."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Discussion: Stablecoins as Systemic Risk?",
+    "frame_number": 27,
+    "line_start": 1134,
+    "line_end": 1176,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin market, finance basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FDIC",
+      "money market funds"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'FDIC', 'money market funds (2008)' are US-specific finance terms that international BSc students may not know.",
+      "LOW: 'Should stablecoins be regulated like banks?' is an excellent discussion prompt."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Stablecoin Regulation",
+    "frame_number": 28,
+    "line_start": 1181,
+    "line_end": 1223,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin market",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "MiCA"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: MiCA introduced and will be expanded on next slide.",
+      "LOW: Global regulatory overview is well-structured."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "MiCA: Europe's Stablecoin Framework",
+    "frame_number": 29,
+    "line_start": 1228,
+    "line_end": 1267,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin regulation",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "EMT",
+      "ART"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'EMT (E-money tokens)' and 'ART (Asset-referenced tokens)' are regulatory categories that may be confusing without more context.",
+      "LOW: Five requirements clearly enumerated."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 30,
+    "line_start": 1272,
+    "line_end": 1299,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five numbered takeaways with footnote explanations. Clear and comprehensive."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Concept Map: Stablecoin Ecosystem",
+    "frame_number": 31,
+    "line_start": 1304,
+    "line_end": 1360,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Visual concept map effectively ties together stablecoin ecosystem."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Key Terms & Definitions (I)",
+    "frame_number": 32,
+    "line_start": 1365,
+    "line_end": 1377,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five key terms well-defined."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Key Terms & Definitions (II)",
+    "frame_number": 33,
+    "line_start": 1382,
+    "line_end": 1396,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six additional terms including 'attestation' which is a useful distinction from 'audit'."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 34,
+    "line_start": 1401,
+    "line_end": 1440,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four misconception/reality pairs. Well structured with color coding."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Self-Assessment: Question 1",
+    "frame_number": 35,
+    "line_start": 1445,
+    "line_end": 1464,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin types",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Well-designed question distinguishing fiat-backed from crypto-collateralized characteristics."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Self-Assessment: Questions 2-3",
+    "frame_number": 36,
+    "line_start": 1469,
+    "line_end": 1483,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoin trilemma, Terra/UST",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Questions test conceptual understanding rather than formula recall. Good for no-prerequisite audience."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "What's Next: Topic 4.4",
+    "frame_number": 37,
+    "line_start": 1488,
+    "line_end": 1510,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "RWA",
+      "CBDCs",
+      "security tokens"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good preview of T4.4 topics with connection back to stablecoins."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 38,
+    "line_start": 1515,
+    "line_end": 1542,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good resource list including DeFiLlama dashboard."
+    ]
+  },
+  {
+    "file": "T4.3_stablecoins.tex",
+    "frame_title": "Questions?",
+    "frame_number": 39,
+    "line_start": 1547,
+    "line_end": 1566,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 24,
+    "line_end": 39,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "smart contracts, stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "tokenization",
+      "CBDC",
+      "programmable sovereign money"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'CBDC', 'tokenization', 'programmable sovereign money' all used before defined.",
+      "LOW: Five learning objectives at appropriate level for BSc."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Prerequisites: Quick Recap (1/4)",
+    "frame_number": 2,
+    "line_start": 44,
+    "line_end": 56,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.3 blockchain",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear recap of blockchain fundamentals with connection to current topic."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Prerequisites: Quick Recap (2/4)",
+    "frame_number": 3,
+    "line_start": 58,
+    "line_end": 70,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T4.1 smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Smart contract recap with concrete examples (dividend payments, expiring stimulus)."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Prerequisites: Quick Recap (3/4)",
+    "frame_number": 4,
+    "line_start": 72,
+    "line_end": 84,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T4.3 stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Stablecoin recap connecting to CBDC competition."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Prerequisites: Quick Recap (4/4)",
+    "frame_number": 5,
+    "line_start": 86,
+    "line_end": 103,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T4.2 DeFi",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ERC-20",
+      "ERC-721",
+      "fungible"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: ERC-20 and ERC-721 token standards introduced. 'Fungible' may be unfamiliar to some BSc students.",
+      "LOW: Electrical outlet analogy for token standards is excellent."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Background: The Digitization of Value",
+    "frame_number": 6,
+    "line_start": 105,
+    "line_end": 133,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "general knowledge",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Historical timeline from 1600s to 2020s provides excellent context.",
+      "LOW: $16 trillion projection and 130+ countries figure are compelling."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "What is Tokenization?",
+    "frame_number": 7,
+    "line_start": 138,
+    "line_end": 181,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "blockchain basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "carbon credits"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear definition with comprehensive list of tokenizable assets.",
+      "LOW: Benefits checklist (fractional ownership, 24/7 trading, etc.) is accessible."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Real-World Asset (RWA) Tokenization",
+    "frame_number": 8,
+    "line_start": 183,
+    "line_end": 221,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization definition",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "T+2 settlement",
+      "P2P"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Side-by-side Traditional vs Tokenized comparison is very effective.",
+      "LOW: Concrete numbers ($1M minimum vs $100 minimum) make the value proposition tangible."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Fractional Ownership: Democratizing Investment",
+    "frame_number": 9,
+    "line_start": 223,
+    "line_end": 263,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "accredited investors",
+      "blue-chip"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "MEDIUM: 'Accredited investors' is a regulatory term not defined (investors meeting income/net worth thresholds).",
+      "LOW: Tokenized real estate example with concrete numbers ($1M property, $100/token) is excellent."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "RWA Tokenization Examples",
+    "frame_number": 10,
+    "line_start": 265,
+    "line_end": 289,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "private credit"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Private credit' is a finance term (loans to companies not traded on public markets).",
+      "LOW: Table format with 'What They Do' column is very accessible."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Security Tokens vs. Utility Tokens",
+    "frame_number": 11,
+    "line_start": 291,
+    "line_end": 324,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Howey Test",
+      "SEC",
+      "KYC/AML",
+      "Filecoin",
+      "BAT"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Howey Test, SEC, KYC/AML introduced simultaneously. Five new regulatory/legal concepts on one slide.",
+      "LOW: Howey Test explanation in 'Plain English' alertblock is excellent accessibility practice."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "KYC/AML Regulatory Terms Explained",
+    "frame_number": 12,
+    "line_start": 326,
+    "line_end": 360,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SARs",
+      "cap table"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: KYC and AML each get their own definition block. Good dedicated explanation.",
+      "MEDIUM: 'SARs (Suspicious Activity Reports)' mentioned but not elaborated."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Tokenization Infrastructure: Key Players",
+    "frame_number": 13,
+    "line_start": 362,
+    "line_end": 396,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization, KYC/AML",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "cap table management",
+      "Chainalysis",
+      "Elliptic"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Cap table management' is startup/finance jargon (table tracking who owns shares/tokens).",
+      "LOW: Four-layer infrastructure diagram is clear."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Central Bank Digital Currencies (CBDCs)",
+    "frame_number": 14,
+    "line_start": 398,
+    "line_end": 436,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "stablecoins (T4.3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "legal tender",
+      "liability"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Direct liability of the central bank' and 'legal tender' are finance/law terms that may need more explanation for some BSc students.",
+      "LOW: Four-stage CBDC status classification (research -> pilot -> limited -> full) is clear."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "CBDC Architecture Models",
+    "frame_number": 15,
+    "line_start": 438,
+    "line_end": 488,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC definition",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "PSPs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'PSPs' (Payment Service Providers) in diagram but not expanded.",
+      "LOW: Three-model diagram with 'What Does This Mean for YOU?' section is excellent for student engagement."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Two-Tier CBDC Architecture",
+    "frame_number": 16,
+    "line_start": 490,
+    "line_end": 517,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architecture models",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clean two-tier diagram with clear 'Why Two-Tier?' rationale."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "CBDC vs. Stablecoin Comparison",
+    "frame_number": 17,
+    "line_start": 519,
+    "line_end": 543,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDCs, stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "sovereign risk",
+      "pseudonymous"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Sovereign risk' and 'pseudonymous' are specialized terms.",
+      "LOW: Comparison table effectively contrasts nine attributes."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Programmable Money: Opportunities",
+    "frame_number": 18,
+    "line_start": 545,
+    "line_end": 587,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDCs, smart contracts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Targeted stimulus example (Traditional vs Programmable CBDC) is concrete and accessible.",
+      "LOW: Five benefits clearly enumerated."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Programmable Money: Concerns",
+    "frame_number": 19,
+    "line_start": 589,
+    "line_end": 608,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "programmable money concept",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "zero-knowledge proofs",
+      "bank disintermediation",
+      "tiered privacy"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 'Zero-knowledge proofs', 'bank disintermediation', 'tiered privacy', 'token-based vs account-based' -- five advanced concepts on one slide.",
+      "MEDIUM: 'Zero-knowledge proofs' is a cryptography concept that may be covered in a bonus topic but is jargon here."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Privacy Design Spectrum",
+    "frame_number": 20,
+    "line_start": 610,
+    "line_end": 645,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC design, privacy concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ZK proofs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Privacy spectrum visualization from Full Privacy to Full Surveillance is very effective.",
+      "LOW: Key insight that 'Privacy is a political choice, not a technical limitation' is powerful."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Offline CBDC Capability",
+    "frame_number": 21,
+    "line_start": 647,
+    "line_end": 686,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "NFC",
+      "store-and-forward",
+      "eventual consistency",
+      "double-spending"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 'NFC', 'store-and-forward protocols', 'eventual consistency', 'double-spending prevention' -- four technical terms from networking/distributed systems.",
+      "MEDIUM: These concepts may be unfamiliar to non-CS BSc students."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Global CBDC Landscape: China's e-CNY",
+    "frame_number": 22,
+    "line_start": 688,
+    "line_end": 729,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architecture",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SWIFT",
+      "red packet"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'SWIFT' mentioned without definition (international bank messaging system).",
+      "LOW: Concrete statistics (260M wallets, Beijing Olympics testing) make it tangible."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Global CBDC Landscape: Digital Euro",
+    "frame_number": 23,
+    "line_start": 731,
+    "line_end": 772,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architecture",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good contrast with China's approach. Privacy emphasis noted."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Global CBDC Landscape: United States",
+    "frame_number": 24,
+    "line_start": 774,
+    "line_end": 814,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architecture",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FedNow"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'FedNow' is a recent US payment system not explained beyond '(2023)'.",
+      "LOW: Political divide framing is appropriate for discussion."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Cross-Border CBDCs: mBridge",
+    "frame_number": 25,
+    "line_start": 816,
+    "line_end": 856,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDCs, international finance",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "BIS Innovation Hub",
+      "correspondent banking"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'BIS Innovation Hub' and 'correspondent banking' are specialized finance/policy terms.",
+      "LOW: Problem-solution framing (slow/expensive vs instant/cheap) is effective."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "The Tokenization Landscape",
+    "frame_number": 26,
+    "line_start": 858,
+    "line_end": 888,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization, CBDCs, DeFi, stablecoins",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "NFTs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'NFTs' node in diagram without definition. NFTs covered elsewhere in course but not in Day 4.",
+      "LOW: Convergence thesis statement is a strong conceptual frame."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Legal and Regulatory Challenges",
+    "frame_number": 27,
+    "line_start": 890,
+    "line_end": 928,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization, legal basics",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "settlement finality"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Settlement finality' is a legal/finance term (the point at which a transfer is irrevocable).",
+      "LOW: 'Dual Reality Problem' alertblock is excellent for showing real-world limitations of blockchain."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Case Study: Franklin Templeton On-Chain Fund",
+    "frame_number": 28,
+    "line_start": 933,
+    "line_end": 974,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization, securities",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "AUM",
+      "Stellar",
+      "Polygon"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'AUM' (Assets Under Management) is finance jargon. 'Stellar' and 'Polygon' are blockchain names not explained.",
+      "LOW: Real-world institutional example validates concepts taught."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Case Study: Bahamas Sand Dollar",
+    "frame_number": 29,
+    "line_start": 976,
+    "line_end": 1016,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architecture",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: First fully deployed retail CBDC is a compelling case study.",
+      "LOW: Lessons learned section ('Technology is the easy part') is insightful."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Case Study: RealT Tokenized Real Estate",
+    "frame_number": 30,
+    "line_start": 1018,
+    "line_end": 1059,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization, DeFi",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "LLC",
+      "DEXs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'LLC' (Limited Liability Company) and 'DEXs' (Decentralized Exchanges) used without expansion on this slide.",
+      "LOW: Daily income distribution via smart contracts is a compelling real example."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Case Study: Nigeria's eNaira Challenges",
+    "frame_number": 31,
+    "line_start": 1061,
+    "line_end": 1101,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC architecture",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "UPI"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Failure case study is valuable for balanced perspective.",
+      "LOW: Contrast with India's UPI success is instructive."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Discussion: Should Central Banks Issue Retail CBDCs?",
+    "frame_number": 32,
+    "line_start": 1106,
+    "line_end": 1141,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Balanced FOR/AGAINST format is excellent for classroom discussion.",
+      "LOW: Discussion questions are thought-provoking and accessible."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Application: Evaluating Tokenization Projects",
+    "frame_number": 33,
+    "line_start": 1143,
+    "line_end": 1163,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "tokenization, legal concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six-point due diligence framework is practical and memorable.",
+      "LOW: Red flags section helps students develop critical evaluation skills."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 34,
+    "line_start": 1168,
+    "line_end": 1208,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Two-column summary covering tokenization and CBDCs is comprehensive."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Concept Map: Tokenization and CBDCs",
+    "frame_number": 35,
+    "line_start": 1213,
+    "line_end": 1249,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Visual concept map effectively shows relationship between tokenization and CBDCs branches."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Key Terms (1/2)",
+    "frame_number": 36,
+    "line_start": 1254,
+    "line_end": 1265,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Eight terms clearly defined including both tokenization and CBDC vocabulary."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Key Terms (2/2)",
+    "frame_number": 37,
+    "line_start": 1267,
+    "line_end": 1278,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Eight additional terms. Howey Test definition is valuable."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 38,
+    "line_start": 1283,
+    "line_end": 1311,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all T4.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four misconception/reality pairs well structured and accessible."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Self-Assessment Question 1",
+    "frame_number": 39,
+    "line_start": 1316,
+    "line_end": 1333,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "fractional ownership",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Well-designed question at appropriate level."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Self-Assessment Questions 2 & 3",
+    "frame_number": 40,
+    "line_start": 1335,
+    "line_end": 1352,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "CBDC models, tokenization platforms",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Questions test conceptual understanding of CBDC models and tokenization platforms."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "What's Next: Day 5 Preview",
+    "frame_number": 41,
+    "line_start": 1357,
+    "line_end": 1376,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "Day 4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Clear preview of Day 5 topics with connection to Day 4."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 42,
+    "line_start": 1381,
+    "line_end": 1404,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good mix of academic (BIS), tracking (Atlantic Council), and industry resources."
+    ]
+  },
+  {
+    "file": "T4.4_tokenization_cbdcs.tex",
+    "frame_title": "Questions?",
+    "frame_number": 43,
+    "line_start": 1409,
+    "line_end": 1425,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  }
+]

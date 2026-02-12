@@ -1,0 +1,3448 @@
+[
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Title Slide",
+    "frame_number": 1,
+    "line_start": 16,
+    "line_end": 18,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "double-spending"
+    ],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Subtitle mentions 'Double-Spending Problem' before it has been introduced"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 2,
+    "line_start": 23,
+    "line_end": 43,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "double-spending",
+      "account-based",
+      "token-based"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Three jargon terms (double-spending, account-based, token-based) used in objectives before being defined in the slides"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Prerequisites: What You Should Know",
+    "frame_number": 3,
+    "line_start": 48,
+    "line_end": 83,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Big Picture: Why This Matters",
+    "frame_number": 4,
+    "line_start": 88,
+    "line_end": 132,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "commodity money",
+      "blockchain"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'Commodity Money' and 'Blockchain' appear on timeline without definitions yet"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "A Thought Experiment",
+    "frame_number": 5,
+    "line_start": 137,
+    "line_end": 168,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "coincidence of wants"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'Coincidence of Wants' is economics jargon but is immediately explained in context"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Three Solutions to the Barter Problem",
+    "frame_number": 6,
+    "line_start": 173,
+    "line_end": 213,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "commodity money",
+      "IOUs",
+      "ledger"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Three new concepts introduced simultaneously (commodity money, credit/IOUs, shared ledger); 'IOUs' not spelled out for students unfamiliar with the term"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Money as a Social Technology",
+    "frame_number": 7,
+    "line_start": 218,
+    "line_end": 265,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "medium of exchange",
+      "unit of account",
+      "store of value"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Three functions of money are standard economics terms but are clearly explained with examples"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Historical Evolution of Money",
+    "frame_number": 8,
+    "line_start": 270,
+    "line_end": 324,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Uses \\compactlist which may be a custom command not in standard beamer"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Ledger: Humanity's Oldest Financial Technology",
+    "frame_number": 9,
+    "line_start": 329,
+    "line_end": 368,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Properties of a Good Ledger",
+    "frame_number": 10,
+    "line_start": 373,
+    "line_end": 403,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "immutability"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Immutability' is a technical term; brief plain-language gloss provided ('cannot be changed') but the word itself may intimidate no-prerequisite students"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Account-Based vs. Token-Based Money",
+    "frame_number": 11,
+    "line_start": 408,
+    "line_end": 462,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "bearer instrument"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Frame introduces account-based money, token-based money, bearer instrument concept, digital dilemma, and file-copy analogy -- more than 5 new ideas for a no-prerequisite audience",
+      "MEDIUM: 'Bearer' in 'Token-Based (Bearer)' header is unexplained"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Why Physical Money Works",
+    "frame_number": 12,
+    "line_start": 467,
+    "line_end": 496,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Problem with Digital Files",
+    "frame_number": 13,
+    "line_start": 501,
+    "line_end": 533,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Double-Spending Problem",
+    "frame_number": 14,
+    "line_start": 538,
+    "line_end": 578,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Double-Spending: A Concrete Example",
+    "frame_number": 15,
+    "line_start": 583,
+    "line_end": 620,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Traditional Solution: Trusted Third Parties",
+    "frame_number": 16,
+    "line_start": 625,
+    "line_end": 672,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Mathematical notation $-$\\$100 and $+$\\$100 used for balance changes; trivial but first math notation in the deck"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "How Banks Validate Transactions",
+    "frame_number": 17,
+    "line_start": 677,
+    "line_end": 698,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "atomic execution",
+      "sequential processing"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Atomic execution' is CS jargon; while parenthetical '(no partial transfers)' is given, the term may confuse non-CS students",
+      "MEDIUM: Flowchart uses math inequality symbol (Balance >= Amount?) which is accessible but approaches formal notation for a no-prerequisite deck"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Cost of Trust: What We Gain",
+    "frame_number": 18,
+    "line_start": 703,
+    "line_end": 737,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "chargebacks"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Chargebacks' is industry jargon used without definition; not all BSc students will know this term"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Cost of Trust: What We Lose",
+    "frame_number": 19,
+    "line_start": 742,
+    "line_end": 782,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "censorship"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Censorship' used in financial context without clarifying it means blocking transactions, not just media censorship"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Counterparty Risk: When Trust Fails",
+    "frame_number": 20,
+    "line_start": 787,
+    "line_end": 826,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "counterparty risk",
+      "insolvent",
+      "bank run",
+      "fractional reserve banking"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Frame introduces 4 new financial terms (counterparty risk, insolvent, bank run, fractional reserve banking) plus the 2008 crisis context -- heavy for no-prerequisite students",
+      "MEDIUM: 'Insolvent' used without definition in the examples list"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Censorship and Exclusion",
+    "frame_number": 21,
+    "line_start": 831,
+    "line_end": 877,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "TTP"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Abbreviation 'TTP' (Trusted Third Party) used without prior definition in this frame; readers must infer from frame 16 title"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Coordination Problem: Byzantine Generals",
+    "frame_number": 22,
+    "line_start": 882,
+    "line_end": 929,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Byzantine Generals Problem",
+      "consensus"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Byzantine Generals Problem' is CS-specific jargon; while the thought experiment explains it, the formal name may signal prerequisite CS knowledge to students",
+      "LOW: 'Consensus' used in technical sense without explicit definition"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "From Generals to Money: The Same Problem",
+    "frame_number": 23,
+    "line_start": 934,
+    "line_end": 965,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Byzantine consensus"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Byzantine Generals Problem for large, open networks' assumes the previous frame was absorbed; good building, but cognitive load stacks"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Quest for Digital Cash",
+    "frame_number": 24,
+    "line_start": 970,
+    "line_end": 1003,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "instant settlement"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Instant settlement' and 'counterparty risk' reused from earlier frames without back-reference; fine if students recall"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Early Attempts at Digital Cash",
+    "frame_number": 25,
+    "line_start": 1008,
+    "line_end": 1046,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "DigiCash",
+      "e-gold",
+      "b-money",
+      "Bit Gold"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Four historical projects named (DigiCash, e-gold, b-money, Bit Gold) with only single-word failure reasons; students have no context for why these matter",
+      "LOW: 'Byzantine consensus' used again without refresher"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Bitcoin Breakthrough (Preview)",
+    "frame_number": 26,
+    "line_start": 1051,
+    "line_end": 1091,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "cryptography",
+      "economic incentives",
+      "Satoshi Nakamoto"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Cryptography' introduced without definition; students promised no CS prerequisites may find this term opaque",
+      "LOW: 'Satoshi Nakamoto' name-dropped without explaining the pseudonymous nature"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Hands-On: Ledger Simulation",
+    "frame_number": 27,
+    "line_start": 1096,
+    "line_end": 1120,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Colab notebook"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'Colab notebook' may be unfamiliar to students who have never used Google Colab; a one-line explanation would help"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Notebook Objectives",
+    "frame_number": 28,
+    "line_start": 1125,
+    "line_end": 1157,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Discussion: Money in the Digital Age",
+    "frame_number": 29,
+    "line_start": 1162,
+    "line_end": 1188,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Application: Comparing Money Systems",
+    "frame_number": 30,
+    "line_start": 1193,
+    "line_end": 1216,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "stablecoin"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Stablecoin' appears in the comparison table without any prior definition in T1.1; this is a topic from Day 4",
+      "LOW: Table uses terms (reversibility, censorship) whose financial meanings were defined earlier but may need column headers for clarity"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Real-World Applications",
+    "frame_number": 31,
+    "line_start": 1221,
+    "line_end": 1264,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "remittances",
+      "hyperinflation",
+      "capital controls"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Remittances' used as section header without definition (defined later in T1.2 key terms but not here)",
+      "LOW: 'Hyperinflation' and 'capital controls' are economics terms used without definition"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "The Future of Money",
+    "frame_number": 32,
+    "line_start": 1269,
+    "line_end": 1297,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "CBDCs",
+      "stablecoins",
+      "corporate tokens"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'CBDCs' abbreviation used; expanded below as 'Central bank digital currencies' but the abbreviation appears first",
+      "LOW: 'Stablecoins' and 'corporate tokens' mentioned without definition (forward references to Day 4)"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 33,
+    "line_start": 1302,
+    "line_end": 1328,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Concept Map: Money and Trust",
+    "frame_number": 34,
+    "line_start": 1333,
+    "line_end": 1389,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Key Terms & Definitions (I)",
+    "frame_number": 35,
+    "line_start": 1394,
+    "line_end": 1406,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Glossary defines terms that were used many frames earlier; consider placing definitions closer to first use"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Key Terms & Definitions (II)",
+    "frame_number": 36,
+    "line_start": 1411,
+    "line_end": 1425,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Atomic Execution' and 'Single Source of Truth' are CS terms; definitions are clear but the terms were introduced much earlier without this level of explanation"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 37,
+    "line_start": 1430,
+    "line_end": 1468,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "fiat"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Fiat' (as in 'fiat currency') used for the first time without prior definition; explained in-line but the term itself is financial jargon"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Self-Assessment: Question 1",
+    "frame_number": 38,
+    "line_start": 1473,
+    "line_end": 1492,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Self-Assessment: Questions 2-3",
+    "frame_number": 39,
+    "line_start": 1497,
+    "line_end": 1511,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "What's Next: Topic 1.2",
+    "frame_number": 40,
+    "line_start": 1516,
+    "line_end": 1538,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "cryptographic hashing",
+      "consensus mechanisms",
+      "decentralization"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Cryptographic hashing', 'consensus mechanisms', and 'decentralization' are all technical terms previewed without definition; acceptable for a preview frame but stacks 3 new jargon items"
+    ]
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 41,
+    "line_start": 1543,
+    "line_end": 1569,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.1_what_is_money.tex",
+    "frame_title": "Questions?",
+    "frame_number": 42,
+    "line_start": 1574,
+    "line_end": 1592,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Title Slide",
+    "frame_number": 1,
+    "line_start": 14,
+    "line_end": 16,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.1 concepts (money, trust, ledgers, double-spending)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 2,
+    "line_start": 19,
+    "line_end": 34,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.1 concepts",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FinTech",
+      "DeFi"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'FinTech' and 'DeFi' used in Key Insight block without definition; these are jargon that no-prerequisite BSc students may not know"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Prerequisites and Background",
+    "frame_number": 3,
+    "line_start": 37,
+    "line_end": 63,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.1 concepts",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "intermediaries"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "HIGH: Prerequisites list 'General knowledge of stock market trading' -- this violates the course promise of no finance prerequisites",
+      "MEDIUM: 'Multiple intermediaries exist for historical reasons' uses 'intermediaries' without definition in this frame (was explained in T1.1 but may not carry over for students starting here)"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "The Big Picture: Why Study Pain Points?",
+    "frame_number": 4,
+    "line_start": 66,
+    "line_end": 103,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "intermediaries"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "The Global Financial System: A Marvel of Complexity",
+    "frame_number": 5,
+    "line_start": 106,
+    "line_end": 135,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "commercial banks",
+      "investment banks",
+      "clearinghouses",
+      "payment networks",
+      "exchanges"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Six institutional types (central banks, commercial banks, investment banks, payment networks, exchanges, clearinghouses) shown in a diagram without any definitions; a no-prerequisite student cannot distinguish commercial from investment banks or know what a clearinghouse does",
+      "MEDIUM: '$9.6 trillion daily' statistic given without source"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "The Six Frictions: Overview",
+    "frame_number": 6,
+    "line_start": 138,
+    "line_end": 164,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "settlement",
+      "opacity",
+      "fragmentation"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Settlement', 'opacity', and 'fragmentation' are used as friction labels without definitions; each will be explained later but students see all 6 terms at once"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction #1: Slow Settlement",
+    "frame_number": 7,
+    "line_start": 167,
+    "line_end": 214,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "T+1",
+      "ACH",
+      "SWIFT",
+      "correspondent bank"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Frame introduces T+1, ACH, SWIFT, correspondent bank, batch processing, and compliance checks -- more than 5 new terms for a no-prerequisite audience",
+      "MEDIUM: 'T+1' notation is financial jargon; parenthetical explanation helps but notation itself is opaque",
+      "LOW: Diagram shows 6-hop chain that may overwhelm without progressive reveal"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Slow Settlement: The Technical Reality",
+    "frame_number": 8,
+    "line_start": 217,
+    "line_end": 269,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "basic understanding of T+1 from previous frame",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Fedwire",
+      "clearing",
+      "opportunity cost"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Adds Fedwire, clearing, and opportunity cost on top of the 6+ terms from the previous frame; cumulative jargon load is very high",
+      "MEDIUM: '$1 trillion locked in settlement = $50M+/day in opportunity cost (at 2% annual rate)' -- this is a math calculation that assumes students can verify the arithmetic and understand opportunity cost"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Slow Settlement: Who Pays?",
+    "frame_number": 9,
+    "line_start": 272,
+    "line_end": 298,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "settlement concept from frames 7-8",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "counterparty risk",
+      "working capital",
+      "systemic risk",
+      "contagion risk"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 'Counterparty risk', 'working capital', 'systemic risk', 'contagion risk' -- four finance-specific terms in one table, none defined here",
+      "MEDIUM: 'Lehman Brothers failure' reference assumes awareness of the 2008 crisis; no-prerequisite students born after 2005 may lack this context"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction #2: High Fees (Especially Cross-Border)",
+    "frame_number": 10,
+    "line_start": 301,
+    "line_end": 342,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "remittance"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Remittance' used in body text without definition (defined much later in frame 33)",
+      "LOW: Bar chart is hand-drawn in TikZ; values are approximate and could be misread"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "High Fees: Where Does Your Money Go?",
+    "frame_number": 11,
+    "line_start": 345,
+    "line_end": 388,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SWIFT messaging",
+      "correspondent bank",
+      "FX spread",
+      "lifting fees"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Five jargon terms (SWIFT messaging, correspondent bank, FX spread, lifting fees, intermediary deductions) without definitions in this frame",
+      "MEDIUM: 'FX spread' assumes students know what FX means and what a spread is",
+      "LOW: 'Lifting fees' is obscure even for finance professionals and is completely undefined"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "High Fees: The Human Cost",
+    "frame_number": 12,
+    "line_start": 391,
+    "line_end": 426,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SDG"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'UN SDG target' -- 'SDG' abbreviation not expanded (Sustainable Development Goals); no-prerequisite students may not know this"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction #3: Financial Exclusion",
+    "frame_number": 13,
+    "line_start": 429,
+    "line_end": 468,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "unbanked",
+      "underbanked"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Unbanked' and 'underbanked' are self-explanatory compound words; good accessibility"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Financial Exclusion: Global Distribution",
+    "frame_number": 14,
+    "line_start": 471,
+    "line_end": 510,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Financial Exclusion: The Cascading Effects",
+    "frame_number": 15,
+    "line_start": 513,
+    "line_end": 548,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction #4: Opacity and Information Asymmetry",
+    "frame_number": 16,
+    "line_start": 551,
+    "line_end": 601,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "information asymmetry",
+      "expense ratios",
+      "payment for order flow",
+      "interchange fees"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Five finance-specific terms (information asymmetry, expense ratios, payment for order flow, interchange fees, pricing algorithms) introduced without definitions",
+      "MEDIUM: 'Payment for order flow' is a complex market-microstructure concept; no-prerequisite students have no frame of reference"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Opacity: Real-World Examples",
+    "frame_number": 17,
+    "line_start": 604,
+    "line_end": 627,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "soft dollars",
+      "yield spread premiums",
+      "PFOF"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Table contains advanced financial jargon: 'soft dollars', 'yield spread premiums', 'PFOF' -- these are industry-insider terms inaccessible to no-prerequisite BSc students",
+      "MEDIUM: 'PFOF' abbreviation used in table without expansion (expanded only in a later frame title)"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Opacity Case Study: Payment for Order Flow",
+    "frame_number": 18,
+    "line_start": 630,
+    "line_end": 657,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "basic stock trading awareness",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "market maker",
+      "spread",
+      "order flow",
+      "execution prices"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Frame assumes knowledge of stock market order execution (market makers, spreads, order routing) -- directly violates 'no finance prerequisites' promise",
+      "HIGH: Four market-microstructure terms (market maker, spread, order flow, execution prices) used without definitions; these are specialized even for finance students",
+      "MEDIUM: Diagram shows broker-market maker-market flow that requires understanding of how stock exchanges work"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction #5: Fragmentation and Incompatibility",
+    "frame_number": 19,
+    "line_start": 660,
+    "line_end": 687,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Visa",
+      "Mastercard",
+      "ACH",
+      "SWIFT",
+      "Fedwire",
+      "SEPA"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Six payment system names (Visa, Mastercard, ACH, SWIFT, Fedwire, SEPA) shown as nodes without explaining what any of them do; assumes familiarity with payment infrastructure",
+      "MEDIUM: Incompatibility symbol (not-equal sign) between systems implies they should work together, but no explanation of what 'compatibility' means here"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Fragmentation: Domestic Fast, Cross-Border Slow",
+    "frame_number": 20,
+    "line_start": 690,
+    "line_end": 725,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "SWIFT and correspondent banks from earlier frames",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Repeats the correspondent bank chain from frame 7; good reinforcement"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Fragmentation: A Technical Mess",
+    "frame_number": 21,
+    "line_start": 728,
+    "line_end": 785,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "NACHA",
+      "ISO 15022",
+      "ISO 20022",
+      "COBOL"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Technical standard names (NACHA, ISO 15022, ISO 20022) and a programming language (COBOL) shown without any explanation; this is IT/finance infrastructure jargon completely inaccessible to no-prerequisite students",
+      "HIGH: Protocol stack comparison diagram assumes understanding of layered system architecture",
+      "MEDIUM: 'T+1', 'T+2-5', 'Same Day' settlement labels reuse notation that may still be unclear"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction #6: Limited Operating Hours",
+    "frame_number": 22,
+    "line_start": 788,
+    "line_end": 826,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Limited Hours: The Global Business Problem",
+    "frame_number": 23,
+    "line_start": 829,
+    "line_end": 866,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "UTC"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'UTC' used in diagram axis labels without explanation; most BSc students know this but it is technically jargon"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Who Bears the Cost? A Summary",
+    "frame_number": 24,
+    "line_start": 869,
+    "line_end": 895,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all six frictions from earlier frames",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "regressive"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Regressive' is economics jargon; the Key Insight block explains it but the term itself may confuse non-economics students"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Why Frictions Are Regressive",
+    "frame_number": 25,
+    "line_start": 898,
+    "line_end": 935,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Why Do These Frictions Persist?",
+    "frame_number": 26,
+    "line_start": 938,
+    "line_end": 966,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "COBOL",
+      "network effects",
+      "regulatory capture"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Regulatory capture' is political-economy jargon used without definition",
+      "LOW: 'COBOL systems from 1960s' -- COBOL is a programming language unknown to most non-CS students"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Friction as Opportunity",
+    "frame_number": 27,
+    "line_start": 969,
+    "line_end": 1014,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "six frictions framework",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "crypto rails",
+      "neobanks",
+      "L2 networks",
+      "stablecoins"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Crypto rails', 'neobanks', 'L2 networks' used without definitions; these are digital-finance insider terms",
+      "LOW: Acceptable as a forward-looking preview slide but stacks undefined terms"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Mapping Frictions to Digital Finance Solutions",
+    "frame_number": 28,
+    "line_start": 1017,
+    "line_end": 1044,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "six frictions framework",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FedNow",
+      "UPI",
+      "M-Pesa",
+      "Plaid",
+      "Stripe",
+      "L2 networks",
+      "smart contracts",
+      "permissionless wallets"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Eight new proper nouns/terms (FedNow, UPI, M-Pesa, Plaid, Stripe, L2 networks, smart contracts, permissionless wallets) in a single table with no definitions",
+      "MEDIUM: Table format does not allow space for even brief explanations; students see a wall of unfamiliar names"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Counter-Argument: Are Some Frictions Features?",
+    "frame_number": 29,
+    "line_start": 1047,
+    "line_end": 1089,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "six frictions framework",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "KYC",
+      "circuit breakers",
+      "security through obscurity"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'KYC' abbreviation used with only parenthetical context; not formally expanded until frame 34",
+      "LOW: 'Circuit breakers' and 'security through obscurity' are domain-specific terms used without definitions"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Discussion: Frictions You've Experienced",
+    "frame_number": 30,
+    "line_start": 1092,
+    "line_end": 1114,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Application: Friction Analysis Framework",
+    "frame_number": 31,
+    "line_start": 1117,
+    "line_end": 1157,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "six frictions framework",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FX markup",
+      "Wise",
+      "Flywire",
+      "crypto rails"
+    ],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Wise', 'Flywire', and 'crypto rails' used without explanation; students need context to understand the example",
+      "LOW: 'FX markup' uses 'FX' abbreviation that may not be clear to all BSc students"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Executive Summary: Key Takeaways",
+    "frame_number": 32,
+    "line_start": 1160,
+    "line_end": 1174,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Concept Map: Financial System Frictions",
+    "frame_number": 33,
+    "line_start": 1177,
+    "line_end": 1242,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Key Terms and Definitions (Part 1)",
+    "frame_number": 34,
+    "line_start": 1245,
+    "line_end": 1261,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Glossary at slide 33 defines terms that were used 20+ frames earlier (e.g., settlement, SWIFT, correspondent bank); consider moving definitions closer to first use"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Key Terms and Definitions (Part 2)",
+    "frame_number": 35,
+    "line_start": 1264,
+    "line_end": 1280,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 36,
+    "line_start": 1283,
+    "line_end": 1310,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "digital divide",
+      "algorithmic bias"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Digital divide' and 'algorithmic bias' introduced as examples of new frictions without full definitions"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Self-Assessment Question 1",
+    "frame_number": 37,
+    "line_start": 1313,
+    "line_end": 1332,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Self-Assessment Question 2",
+    "frame_number": 38,
+    "line_start": 1335,
+    "line_end": 1354,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Self-Assessment Question 3",
+    "frame_number": 39,
+    "line_start": 1357,
+    "line_end": 1376,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ACH"
+    ],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Question mentions 'ACH transfers' assuming students recall this from earlier; acceptable for self-assessment"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "What's Next: Topic 1.3 - Digital Solutions Overview",
+    "frame_number": 40,
+    "line_start": 1379,
+    "line_end": 1408,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "open banking",
+      "APIs"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'APIs' and 'open banking' previewed without definition; acceptable for a transition slide"
+    ]
+  },
+  {
+    "file": "T1.2_financial_system_pain_points.tex",
+    "frame_title": "Resources and Questions",
+    "frame_number": 41,
+    "line_start": 1411,
+    "line_end": 1432,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "BIS"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'BIS' abbreviation (Bank for International Settlements) used in reading list without expansion"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Title Slide",
+    "frame_number": 1,
+    "line_start": 16,
+    "line_end": 18,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 2,
+    "line_start": 23,
+    "line_end": 43,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Crypto/DeFi",
+      "hybrid"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Crypto/DeFi\" and \"hybrid\" used in learning objectives before being defined; students encountering the slide deck for the first time may not yet understand these terms"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Prerequisites: Recap of Money and Finance",
+    "frame_number": 3,
+    "line_start": 48,
+    "line_end": 84,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.1 three functions of money",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Prerequisites: The Financial Frictions (Topic 1.2)",
+    "frame_number": 4,
+    "line_start": 89,
+    "line_end": 136,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.2 six frictions",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "information asymmetry",
+      "counterparty risk",
+      "agency problems"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "HIGH: Cross-file inconsistency -- T1.2 names the six frictions as (1) Slow Settlement, (2) High Fees, (3) Exclusion, (4) Opacity, (5) Fragmentation, (6) Limited Hours, but this recap lists completely different categories: Information Asymmetry, Access & Inclusion, Transaction Costs, Trust & Counterparty Risk, Agency Problems, Regulatory Complexity. A student who just studied T1.2 will be confused by the mismatch.",
+      "MEDIUM: \"Information asymmetry\", \"counterparty risk\", and \"agency problems\" are economics jargon not previously defined in the course sequence"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "The Fundamental Fork",
+    "frame_number": 5,
+    "line_start": 141,
+    "line_end": 180,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "disintermediate"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"Disintermediate incumbents\" uses two terms a BSc student may not know; consider simpler phrasing such as \"remove middlemen\""
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Philosophy #1: FinTech",
+    "frame_number": 6,
+    "line_start": 185,
+    "line_end": 238,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "APIs",
+      "Open Banking",
+      "cloud computing"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"APIs and Open Banking\" listed as key technology but not defined until T1.4/Day 2; students with no CS background may not understand what an API is"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "FinTech: The Trust Model",
+    "frame_number": 7,
+    "line_start": 243,
+    "line_end": 279,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FDIC insurance",
+      "chargebacks"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: FDIC insurance is US-specific and unexplained; international students may not know this term. Chargebacks likewise undefined.",
+      "LOW: The TikZ diagram uses \"Card Network\" node without explaining what card networks are"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "FinTech Examples: Payments",
+    "frame_number": 8,
+    "line_start": 284,
+    "line_end": 325,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ACH",
+      "SWIFT",
+      "POS",
+      "mid-market FX rates"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 10 company names in one slide creates high brand density; students outside the US may not recognize most of them",
+      "MEDIUM: ACH, SWIFT, POS, and \"mid-market FX rates\" are all undefined jargon used in a single frame"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "FinTech Examples: Banking & Lending",
+    "frame_number": 9,
+    "line_start": 330,
+    "line_end": 370,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "neobanks",
+      "chartered banks",
+      "P2P marketplace",
+      "BNPL",
+      "AI-based underwriting",
+      "SMB lending",
+      "alternative data",
+      "credit infrastructure"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 9 company names (Chime, N26, Revolut, Nubank, Monzo, SoFi, Ally, LendingClub, Prosper) plus 4 more (Affirm, Klarna, Upstart, Kabbage) = 13 names in one frame, creating an overwhelming product dump",
+      "HIGH: 8 undefined jargon terms in a single frame (neobanks, chartered banks, P2P marketplace, BNPL, AI-based underwriting, SMB lending, alternative data, credit infrastructure); exceeds 5-term threshold",
+      "MEDIUM: \"BNPL (Buy Now Pay Later)\" is defined by acronym only, but the business model is not explained until T1.4"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "FinTech Examples: Investing & Insurance",
+    "frame_number": 10,
+    "line_start": 375,
+    "line_end": 411,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "robo-advisors",
+      "micro-investing",
+      "telematics"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 10 company names (Robinhood, Webull, Betterment, Wealthfront, Acorns, Stash, Public, M1 Finance, Lemonade, Oscar) in one frame; some students will disengage from a long name-list",
+      "LOW: \"Telematics-based auto\" insurance is niche jargon that is not explained"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Philosophy #2: Crypto/DeFi",
+    "frame_number": 11,
+    "line_start": 416,
+    "line_end": 477,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "smart contracts",
+      "permissionless access",
+      "public-key cryptography",
+      "consensus mechanisms",
+      "distributed ledgers"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: 5 undefined technical terms (smart contracts, public-key cryptography, consensus mechanisms, distributed ledgers, permissionless access) introduced together; these are Day 3 topics being previewed without definition",
+      "LOW: The vending-machine analogy for DeFi is good but could be misunderstood since vending machines do not handle financial logic"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Crypto/DeFi: The Trust Model",
+    "frame_number": 12,
+    "line_start": 482,
+    "line_end": 527,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "cryptographic proofs",
+      "immutable",
+      "open-source code"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: \"Cryptographic proofs verify transactions mathematically\" is abstract for a no-math-prerequisite audience but the escrow analogy helps compensate"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Trust Spectrum: Two Extremes",
+    "frame_number": 13,
+    "line_start": 532,
+    "line_end": 584,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "MetaMask",
+      "Uniswap",
+      "Aave"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: MetaMask, Uniswap, and Aave appear on the spectrum diagram without explanation; students who have not heard of these will not understand the right-hand side of the spectrum"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Crypto/DeFi Examples: Currencies & Tokens",
+    "frame_number": 14,
+    "line_start": 589,
+    "line_end": 627,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "stablecoins",
+      "fiat-backed",
+      "algorithmic",
+      "fractional-algorithmic",
+      "sidechain",
+      "optimistic rollups",
+      "zero-knowledge rollups",
+      "Layer 2",
+      "censorship-resistant",
+      "programmable"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 12 named protocols/tokens (Bitcoin, Ethereum, Solana, USDC, USDT, DAI, FRAX, Polygon, Arbitrum, Optimism, zkSync) dumped in one frame with minimal explanation",
+      "HIGH: Layer 2 solutions, rollups, and zero-knowledge proofs are Day 3-4 topics (T3.5, T4.5) presented here on Day 1 with zero context; violates prerequisite constraint",
+      "MEDIUM: 10 undefined jargon terms in one frame far exceeds the cognitive load threshold for a no-prerequisite audience"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Crypto/DeFi Examples: Exchanges",
+    "frame_number": 15,
+    "line_start": 632,
+    "line_end": 671,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Automated Market Maker",
+      "liquidity pools",
+      "order books",
+      "custodial",
+      "KYC",
+      "non-custodial",
+      "DEX aggregation"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 7 undefined jargon terms (AMM, liquidity pools, order books, custodial, KYC, non-custodial, DEX aggregation) introduced in one frame; AMM and liquidity pools are Day 4 topics",
+      "MEDIUM: 8 company/protocol names in one slide (Uniswap, SushiSwap, Curve, dYdX, 0x, Coinbase, Binance, Kraken) adds to cognitive overload"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Crypto/DeFi Examples: Lending",
+    "frame_number": 16,
+    "line_start": 676,
+    "line_end": 721,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "flash loans",
+      "algorithmic interest rates",
+      "over-collateralized",
+      "under-collateralized",
+      "liquidation"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: \"Flash loans\" and \"algorithmic interest rates\" are advanced DeFi concepts (Day 4) mentioned without explanation",
+      "MEDIUM: Over-collateralized and liquidation concepts are introduced in a bullet list without explanation of what collateral ratios mean"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Crypto/DeFi Examples: Derivatives & Infrastructure",
+    "frame_number": 17,
+    "line_start": 726,
+    "line_end": 765,
+    "purpose": "provide example",
+    "purpose_clear": false,
+    "prerequisite_knowledge": "derivatives, futures, leverage",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "derivatives",
+      "synthetic assets",
+      "perpetual futures",
+      "Virtual AMM",
+      "options protocol",
+      "permissionless leverage",
+      "oracles",
+      "indexing protocol",
+      "decentralized storage",
+      "naming service"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "CRITICAL: Derivatives, synthetic assets, perpetual futures, and permissionless leverage are advanced financial concepts requiring substantial background in finance; presenting them to a no-finance-prerequisite BSc audience on Day 1 without definitions violates the course promise",
+      "HIGH: 10 undefined jargon terms in a single frame (derivatives, synthetic assets, perpetual futures, Virtual AMM, options protocol, permissionless leverage, oracles, indexing protocol, decentralized storage, naming service)",
+      "HIGH: 8 protocol names (Synthetix, GMX, Perp Protocol, Dopex, Chainlink, The Graph, IPFS, ENS) dumped without explanation; the frame tries to cover two distinct sub-sectors (derivatives AND infrastructure) at once",
+      "MEDIUM: \"Virtual AMM derivatives\" combines two unexplained concepts into a single bullet"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Permissioned vs. Permissionless: Why Does This Matter for YOU?",
+    "frame_number": 18,
+    "line_start": 770,
+    "line_end": 822,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Well-structured comparative frame with clear student-facing language; good use of checkmarks and crosses"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Side-by-Side Comparison",
+    "frame_number": 19,
+    "line_start": 827,
+    "line_end": 854,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "KYC",
+      "pseudonymous"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: KYC appears in the table without expansion; \"pseudonymous\" may be unfamiliar to a general BSc audience"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Custodial vs. Non-Custodial: Not Your Keys, Not Your Crypto",
+    "frame_number": 20,
+    "line_start": 859,
+    "line_end": 939,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "private keys",
+      "hardware wallet"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: \"Private keys\" and \"hardware wallet\" are used but the frame does provide contextual explanation through analogies"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Comparison Deep Dive: Trust & Custody",
+    "frame_number": 21,
+    "line_start": 944,
+    "line_end": 985,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "counterparty risk",
+      "solvency"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Counterparty risk\" and \"institution solvency\" are financial terms that may need a parenthetical definition for BSc students without finance background"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Comparison Deep Dive: Access & Identity",
+    "frame_number": 22,
+    "line_start": 990,
+    "line_end": 1035,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "AML/CTF",
+      "pseudonymous"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: AML/CTF acronyms are not expanded (Anti-Money Laundering / Counter-Terrorism Financing); students cannot Google mid-lecture"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Comparison Deep Dive: Operating Characteristics",
+    "frame_number": 23,
+    "line_start": 1040,
+    "line_end": 1059,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "T+1",
+      "T+3",
+      "settlement",
+      "blockchain trilemma",
+      "Layer 2",
+      "composability",
+      "Money Legos"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 7 undefined jargon terms (T+1, T+3, settlement, blockchain trilemma, Layer 2, composability, Money Legos) in a comparison table; T+N notation is industry shorthand unfamiliar to beginners",
+      "MEDIUM: \"Blockchain trilemma\" is a Day 3 concept (T3.2) referenced here without explanation"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Tradeoffs: FinTech",
+    "frame_number": 24,
+    "line_start": 1064,
+    "line_end": 1096,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "fiat integration"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: \"Fiat integration\" is jargon; the term \"fiat\" has not been defined in this file (though likely covered in T1.1)"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Tradeoffs: Crypto/DeFi",
+    "frame_number": 25,
+    "line_start": 1101,
+    "line_end": 1133,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "composable",
+      "smart contract risks",
+      "programmable money"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: \"Composable (money legos)\" provides the metaphor inline which helps, but the concept is still abstract for Day 1"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Risk Comparison",
+    "frame_number": 26,
+    "line_start": 1138,
+    "line_end": 1164,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "counterparty risk",
+      "smart contract risk",
+      "custodial risk",
+      "censorship risk"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Table uses 4 risk-type terms (counterparty, smart contract, custodial, censorship) without definitions; assumes students absorbed all prior frames"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Regulatory Differences: What Happens When Things Go Wrong?",
+    "frame_number": 27,
+    "line_start": 1169,
+    "line_end": 1241,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "FDIC",
+      "SEC",
+      "CFPB",
+      "zero liability"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: US-centric regulatory bodies (SEC, CFPB) assumed known; international students will not know these acronyms",
+      "LOW: Terra/Luna example is effective but the dollar figure ($40 billion) may need context on scale"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "The Convergence",
+    "frame_number": 28,
+    "line_start": 1246,
+    "line_end": 1283,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "blockchain settlement"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Convergence in Practice",
+    "frame_number": 29,
+    "line_start": 1288,
+    "line_end": 1324,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "account abstraction",
+      "gas fees",
+      "social recovery",
+      "fiat on-ramps",
+      "L2 solutions"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: 5 undefined technical terms (account abstraction, gas fees, social recovery, fiat on-ramps, L2 solutions) are Day 3-4 concepts dropped casually in a bullet list"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Classification Framework",
+    "frame_number": 30,
+    "line_start": 1329,
+    "line_end": 1353,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Well-designed decision tree that synthesizes the core lesson; good pedagogical frame"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Classification Exercise",
+    "frame_number": 31,
+    "line_start": 1358,
+    "line_end": 1383,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ETFs",
+      "tokenized stocks",
+      "synthetic assets",
+      "blockchain settlement"
+    ],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Question 4 uses \"tokenized stocks\" and \"synthetic assets, blockchain settlement\" in the answer -- these are concepts not yet defined for a Day 1 audience",
+      "LOW: Question 1 mentions ETFs without expansion"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Discussion: Which Philosophy Do You Prefer?",
+    "frame_number": 32,
+    "line_start": 1436,
+    "line_end": 1468,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Application: Scenario Analysis",
+    "frame_number": 33,
+    "line_start": 1473,
+    "line_end": 1505,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "stablecoin",
+      "forex restrictions",
+      "DAO",
+      "multisig wallets",
+      "on-chain governance"
+    ],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: Scenario 3 uses DAO, multisig wallets, and on-chain governance -- all Day 5 topics -- in a Day 1 exercise",
+      "LOW: \"Forex restrictions\" in scenario 1 may be unfamiliar but is somewhat self-explanatory in context"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Real-World Use Cases: When to Choose Which?",
+    "frame_number": 34,
+    "line_start": 1388,
+    "line_end": 1431,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "DAO treasury management",
+      "permissionless derivatives"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"DAO treasury management\" and \"permissionless derivatives access\" are advanced concepts in a frame meant to help students choose between approaches"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 35,
+    "line_start": 1510,
+    "line_end": 1532,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Concept Map: The Philosophical Fork",
+    "frame_number": 36,
+    "line_start": 1537,
+    "line_end": 1580,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Key Terms & Definitions (1/2)",
+    "frame_number": 37,
+    "line_start": 1585,
+    "line_end": 1604,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Definitions frame is well-structured but comes at slide 37 -- many of these terms were used 20+ slides earlier without definition"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Key Terms & Definitions (2/2)",
+    "frame_number": 38,
+    "line_start": 1609,
+    "line_end": 1631,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: KYC, composability, and DEX are defined here on frame 38 but were used extensively in frames 15, 19, 22-23; definitions should appear before first use or as footnotes on the slide where the term first appears"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 39,
+    "line_start": 1636,
+    "line_end": 1653,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Self-Assessment Question 1",
+    "frame_number": 40,
+    "line_start": 1658,
+    "line_end": 1675,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Self-Assessment Questions 2-3",
+    "frame_number": 41,
+    "line_start": 1680,
+    "line_end": 1707,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "What's Next: Topic 1.4 -- Landscape Overview",
+    "frame_number": 42,
+    "line_start": 1712,
+    "line_end": 1732,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Resources for Further Learning",
+    "frame_number": 43,
+    "line_start": 1737,
+    "line_end": 1761,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"a]6z\" on line 1752 appears to be a typo for \"a16z\" (Andreessen Horowitz)"
+    ]
+  },
+  {
+    "file": "T1.3_fintech_vs_crypto_defi.tex",
+    "frame_title": "Questions?",
+    "frame_number": 44,
+    "line_start": 1766,
+    "line_end": 1783,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Title Slide",
+    "frame_number": 1,
+    "line_start": 14,
+    "line_end": 16,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 2,
+    "line_start": 19,
+    "line_end": 40,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.1-T1.3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ecosystem",
+      "infrastructure layers",
+      "application layers"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"Infrastructure and application layers\" distinction is introduced in objectives before being explained"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Prerequisites and Background",
+    "frame_number": 3,
+    "line_start": 43,
+    "line_end": 80,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T1.1-T1.3",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "intermediation",
+      "disintermediation",
+      "rails"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"Intermediation vs. disintermediation\" listed as review concept but \"disintermediation\" was not formally defined in T1.1-T1.3"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "The Landscape Framework",
+    "frame_number": 4,
+    "line_start": 83,
+    "line_end": 129,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good pedagogical note telling students not to memorize everything; helps manage cognitive load"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "The Digital Finance Landscape",
+    "frame_number": 5,
+    "line_start": 132,
+    "line_end": 169,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: TikZ diagram with six sectors plus infrastructure layer is a good visual overview; the interconnection arrows add value"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Sector 1: Payments",
+    "frame_number": 6,
+    "line_start": 172,
+    "line_end": 218,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "P2P",
+      "C2B",
+      "B2B",
+      "remittances",
+      "POS",
+      "Bitcoin Lightning",
+      "Solana Pay"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: P2P, C2B, B2B abbreviations used in the bullet list but only the \"Simple Examples You Know\" block below provides context; could confuse first-time readers scanning from top to bottom",
+      "MEDIUM: \"Bitcoin Lightning\" and \"Solana Pay\" are named as crypto examples without any context about what they are"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Payments: The Foundation of Finance",
+    "frame_number": 7,
+    "line_start": 221,
+    "line_end": 252,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "ACH",
+      "Wire"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Volume figures ($500B+/yr through $150T+/yr) are presented without source attribution and may overwhelm without context",
+      "LOW: ACH and Wire in the B2B column are not expanded"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Payments: Innovation Spectrum",
+    "frame_number": 8,
+    "line_start": 255,
+    "line_end": 305,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "settlement layer",
+      "programmable payments",
+      "float"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Instant P2P (funded by float)\" uses a technical banking term without definition",
+      "LOW: The spectrum visualization is a good pedagogical tool for showing gradual innovation"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Sector 2: Lending",
+    "frame_number": 9,
+    "line_start": 308,
+    "line_end": 353,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "SMB lending",
+      "collateralized lending",
+      "flash loans",
+      "embedded finance"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Flash loans\" mentioned in the coverage list without explanation; this is an advanced Day 4 concept",
+      "LOW: Good embedded finance callout block explaining BNPL in a student-friendly way"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Lending: Credit Innovation",
+    "frame_number": 10,
+    "line_start": 356,
+    "line_end": 398,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "overcollateralized",
+      "CDP",
+      "Flash Loans",
+      "alternative credit scoring",
+      "trustless collateral"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"CDP: MakerDAO\" in the DeFi examples uses the acronym CDP (Collateralized Debt Position) without expansion",
+      "MEDIUM: \"Trustless collateral\" combines two abstract concepts without definition"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "BNPL: Buy Now, Pay Later",
+    "frame_number": 11,
+    "line_start": 401,
+    "line_end": 440,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "APR",
+      "compound interest",
+      "defaults"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"0% APR\" uses the acronym APR without expansion (Annual Percentage Rate); a no-finance-prerequisite student may not know this",
+      "LOW: Good practical explanation of how BNPL works step by step"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Sector 3: Trading & Exchanges",
+    "frame_number": 12,
+    "line_start": 443,
+    "line_end": 487,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "derivatives",
+      "Forex",
+      "NFT",
+      "tokenized assets",
+      "Balancer",
+      "GMX"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 6 undefined terms (derivatives, Forex, NFT, tokenized assets, Balancer, GMX) in the coverage list and examples; derivatives and Forex are financial concepts that violate the no-finance-prerequisite assumption",
+      "LOW: Good callout block noting sector boundary fluidity -- helps students understand the landscape is not rigid"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Trading: CEX vs. DEX",
+    "frame_number": 13,
+    "line_start": 490,
+    "line_end": 527,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "order book model",
+      "AMM",
+      "custody",
+      "fiat on/off ramps"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Order book model\" and \"AMM\" appear in the CEX/DEX boxes without definitions; AMM is explained in the next frame but order books never are",
+      "MEDIUM: Volume figures ($50B+/day vs $5B+/day) lack source attribution"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Trading Innovation: Automated Market Makers",
+    "frame_number": 14,
+    "line_start": 530,
+    "line_end": 568,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "liquidity pool",
+      "liquidity providers",
+      "constant product",
+      "LP"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: The formula x * y = k (constant product) on line 565 violates the no-math-prerequisites promise; students without math background cannot interpret this formula or understand why it matters",
+      "MEDIUM: \"Liquidity providers deposit assets, earn trading fees\" compresses an entire DeFi concept into one sentence without explaining what a liquidity pool actually is or why someone would deposit into one",
+      "MEDIUM: LP abbreviation used in the TikZ diagram without expansion nearby"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Sector 4: Investing & Wealth Management",
+    "frame_number": 15,
+    "line_start": 571,
+    "line_end": 615,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "robo-advisors",
+      "fractional investing",
+      "yield aggregation",
+      "Yearn Finance",
+      "Index Coop",
+      "Enzyme Finance"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Three DeFi protocol names (Yearn Finance, Index Coop, Enzyme Finance) listed without explanation of what they do",
+      "LOW: Tokenization callout block is excellent -- uses concrete examples ($100 of a building) to make the concept tangible"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Investing: Robo-Advisors Democratized Wealth Management",
+    "frame_number": 16,
+    "line_start": 618,
+    "line_end": 656,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "AUM",
+      "ETF",
+      "tax-loss harvesting",
+      "rebalancing",
+      "risk questionnaire",
+      "diversified portfolio"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: AUM (Assets Under Management), ETF (Exchange-Traded Fund), and tax-loss harvesting are all undefined finance jargon presented as if students already know them; AUM appears in fee comparison ($250K+ minimum, 1% AUM fee vs 0.25% AUM fee) which is meaningless without knowing what AUM is",
+      "MEDIUM: \"Automatic tax-loss harvesting\" is an advanced wealth-management concept that requires understanding of capital gains taxes; entirely inappropriate for a no-finance-prerequisite audience on Day 1",
+      "MEDIUM: \"Diversified ETF portfolio\" combines three undefined terms into one phrase"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Investing: DeFi Yield Strategies",
+    "frame_number": 17,
+    "line_start": 659,
+    "line_end": 693,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "DeFi lending protocols",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "vault",
+      "yield aggregation",
+      "impermanent loss",
+      "protocol risk",
+      "smart contract risk"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: \"Impermanent loss\" in the risk warning is a highly technical DeFi concept (Day 4) used here without definition",
+      "MEDIUM: The diagram assumes students understand what Aave, Compound, and Curve are; these were listed but not explained in T1.3",
+      "LOW: The Yearn vault diagram is actually well-structured and could be a good teaching tool if the prerequisite terms were defined"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Sector 5: Insurance",
+    "frame_number": 18,
+    "line_start": 696,
+    "line_end": 734,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "parametric insurance",
+      "peer-to-peer insurance",
+      "embedded insurance",
+      "smart contract coverage"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Four specialized insurance terms (parametric, P2P, embedded, smart contract coverage) listed in the overview without definitions",
+      "LOW: Crypto examples (Nexus Mutual, Cover Protocol, InsurAce) listed without context"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Insurance: InsurTech Innovation",
+    "frame_number": 19,
+    "line_start": 737,
+    "line_end": 776,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "premiums",
+      "behavioral data pricing"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good case study approach with Lemonade; concrete numbers (90 seconds, 3 minutes) make it tangible",
+      "LOW: Parametric insurance is well-explained with the flight delay example"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Insurance: DeFi Smart Contract Coverage",
+    "frame_number": 20,
+    "line_start": 779,
+    "line_end": 819,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "staking, DeFi protocols",
+    "prerequisite_violated": true,
+    "jargon_undefined": [
+      "staked NXM",
+      "risk pool",
+      "oracle manipulation",
+      "protocol insolvency",
+      "claims assessors",
+      "DeFi exploits"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: \"Staked NXM\" assumes knowledge of token staking mechanics (Day 4-5 topic); the entire Nexus Mutual model requires understanding of staking, risk pools, and decentralized governance",
+      "MEDIUM: \"Oracle manipulation\" is an advanced attack vector concept from Day 5 (T5.1) presented here without any context about what oracles are or how they can be manipulated",
+      "LOW: The TikZ diagram showing Buyers/Stakers/Assessors/Risk Pool is well-structured but the concepts it represents are too advanced for Day 1"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Sector 6: Banking Infrastructure",
+    "frame_number": 21,
+    "line_start": 822,
+    "line_end": 866,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "BaaS",
+      "core banking platforms",
+      "open banking APIs",
+      "account aggregation",
+      "Plaid",
+      "MX",
+      "Yodlee",
+      "ERC-4337",
+      "account abstraction"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: 9 undefined terms/names crammed into one frame (BaaS, core banking platforms, open banking APIs, account aggregation, Plaid, MX, Yodlee, ERC-4337, account abstraction); ERC-4337 is an Ethereum standard from Day 3-4 topics",
+      "MEDIUM: \"Synapse, Unit, Treasury Prime\" are niche BaaS providers that even industry professionals may not know; listing them without context adds noise"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Banking: Neobanks",
+    "frame_number": 22,
+    "line_start": 869,
+    "line_end": 910,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "interchange",
+      "CAC",
+      "viral growth"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Revenue from interchange, premium tiers\" and \"Lower CAC through viral growth\" use marketing/business jargon (interchange fees, Customer Acquisition Cost) without definition"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Banking: BaaS Infrastructure",
+    "frame_number": 23,
+    "line_start": 913,
+    "line_end": 945,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "bank charter",
+      "Shopify Balance"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: The three-layer diagram (Applications / BaaS Platforms / Partner Banks) is a clear visual; good use of real examples (Shopify Balance, Uber driver accounts)"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Infrastructure Layer",
+    "frame_number": 24,
+    "line_start": 948,
+    "line_end": 978,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "DIDs",
+      "ENS"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: DIDs (Decentralized Identifiers) and ENS (Ethereum Name Service) appear in the identity column without expansion"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Infrastructure: Blockchain Networks",
+    "frame_number": 25,
+    "line_start": 981,
+    "line_end": 1017,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "Layer 2s",
+      "composable building blocks"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"Decentralization vs Scalability vs Security\" tradeoff (blockchain trilemma) presented without defining these terms in context or naming it as a trilemma"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Infrastructure: APIs and Open Banking",
+    "frame_number": 26,
+    "line_start": 1020,
+    "line_end": 1060,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "PSD2",
+      "CDR framework"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good use of the Uber/Plaid example to explain APIs in student-friendly language",
+      "MEDIUM: PSD2 and CDR are regulatory acronyms listed without expansion (Payment Services Directive 2, Consumer Data Right)"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Infrastructure: Data and Identity",
+    "frame_number": 27,
+    "line_start": 1063,
+    "line_end": 1097,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "TVL",
+      "DIDs",
+      "verifiable credentials"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: \"$75B+ TVL secured\" uses TVL (Total Value Locked) without expansion; this is a DeFi-specific metric",
+      "LOW: The identity challenge framing is good but abstract"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Emerging Categories",
+    "frame_number": 28,
+    "line_start": 1100,
+    "line_end": 1147,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "DAOs",
+      "tokenization",
+      "CBDCs",
+      "wholesale vs. retail"
+    ],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good simple framing of CBDC as \"government-issued digital cash\" in the callout block",
+      "MEDIUM: \"Wholesale vs. retail\" CBDC distinction is introduced without definition of what these terms mean in a central banking context"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Discussion: The Convergence Trend",
+    "frame_number": 29,
+    "line_start": 1150,
+    "line_end": 1192,
+    "purpose": "discuss",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "account abstraction"
+    ],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"Account abstraction\" in the crypto-side examples is a Day 3-4 concept but context makes it reasonably guessable"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Application: Mapping Innovations",
+    "frame_number": 30,
+    "line_start": 1195,
+    "line_end": 1229,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good synthesis exercise; students apply the classification framework from T1.3 and the sector framework from T1.4"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 31,
+    "line_start": 1232,
+    "line_end": 1272,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Concept Map: The Digital Finance Ecosystem",
+    "frame_number": 32,
+    "line_start": 1275,
+    "line_end": 1319,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Key Terms and Definitions (Part 1)",
+    "frame_number": 33,
+    "line_start": 1322,
+    "line_end": 1346,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Definitions frame appears at slide 33; many terms here (AMM, BaaS, embedded finance) were used as early as slides 9-14 without definition. Moving definitions earlier or adding footnotes would help."
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Key Terms and Definitions (Part 2)",
+    "frame_number": 34,
+    "line_start": 1349,
+    "line_end": 1377,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: ERC-4337 mentioned in the Account Abstraction definition; this is highly technical for a Day 1 glossary frame"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 35,
+    "line_start": 1380,
+    "line_end": 1412,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good myth-busting format; all six misconceptions are addressed clearly"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Self-Assessment: Question 1",
+    "frame_number": 36,
+    "line_start": 1415,
+    "line_end": 1434,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Self-Assessment: Questions 2 & 3",
+    "frame_number": 37,
+    "line_start": 1437,
+    "line_end": 1460,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "low",
+    "findings": []
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Looking Ahead: Day 2",
+    "frame_number": 38,
+    "line_start": 1463,
+    "line_end": 1489,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "network effects",
+      "unbundling"
+    ],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"Network effects\" and \"unbundling of finance\" are Day 2 preview terms, appropriately used in a forward-looking frame"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Resources",
+    "frame_number": 39,
+    "line_start": 1492,
+    "line_end": 1517,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [
+      "TVL"
+    ],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: \"TVL tracking\" in the DeFi Llama description uses an undefined acronym; expand to Total Value Locked"
+    ]
+  },
+  {
+    "file": "T1.4_landscape_overview.tex",
+    "frame_title": "Questions?",
+    "frame_number": 40,
+    "line_start": 1520,
+    "line_end": 1541,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": false,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": []
+  }
+]

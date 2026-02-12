@@ -1,0 +1,2015 @@
+[
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 20,
+    "line_end": 34,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["settlement", "interchange"],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: LO#1 mentions 'four-layer payment stack' before it is introduced (frame 2).",
+      "MEDIUM: LO#4 uses 'interchange' -- term not defined until frame 7. Students see it cold here.",
+      "LOW: LO#2 mentions 'settlement' before the prerequisite frame defines it on the next slide."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Prerequisites: What is a Payment?",
+    "frame_number": 2,
+    "line_start": 37,
+    "line_end": 72,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "HIGH: 'Clearing' is listed as essential component #2 but never revisited or explained beyond 'verification and reconciliation'. For BSc students with no finance background this is a gap.",
+      "LOW: 'Float' is defined in Key Terms, good practice.",
+      "LOW: Dual definition of 'settlement' (item #3 and Key Terms box) is slightly redundant but reinforcing."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "The Hidden Journey of a Payment",
+    "frame_number": 3,
+    "line_start": 75,
+    "line_end": 105,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment, settlement (from frame 2)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: TikZ diagram uses custom styles (process, arrow) from template -- should compile cleanly.",
+      "LOW: The (cont.) frame is very thin (insight block only). Could be combined with main frame to reduce slide count."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Layer 1: Settlement Systems",
+    "frame_number": 4,
+    "line_start": 108,
+    "line_end": 153,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment stack (frame 3), settlement and float (frame 2)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["banking consortia"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'banking consortia' used without definition (line 119). Minor -- context makes it clear.",
+      "LOW: Good reinforcement of authorization vs settlement distinction."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Layer 2: Card Networks",
+    "frame_number": 5,
+    "line_start": 156,
+    "line_end": 195,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment stack layers (frame 3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Issuing bank' and 'acquiring bank' are footnoted (lines 171-172). Good practice for BSc audience.",
+      "LOW: Network effects diagram is clear and self-contained."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Layer 3: Payment Processors",
+    "frame_number": 6,
+    "line_start": 198,
+    "line_end": 242,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "card networks (frame 5), API concept is helpful but not required",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["APIs"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "MEDIUM: 'APIs' mentioned (line 210) but not defined until T2.2. BSc students may not know the term.",
+      "LOW: Before/after comparison is effective pedagogically."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Layer 4: Consumer Interfaces",
+    "frame_number": 7,
+    "line_start": 245,
+    "line_end": 290,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment stack (frame 3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["cross-selling"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'cross-selling' (line 265) used without definition. Context makes it inferable but BSc students may not know the term.",
+      "LOW: 'Think About It' block is good engagement."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "The Four-Party Model",
+    "frame_number": 8,
+    "line_start": 293,
+    "line_end": 324,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "issuing bank, acquiring bank (frame 5), authorization vs settlement (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "MEDIUM: Dense TikZ diagram with 6 numbered steps and 5 nodes. Cognitive load is high for students encountering this for the first time.",
+      "LOW: Arrow step 5 goes from issuer to cardholder which is an unusual representation -- the approval flows back through the network and acquirer. Simplification is acceptable for BSc level but slightly misleading."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Who Pays Whom?",
+    "frame_number": 9,
+    "line_start": 327,
+    "line_end": 355,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "four-party model (frame 8), issuing/acquiring banks (frame 5)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["assessment fees"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'assessment fees' (line 342) used without definition. BSc students will not know this term.",
+      "LOW: Good insight about consumer ultimately paying through prices."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "The Cost of Convenience",
+    "frame_number": 10,
+    "line_start": 358,
+    "line_end": 401,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "interchange concept (introduced here), four-party model (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Interchange fees' properly introduced and explained. 'Cross-subsidization' footnoted. Good.",
+      "LOW: Think About It question on (cont.) slide is effective."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Payment Methods: A Spectrum of Trade-Offs",
+    "frame_number": 11,
+    "line_start": 404,
+    "line_end": 438,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "settlement speed (frame 4), chargebacks (introduced here), real-time rails (not yet introduced)",
+    "prerequisite_violated": true,
+    "jargon_undefined": ["real-time rails", "chargebacks"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "HIGH: 'Real-Time Rails' appears in the table (line 419) but is not introduced until frame 12. Forward reference for BSc students.",
+      "MEDIUM: 'Chargebacks' mentioned in parenthetical (line 417) before being defined in frame 13 (line 593). Used before defined.",
+      "LOW: Table format is effective for comparison."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Real-Time Payment Systems",
+    "frame_number": 12,
+    "line_start": 441,
+    "line_end": 484,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "card networks (frame 5), settlement (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["commoditizes"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Commoditizes payment rails' (line 473) -- 'commoditizes' and 'rails' are jargon. BSc students may not know either term.",
+      "LOW: Good comparison to card networks on the (cont.) slide.",
+      "LOW: 'Micropayments' mentioned (line 475) without definition, but inferable from context."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Cross-Border Payments: The Broken System",
+    "frame_number": 13,
+    "line_start": 487,
+    "line_end": 526,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "settlement systems (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Correspondent banking' is properly footnoted (line 518). Good practice.",
+      "LOW: TikZ diagram with fee hops is clear and intuitive.",
+      "LOW: 'Anti-money laundering' (line 515) is used as a descriptor but not formally defined. Inferable."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "FinTech Solutions for Cross-Border Payments",
+    "frame_number": 14,
+    "line_start": 529,
+    "line_end": 572,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "correspondent banking (frame 13), blockchain concept (Day 3 material)",
+    "prerequisite_violated": true,
+    "jargon_undefined": ["stablecoin"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Stablecoin' (line 557, column 3 heading) is used without definition. It is a Day 4 concept. BSc students encounter it cold here.",
+      "MEDIUM: 'Blockchain Settlement' (column 2) references blockchain before Day 3 coverage. Forward dependency.",
+      "LOW: Three-column layout for three approaches is effective."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "When Payments Fail",
+    "frame_number": 15,
+    "line_start": 575,
+    "line_end": 623,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment authorization (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Chargeback' properly footnoted (line 594). Good.",
+      "LOW: 'False positive' is explained inline. Good practice for BSc level.",
+      "LOW: Think About It on (cont.) slide is effective engagement."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Buy Now Pay Later (BNPL)",
+    "frame_number": 16,
+    "line_start": 626,
+    "line_end": 679,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "merchant fees (frame 9-10)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Underwriting' is properly footnoted on the (cont.) slide (line 673). Good.",
+      "LOW: Business model tensions are clearly laid out.",
+      "LOW: (cont.) slide has both alertblock and insight -- slightly dense but manageable."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Hands-On: NB02 Payment Transaction Analysis",
+    "frame_number": 17,
+    "line_start": 682,
+    "line_end": 722,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment methods and fee structures (frames 9-11)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["network graph"],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'Network graph' (line 706) may be unfamiliar but is introduced in the exercise context.",
+      "LOW: 'No Programming Prerequisites' box is reassuring for the target audience. Good."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "NB02 Exercise Tasks",
+    "frame_number": 18,
+    "line_start": 725,
+    "line_end": 768,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment methods, fee structures, settlement (frames 4, 9-11)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Four-part structure is clear. Good scaffolding.",
+      "LOW: 'Summary statistics' and 'network analysis' may be new concepts for some BSc students but are standard."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Discussion: Choosing Payment Methods",
+    "frame_number": 19,
+    "line_start": 771,
+    "line_end": 818,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "payment methods spectrum (frame 11), fee structures (frame 10)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Four scenarios cover different dimensions well (recurring, small, large, cross-border).",
+      "LOW: 'No single right answers' disclaimer is appropriate."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Discussion: Where Will Disruption Happen?",
+    "frame_number": 20,
+    "line_start": 821,
+    "line_end": 850,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Good synthesis slide. Discussion questions reference earlier concepts.",
+      "LOW: 'Why haven't cryptocurrencies replaced traditional payments' previews Day 3 material but as a question, not an assertion."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Executive Summary: Key Takeaways",
+    "frame_number": 21,
+    "line_start": 853,
+    "line_end": 870,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five takeaways are concise and well-structured.",
+      "LOW: One-sentence summary is effective."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Concept Map: Digital Payments Ecosystem",
+    "frame_number": 22,
+    "line_start": 873,
+    "line_end": 907,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Concept map is a good visual summary. Reading instruction provided."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Key Terms and Definitions",
+    "frame_number": 23,
+    "line_start": 910,
+    "line_end": 926,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Seven terms defined. All were introduced earlier in the slides. Good consolidation."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 24,
+    "line_start": 929,
+    "line_end": 948,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Four myth/reality pairs are well-chosen and address likely student misunderstandings."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "Self-Assessment",
+    "frame_number": 25,
+    "line_start": 951,
+    "line_end": 968,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.1 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Three questions map to LOs well. Mastery check is appropriate."
+    ]
+  },
+  {
+    "file": "T2.1_digital_payments.tex",
+    "frame_title": "What's Next: Topic 2.2 --- The API Economy",
+    "frame_number": 26,
+    "line_start": 971,
+    "line_end": 1007,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["embedded finance"],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "MEDIUM: 'Embedded finance' (line 979) is mentioned in the preview without definition. Not critical since it is a preview, but students may wonder.",
+      "LOW: Good bridge connecting payment processors (Layer 3) to the API topic."
+    ]
+  },
+
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 22,
+    "line_end": 36,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["BaaS", "token-based security"],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: LO#3 uses 'Banking-as-a-Service' without abbreviation context. LO#5 mentions 'token-based security' -- jargon for BSc students at this stage.",
+      "LOW: Key Competency line uses BaaS abbreviation (line 35) before it is expanded."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Prerequisites: What You Need to Know",
+    "frame_number": 2,
+    "line_start": 41,
+    "line_end": 70,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "T2.1 banking as bundled service",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good scaffolding. Client-server, authentication, authorization all clearly defined.",
+      "LOW: Reference to T2.1 'unbundling' connects well."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "The Traditional Banking Problem",
+    "frame_number": 3,
+    "line_start": 75,
+    "line_end": 110,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "traditional banking (Day 1)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["proprietary systems"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: 'Proprietary systems' (line 77) is used but inferable from context.",
+      "LOW: TikZ diagram clearly shows the FinTech-bank barrier.",
+      "LOW: API solution is introduced on (cont.) slide as the punchline. Good narrative arc."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "What is an API?",
+    "frame_number": 4,
+    "line_start": 115,
+    "line_end": 149,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "the banking problem (frame 3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Jargon explained' box at bottom explicitly defines API, endpoint, request, response. Excellent for BSc audience.",
+      "LOW: Restaurant menu analogy is effective."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "The Restaurant Analogy",
+    "frame_number": 5,
+    "line_start": 154,
+    "line_end": 203,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "API concept (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Three-column breakdown (Menu, Waiter, Kitchen) maps cleanly to (API Spec, API, Bank). Effective pedagogy."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "How APIs Communicate",
+    "frame_number": 6,
+    "line_start": 208,
+    "line_end": 251,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "API concept (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["HTTP"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Frame is [fragile] with lstlisting code block. While the code is simple pseudo-HTTP, BSc students with no programming background may find this intimidating.",
+      "LOW: 'HTTP' is explained in the jargon box at bottom (line 250). Good.",
+      "LOW: GET/POST/PUT/DELETE are explained with plain-English examples. Good scaffolding."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "The Unbundling of Banking",
+    "frame_number": 7,
+    "line_start": 256,
+    "line_end": 300,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "API concept (frame 4), traditional banking (frame 3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["neobanks"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'neobanks' (line 279) appears as a label without definition. BSc students may not know this term. It is defined later in the misconceptions frame but first encounter is here.",
+      "LOW: TikZ diagram showing monolithic bank breaking into components is clear."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Open Banking: The Concept",
+    "frame_number": 8,
+    "line_start": 305,
+    "line_end": 341,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "API concept (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Clear formal definition of Open Banking with customer consent emphasis.",
+      "LOW: 'What Banks Must Share' vs 'Key Principles' columns are well-structured."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Open Banking: Regulatory Approaches",
+    "frame_number": 9,
+    "line_start": 346,
+    "line_end": 383,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "open banking (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["screen-scraping", "interoperability"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Screen-scraping' (line 370) is mentioned without definition here; it is explained later in frame 14 (API Security). Used before defined.",
+      "LOW: 'Interoperability' (line 357) -- slightly jargon-heavy but inferable.",
+      "LOW: Regulated vs market-driven comparison is effective."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "AISP and PISP: Read Access vs. Write Access",
+    "frame_number": 10,
+    "line_start": 388,
+    "line_end": 438,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "open banking (frame 8), API concept (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: AISP and PISP are two new acronyms introduced simultaneously. For BSc students, two new abbreviations plus their full names is a lot to absorb in one frame.",
+      "MEDIUM: 'TPP (Third Party Provider)' and 'account aggregation' are introduced in the jargon box on the (cont.) slide. Good, but adds to total concept count (4 new terms on this logical slide).",
+      "LOW: Read vs write framing is intuitive."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Open Banking Architecture: The Consent Flow",
+    "frame_number": 11,
+    "line_start": 443,
+    "line_end": 475,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "AISP/PISP (frame 10), API concept (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["access token", "API gateway"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Access token' (line 459) and 'API gateway' (line 454) are used in the TikZ diagram without prior definition. The (cont.) slide explains tokens via analogy (concert wristband), but the main frame uses the term first.",
+      "LOW: TikZ consent flow is clear with numbered steps."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "API Types in Financial Services",
+    "frame_number": 12,
+    "line_start": 480,
+    "line_end": 508,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "APIs (frame 4), open banking (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["KYC"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Six API types introduced in a single table. This is 6 new concepts in one frame -- exceeds the 5-concept threshold.",
+      "LOW: 'KYC' is explained in the jargon box (line 507). Good.",
+      "LOW: Table format is readable."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Banking-as-a-Service: The Concept",
+    "frame_number": 13,
+    "line_start": 513,
+    "line_end": 551,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "APIs (frame 4), unbundling (frame 7)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["charter"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Charter' (line 520) is used without definition here. It is defined later in the BaaS Stack frame (line 591). Used before defined.",
+      "LOW: Without/With BaaS comparison is effective.",
+      "LOW: BaaS definition is clear and formal."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "The BaaS Stack: What You Build vs. What You Rent",
+    "frame_number": 14,
+    "line_start": 556,
+    "line_end": 592,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "BaaS concept (frame 13)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five-layer stack diagram is clear. 'Middleware' and 'Charter' are defined in the jargon box on the (cont.) slide. Good.",
+      "LOW: Build vs Rent braces on the diagram are intuitive."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "BaaS Business Model: How Everyone Gets Paid",
+    "frame_number": 15,
+    "line_start": 597,
+    "line_end": 633,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "BaaS concept (frame 13), interchange (from T2.1)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["interest spread"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Interest spread' (line 609) -- the concept of the difference between deposit and lending rates is not explained for BSc students. Quick parenthetical helps but the term itself is jargon.",
+      "LOW: Interchange is re-explained in the jargon box (line 632). Good cross-reference to T2.1.",
+      "LOW: 'Who Gets What' framing is clear."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Embedded Finance: Financial Services at the Moment of Need",
+    "frame_number": 16,
+    "line_start": 638,
+    "line_end": 676,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "BaaS (frame 13), APIs (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Conceptual examples are concrete and relatable (e-commerce, ride-sharing, retail, freelancing).",
+      "LOW: 'Why Non-Banks Have Advantages' block is clear."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "API Security: How Trust Works",
+    "frame_number": 17,
+    "line_start": 681,
+    "line_end": 720,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "APIs (frame 4), open banking (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["OAuth"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'OAuth' (line 702) is used in the heading. While the mechanism is explained, the acronym itself is not expanded (it stands for 'Open Authorization'). Defined later in Key Terms (frame 21).",
+      "LOW: Valet key analogy is excellent for BSc audience.",
+      "LOW: Old way vs new way comparison is effective."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Risks and Challenges in BaaS",
+    "frame_number": 18,
+    "line_start": 725,
+    "line_end": 763,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "BaaS concept (frame 13-14)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["concentration risk"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Concentration risk' (line 737) -- financial jargon not defined. BSc students may not know this term.",
+      "LOW: Dual perspective (risks for FinTechs + risks for partner banks) is balanced.",
+      "LOW: 'Anti-money-laundering' (line 746) is used again without formal definition but is descriptive."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Hands-On Exercise: Notebook NB03",
+    "frame_number": 19,
+    "line_start": 768,
+    "line_end": 793,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "APIs, open banking, AISP/PISP (frames 4, 8, 10)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five-step exercise is well-scaffolded.",
+      "LOW: 'Even without prior programming experience' reassurance is appropriate."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Discussion: Who Wins in Open Banking?",
+    "frame_number": 20,
+    "line_start": 798,
+    "line_end": 834,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Winners/Losers/Uncertain three-column is effective.",
+      "LOW: Discussion questions are open-ended and appropriate."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Discussion: Building a FinTech with BaaS",
+    "frame_number": 21,
+    "line_start": 839,
+    "line_end": 862,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "BaaS stack (frame 14), APIs (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["neobank"],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Neobank' is used (line 840) -- still not formally defined at this point. It appears in the misconceptions frame (frame 22) but is used here first in a scenario context.",
+      "LOW: Five-step TikZ pipeline is a good visual for the scenario exercise."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Executive Summary",
+    "frame_number": 22,
+    "line_start": 867,
+    "line_end": 877,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five takeaways are concise and map to the main themes."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Concept Map: The API Economy Ecosystem",
+    "frame_number": 23,
+    "line_start": 882,
+    "line_end": 927,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Concept map shows relationships between APIs, Open Banking, BaaS, and Embedded Finance. Clear.",
+      "LOW: Footnote explains the progression. Good."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Key Terms and Definitions",
+    "frame_number": 24,
+    "line_start": 932,
+    "line_end": 948,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Seven terms defined: API, Open Banking, AISP, PISP, BaaS, Embedded Finance, OAuth. All were introduced earlier."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "Common Misconceptions and Self-Assessment",
+    "frame_number": 25,
+    "line_start": 953,
+    "line_end": 988,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.2 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Myth 1 about neobanks finally provides the definition context -- 'Most neobanks are FinTechs partnering with licensed banks.' This is the closest to a definition in the deck but comes very late (frame 25 of 26).",
+      "LOW: Four self-assessment questions map well to LOs."
+    ]
+  },
+  {
+    "file": "T2.2_api_economy_baas.tex",
+    "frame_title": "What's Next",
+    "frame_number": 26,
+    "line_start": 993,
+    "line_end": 1020,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good bridge linking Open Banking APIs to data-driven finance.",
+      "LOW: Preview of T2.3 is clear."
+    ]
+  },
+
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 22,
+    "line_end": 38,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["algorithmic bias", "explainability", "competitive moats"],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: LO#4 uses 'algorithmic bias' and LO#5 uses 'explainability' -- both are technical terms that BSc students encounter for the first time here. They are explained later but appear cold in the LOs.",
+      "LOW: LO#6 mentions 'competitive moats' -- business jargon, inferable from context."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Prerequisites: Understanding Credit",
+    "frame_number": 2,
+    "line_start": 43,
+    "line_end": 82,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Credit types (revolving, installment, point-of-sale) are clearly defined with examples.",
+      "LOW: Good scaffolding for students with no finance background.",
+      "LOW: BNPL reference connects back to T2.1."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "The Core Problem of Lending",
+    "frame_number": 3,
+    "line_start": 87,
+    "line_end": 133,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit concept (frame 2)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["collateral"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Collateral' (line 118) is used as a heading but the explanation ('assets the lender can claim', 'secured vs unsecured loans') may need more for BSc students. 'Secured vs unsecured' is not defined.",
+      "LOW: Three-column willingness/capacity/collateral framework is clear."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Traditional Credit Scoring",
+    "frame_number": 4,
+    "line_start": 138,
+    "line_end": 182,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "core lending problem (frame 3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Credit score concept is well-explained without using specific score ranges (e.g., FICO numbers). Appropriate for international audience.",
+      "LOW: 'Where Scores Are Used' list may surprise students (insurance, rental, employment). Good awareness-building."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "What Matters Most in a Credit Score",
+    "frame_number": 5,
+    "line_start": 187,
+    "line_end": 228,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit score concept (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: TikZ bar chart showing relative importance without exact percentages is a good choice for BSc level.",
+      "LOW: Qualitative labels (most important, very important, etc.) are accessible."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Who Gets Left Behind?",
+    "frame_number": 6,
+    "line_start": 233,
+    "line_end": 273,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["thin file"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Credit invisible' and 'thin file' are both explained inline. Good.",
+      "LOW: Catch-22 framing is powerful and accessible.",
+      "LOW: Five groups of excluded people are concrete."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "The Credit Bureau System",
+    "frame_number": 7,
+    "line_start": 278,
+    "line_end": 325,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: 'Information intermediaries' role is clearly explained.",
+      "LOW: Four-step workflow (report, compile, request, decide) is clear."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Alternative Data: A New Lens",
+    "frame_number": 8,
+    "line_start": 330,
+    "line_end": 355,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring gaps (frame 6), credit bureaus (frame 7)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["underbanked"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Underbanked consumers' (line 346) -- 'underbanked' is jargon not previously defined. Different from 'credit invisible' (frame 6).",
+      "LOW: Table format with 'Who Benefits' column is good framing."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Alternative Data: Examples and Privacy",
+    "frame_number": 9,
+    "line_start": 360,
+    "line_end": 408,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "alternative data (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Privacy tension is well-framed with the dual 'More data ->' arrows showing inclusion vs surveillance.",
+      "LOW: Behavioral data examples (typing speed, device type) are concrete and provocative."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Machine Learning in Credit",
+    "frame_number": 10,
+    "line_start": 413,
+    "line_end": 450,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring (frame 4), alternative data (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Traditional vs ML comparison is effective.",
+      "LOW: 'Checklist' and 'learns its own rules' analogies are accessible for non-programmers."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Machine Learning for Non-Programmers",
+    "frame_number": 11,
+    "line_start": 455,
+    "line_end": 502,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML concept (frame 10)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Doctor's checklist analogy is excellent for BSc audience.",
+      "LOW: Explicit 'No programming experience required' premise honored."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "The Credit Scoring Pipeline",
+    "frame_number": 12,
+    "line_start": 507,
+    "line_end": 568,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring (frame 4), ML (frame 10), alternative data (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["feature engineering"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Five pipeline stages plus four 'where bias enters' items on the (cont.) slide. This is a dense logical unit with many new concepts (feature engineering, model training, threshold setting).",
+      "MEDIUM: 'Feature engineering' (line 518) is used before the dedicated explanation on the next frame (frame 13). Forward reference.",
+      "LOW: TikZ pipeline diagram is clear."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Feature Engineering: From Raw Data to Useful Signals",
+    "frame_number": 13,
+    "line_start": 573,
+    "line_end": 603,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring pipeline (frame 12)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: Frame is [fragile] with lstlisting code. While the code is commented pseudo-code, BSc students with no programming background may find it somewhat intimidating despite the 'no prerequisites' promise.",
+      "LOW: 'Feature engineering' is properly explained here. Good follow-up to frame 12."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "When Models Go Wrong: Overfitting",
+    "frame_number": 14,
+    "line_start": 608,
+    "line_end": 653,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML models (frame 10)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["overfitting"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Exam analogy for overfitting is excellent. BSc students will relate immediately.",
+      "LOW: Training/testing split is well-explained without formulas."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Algorithmic Bias: The Dark Side",
+    "frame_number": 15,
+    "line_start": 658,
+    "line_end": 702,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML models (frame 10), credit scoring pipeline (frame 12)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["demographic parity", "equalized odds", "calibration"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Three fairness concepts (demographic parity, equalized odds, calibration) are introduced in a single bullet list (lines 691-694) without examples. BSc students will struggle with these technical definitions.",
+      "MEDIUM: Four sources of bias + three fairness concepts + real-world example = very dense frame. Consider splitting.",
+      "LOW: Apple Card example is redacted to 'major technology company' -- good practice for no-company-names policy."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Proxy Variables and Disparate Impact",
+    "frame_number": 16,
+    "line_start": 707,
+    "line_end": 767,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algorithmic bias (frame 15)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["redlining", "adversarial debiasing"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Multiple advanced concepts in one logical slide: disparate impact, proxy variables, redlining, adversarial debiasing. This exceeds 5 new concepts.",
+      "MEDIUM: 'Adversarial debiasing' (line 762) is mentioned without explanation. Technical ML jargon inappropriate for BSc audience.",
+      "LOW: 'Redlining' historical context box is good. Adds necessary background.",
+      "LOW: The (cont.) slide with testing methods is a natural extension."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Explainability: The Right to Know Why",
+    "frame_number": 17,
+    "line_start": 772,
+    "line_end": 810,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML models (frame 10), algorithmic bias (frame 15)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["SHAP values", "partial dependence"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Three explainability techniques (feature importance, SHAP values, partial dependence) introduced. SHAP is explained via restaurant bill analogy, which helps, but 'partial dependence' gets no analogy.",
+      "MEDIUM: 'Adverse action notice' is properly explained. Good.",
+      "LOW: SHAP restaurant bill analogy is effective."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Beyond Credit: Algorithms Everywhere in Finance",
+    "frame_number": 18,
+    "line_start": 815,
+    "line_end": 877,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "algorithmic decision-making (frames 10-17)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["telematics", "IoT", "behavioral biometrics", "device fingerprinting"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Four application domains (insurance, investment, fraud, KYC) with 4 items each = 16 bullet points across two frames. Very dense.",
+      "MEDIUM: 'Telematics' (line 826), 'IoT' (line 827), 'behavioral biometrics' (line 844), and 'device fingerprinting' (line 845) are all jargon used without definition. BSc students will not know these terms.",
+      "LOW: 'Robo-advisors' (line 832) are mentioned here and will be covered in Day 6. Forward reference."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "The Data Flywheel",
+    "frame_number": 19,
+    "line_start": 882,
+    "line_end": 938,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "ML models (frame 10), data advantages (frame 8)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["moat"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Moat' (line 934) is business jargon used without definition. Will be explained in T2.4 but appears here first.",
+      "LOW: Flywheel TikZ diagram is clear and self-explanatory.",
+      "LOW: (cont.) slide comparison of incumbents vs newcomers is well-balanced."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Hands-On: Notebook NB04 -- Credit Scoring Model",
+    "frame_number": 20,
+    "line_start": 943,
+    "line_end": 967,
+    "purpose": "hands-on",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "credit scoring pipeline (frame 12), ML concepts (frames 10-11)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "hands-on",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six-step exercise is well-scaffolded and maps to the pipeline.",
+      "LOW: 'No programming experience required' reassurance is present."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Discussion: The Ethics of Algorithmic Lending",
+    "frame_number": 21,
+    "line_start": 972,
+    "line_end": 1007,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: FOR/AGAINST structure is balanced and fair.",
+      "LOW: Discussion questions are appropriately provocative for BSc level.",
+      "LOW: 'Biased algorithm vs biased human' comparison is an excellent discussion prompt."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Executive Summary: Key Takeaways",
+    "frame_number": 22,
+    "line_start": 1012,
+    "line_end": 1025,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five takeaways are well-structured and map to the main themes."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Concept Map: Data-Driven Finance",
+    "frame_number": 23,
+    "line_start": 1030,
+    "line_end": 1078,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Color coding (red=constrains, green=enables) is clearly explained.",
+      "LOW: Reading instruction provided."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Key Terms and Definitions",
+    "frame_number": 24,
+    "line_start": 1083,
+    "line_end": 1099,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Seven terms defined. All were introduced during the lecture."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "Common Misconceptions",
+    "frame_number": 25,
+    "line_start": 1104,
+    "line_end": 1155,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.3 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["soft inquiry", "hard inquiry"],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Soft inquiry' and 'hard inquiry' (line 1125) are introduced in the misconceptions frame but not defined earlier. These are new terms appearing in the endmatter.",
+      "LOW: Self-assessment questions on the (cont.) slide map well to LOs.",
+      "LOW: Four myths are well-chosen."
+    ]
+  },
+  {
+    "file": "T2.3_data_driven_finance.tex",
+    "frame_title": "What's Next",
+    "frame_number": 26,
+    "line_start": 1160,
+    "line_end": 1198,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Good bridge connecting data flywheel to platform economics.",
+      "LOW: 'Before Next Session' action items are clear."
+    ]
+  },
+
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Learning Objectives",
+    "frame_number": 1,
+    "line_start": 22,
+    "line_end": 38,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["pipeline businesses", "winner-take-most", "venture-subsidized", "regulatory moats"],
+    "builds_on_previous": false,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Four pieces of unexplained jargon in the LOs: 'pipeline businesses' (LO#1), 'winner-take-most' (LO#3), 'venture-subsidized' (LO#5), 'regulatory moats' (LO#6). All are defined later but the LO slide is front-loaded with unfamiliar terms for BSc students.",
+      "LOW: LOs are well-structured with Bloom's taxonomy verbs."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Prerequisites: Economic Fundamentals",
+    "frame_number": 2,
+    "line_start": 43,
+    "line_end": 78,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Four key terms (value chain, marginal cost, economies of scale, intermediary) are clearly defined.",
+      "LOW: Supply and demand recap is appropriate scaffolding."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "The Shift from Making to Connecting",
+    "frame_number": 3,
+    "line_start": 83,
+    "line_end": 128,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "business model basics (frame 2)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Pipeline vs platform distinction is clear with the 'Make then Sell' vs 'Connect then Enable' TikZ.",
+      "LOW: Finance examples (traditional bank vs P2P lending vs payment network) are concrete."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "What is a Platform?",
+    "frame_number": 4,
+    "line_start": 133,
+    "line_end": 178,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "pipeline vs platform (frame 3)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Formal definition of platform is clear.",
+      "LOW: TikZ diagram with Side A / Platform / Side B is intuitive."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Pipeline vs. Platform: A Detailed Comparison",
+    "frame_number": 5,
+    "line_start": 183,
+    "line_end": 207,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "platform definition (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["two-sided market"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six-dimension comparison table is effective.",
+      "LOW: 'Two-sided market' is defined in the bottomnote (line 206). Good.",
+      "LOW: Finance examples at bottom reinforce the concept."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Network Effects: The Core Mechanism",
+    "frame_number": 6,
+    "line_start": 212,
+    "line_end": 252,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "platform definition (frame 4)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["externality"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Externality' (line 234) is defined inline but the definition is terse ('when your action affects others who didn't choose to be affected'). May need more context for BSc students with no economics background.",
+      "LOW: Direct vs indirect network effects are clearly distinguished with examples.",
+      "LOW: (cont.) slide's critical question about real network effects vs growth is valuable."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Why Networks Grow So Fast",
+    "frame_number": 7,
+    "line_start": 257,
+    "line_end": 301,
+    "purpose": "build intuition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "network effects (frame 6)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Group chat analogy is excellent for BSc audience.",
+      "LOW: TikZ graph showing linear vs network growth curves is clear and uses no numbers on axes -- appropriate.",
+      "LOW: (cont.) insight about investment in early growth connects to business strategy."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Types of Network Effects in FinTech",
+    "frame_number": 8,
+    "line_start": 306,
+    "line_end": 328,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "network effects (frame 6)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["disintermediation"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Four types of network effects in a clear table format.",
+      "LOW: 'Disintermediation' defined in bottomnote (line 327). Good.",
+      "LOW: 'Ecosystem effects' may be new but is explained in context."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "The Chicken-and-Egg Problem",
+    "frame_number": 9,
+    "line_start": 333,
+    "line_end": 375,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "platforms (frame 4), network effects (frame 6)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["bootstrapping"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Bootstrapping problem' (line 373) -- the term 'bootstrapping' may be unfamiliar to BSc students. Context makes it inferable.",
+      "LOW: Death spiral TikZ diagram is vivid.",
+      "LOW: Three launch strategies on (cont.) slide are clear and concrete."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Critical Mass: The Tipping Point",
+    "frame_number": 10,
+    "line_start": 380,
+    "line_end": 435,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "network effects (frame 6), chicken-and-egg (frame 9)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["venture capital"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Venture capital' (line 433) is mentioned without definition on the (cont.) slide. BSc students may not know the term, though it is common enough.",
+      "LOW: S-curve TikZ with critical mass line is effective.",
+      "LOW: Below/above critical mass comparison is clear."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Winner-Take-Most Dynamics",
+    "frame_number": 11,
+    "line_start": 440,
+    "line_end": 483,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "network effects (frame 6), critical mass (frame 10)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["multi-homing"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Multi-homing' (line 455) is introduced in passing. It is the subject of the next frame (frame 12) but is used here first as one of three conditions.",
+      "LOW: Three conditions for tipping are clearly stated.",
+      "LOW: Winner-take-all vs winner-take-most distinction is important and clear."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Multi-Homing: The Competition Preserver",
+    "frame_number": 12,
+    "line_start": 488,
+    "line_end": 529,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "winner-take-most (frame 11)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Multi-homing is properly defined and explained.",
+      "LOW: Low vs high multi-homing cost patterns with examples are clear.",
+      "LOW: Platform vs regulator tension is a good insight."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "FinTech Business Model Canvas",
+    "frame_number": 13,
+    "line_start": 534,
+    "line_end": 559,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "platforms (frame 4), network effects (frame 6)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Six-element framework introduced in a single table. Each element has 'Key Questions' and 'What to Look For' columns. This is dense for BSc students -- 6 new analytical dimensions at once.",
+      "LOW: Framework is practical and reusable."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Revenue Models in FinTech",
+    "frame_number": 14,
+    "line_start": 564,
+    "line_end": 609,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "business models (frame 2, frame 13)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["order flow", "bid-ask spread"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Four revenue categories with 3 items each = 12 line items. Dense.",
+      "MEDIUM: 'Selling order flow' (line 598) and 'bid-ask spread' are finance/trading jargon not defined here. Will appear in frame 18 (commission-free trading) but used before defined.",
+      "LOW: Four-category structure (transaction, subscription, interest/float, data/ecosystem) is logical."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Unit Economics: The Health Check",
+    "frame_number": 15,
+    "line_start": 614,
+    "line_end": 660,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "business models (frame 13-14)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: CAC, LTV, payback period, churn all clearly defined with no-math framing.",
+      "LOW: 'No Math Required' heading is reassuring.",
+      "LOW: (cont.) slide on FinTech CAC challenges adds practical context."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Venture Subsidies: Real Growth or Fake Economics?",
+    "frame_number": 16,
+    "line_start": 665,
+    "line_end": 715,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "unit economics (frame 15), network effects (frame 6)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["blitzscaling"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Blitzscaling' (line 673) -- the term is used as a heading without formal definition. It appears in Key Terms (frame 22) but BSc students encounter it cold here.",
+      "LOW: Five-step blitzscaling playbook is clear.",
+      "LOW: 'Remove Subsidies Test' on (cont.) slide is practical and memorable."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "The Data Flywheel in Platforms",
+    "frame_number": 17,
+    "line_start": 720,
+    "line_end": 757,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "data flywheel from T2.3, network effects (frame 6)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: This repeats the data flywheel concept from T2.3 frame 19. Cross-topic repetition is intentional but students may experience deja vu. The platform angle adds value.",
+      "LOW: TikZ flywheel diagram is slightly different from T2.3 version. Good variation.",
+      "LOW: FinTech-specific examples on (cont.) slide are new and valuable."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Regulation as Moat",
+    "frame_number": 18,
+    "line_start": 762,
+    "line_end": 799,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "BaaS (from T2.2), business models (frame 13)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["broker-dealer", "money transmitter"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "MEDIUM: 'Broker-dealer registrations' and 'money transmitter licenses' (line 769) are US-specific regulatory jargon not defined. BSc students (likely international) may not know these.",
+      "LOW: Rent/Obtain/Avoid strategies on (cont.) slide connect back to BaaS from T2.2. Good cross-reference.",
+      "LOW: 'Regulatory capture' (line 797) is mentioned briefly. Advanced concept but as a warning, not a core teaching point."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "How Incumbents Fight Back",
+    "frame_number": 19,
+    "line_start": 804,
+    "line_end": 828,
+    "purpose": "introduce concept",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "platform economics (frames 3-18)",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five strategies (Build, Buy, Partner, Copy, Invest) in a clear table with advantages/disadvantages.",
+      "LOW: Practical and memorable framework."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Case Pattern: Commission-Free Trading",
+    "frame_number": 20,
+    "line_start": 833,
+    "line_end": 885,
+    "purpose": "provide example",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "platform business models (frame 13-14)",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["payment for order flow", "market maker", "bid-ask spread"],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "high",
+    "findings": [
+      "HIGH: Three new finance/trading concepts (PFOF, market maker, bid-ask spread) introduced in one frame. For BSc students with no finance background, this is very dense.",
+      "MEDIUM: 'Market maker' (line 843) is used without definition. A market maker provides liquidity by being willing to buy and sell -- this concept is not explained.",
+      "MEDIUM: 'Bid-ask spread' (line 860) is used without definition. This is a core trading concept that BSc students will not know.",
+      "LOW: TikZ diagram showing the three-party flow is clear."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Discussion: Evaluating FinTech Sustainability",
+    "frame_number": 21,
+    "line_start": 890,
+    "line_end": 913,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "discussion",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Six-question framework synthesizes the entire topic.",
+      "LOW: Personal app exercise is engaging and practical."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Executive Summary: Key Takeaways",
+    "frame_number": 22,
+    "line_start": 918,
+    "line_end": 935,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Five takeaways are well-structured.",
+      "LOW: 'Core Skill' box with the sustainability question is effective."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Concept Map: Platform Economics",
+    "frame_number": 23,
+    "line_start": 940,
+    "line_end": 980,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Four main branches (network effects, business models, competition, sustainability) with sub-concepts. Clear structure."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Key Terms and Definitions",
+    "frame_number": 24,
+    "line_start": 985,
+    "line_end": 997,
+    "purpose": "summarize",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "lecture",
+    "cognitive_load": "low",
+    "findings": [
+      "LOW: Nine terms defined. All were introduced during the lecture.",
+      "MEDIUM: 'Market maker' and 'bid-ask spread' from frame 20 are NOT in this glossary despite being undefined jargon in that frame. Gap in the key terms."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "Common Misconceptions and Self-Assessment",
+    "frame_number": 25,
+    "line_start": 1002,
+    "line_end": 1048,
+    "purpose": "assess",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "all prior T2.4 content",
+    "prerequisite_violated": false,
+    "jargon_undefined": [],
+    "builds_on_previous": true,
+    "content_type": "assessment",
+    "cognitive_load": "medium",
+    "findings": [
+      "LOW: Four myths are well-chosen and address common misunderstandings.",
+      "LOW: Two self-assessment MCQs with answers provided. Good for self-check.",
+      "LOW: Answers at bottom allow immediate self-verification."
+    ]
+  },
+  {
+    "file": "T2.4_platform_economics.tex",
+    "frame_title": "What's Next: Day 3 --- Blockchain Fundamentals",
+    "frame_number": 26,
+    "line_start": 1053,
+    "line_end": 1088,
+    "purpose": "transition",
+    "purpose_clear": true,
+    "prerequisite_knowledge": "none",
+    "prerequisite_violated": false,
+    "jargon_undefined": ["distributed ledger technology", "consensus mechanisms", "token incentives"],
+    "builds_on_previous": true,
+    "content_type": "transition",
+    "cognitive_load": "low",
+    "findings": [
+      "MEDIUM: Preview mentions 'distributed ledger technology', 'consensus mechanisms', and 'token incentives' -- all Day 3 jargon. Not critical since it is a preview, but could intimidate.",
+      "LOW: Connection to platform economics (blockchain as platform, token incentives) is effective."
+    ]
+  }
+]

@@ -29,18 +29,17 @@
 \begin{frame}{Learning Objectives}
 \begin{block}{By the end of this topic, you will be able to:}
 \begin{enumerate}
-    \item \textbf{Explain} how Automated Market Makers (AMMs) price assets using the constant product formula $x \cdot y = k$ (think of a see-saw: when one side goes down, the other must go up to stay balanced)
-    \item \textbf{Calculate} price impact and slippage for trades of different sizes
-    \item \textbf{Understand} algorithmic interest rate mechanisms in DeFi lending protocols
-    \item \textbf{Compute} impermanent loss for various price change scenarios
-    \item[]{\footnotesize \textit{Impermanent Loss = temporary loss from prices changing while you're providing liquidity---like selling low and buying high automatically}}
+    \item \textbf{Explain} how AMMs (automated price-setting systems) replace traditional exchanges
+    \item \textbf{Understand} slippage (price moving against you during a trade) and why larger trades cost more
+    \item \textbf{Understand} how DeFi lending protocols automatically adjust interest rates
+    \item \textbf{Describe} impermanent loss (temporary loss from providing liquidity) and when it matters
     \item \textbf{Analyze} the composability of DeFi protocols (``money legos'')
-    \item \textbf{Evaluate} flash loans as both innovation and attack vector
+    \item \textbf{Evaluate} flash loans (instant uncollateralized loans) as both innovation and attack vector
 \end{enumerate}
 \end{block}
 
 \vspace{0.3cm}
-\textbf{Key Skills:} AMM mathematics, LP token mechanics (LP = Liquidity Provider), risk assessment
+\textbf{Key Skills:} Understanding AMM intuition, LP token mechanics (LP = Liquidity Provider), risk assessment
 
 \bottomnote{Prerequisite: Understanding of smart contracts from T4.1}
 \end{frame}
@@ -243,8 +242,8 @@ DeFi protocols are like ``money legos''---they can be combined in ways their cre
 \begin{column}{0.48\textwidth}
 \textbf{Traditional Exchange:}
 \begin{itemize}
-    \item Order book with bids/asks (like an auction where buyers and sellers post their desired prices)
-    \item Market makers provide liquidity
+    \item Uses an order book\footnote{Order book = a list of all buy and sell orders, ranked by price} with bids/asks
+    \item Market makers\footnote{Market makers = firms that continuously offer to buy and sell, providing liquidity} quote prices
     \item Requires active management
     \item Centralized matching engine
 \end{itemize}
@@ -253,7 +252,7 @@ DeFi protocols are like ``money legos''---they can be combined in ways their cre
 \textbf{AMM Innovation:}
 \begin{itemize}
     \item No order book needed
-    \item Liquidity pools replace market makers
+    \item Liquidity pools\footnote{Liquidity pool = a shared fund of two tokens locked in a smart contract, enabling trades} replace market makers
     \item Algorithmic pricing
     \item Anyone can provide liquidity
 \end{itemize}
@@ -284,13 +283,7 @@ DeFi protocols are like ``money legos''---they can be combined in ways their cre
 \end{columns}
 
 \vspace{0.2cm}
-\textbf{Key Protocols:}
-\begin{itemize}
-    \item \textbf{Uniswap}: Most popular AMM, simple constant product formula
-    \item \textbf{SushiSwap}: Uniswap fork with community governance
-    \item \textbf{Curve}: Optimized for stablecoin swaps (low slippage)
-    \item \textbf{Balancer}: Multi-token pools with custom weights
-\end{itemize}
+\textbf{Leading AMM Protocols:} Uniswap (most popular), Curve (optimized for stablecoins), Balancer (multi-token pools)
 \end{frame}
 
 % =====================================================================
@@ -327,37 +320,34 @@ DeFi protocols are like ``money legos''---they can be combined in ways their cre
 % =====================================================================
 % SLIDE 10: THE CONSTANT PRODUCT FORMULA
 % =====================================================================
-\begin{frame}{The Constant Product Formula: $x \cdot y = k$}
+\begin{frame}{How AMMs Set Prices: The Seesaw Principle}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\begin{block}{The Core Equation}
-\[
-x \cdot y = k
-\]
-\begin{itemize}
-    \item $x$ = Token A reserves
-    \item $y$ = Token B reserves
-    \item $k$ = Constant (invariant)
-\end{itemize}
+\begin{block}{The Core Idea}
+The AMM follows a simple rule: \textbf{as you buy more of one token, its price goes up} because less of it remains in the pool.
+
+\vspace{0.2cm}
+Think of it like a \textbf{seesaw}---when one side goes up, the other must go down.
 \end{block}
 
 \vspace{0.2cm}
-\textbf{Price Determination:}
-\[
-\text{Price of A in B} = \frac{y}{x}
-\]
+\textbf{In plain language:}
+\begin{itemize}
+    \item The pool always keeps a ``balance'' between its two tokens
+    \item Buying one token makes it scarcer (more expensive)
+    \item Selling one token makes it more abundant (cheaper)
+    \item The price adjusts automatically with every trade
+\end{itemize}
 
-\textbf{After swap of $\Delta x$:}
-\[
-\Delta y = y - \frac{k}{x + \Delta x}
-\]
+\vspace{0.2cm}
+{\footnotesize \textcolor{dfgray}{\textit{The math behind this is in the Appendix for curious students.}}}
 \end{column}
 
 \begin{column}{0.52\textwidth}
 \begin{tikzpicture}[scale=0.55, transform shape]
     % Axes
-    \draw[arrow] (0,0) -- (7,0) node[right] {$x$ (ETH)};
-    \draw[arrow] (0,0) -- (0,7) node[above] {$y$ (USDC)};
+    \draw[arrow] (0,0) -- (7,0) node[right] {ETH in pool};
+    \draw[arrow] (0,0) -- (0,7) node[above] {USDC in pool};
 
     % Curve xy = k
     \draw[thick, dfblue, domain=0.7:6.5, samples=100] plot (\x, {4.5/\x});
@@ -372,8 +362,8 @@ x \cdot y = k
     % Trade arrow
     \draw[arrow, dforange, thick, dashed] (1.5, 3) -- (3, 1.5);
 
-    % Label
-    \node[font=\small] at (5, 5) {$xy = k$};
+    % Annotation
+    \node[font=\scriptsize, text width=2.5cm, align=center] at (5.5, 5) {More ETH bought $\rightarrow$ price rises};
 \end{tikzpicture}
 \end{column}
 \end{columns}
@@ -387,28 +377,29 @@ Larger trades move further along the curve, resulting in worse prices. This is c
 % =====================================================================
 % SLIDE 11: AMM NUMERICAL EXAMPLE
 % =====================================================================
-\begin{frame}{AMM Numerical Example}
-\begin{block}{Initial Pool State}
+\begin{frame}{AMM in Action: A Trade Story}
+\begin{block}{Starting Pool}
 \begin{itemize}
-    \item 100 ETH + 300,000 USDC
-    \item $k = 100 \times 300,000 = 30,000,000$
-    \item Price: 1 ETH = 3,000 USDC
+    \item The pool holds: \textbf{100 ETH} and \textbf{300,000 USDC}
+    \item Current price: 1 ETH = 3,000 USDC
 \end{itemize}
 \end{block}
 
-\textbf{Trader swaps 10 ETH for USDC:}
-\begin{align*}
-\text{New ETH reserves:} \quad x' &= 100 + 10 = 110 \\
-\text{New USDC reserves:} \quad y' &= \frac{30,000,000}{110} = 272,727.27 \\
-\text{USDC received:} \quad \Delta y &= 300,000 - 272,727.27 = 27,272.73
-\end{align*}
+\textbf{You want to buy 10 ETH. Here's what happens:}
+\begin{enumerate}
+    \item You send USDC to the pool and ask for 10 ETH
+    \item The pool gives you 10 ETH, leaving \textbf{90 ETH} behind
+    \item Because ETH is now scarcer in the pool, its price went \textit{up} during your trade
+    \item The pool rebalances to about \textbf{333,333 USDC}
+    \item You paid \textbf{33,333 USDC} for 10 ETH --- that's \textbf{3,333 USDC per ETH}
+\end{enumerate}
 
-\begin{alertblock}{Price Impact Analysis}
+\begin{alertblock}{The Cost of a Big Trade}
 \begin{itemize}
-    \item Expected (no impact): $10 \times 3,000 = 30,000$ USDC
-    \item Actual received: 27,272.73 USDC
-    \item Slippage: $\frac{30,000 - 27,272.73}{30,000} = 9.09\%$
-    \item New price: $\frac{272,727.27}{110} = 2,479.34$ USDC/ETH
+    \item At the starting price, 10 ETH would cost 30,000 USDC
+    \item You actually paid 33,333 USDC --- that's \textbf{3,333 USDC extra}
+    \item This ``extra cost'' is \textbf{slippage}: about \textbf{11\%} price impact
+    \item \textbf{Lesson}: Bigger trades move the price more against you
 \end{itemize}
 \end{alertblock}
 \end{frame}
@@ -533,7 +524,7 @@ Deep liquidity pools (high TVL) have less slippage for the same trade size. Alwa
 \begin{enumerate}
     \item Deposit both tokens in equal value
     \item Receive LP tokens proportional to contribution
-    \item First deposit: $\text{LP} = \sqrt{x \cdot y}$
+    \item First depositor sets the initial ratio
     \item Later deposits: proportional to pool share
 \end{enumerate}
 
@@ -589,16 +580,13 @@ Loss is ``impermanent'' because if prices return to original levels, the loss di
 \end{frame}
 
 % =====================================================================
-% SLIDE 16: IMPERMANENT LOSS FORMULA
+% SLIDE 16: IMPERMANENT LOSS - HOW MUCH IT COSTS
 % =====================================================================
-\begin{frame}{Impermanent Loss Formula and Visualization}
+\begin{frame}{How Much Can Impermanent Loss Cost You?}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\textbf{IL Formula:}
-\[
-IL = \frac{2\sqrt{r}}{1+r} - 1
-\]
-where $r = \frac{P_1}{P_0}$ (price ratio)
+\textbf{The key insight:}\\
+If you provide liquidity and one token's price changes significantly, you end up with \textbf{less value} than if you had simply held the tokens. The bigger the price move, the larger the loss.
 
 \vspace{0.3cm}
 \begin{tabular}{cc}
@@ -613,12 +601,15 @@ where $r = \frac{P_1}{P_0}$ (price ratio)
 5x (400\% up) & 25.5\% \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.2cm}
+{\footnotesize \textcolor{dfgray}{\textit{The formula behind this table is in the Appendix.}}}
 \end{column}
 
 \begin{column}{0.52\textwidth}
 \begin{tikzpicture}[scale=0.55, transform shape]
     % Axes
-    \draw[arrow] (0,0) -- (7,0) node[right, font=\small] {Price Ratio};
+    \draw[arrow] (0,0) -- (7,0) node[right, font=\small] {Price Change};
     \draw[arrow] (0,0) -- (0,5) node[above, font=\small] {IL (\%)};
 
     % Grid
@@ -643,7 +634,7 @@ where $r = \frac{P_1}{P_0}$ (price ratio)
     \node[left, font=\tiny] at (0, 4.5) {30\%};
 
     % Annotation
-    \node[font=\scriptsize, text width=2.5cm] at (5, 4) {IL increases with price divergence};
+    \node[font=\scriptsize, text width=2.5cm] at (5, 4) {IL grows faster as price diverges more};
 \end{tikzpicture}
 \end{column}
 \end{columns}
@@ -651,7 +642,7 @@ where $r = \frac{P_1}{P_0}$ (price ratio)
 \vspace{0.2cm}
 \textbf{Mitigating IL:}
 \begin{itemize}
-    \item Provide liquidity to correlated pairs (stablecoin-stablecoin)
+    \item Provide liquidity to correlated pairs (stablecoin-stablecoin: minimal price divergence)
     \item Choose pools with high trading volume (fees offset IL)
     \item Use concentrated liquidity (Uniswap V3)
 \end{itemize}
@@ -660,53 +651,45 @@ where $r = \frac{P_1}{P_0}$ (price ratio)
 % =====================================================================
 % SLIDE 17: IL WORKED EXAMPLE
 % =====================================================================
-\begin{frame}{Impermanent Loss: Worked Example}
+\begin{frame}{Impermanent Loss: A Story in Numbers}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Initial State:}
+\textbf{You start by providing liquidity:}
 \begin{itemize}
-    \item Deposit: 1 ETH + 2,000 USDC
-    \item Initial value: \$4,000
-    \item ETH price: \$2,000
+    \item You deposit: 1 ETH + 2,000 USDC
+    \item Total value: \$4,000
+    \item ETH price at deposit: \$2,000
 \end{itemize}
 
 \vspace{0.3cm}
-\textbf{Price Change:}
+\textbf{Then ETH doubles to \$4,000:}
 \begin{itemize}
-    \item New ETH price: \$4,000 (2x)
-    \item Price ratio $r = 2$
-\end{itemize}
-
-\vspace{0.3cm}
-\textbf{If Just Holding:}
-\begin{itemize}
-    \item 1 ETH $\times$ \$4,000 = \$4,000
-    \item 2,000 USDC = \$2,000
-    \item Total: \textbf{\$6,000}
+    \item Arbitrage traders rebalance the pool
+    \item Your share now has \textit{less} ETH and \textit{more} USDC
+    \item Specifically: about 0.707 ETH + 2,828 USDC
+    \item Your pool value: \textbf{\$5,657}
 \end{itemize}
 \end{column}
 
 \begin{column}{0.48\textwidth}
-\textbf{In the Pool:}
+\textbf{What if you had just held instead?}
 \begin{itemize}
-    \item Pool rebalances via arbitrage
-    \item New position: 0.707 ETH + 2,828 USDC
-    \item Value: $0.707 \times 4000 + 2828$
-    \item Total: \textbf{\$5,657}
+    \item 1 ETH at \$4,000 = \$4,000
+    \item 2,000 USDC = \$2,000
+    \item Total: \textbf{\$6,000}
 \end{itemize}
 
 \vspace{0.3cm}
-\textbf{Impermanent Loss:}
-\[
-IL = \frac{2\sqrt{2}}{1+2} - 1 = -5.72\%
-\]
-\[
-\text{Loss} = 6000 - 5657 = \$343
-\]
+\textbf{The difference:}
+\begin{itemize}
+    \item Holding: \$6,000
+    \item Pool: \$5,657
+    \item \textbf{You lost \$343 (about 5.7\%)} by being in the pool
+\end{itemize}
 
 \vspace{0.2cm}
-\begin{alertblock}{Break-Even}
-Trading fees must exceed \$343 to be profitable!
+\begin{alertblock}{The Break-Even Question}
+If the pool earned more than \$343 in trading fees during this time, you still come out ahead. If not, you would have been better off just holding.
 \end{alertblock}
 \end{column}
 \end{columns}
@@ -813,25 +796,21 @@ Arbitrage is the mechanism that keeps AMM prices aligned with external markets--
 \begin{frame}{Algorithmic Interest Rates}
 \begin{columns}[T]
 \begin{column}{0.45\textwidth}
-\textbf{Utilization Rate:}
-\[
-U = \frac{\text{Borrowed}}{\text{Supplied}}
-\]
+\textbf{How it works (supply \& demand):}
 
-\textbf{Borrow Rate (kinked model):}
-\[
-R_{\text{borrow}} =
-\begin{cases}
-R_0 + U \cdot R_{\text{slope1}} & U < U_{\text{opt}} \\
-R_0 + U_{\text{opt}} \cdot R_1 + \\
-\quad (U - U_{\text{opt}}) \cdot R_2 & U \geq U_{\text{opt}}
-\end{cases}
-\]
+Lending protocols automatically adjust interest rates:
+\begin{itemize}
+    \item \textbf{Few borrowers} (low utilization) $\rightarrow$ rates stay \textit{low} to encourage borrowing
+    \item \textbf{Many borrowers} (high utilization) $\rightarrow$ rates rise \textit{sharply} to attract more lenders
+    \item There is a ``\textbf{kink}'' point (typically 80\%) where rates jump steeply
+\end{itemize}
 
-\textbf{Supply Rate:}
-\[
-R_{\text{supply}} = R_{\text{borrow}} \times U \times (1 - \text{fee})
-\]
+\vspace{0.2cm}
+\textbf{Why the kink?}\\
+The protocol \textit{wants} some funds always available for withdrawals. The steep rate above 80\% discourages draining the pool completely.
+
+\vspace{0.2cm}
+{\footnotesize \textcolor{dfgray}{\textit{The mathematical model is in the Appendix.}}}
 \end{column}
 
 \begin{column}{0.52\textwidth}
@@ -851,12 +830,16 @@ R_{\text{supply}} = R_{\text{borrow}} \times U \times (1 - \text{fee})
     % Labels
     \node[below, font=\tiny] at (5, 0) {80\%};
     \node[below, font=\tiny] at (6.5, 0) {100\%};
-    \node[left, font=\tiny] at (0, 0.5) {2\%};
-    \node[left, font=\tiny] at (0, 1.5) {10\%};
-    \node[left, font=\tiny] at (0, 5.5) {100\%};
+    \node[left, font=\tiny] at (0, 0.5) {Low};
+    \node[left, font=\tiny] at (0, 1.5) {Moderate};
+    \node[left, font=\tiny] at (0, 5.5) {Very high};
 
-    % Annotation
-    \node[font=\scriptsize, text width=2cm, align=center] at (3, 4) {Steep slope\\discourages\\100\% utilization};
+    % Annotations
+    \node[font=\scriptsize, text width=2cm, align=center] at (2.5, 3.5) {Gentle slope:\\``Borrow freely''};
+    \node[font=\scriptsize, text width=2cm, align=center] at (6, 3.5) {Steep slope:\\``Slow down!''};
+
+    % Kink label
+    \node[font=\scriptsize, dfred] at (5, 2.2) {Kink point};
 \end{tikzpicture}
 \end{column}
 \end{columns}
@@ -893,8 +876,8 @@ R_{\text{supply}} = R_{\text{borrow}} \times U \times (1 - \text{fee})
 \begin{itemize}
     \item Collateral: \$30,000 (10 ETH)
     \item Debt: \$15,000 (USDC)
-    \item Health Factor: $\frac{30000 \times 0.825}{15000} = 1.65$
-    \item Liquidation at: HF $< 1.0$
+    \item Health Factor: 1.65 (safe zone---above 1.0)
+    \item Liquidation at: Health Factor below 1.0
 \end{itemize}
 
 \vspace{0.3cm}
@@ -902,7 +885,7 @@ R_{\text{supply}} = R_{\text{borrow}} \times U \times (1 - \text{fee})
 If ETH drops 40\% to \$1,800:
 \begin{itemize}
     \item New collateral: \$18,000
-    \item Health Factor: $\frac{18000 \times 0.825}{15000} = 0.99$
+    \item Health Factor drops to 0.99
     \item Position liquidated!
 \end{itemize}
 \end{alertblock}
@@ -1115,7 +1098,7 @@ DeFi doesn't eliminate risk---it transforms and redistributes it.
 \vspace{0.3cm}
 \textbf{Key Learning Outcomes:}
 \begin{itemize}
-    \item Practical understanding of $x \cdot y = k$
+    \item Practical understanding of how AMMs price tokens
     \item Visualize slippage and price impact
     \item Experience the LP perspective
 \end{itemize}
@@ -1125,26 +1108,27 @@ DeFi doesn't eliminate risk---it transforms and redistributes it.
 % SLIDE 27: HANDS-ON EXERCISE PREVIEW
 % =====================================================================
 \begin{frame}[fragile]{NB09 Preview: Core AMM Functions}
-\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\scriptsize]
+\begin{alertblock}{Optional: For Students with Programming Experience}
+The code below shows the inner workings of an AMM. In the notebook, all code runs automatically---you will interact with the AMM through simple inputs and observe the results visually.
+\end{alertblock}
+
+\vspace{0.1cm}
+\begin{lstlisting}[style=pythonstyle, basicstyle=\ttfamily\tiny]
 class SimpleAMM:
     def __init__(self, reserve_x, reserve_y):
-        self.x = reserve_x  # ETH
-        self.y = reserve_y  # USDC
-        self.k = reserve_x * reserve_y
+        self.x = reserve_x  # ETH reserves
+        self.y = reserve_y  # USDC reserves
+        self.k = reserve_x * reserve_y  # constant product
 
     def get_spot_price(self):
-        return self.y / self.x  # Price of X in terms of Y
+        return self.y / self.x  # Price of ETH in USDC
 
     def swap_x_for_y(self, amount_x):
-        # Apply constant product formula
         new_x = self.x + amount_x
         new_y = self.k / new_x
         amount_y_out = self.y - new_y
         self.x, self.y = new_x, new_y
         return amount_y_out
-
-    def calculate_impermanent_loss(self, price_ratio):
-        return 2 * sqrt(price_ratio) / (1 + price_ratio) - 1
 \end{lstlisting}
 
 \bottomnote{NB09 includes interactive visualizations of the bonding curve and IL}
@@ -1304,7 +1288,7 @@ Will DeFi remain a parallel financial system, or will it merge with traditional 
 \begin{frame}{Executive Summary}
 \begin{block}{Core Concepts}
 \begin{itemize}
-    \item \textbf{AMMs} replace order books with liquidity pools and mathematical formulas ($x \cdot y = k$)
+    \item \textbf{AMMs} replace order books with liquidity pools and automatic pricing (the ``seesaw'' principle)
     \item \textbf{Liquidity providers} earn fees but face impermanent loss risk
     \item \textbf{DeFi lending} uses over-collateralization and algorithmic rates
     \item \textbf{Composability} enables innovation but creates systemic risk
@@ -1313,21 +1297,24 @@ Will DeFi remain a parallel financial system, or will it merge with traditional 
 \end{block}
 
 \vspace{0.3cm}
-\textbf{Key Equations:}
+\textbf{Key Intuitions:}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \begin{itemize}
-    \item Constant Product: $x \cdot y = k$
-    \item Spot Price: $P = \frac{y}{x}$
+    \item AMM pricing = seesaw principle
+    \item Bigger trades = more slippage
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{itemize}
-    \item Impermanent Loss: $IL = \frac{2\sqrt{r}}{1+r} - 1$
-    \item Utilization: $U = \frac{\text{Borrowed}}{\text{Supplied}}$
+    \item IL grows with price divergence
+    \item Interest rates follow supply \& demand
 \end{itemize}
 \end{column}
 \end{columns}
+
+\vspace{0.2cm}
+{\footnotesize \textcolor{dfgray}{\textit{Mathematical formulas for all concepts are available in the Appendix slides.}}}
 \end{frame}
 
 % =====================================================================
@@ -1346,7 +1333,7 @@ Will DeFi remain a parallel financial system, or will it merge with traditional 
     \node[smartcontract, minimum width=2.5cm, fill=dfcyan!50] (risk) at (5, -2) {Risks};
 
     % AMM sub-nodes
-    \node[font=\tiny, text width=2cm, align=center] at (-5, 0.8) {$x \cdot y = k$\\LP Tokens\\Slippage\\IL};
+    \node[font=\tiny, text width=2cm, align=center] at (-5, 0.8) {Seesaw pricing\\LP Tokens\\Slippage\\IL};
 
     % Lending sub-nodes
     \node[font=\tiny, text width=2cm, align=center] at (5, 0.8) {Over-collateral\\Liquidation\\Algorithmic rates};
@@ -1389,7 +1376,7 @@ Token representing ownership share in a liquidity pool.
 
 \vspace{0.3cm}
 \textbf{Constant Product Formula:}\\
-$x \cdot y = k$ --- the invariant that governs AMM pricing.
+The mathematical rule behind AMM pricing (see Appendix).
 \end{column}
 
 \begin{column}{0.48\textwidth}
@@ -1512,13 +1499,13 @@ What is a liquidity pool in the context of AMMs?
 \end{block}
 
 \vspace{0.3cm}
-\begin{block}{Question 2: Impermanent Loss Formula}
-What is the mathematical formula for impermanent loss given price ratio $r$?
+\begin{block}{Question 2: Impermanent Loss}
+If you provide liquidity to an ETH/USDC pool and ETH doubles in price, approximately how much impermanent loss do you face?
 \begin{enumerate}[A.]
-    \item $IL = r - 1$
-    \item $IL = \frac{2\sqrt{r}}{1 + r} - 1$
-    \item $IL = \frac{r^2 - 1}{r + 1}$
-    \item $IL = \sqrt{r} - 1$
+    \item 0\% --- price changes don't affect liquidity providers
+    \item About 2\% --- a small cost
+    \item About 5.7\% --- a meaningful cost that fees need to offset
+    \item About 50\% --- you lose half your money
 \end{enumerate}
 \end{block}
 \end{frame}
@@ -1541,7 +1528,7 @@ How do trading fees accrue to LP token holders?
 \textbf{Answers:}
 \begin{itemize}
     \item Question 1: \textbf{B} --- A liquidity pool is a smart contract holding token reserves
-    \item Question 2: \textbf{B} --- The IL formula captures value loss from price divergence
+    \item Question 2: \textbf{C} --- A 2x price change causes about 5.7\% IL (see table and Appendix)
     \item Question 3: \textbf{C} --- Fees grow the pool; LP tokens represent larger shares
 \end{itemize}
 \end{frame}
@@ -1641,7 +1628,7 @@ How do trading fees accrue to LP token holders?
 
 \vspace{0.3cm}
 \begin{block}{Course Materials}
-\textbf{Notebook NB09}: AMM Simulation -- practice with $x \cdot y = k$, slippage, and IL calculations
+\textbf{Notebook NB09}: AMM Simulation -- practice with AMM pricing, slippage, and impermanent loss
 \end{block}
 \end{frame}
 
@@ -1667,6 +1654,100 @@ How do trading fees accrue to LP token holders?
 \vspace{0.5cm}
 \textcolor{dfgray}{\small Joerg Osterrieder | Digital Finance | 2025}
 \end{center}
+\end{frame}
+
+% =====================================================================
+% APPENDIX: OPTIONAL MATHEMATICAL DEEP DIVES
+% =====================================================================
+\appendix
+
+% =====================================================================
+% APPENDIX SLIDE A1: AMM MATHEMATICS
+% =====================================================================
+\begin{frame}{Optional Deep Dive: AMM Mathematics}
+\begin{block}{The Constant Product Formula}
+\[
+x \cdot y = k
+\]
+\begin{itemize}
+    \item $x$ = Token A reserves, $y$ = Token B reserves, $k$ = constant (invariant)
+\end{itemize}
+\end{block}
+
+\textbf{Price Determination:}
+The spot price of token A in terms of token B is the ratio of reserves:
+\[
+\text{Price of A in B} = \frac{y}{x}
+\]
+
+\textbf{Calculating the output of a swap:}
+When you add $\Delta x$ of token A, you receive:
+\[
+\Delta y = y - \frac{k}{x + \Delta x}
+\]
+
+\textbf{Example:} Pool has 100 ETH and 300,000 USDC ($k = 30{,}000{,}000$). Swap 10 ETH in:
+\begin{itemize}
+    \item New ETH = 110, New USDC = $30{,}000{,}000 / 110 = 272{,}727$
+    \item You receive $300{,}000 - 272{,}727 = 27{,}273$ USDC
+    \item Slippage: $(30{,}000 - 27{,}273) / 30{,}000 = 9.09\%$
+\end{itemize}
+\end{frame}
+
+% =====================================================================
+% APPENDIX SLIDE A2: IMPERMANENT LOSS FORMULA
+% =====================================================================
+\begin{frame}{Optional Deep Dive: Impermanent Loss Formula}
+\begin{block}{IL Formula}
+\[
+IL = \frac{2\sqrt{r}}{1+r} - 1
+\]
+where $r = \frac{P_1}{P_0}$ is the price ratio (new price / original price).
+\end{block}
+
+\textbf{Derivation intuition:}
+\begin{enumerate}
+    \item In a constant-product pool, if the price ratio changes to $r$, your holdings rebalance to $\sqrt{r}$ times the original token A and $\frac{1}{\sqrt{r}}$ times token B
+    \item The value of your pool position is $\frac{2\sqrt{r}}{1+r}$ of what simple holding would be worth
+    \item The difference is impermanent loss
+\end{enumerate}
+
+\textbf{Worked example (ETH doubles, $r = 2$):}
+\begin{itemize}
+    \item $IL = \frac{2\sqrt{2}}{1+2} - 1 = \frac{2 \times 1.414}{3} - 1 = 0.943 - 1 = -5.72\%$
+    \item On a \$6,000 holding value: loss = $6{,}000 \times 0.0572 = \$343$
+\end{itemize}
+\end{frame}
+
+% =====================================================================
+% APPENDIX SLIDE A3: ALGORITHMIC INTEREST RATE MODEL
+% =====================================================================
+\begin{frame}{Optional Deep Dive: Algorithmic Interest Rate Model}
+\begin{block}{Utilization Rate}
+\[
+U = \frac{\text{Total Borrowed}}{\text{Total Supplied}}
+\]
+\end{block}
+
+\textbf{Borrow Rate (kinked model):}
+\[
+R_{\text{borrow}} =
+\begin{cases}
+R_0 + U \cdot R_{\text{slope1}} & \text{if } U < U_{\text{optimal}} \\[6pt]
+R_0 + U_{\text{optimal}} \cdot R_{\text{slope1}} + (U - U_{\text{optimal}}) \cdot R_{\text{slope2}} & \text{if } U \geq U_{\text{optimal}}
+\end{cases}
+\]
+
+\textbf{Supply Rate} (what lenders earn):
+\[
+R_{\text{supply}} = R_{\text{borrow}} \times U \times (1 - \text{protocol fee})
+\]
+
+\textbf{Typical parameters (Aave):}
+\begin{itemize}
+    \item $U_{\text{optimal}} = 80\%$, $R_0 = 0\%$, $R_{\text{slope1}} = 4\%$, $R_{\text{slope2}} = 75\%$
+    \item At 50\% utilization: rate $\approx 2\%$. At 90\% utilization: rate $\approx 10.7\%$. At 100\%: rate $\approx 18.2\%$
+\end{itemize}
 \end{frame}
 
 \end{document}

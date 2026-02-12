@@ -234,7 +234,7 @@ The overall risk of your portfolio depends not just on how risky each investment
 Diversification works because investments rarely move in perfect lockstep.
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{The Sharpe Ratio:}\\
+\textbf{The Sharpe Ratio*:}\\
 A simple scorecard for investments:
 
 \vspace{0.2cm}
@@ -249,6 +249,8 @@ A simple scorecard for investments:
 \item \textbf{Denominator:} How bumpy the ride is
 \item \textbf{Higher is better:} More reward per unit of risk
 \end{itemize}
+
+{\scriptsize *Sharpe ratio = a measure of return per unit of risk. Higher is better---it tells you how much extra reward you earn for each unit of ``bumpiness'' in your portfolio.}
 \end{column}
 \end{columns}
 
@@ -388,7 +390,7 @@ More frequent rebalancing = better risk control but higher costs. Robo-advisors 
 % =====================================================================
 \begin{frame}{Tax-Loss Harvesting}
 \begin{block}{Definition}
-Selling investments at a loss to offset capital gains and reduce taxes, then replacing with similar assets to maintain market exposure.
+Selling investments at a loss to offset capital gains* and reduce taxes, then replacing with similar assets to maintain market exposure.
 \end{block}
 
 \begin{columns}[T]
@@ -402,7 +404,7 @@ Selling investments at a loss to offset capital gains and reduce taxes, then rep
 \end{enumerate}
 \end{column}
 \begin{column}{0.48\textwidth}
-\textbf{The Wash Sale Rule:}
+\textbf{The Wash Sale Rule**:}
 \begin{itemize}
 \item Cannot buy ``substantially identical'' security within 30 days before/after sale
 \item Loss disallowed if violated
@@ -410,6 +412,9 @@ Selling investments at a loss to offset capital gains and reduce taxes, then rep
 \end{itemize}
 \end{column}
 \end{columns}
+
+{\scriptsize *Capital gains tax = tax on the profit you make when you sell an investment for more than you paid.\\
+**Wash sale rule = you cannot sell an investment at a loss and immediately rebuy the same one just to claim the tax benefit. You must wait 30 days.}
 
 \vspace{0.2cm}
 \textbf{Robo-Advisor Advantage:} Automated systems can monitor all positions daily and harvest losses systematically---impractical for human advisors at scale.
@@ -464,6 +469,9 @@ Small fee differences compound into large wealth differences over time.
 %                    SLIDE 14: FRAUD DETECTION
 % =====================================================================
 \begin{frame}{AI Application 2: Fraud Detection}
+
+\textit{AI helps catch fraud that humans would miss---by learning patterns from millions of past transactions and spotting subtle anomalies in real time.}
+
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Traditional Rules-Based:}
@@ -623,13 +631,13 @@ Reducing FPR from 5\% to 0.5\% = 90\% fewer frustrated customers.
 \begin{frame}{AI Application 4: Algorithmic Trading}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{Evolution of Quant Trading:}
-\begin{enumerate}
-\item \textbf{1980s--90s}: Statistical arbitrage (using math to find temporary price differences between related assets)
-\item \textbf{2000s}: High-frequency trading
-\item \textbf{2010s}: Factor investing at scale (choosing investments based on measurable characteristics like company size or recent momentum)
+\textbf{Evolution:}
+\begin{itemize}
+\item \textbf{1980s--90s}: Statistical arbitrage (using math to find temporary price differences)
+\item \textbf{2000s}: High-frequency trading emerges
+\item \textbf{2010s}: Factor investing at scale
 \item \textbf{2020s}: Deep learning, NLP, alternative data
-\end{enumerate}
+\end{itemize}
 
 \vspace{0.3cm}
 \textbf{Modern AI Trading Signals:}
@@ -666,7 +674,7 @@ Two Sigma, Citadel, Renaissance, DE Shaw
 \textbf{Market Making:}
 \begin{itemize}
 \item Provide liquidity
-\item Earn bid-ask spread
+\item Earn bid-ask spread*
 \item High frequency
 \item Low margin, high volume
 \end{itemize}
@@ -675,9 +683,9 @@ Two Sigma, Citadel, Renaissance, DE Shaw
 \textbf{Statistical Arbitrage:}
 \begin{itemize}
 \item Exploit price relationships
-\item Mean reversion
-\item Pairs trading
-\item Market neutral
+\item Mean reversion**
+\item Pairs trading***
+\item Market neutral****
 \end{itemize}
 \end{column}
 \begin{column}{0.32\textwidth}
@@ -692,6 +700,11 @@ Two Sigma, Citadel, Renaissance, DE Shaw
 \end{columns}
 
 \vspace{0.5cm}
+{\scriptsize *Bid-ask spread = the difference between the highest price a buyer will pay and the lowest a seller will accept.\\
+**Mean reversion = the idea that prices tend to return to their historical average over time.\\
+***Pairs trading = betting that two historically related assets will converge after temporarily diverging.\\
+****Market neutral = a strategy designed to profit regardless of whether the overall market goes up or down.}
+
 \begin{block}{The Alpha Challenge}
 \begin{itemize}
 \item Markets are highly efficient
@@ -811,6 +824,9 @@ AI-generated voice/video for social engineering attacks. A CFO ``calls'' to auth
 %                    SLIDE 23: SYSTEMIC RISKS
 % =====================================================================
 \begin{frame}{AI Risks: Systemic and Concentration}
+
+\textit{AI in finance creates new types of systemic risk---when many firms rely on similar AI models, their correlated behavior can amplify market shocks.}
+
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \textbf{Herding Risk:}
