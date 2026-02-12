@@ -1,0 +1,305 @@
+% Bitcoin Whitepaper Presentation
+% 5 content frames summarizing Nakamoto (2008)
+\input{../template_beamer.tex}
+
+% ======================= DOCUMENT INFO =======================
+\title[Bitcoin Whitepaper]{Bitcoin: A Peer-to-Peer Electronic Cash System}
+\subtitle{Satoshi Nakamoto, 2008}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{2025}
+
+\begin{document}
+
+% =======================================================================
+% FRAME 1: Title Slide
+% =======================================================================
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% =======================================================================
+% FRAME 2: Abstract + Introduction (Sections 1)
+% =======================================================================
+\begin{frame}{The Abstract and the Problem}
+
+\begin{block}{Abstract (Nakamoto, 2008)}
+\footnotesize
+``A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.''
+\end{block}
+
+\vspace{2mm}
+
+\begin{alertblock}{Key Insight from the Introduction}
+\footnotesize
+``What is needed is an electronic payment system based on cryptographic proof instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party.''
+\end{alertblock}
+
+\end{frame}
+
+% =======================================================================
+% FRAME 3: Transactions + Timestamp Server + Proof-of-Work (Sections 2-4)
+% =======================================================================
+\begin{frame}{Core Building Blocks: Transactions, Timestamps, and Proof-of-Work}
+
+\begin{columns}[T]
+
+% --- Column 1: Transactions (Section 2) ---
+\column{0.33\textwidth}
+\textbf{\color{mlpurple}Transactions}
+
+\vspace{1mm}
+
+\scriptsize
+``We define an electronic coin as a chain of digital signatures.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 380, clip]{images/fig1_transactions.png}
+\end{center}
+
+\scriptsize
+Each owner signs a hash of the previous transaction and the next owner's public key.
+
+% --- Column 2: Timestamp Server (Section 3) ---
+\column{0.33\textwidth}
+\textbf{\color{mlpurple}Timestamp Server}
+
+\vspace{1mm}
+
+\scriptsize
+``Each timestamp includes the previous timestamp in its hash, forming a chain.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 50, clip]{images/fig2_timestamp_server.png}
+\end{center}
+
+\scriptsize
+A timestamp server hashes blocks of items and publishes the hash widely.
+
+% --- Column 3: Proof-of-Work (Section 4) ---
+\column{0.33\textwidth}
+\textbf{\color{mlpurple}Proof-of-Work}
+
+\vspace{1mm}
+
+\scriptsize
+``The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, the hash begins with a number of zero bits.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 200, clip]{images/fig3_proof_of_work.png}
+\end{center}
+
+\scriptsize
+One-CPU-one-vote ensures majority decision making.
+
+\end{columns}
+
+\end{frame}
+
+% =======================================================================
+% FRAME 4: Network + Incentive + Merkle Trees (Sections 5-7)
+% =======================================================================
+\begin{frame}{Running the Network: Steps, Incentive, and Disk Space}
+
+\begin{columns}[T]
+
+% --- Left: Network + Incentive ---
+\column{0.55\textwidth}
+
+\textbf{\color{mlpurple}Network Protocol (Section 5)}
+
+\vspace{1mm}
+
+\scriptsize
+\begin{enumerate}\compactlist
+\item New transactions are broadcast to all nodes.
+\item Each node collects new transactions into a block.
+\item Each node works on finding a difficult proof-of-work for its block.
+\item When a node finds a proof-of-work, it broadcasts the block to all nodes.
+\item Nodes accept the block only if all transactions in it are valid and not already spent.
+\item Nodes express their acceptance of the block by working on creating the next block in the chain, using the hash of the accepted block as the previous hash.
+\end{enumerate}
+
+\vspace{2mm}
+
+\textbf{\color{mlpurple}Incentive (Section 6)}
+
+\vspace{1mm}
+
+\scriptsize
+``The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation. In our case, it is CPU time and electricity that is expended.''
+
+% --- Right: Merkle Trees ---
+\column{0.43\textwidth}
+
+\textbf{\color{mlpurple}Reclaiming Disk Space (Section 7)}
+
+\vspace{1mm}
+
+\scriptsize
+``Transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 310, clip]{images/fig4_merkle_tree.png}
+\end{center}
+
+\scriptsize
+Old blocks can be compacted by stubbing off spent branches -- interior hashes do not need to be stored.
+
+\end{columns}
+
+\end{frame}
+
+% =======================================================================
+% FRAME 5: SPV + Combining Value + Privacy (Sections 8-10)
+% =======================================================================
+\begin{frame}{Lightweight Clients, Value Transfer, and Privacy}
+
+\begin{columns}[T]
+
+% --- Column 1: SPV (Section 8) ---
+\column{0.33\textwidth}
+\textbf{\color{mlpurple}Simplified Payment Verification}
+
+\vspace{1mm}
+
+\scriptsize
+``A user only needs to keep a copy of the block headers of the longest proof-of-work chain.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 380, clip]{images/fig5_spv.png}
+\end{center}
+
+\scriptsize
+Verification without running a full node -- query the Merkle branch linking a transaction to its block.
+
+% --- Column 2: Combining Value (Section 9) ---
+\column{0.33\textwidth}
+\textbf{\color{mlpurple}Combining and Splitting Value}
+
+\vspace{1mm}
+
+\scriptsize
+``To allow value to be split and combined, transactions contain multiple inputs and outputs.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 55, clip]{images/fig6_combining_value.png}
+\end{center}
+
+\scriptsize
+Typically: one or two inputs from prior transactions, two outputs (payment + change).
+
+% --- Column 3: Privacy (Section 10) ---
+\column{0.33\textwidth}
+\textbf{\color{mlpurple}Privacy Model}
+
+\vspace{1mm}
+
+\scriptsize
+``Privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous.''
+
+\vspace{1mm}
+
+\begin{center}
+\includegraphics[width=\linewidth, trim=0 0 0 340, clip]{images/fig7_privacy_model.png}
+\end{center}
+
+\scriptsize
+New key pair per transaction recommended. Public sees amounts, not identities.
+
+\end{columns}
+
+\end{frame}
+
+% =======================================================================
+% FRAME 6: Security Analysis + Conclusion (Sections 11-12)
+% =======================================================================
+\begin{frame}{Security Analysis and Conclusion}
+
+\begin{columns}[T]
+
+% --- Left: Security ---
+\column{0.48\textwidth}
+\textbf{\color{mlpurple}Attacker Catching Up -- Gambler's Ruin (Section 11)}
+
+\vspace{1mm}
+
+\scriptsize
+``The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem.''
+
+\vspace{1mm}
+
+\footnotesize
+\[
+q_z = \begin{cases} 1 & \text{if } p \leq q \\ (q/p)^z & \text{if } p > q \end{cases}
+\]
+
+\vspace{1mm}
+
+\scriptsize
+\textbf{Probability attacker catches up} ($q = 0.1$):
+
+\vspace{1mm}
+
+\centering
+\begin{tabular}{r r}
+\toprule
+$z$ & $P$ \\
+\midrule
+0  & 1.0000000 \\
+1  & 0.2045873 \\
+2  & 0.0509779 \\
+3  & 0.0131722 \\
+4  & 0.0034552 \\
+5  & 0.0009137 \\
+6  & 0.0002428 \\
+7  & 0.0000647 \\
+8  & 0.0000173 \\
+9  & 0.0000046 \\
+10 & 0.0000012 \\
+\bottomrule
+\end{tabular}
+
+% --- Right: Conclusion ---
+\column{0.50\textwidth}
+
+\vspace{1mm}
+
+\begin{exampleblock}{Conclusion (Section 12)}
+\scriptsize
+``We have proposed a system for electronic transactions without relying on trust. We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending. To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power.''
+\end{exampleblock}
+
+\vspace{3mm}
+
+\begin{block}{Key Design Principles}
+\scriptsize
+\begin{itemize}\compactlist
+\item \textbf{No trusted third party} -- cryptographic proof replaces institutional trust
+\item \textbf{One-CPU-one-vote} -- majority hash power determines truth
+\item \textbf{Incentive-compatible} -- honest behavior is more profitable than attacking
+\item \textbf{Minimal structure} -- nodes join/leave freely, longest chain wins
+\end{itemize}
+\end{block}
+
+\vspace{3mm}
+
+\bottomnote{S.\ Nakamoto, ``Bitcoin: A Peer-to-Peer Electronic Cash System,'' 2008. \texttt{bitcoin.org/bitcoin.pdf}}
+
+\end{columns}
+
+\end{frame}
+
+\end{document}
