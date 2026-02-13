@@ -1,0 +1,404 @@
+% Central Bank Digital Currencies: Mini-Lecture
+% Standalone 5-slide introduction to CBDCs
+\input{../template_beamer.tex}
+
+% ======================= DOCUMENT INFO =======================
+\title[CBDC Intro]{Central Bank Digital Currencies}
+\subtitle{Why Central Banks Want to Issue Digital Money}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{}
+
+\begin{document}
+
+% =======================================================================
+% SLIDE 1: WHY CBDCs EXIST (Problem-first hook, SCQ pattern)
+% =======================================================================
+\begin{frame}[t]{Why Would a Central Bank Want to Create Its Own Digital Currency?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+In some economies, cash use has dropped below a tenth of all transactions. Shops refuse coins. Buses no longer take bills. For people without bank accounts or smartphones, an entire payment system is vanishing.
+
+\vspace{2mm}
+Meanwhile, a handful of private companies now control the digital payment rails. If they fail, raise fees, or deny access, there is no public alternative.
+
+\vspace{2mm}
+\footnotesize
+\textbf{Three motivations driving central banks to respond:}
+\begin{enumerate}\compactlist
+\item \textbf{Financial inclusion} --- ensure everyone can transact, even without a commercial bank account
+\item \textbf{Payment sovereignty} --- maintain a public payment option that no private firm can switch off
+\item \textbf{Monetary policy tools} --- create new channels for transmitting policy directly to holders
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+% COMIC: Person trying to pay with cash, rejected
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Shop background ---
+\draw[thick, mlgray, fill=mllavender4, rounded corners=3pt] (0.3,1.8) rectangle (3.7,4.2);
+\node[font=\tiny\bfseries, mlpurple] at (2.0,4.0) {Shop};
+
+% --- "No Cash" sign ---
+\draw[thick, dfred, rounded corners=2pt] (1.2,3.3) rectangle (2.8,3.7);
+\node[font=\tiny\bfseries, dfred] at (2.0,3.5) {NO CASH};
+
+% --- Shopkeeper (right side, behind counter) ---
+\draw[thick, mlgray] (1.0,2.6) -- (3.0,2.6); % counter
+\draw[thick, dfteal] (2.8,3.2) circle (0.15); % head
+\draw[thick, dfteal] (2.8,3.05) -- (2.8,2.6); % body
+\draw[thick, dfteal] (2.8,2.85) -- (2.55,2.7); % left arm
+\draw[thick, dfteal] (2.8,2.85) -- (3.05,2.7); % right arm
+% Shopkeeper pointing at sign
+\draw[->, thick, dfteal] (2.65,2.75) -- (2.4,3.3);
+
+% Speech bubble — shopkeeper
+\draw[thick, mlgray, rounded corners=2pt] (2.9,3.25) rectangle (4.3,3.65);
+\node[font=\tiny] at (3.6,3.45) {Cards only!};
+\draw[thick, mlgray] (2.9,3.4) -- (2.85,3.25);
+
+% --- Customer (left side, with cash) ---
+\draw[thick, dfteal] (0.8,3.2) circle (0.15); % head
+\draw[thick, dfteal] (0.8,3.05) -- (0.8,2.6); % body
+\draw[thick, dfteal] (0.8,2.85) -- (0.55,2.65); % left arm
+\draw[thick, dfteal] (0.8,2.85) -- (1.05,2.65); % right arm (holding cash)
+\draw[thick, dfteal] (0.8,2.6) -- (0.6,2.3); % left leg
+\draw[thick, dfteal] (0.8,2.6) -- (1.0,2.3); % right leg
+
+% Cash in hand
+\draw[thick, mlgreen, fill=mlgreen!20] (1.05,2.55) rectangle (1.45,2.75);
+\node[font=\tiny, mlgreen] at (1.25,2.65) {\$};
+
+% Thought bubble — customer
+\draw[thick, mlgray, rounded corners=2pt] (-0.5,3.5) rectangle (0.9,3.9);
+\node[font=\tiny] at (0.2,3.77) {But this is};
+\node[font=\tiny] at (0.2,3.60) {real money...};
+\fill[mlgray] (0.7,3.42) circle (0.04);
+\fill[mlgray] (0.65,3.48) circle (0.03);
+
+% --- Leaving arrow ---
+\draw[->, ultra thick, dfred] (0.6,2.2) -- (0.1,1.5);
+\node[font=\tiny\bfseries, dfred] at (0.5,1.35) {shut out};
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, mlpurple] at (2.0,1.0) {Cash is legal tender,};
+\node[font=\tiny\bfseries, mlpurple] at (2.0,0.7) {but it no longer works everywhere.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A CBDC is not about replacing private innovation --- it is about ensuring that public money remains usable in a world that is going digital.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 2: CBDC vs CRYPTO vs CASH (Comparison table)
+% =======================================================================
+\begin{frame}[t]{What Makes a CBDC Different from All the Other Digital Money?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\scriptsize
+\begin{tabular}{l c c c c c}
+\toprule
+& \textbf{Cash} & \textbf{\shortstack{Bank\\Deposit}} & \textbf{\shortstack{Stable-\\coin}} & \textbf{Crypto} & \textbf{CBDC} \\
+\midrule
+\textbf{Issuer} & Central bank & Commercial bank & Private firm & No one & Central bank \\
+\textbf{Backing} & Sovereign & Deposit insurance & Reserves (varies) & None & Sovereign \\
+\textbf{Supply} & Controlled & Elastic (lending) & Algorithmic/reserve & Fixed/rule & Controlled \\
+\textbf{Privacy} & High (physical) & Low (tracked) & Medium & Pseudonymous & Tunable \\
+\textbf{Programmable} & No & Limited & Yes & Yes & Potentially \\
+\textbf{Offline use} & Yes & No & No & No & Possible \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{center}
+
+\vspace{3mm}
+\footnotesize
+\textbf{The pattern to notice:} look at the first and last columns. A CBDC shares the sovereign backing and controlled supply of cash, but adds the programmability and digital reach of crypto. It is a hybrid --- public money with digital capabilities.
+
+\vspace{2mm}
+The middle columns show what already exists. Bank deposits are digital but private. Stablecoins are digital but only as reliable as the firm behind them. Crypto has no issuer at all.
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The key distinction:}
+
+\vspace{2mm}
+\footnotesize
+A CBDC is a \textbf{direct claim on the central bank}. Today, only commercial banks hold such claims (as reserves). Citizens hold either physical cash or deposits at private banks.
+
+\vspace{3mm}
+A CBDC extends the central bank's balance sheet to ordinary people --- for the first time in history, a digital form of sovereign money in citizen hands.
+
+\vspace{3mm}
+\textbf{Why this matters:}
+\begin{itemize}\compactlist
+\item If your bank fails, your deposit is at risk (up to insurance limits)
+\item If a stablecoin's reserves are insufficient, your token may lose value
+\item A CBDC carries the credit risk of the sovereign itself --- the same risk as holding cash
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =======================================================================
+% SLIDE 3: DESIGN TRADE-OFFS (Architecture diagram)
+% =======================================================================
+\begin{frame}[t]{Who Should Run a CBDC --- the Central Bank, the Banks, or Both?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+% TikZ architecture diagram
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% ===== MODEL 1: DIRECT =====
+\node[font=\tiny\bfseries, mlpurple] at (1.5,5.0) {Direct Model};
+
+% Central bank box
+\draw[thick, mlpurple, fill=mllavender4, rounded corners=3pt] (0.5,4.0) rectangle (2.5,4.6);
+\node[font=\tiny\bfseries, mlpurple] at (1.5,4.3) {Central Bank};
+
+% Citizens
+\draw[thick, dfteal] (0.5,3.1) circle (0.12);
+\draw[thick, dfteal] (0.5,2.98) -- (0.5,2.65);
+\draw[thick, dfteal] (1.5,3.1) circle (0.12);
+\draw[thick, dfteal] (1.5,2.98) -- (1.5,2.65);
+\draw[thick, dfteal] (2.5,3.1) circle (0.12);
+\draw[thick, dfteal] (2.5,2.98) -- (2.5,2.65);
+\node[font=\tiny, dfteal] at (1.5,2.5) {Citizens};
+
+% Direct arrows
+\draw[->, thick, mlpurple] (0.8,4.0) -- (0.5,3.25);
+\draw[->, thick, mlpurple] (1.5,4.0) -- (1.5,3.25);
+\draw[->, thick, mlpurple] (2.2,4.0) -- (2.5,3.25);
+
+% Speech bubble on central bank
+\draw[thick, mlgray, rounded corners=2pt] (2.6,4.55) rectangle (5.0,5.05);
+\node[font=\tiny] at (3.8,4.87) {Millions of accounts?};
+\node[font=\tiny] at (3.8,4.67) {That is a lot of work...};
+\draw[thick, mlgray] (2.5,4.6) -- (2.6,4.75);
+
+% ===== MODEL 2: INTERMEDIATED =====
+\node[font=\tiny\bfseries, mlpurple] at (6.5,5.0) {Intermediated Model};
+
+% Central bank box
+\draw[thick, mlpurple, fill=mllavender4, rounded corners=3pt] (5.5,4.0) rectangle (7.5,4.6);
+\node[font=\tiny\bfseries, mlpurple] at (6.5,4.3) {Central Bank};
+
+% Commercial banks
+\draw[thick, mlorange, fill=mlorange!15, rounded corners=2pt] (5.3,3.2) rectangle (6.3,3.6);
+\node[font=\tiny\bfseries, mlorange] at (5.8,3.4) {Bank A};
+\draw[thick, mlorange, fill=mlorange!15, rounded corners=2pt] (6.7,3.2) rectangle (7.7,3.6);
+\node[font=\tiny\bfseries, mlorange] at (7.2,3.4) {Bank B};
+
+% Citizens below banks
+\draw[thick, dfteal] (5.5,2.5) circle (0.1);
+\draw[thick, dfteal] (5.5,2.4) -- (5.5,2.15);
+\draw[thick, dfteal] (6.1,2.5) circle (0.1);
+\draw[thick, dfteal] (6.1,2.4) -- (6.1,2.15);
+\draw[thick, dfteal] (6.9,2.5) circle (0.1);
+\draw[thick, dfteal] (6.9,2.4) -- (6.9,2.15);
+\draw[thick, dfteal] (7.5,2.5) circle (0.1);
+\draw[thick, dfteal] (7.5,2.4) -- (7.5,2.15);
+\node[font=\tiny, dfteal] at (6.5,2.0) {Citizens};
+
+% Arrows: CB -> Banks -> Citizens
+\draw[->, thick, mlpurple] (6.0,4.0) -- (5.8,3.6);
+\draw[->, thick, mlpurple] (7.0,4.0) -- (7.2,3.6);
+\draw[->, thick, mlorange] (5.6,3.2) -- (5.5,2.62);
+\draw[->, thick, mlorange] (6.0,3.2) -- (6.1,2.62);
+\draw[->, thick, mlorange] (7.0,3.2) -- (6.9,2.62);
+\draw[->, thick, mlorange] (7.4,3.2) -- (7.5,2.62);
+
+% Bank speech bubble
+\draw[thick, mlgray, rounded corners=2pt] (7.8,3.5) rectangle (10.2,4.0);
+\node[font=\tiny] at (9.0,3.82) {If deposits leave for};
+\node[font=\tiny] at (9.0,3.62) {CBDCs, how do I lend?};
+\draw[thick, mlgray] (7.7,3.6) -- (7.8,3.7);
+
+% ===== Labels =====
+\node[font=\tiny, mlgray] at (1.5,2.1) {\textit{Simple but central}};
+\node[font=\tiny, mlgray] at (1.5,1.8) {\textit{bank does retail}};
+\node[font=\tiny, mlgray] at (6.5,1.6) {\textit{Preserves banking layer}};
+\node[font=\tiny, mlgray] at (6.5,1.3) {\textit{but adds complexity}};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Three architecture models:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Direct] Central bank issues CBDC straight to citizens. Simple, but the central bank must handle millions of accounts, customer service, and compliance --- tasks it has never done.
+
+\item[\scriptsize Intermediated] Central bank issues wholesale CBDC to commercial banks, which distribute it to citizens. Preserves the existing banking system, but the CBDC is only as accessible as the banks that offer it.
+
+\item[\scriptsize Hybrid] Both paths exist. Citizens can hold CBDC directly, but banks provide wallets and services. Most flexible, but the most complex to build and regulate.
+\end{description}
+
+\vspace{2mm}
+\begin{block}{}
+\footnotesize Most ongoing projects favor the hybrid model --- but every design choice involves a trade-off between simplicity, inclusion, and financial stability.
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+% =======================================================================
+% SLIDE 4: THE GLOBAL RACE (pgfplots chart, no country names)
+% =======================================================================
+\begin{frame}[t]{Why Are So Many Central Banks Exploring This at the Same Time?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tikzpicture}
+\begin{axis}[
+    width=7cm, height=4.5cm,
+    ybar stacked,
+    bar width=16pt,
+    symbolic x coords={5y ago,3y ago,Recently,Today},
+    xtick=data,
+    x tick label style={font=\tiny},
+    ylabel={\scriptsize Central banks (\%)},
+    y tick label style={font=\tiny},
+    ymin=0, ymax=105,
+    ytick={0,25,50,75,100},
+    legend style={at={(1.02,1.0)}, anchor=north west, font=\tiny},
+    legend cell align={left},
+    grid=none,
+    enlarge x limits=0.2,
+    area style
+]
+% Researching
+\addplot[fill=mllavender4, draw=mlpurple] coordinates
+    {(5y ago,25) (3y ago,40) (Recently,50) (Today,45)};
+% Piloting
+\addplot[fill=mlpurple!60, draw=mlpurple] coordinates
+    {(5y ago,5) (3y ago,15) (Recently,25) (Today,30)};
+% Launched
+\addplot[fill=mlpurple, draw=mlpurple!80!black] coordinates
+    {(5y ago,0) (3y ago,2) (Recently,5) (Today,10)};
+\legend{Researching, Piloting, Launched}
+\end{axis}
+
+% Story annotations
+\node[font=\tiny, mlgray, align=center] at (0.8,3.8) {A few\\pioneers};
+\node[font=\tiny, mlpurple, align=center] at (5.5,4.2) {Over three\\quarters active};
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\vspace{1mm}
+\footnotesize
+\textit{Illustrative trend based on published central bank surveys.}\\
+The acceleration is striking: most central banks went from ``watching'' to ``building'' within a few years.
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Different motivations by economy type:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Advanced economies] Cash use declining rapidly. A few private firms dominate digital payments. CBDCs restore a public option and preserve monetary sovereignty.
+
+\item[\scriptsize Emerging economies] Large unbanked populations. High remittance costs (often above five percent). A CBDC can reach people that commercial banks have not.
+
+\item[\scriptsize Small open economies] Vulnerable to ``dollarization'' --- citizens preferring a foreign digital currency over the local one. A domestic CBDC defends the local monetary system.
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The common thread: every central bank faces some combination of declining cash, rising private payment power, or financial exclusion --- and a CBDC is the tool that addresses all three simultaneously.
+\end{column}
+\end{columns}
+\end{frame}
+
+% =======================================================================
+% SLIDE 5: SYNTHESIS — WHAT TO WATCH (Takeaways + balance scale)
+% =======================================================================
+\begin{frame}[t]{Three Questions That Reveal Any CBDC's True Design}
+\small
+Every CBDC proposal --- regardless of the economy or technology --- can be evaluated by asking three questions. The answers determine whether the system empowers citizens or concentrates control.
+
+\vspace{3mm}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Who has access?}\\
+\scriptsize Universal access promotes inclusion. Restricted access (requiring bank accounts, smartphones, or identity documents) reproduces the exclusion that CBDCs are meant to solve.
+
+\vspace{2mm}
+\footnotesize
+\item \textbf{Who sees the transactions?}\\
+\scriptsize Cash is anonymous. A naive digital system logs everything. The design choice between full privacy and full transparency has profound civil-liberties implications.
+
+\vspace{2mm}
+\footnotesize
+\item \textbf{What can the money be programmed to do?}\\
+\scriptsize Programmability enables smart contracts, conditional transfers, and automated tax collection --- but also expiration dates on stimulus payments or spending restrictions by category.
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+% Balance scale: Innovation vs Privacy
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% Fulcrum triangle
+\fill[mlgray!30] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+\draw[thick, mlgray] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+
+% Beam (slightly tilted to show tension)
+\draw[ultra thick, mlpurple] (0.2,1.8) -- (3.8,1.2);
+
+% Pivot
+\fill[mlpurple] (2.0,1.5) circle (0.08);
+
+% Left pan — Innovation
+\draw[thick, dfteal] (0.0,1.4) -- (0.4,1.4);
+\draw[thick, dfteal] (0.0,1.4) -- (0.2,1.8);
+\draw[thick, dfteal] (0.4,1.4) -- (0.2,1.8);
+\node[font=\tiny\bfseries, dfteal, align=center] at (0.2,1.05) {Innovation\\+ Inclusion};
+
+% Right pan — Privacy
+\draw[thick, mlorange] (3.6,0.8) -- (4.0,0.8);
+\draw[thick, mlorange] (3.6,0.8) -- (3.8,1.2);
+\draw[thick, mlorange] (4.0,0.8) -- (3.8,1.2);
+\node[font=\tiny\bfseries, mlorange, align=center] at (3.8,0.45) {Privacy\\+ Freedom};
+
+% Question mark at top
+\node[font=\small\bfseries, mlpurple] at (2.0,2.6) {?};
+
+% Annotation arrows
+\draw[->, thick, dfteal] (0.2,2.4) -- (0.2,2.0);
+\node[font=\tiny, dfteal, align=center] at (0.2,2.7) {More\\features};
+\draw[->, thick, mlorange] (3.8,2.4) -- (3.8,1.6);
+\node[font=\tiny, mlorange, align=center] at (3.8,2.7) {More\\control};
+
+% Central question
+\node[font=\tiny, mlgray] at (2.0,0.3) {\textit{Every design choice tips the balance.}};
+\end{tikzpicture}
+\end{center}
+
+\vspace{2mm}
+\scriptsize
+The same technology that enables financial inclusion also enables financial surveillance. Whether a CBDC is a public good or a control mechanism depends entirely on the answers to the three questions on the left.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A CBDC gives a central bank unprecedented reach into everyday transactions. Whether that is a feature or a threat depends on the design choices above.
+\end{block}
+\end{frame}
+
+\end{document}
