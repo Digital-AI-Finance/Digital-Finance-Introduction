@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Platform Economics Part 3 | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #14b8a6;
+            --quiz-light: #f0fdfa;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--quiz-accent));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #0d9488; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #0d9488; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz: Platform Economics -- Part 3: Data, Governance &amp; Regulation</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            <a href="../lectures/platform_economics.pdf">Lecture PDF</a>
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Platform Economics Part 3: Data, Governance &amp; Regulation (20 Questions)</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                    "id": 1,
+                    "question": "The enhanced data flywheel in platform economics consists of how many nodes in its cycle?",
+                    "options": {
+                        "A": "Three nodes",
+                        "B": "Four nodes",
+                        "C": "Five nodes",
+                        "D": "Six nodes"
+                    },
+                    "correct": "C",
+                    "explanation": "The enhanced data flywheel has five nodes: More Transactions → Richer Data → Better Models → More Trust → Better Experience → More Transactions.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 2,
+                    "question": "In payment platforms, the data flywheel improves fraud detection through:",
+                    "options": {
+                        "A": "More transactions → more data → better fraud detection → fewer false declines → more merchants",
+                        "B": "More users → higher fees → more revenue → better technology",
+                        "C": "Lower prices → more volume → economies of scale",
+                        "D": "Better marketing → more cardholders → network effects"
+                    },
+                    "correct": "A",
+                    "explanation": "Payment platforms use transaction data to improve fraud detection models, which reduces false declines, making the service more attractive to merchants and creating a self-reinforcing cycle.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 3,
+                    "question": "In lending platforms, the data flywheel operates through:",
+                    "options": {
+                        "A": "Lower interest rates attracting more borrowers",
+                        "B": "More applications → better risk models → more accurate pricing → better borrowers → more data",
+                        "C": "Venture capital funding reducing borrowing costs",
+                        "D": "Marketing campaigns increasing brand awareness"
+                    },
+                    "correct": "B",
+                    "explanation": "Lending platforms accumulate application data that improves risk assessment models, enabling more accurate pricing, which attracts higher-quality borrowers and generates even more valuable data.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 4,
+                    "question": "Why do new entrants struggle against established platforms with data advantages?",
+                    "options": {
+                        "A": "They lack venture capital funding",
+                        "B": "The data advantage compounds over years and is nearly impossible to replicate",
+                        "C": "Regulations prohibit new platforms from collecting data",
+                        "D": "Users prefer older platforms regardless of features"
+                    },
+                    "correct": "B",
+                    "explanation": "The data flywheel compounds over years. Established platforms have accumulated years of data that continuously improves their algorithms, creating a moat that new entrants cannot quickly replicate even with superior technology.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 5,
+                    "question": "AI-driven network effects differ from traditional network effects because:",
+                    "options": {
+                        "A": "They only work with blockchain technology",
+                        "B": "AI/ML models improve with more training data, creating a compounding data moat",
+                        "C": "They require fewer users to achieve critical mass",
+                        "D": "They eliminate the need for human intervention"
+                    },
+                    "correct": "B",
+                    "explanation": "AI-driven network effects create a new dimension: better AI → better product → more users → more data → better AI. This creates a 'data moat' where the quality gap widens over time as incumbents accumulate more training data.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 6,
+                    "question": "Which three AI applications are most important in platform economics?",
+                    "options": {
+                        "A": "Chatbots, image recognition, voice assistants",
+                        "B": "Matching, pricing, and risk assessment",
+                        "C": "Social media, gaming, entertainment",
+                        "D": "Blockchain, NFTs, cryptocurrency"
+                    },
+                    "correct": "B",
+                    "explanation": "The three critical AI applications in platforms are: (1) Matching (buyer-seller, borrower-lender), (2) Pricing (dynamic, personalized), and (3) Risk assessment (fraud detection, credit scoring).",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 7,
+                    "question": "The three layers of trust in platform infrastructure are:",
+                    "options": {
+                        "A": "Legal, financial, technological",
+                        "B": "Institutional, peer, and algorithmic trust",
+                        "C": "Government, corporate, individual",
+                        "D": "National, regional, global"
+                    },
+                    "correct": "B",
+                    "explanation": "Trust is built through three layers: (1) Institutional trust (regulation, licensing, legal recourse), (2) Peer trust (ratings, reviews, reputation), and (3) Algorithmic trust (smart contracts, on-chain verification).",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 8,
+                    "question": "Trust failures on platforms cascade because:",
+                    "options": {
+                        "A": "Platforms have insufficient insurance coverage",
+                        "B": "One bad actor can damage trust for all participants; a single breach can destroy years of reputation",
+                        "C": "Users immediately switch to competitors",
+                        "D": "Regulatory penalties force platform shutdown"
+                    },
+                    "correct": "B",
+                    "explanation": "Trust failures cascade rapidly: one fraud case can undermine trust in all sellers on a marketplace, one security breach can destroy years of reputation. Building trust is slow and expensive; destroying it is instant.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 9,
+                    "question": "The platform governance 'moderation dilemma' asks:",
+                    "options": {
+                        "A": "How to maximize platform profits",
+                        "B": "Who decides what is acceptable and how much control is appropriate",
+                        "C": "Which technology stack to use",
+                        "D": "How to hire content moderators"
+                    },
+                    "correct": "B",
+                    "explanation": "The moderation dilemma is fundamental to platform governance: who has the authority to set rules, what behavior is acceptable, and how much platform control is appropriate versus user freedom.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 10,
+                    "question": "The trade-offs of centralized, community, and algorithmic governance are:",
+                    "options": {
+                        "A": "Cost, speed, and efficiency",
+                        "B": "Fast but arbitrary; democratic but slow; consistent but inflexible",
+                        "C": "Cheap, moderate, expensive",
+                        "D": "Simple, complex, very complex"
+                    },
+                    "correct": "B",
+                    "explanation": "Centralized governance is fast but potentially arbitrary; Community governance (DAOs) is democratic but slow and vulnerable to capture; Algorithmic governance (smart contracts) is consistent but inflexible.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 11,
+                    "question": "Platform power originates from all of the following EXCEPT:",
+                    "options": {
+                        "A": "User data and behavioral insights",
+                        "B": "Government ownership stakes",
+                        "C": "Switching costs and lock-in effects",
+                        "D": "Network effects creating natural monopolies"
+                    },
+                    "correct": "B",
+                    "explanation": "Platform power stems from: user data/insights, switching costs, network effects, and algorithmic control over visibility. Government ownership is not a typical source of platform power.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 12,
+                    "question": "Which of the following is NOT a manifestation of platform power?",
+                    "options": {
+                        "A": "Gatekeeper power (controlling access to markets)",
+                        "B": "Information asymmetry (knowing more than participants)",
+                        "C": "Lower operational costs through automation",
+                        "D": "Self-preferencing (promoting own products over third-party)"
+                    },
+                    "correct": "C",
+                    "explanation": "Manifestations of platform power include: gatekeeper power, information asymmetry, self-preferencing, and algorithmic manipulation. Lower operational costs are an efficiency benefit, not a power manifestation.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 13,
+                    "question": "The four market failure arguments for regulating platforms are:",
+                    "options": {
+                        "A": "Price, quality, speed, security",
+                        "B": "Market power, information asymmetry, externalities, systemic risk",
+                        "C": "Competition, innovation, consumer protection, taxation",
+                        "D": "Size, scope, scale, speed"
+                    },
+                    "correct": "B",
+                    "explanation": "Regulators cite four market failures: (1) Market power from winner-take-most dynamics, (2) Information asymmetry favoring platforms, (3) Externalities affecting millions, (4) Systemic risk in financial platforms.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 14,
+                    "question": "The regulator's dilemma when addressing platforms is:",
+                    "options": {
+                        "A": "Whether to hire more staff or use automated systems",
+                        "B": "Regulate too early and stifle innovation; regulate too late and face entrenched power",
+                        "C": "National versus international jurisdiction",
+                        "D": "Balancing tax revenue with consumer prices"
+                    },
+                    "correct": "B",
+                    "explanation": "Regulators face a timing dilemma: intervene too early and beneficial innovation may be prevented; wait too long and the platform may become so entrenched that effective regulation is nearly impossible.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 15,
+                    "question": "The three main regulatory approaches to platforms are:",
+                    "options": {
+                        "A": "Taxation, licensing, monitoring",
+                        "B": "Competition law (ex-post), gatekeeper rules (ex-ante), interoperability mandates",
+                        "C": "Criminal, civil, administrative",
+                        "D": "Federal, state, local"
+                    },
+                    "correct": "B",
+                    "explanation": "Three regulatory approaches: (1) Competition law - traditional antitrust after harm occurs, (2) Gatekeeper rules - ex-ante obligations for designated large platforms, (3) Interoperability mandates - forcing data portability and switching capability.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 16,
+                    "question": "Regulation can paradoxically help established platforms because:",
+                    "options": {
+                        "A": "It gives them government subsidies",
+                        "B": "Compliance costs create barriers that new entrants must overcome while incumbents already invested",
+                        "C": "It mandates customers stay on the platform",
+                        "D": "It prevents technological innovation"
+                    },
+                    "correct": "B",
+                    "explanation": "The regulatory paradox: compliance infrastructure (licenses, KYC/AML systems, reporting) costs millions. Established players already invested; new entrants start from scratch. Consumer protection can inadvertently protect incumbents.",
+                    "difficulty": "hard"
+                },
+                {
+                    "id": 17,
+                    "question": "The three strategies for new entrants facing regulatory barriers are:",
+                    "options": {
+                        "A": "Merge, acquire, consolidate",
+                        "B": "Rent (use BaaS partner), Obtain (apply for license), Avoid (operate in unregulated niche)",
+                        "C": "Offshore, onshore, hybrid",
+                        "D": "Lobby, litigate, leave"
+                    },
+                    "correct": "B",
+                    "explanation": "New entrants can: (1) Rent - use a Banking-as-a-Service partner's license (fast but dependent), (2) Obtain - apply for own license (slow but independent), (3) Avoid - operate in unregulated space (risky but cheap).",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 18,
+                    "question": "The platform death spiral mechanism occurs when:",
+                    "options": {
+                        "A": "The company runs out of funding",
+                        "B": "Losing users on one side reduces value for the other side, causing them to leave, accelerating collapse",
+                        "C": "Technology becomes outdated",
+                        "D": "Competitors launch better products"
+                    },
+                    "correct": "B",
+                    "explanation": "The death spiral is network effects in reverse: losing users on Side A reduces value for Side B → Side B leaves → further reduces value for Side A → accelerates exodus. The six failure causes include trust collapse, negative network effects, disintermediation, competitor envelopment, regulatory shutdown, and technology obsolescence.",
+                    "difficulty": "hard"
+                },
+                {
+                    "id": 19,
+                    "question": "The marketplace lending collapse case study demonstrates that:",
+                    "options": {
+                        "A": "Lending platforms should avoid AI-based credit scoring",
+                        "B": "Platforms facilitating financial transactions inherit financial risk even if claiming to be 'just technology'",
+                        "C": "Peer-to-peer lending is inherently more stable than traditional banking",
+                        "D": "Economic downturns have no impact on platform businesses"
+                    },
+                    "correct": "B",
+                    "explanation": "The lesson: platforms cannot escape underlying asset risk. When economic conditions deteriorate and default rates rise, lenders flee, causing a death spiral. Network effects work powerfully in reverse when the fundamental economics fail.",
+                    "difficulty": "hard"
+                },
+                {
+                    "id": 20,
+                    "question": "The ride-sharing subsidy war case study shows that blitzscaling fails when:",
+                    "options": {
+                        "A": "Government regulations are too strict",
+                        "B": "The technology is inferior",
+                        "C": "Easy multi-homing prevents market tipping, so subsidies buy temporary volume, not a permanent moat",
+                        "D": "Marketing budgets are insufficient"
+                    },
+                    "correct": "C",
+                    "explanation": "The diagnostic lesson: both platforms subsidized heavily, but users multi-homed freely (drivers ran both apps, riders checked both for cheaper fares). Multi-homing prevented winner-take-most tipping. When prices rose to sustainable levels, demand proved artificial (price-driven, not loyalty-driven). Blitzscaling only works if the market can actually tip.",
+                    "difficulty": "hard"
+                }
+            ]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>

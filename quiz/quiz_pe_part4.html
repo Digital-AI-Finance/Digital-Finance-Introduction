@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Platform Economics Part 4 | Introduction to Digital Finance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --mlpurple: #3333B2;
+            --mlblue: #0066CC;
+            --quiz-accent: #14b8a6;
+            --quiz-light: #f0fdfa;
+            --correct: #22c55e;
+            --correct-bg: #dcfce7;
+            --incorrect: #ef4444;
+            --incorrect-bg: #fee2e2;
+            --bg: #f6f8fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --border: #e1e4e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, var(--mlpurple), var(--quiz-accent));
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title { font-weight: 600; font-size: 14px; }
+        .nav-links { display: flex; gap: 16px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 12px; opacity: 0.9; }
+        .nav-links a:hover { opacity: 1; }
+
+        .quiz-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .quiz-title { font-size: 16px; font-weight: 600; color: var(--mlpurple); }
+        .quiz-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .stat-progress { background: var(--quiz-light); color: var(--quiz-accent); }
+        .stat-score { background: var(--correct-bg); color: var(--correct); }
+
+        .progress-bar-container {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--quiz-accent);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Three-column layout */
+        .questions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 280px;
+        }
+
+        .question-card.answered { opacity: 0.7; }
+
+        .question-card.correct-card {
+            border: 2px solid var(--correct);
+            background: linear-gradient(to bottom, var(--correct-bg), var(--card-bg));
+        }
+
+        .question-card.incorrect-card {
+            border: 2px solid var(--incorrect);
+            background: linear-gradient(to bottom, var(--incorrect-bg), var(--card-bg));
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .q-number {
+            background: var(--quiz-light);
+            color: var(--quiz-accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .q-status { font-size: 14px; }
+
+        .q-text {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--quiz-accent);
+            background: var(--quiz-light);
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background: var(--incorrect-bg);
+        }
+
+        .option-btn.disabled { cursor: default; }
+
+        .option-letter {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option-btn.incorrect .option-letter {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .option-text { flex: 1; }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { background: var(--correct-bg); color: #166534; }
+        .feedback.incorrect { background: var(--incorrect-bg); color: #991b1b; }
+
+        /* Results */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto;
+            display: none;
+        }
+        .results-card.show { display: block; }
+        .results-icon { font-size: 48px; margin-bottom: 8px; }
+        .results-score { font-size: 36px; font-weight: 700; color: var(--quiz-accent); }
+        .results-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+        .results-grade {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .grade-a { background: #dcfce7; color: #166534; }
+        .grade-b { background: #dbeafe; color: #1e40af; }
+        .grade-c { background: #fef3c7; color: #92400e; }
+        .grade-d { background: #fed7aa; color: #9a3412; }
+        .grade-f { background: #fee2e2; color: #991b1b; }
+
+        .results-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--quiz-accent); color: white; }
+        .btn-primary:hover { background: #0d9488; }
+        .btn-secondary { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+
+        /* Next button container */
+        .next-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .btn-next {
+            padding: 10px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: var(--quiz-accent);
+            color: white;
+            transition: all 0.2s;
+            display: none;
+        }
+        .btn-next:hover { background: #0d9488; transform: scale(1.02); }
+        .btn-next.show { display: inline-block; }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @media (max-width: 900px) {
+            .questions-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .questions-row { grid-template-columns: 1fr; }
+            .question-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">Quiz: Platform Economics -- Part 4: Finance Applications &amp; Future</div>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            <a href="../lectures/platform_economics.pdf">Lecture PDF</a>
+            <a href="https://github.com/Digital-AI-Finance/Digital-Finance-Introduction" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <main class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-title">Platform Economics Part 4: Finance Applications &amp; Future (20 Questions)</div>
+            <div class="quiz-stats">
+                <span class="stat-badge stat-progress" id="progressBadge">0/20</span>
+                <span class="stat-badge stat-score" id="scoreBadge">Score: 0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="questions-row" id="questionsRow"></div>
+
+        <div class="next-btn-container">
+            <button class="btn-next" id="nextBtn" onclick="loadNextQuestions()">Next</button>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="results-icon" id="resultsIcon"></div>
+            <div class="results-score" id="resultsScore"></div>
+            <div class="results-label">Correct Answers</div>
+            <div class="results-grade" id="resultsGrade"></div>
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                <a href="../index.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                    "id": 1,
+                    "question": "The financial services platform stack includes all of the following types EXCEPT:",
+                    "options": {
+                        "A": "Payment platforms",
+                        "B": "Lending platforms",
+                        "C": "Manufacturing platforms",
+                        "D": "Banking-as-a-Service (BaaS)"
+                    },
+                    "correct": "C",
+                    "explanation": "The five types of financial platforms are: payment, lending, investment, insurance, and BaaS. Manufacturing is a pipeline business, not a financial platform.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 2,
+                    "question": "Which financial platform type has the strongest network effects?",
+                    "options": {
+                        "A": "Insurance platforms",
+                        "B": "Investment platforms",
+                        "C": "Payment platforms",
+                        "D": "BaaS platforms"
+                    },
+                    "correct": "C",
+                    "explanation": "Payment platforms have the strongest network effects and can achieve winner-take-most dominance. Insurance platforms have the weakest network effects (multi-homing is easy).",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 3,
+                    "question": "In the payment platform ecosystem, cardholders are considered the 'subsidy side' because:",
+                    "options": {
+                        "A": "They pay annual card fees",
+                        "B": "They receive rewards while merchants pay interchange fees",
+                        "C": "They generate transaction data",
+                        "D": "They subsidize the bank's operating costs"
+                    },
+                    "correct": "B",
+                    "explanation": "Cardholders are subsidized (often paying zero fees and receiving rewards) while merchants pay interchange fees. This pricing structure makes the merchant the 'money side' of the two-sided market.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 4,
+                    "question": "The payment card market tipped to winner-take-most because of:",
+                    "options": {
+                        "A": "Low entry costs for new networks",
+                        "B": "Government regulation mandating dominant networks",
+                        "C": "Strong cross-side network effects, high merchant switching costs, and standardized infrastructure",
+                        "D": "Superior technology available only to established players"
+                    },
+                    "correct": "C",
+                    "explanation": "Payment markets tipped due to: (1) extremely strong cross-side network effects (more cardholders → merchants must accept → more cardholders), (2) high switching costs for merchants (refusing a major network means losing sales), and (3) standardized infrastructure that's hard to replace once integrated.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 5,
+                    "question": "In marketplace lending platforms, what is the two-sided structure?",
+                    "options": {
+                        "A": "Banks connect with regulators",
+                        "B": "Borrowers seeking loans connect with investors seeking returns",
+                        "C": "Consumers connect with merchants",
+                        "D": "FinTechs connect with licensed banks"
+                    },
+                    "correct": "B",
+                    "explanation": "Marketplace lending connects borrowers seeking loans (Side A) with investors seeking returns (Side B). The platform performs risk assessment, matching, and loan servicing.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 6,
+                    "question": "In social trading platforms, the two sides consist of:",
+                    "options": {
+                        "A": "Buyers and sellers of stocks",
+                        "B": "Novice investors who copy trades and expert traders who share strategies",
+                        "C": "Day traders and long-term investors",
+                        "D": "Retail investors and institutional investors"
+                    },
+                    "correct": "B",
+                    "explanation": "Social trading platforms connect novice investors who copy strategies (Side A) with expert traders who share their strategies (Side B). More expert strategies attract more followers, generating more fees, which attracts more experts.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 7,
+                    "question": "What common vulnerability do marketplace lending and social trading platforms share?",
+                    "options": {
+                        "A": "Both require expensive technology infrastructure",
+                        "B": "Both rely on favorable market conditions; downturns severely test the model as investors flee",
+                        "C": "Both face intense regulatory scrutiny",
+                        "D": "Both require high initial capital investment"
+                    },
+                    "correct": "B",
+                    "explanation": "Both platform types are vulnerable to market downturns. When returns drop, investors flee, and the network effect reverses into a negative spiral. They rely on favorable market conditions to maintain participation.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 8,
+                    "question": "Banking-as-a-Service (BaaS) enables:",
+                    "options": {
+                        "A": "Banks to lend directly to consumers without intermediaries",
+                        "B": "FinTech companies to offer financial products without obtaining a banking license",
+                        "C": "Consumers to open accounts with multiple banks simultaneously",
+                        "D": "Regulators to monitor all financial transactions in real-time"
+                    },
+                    "correct": "B",
+                    "explanation": "BaaS allows FinTech companies (Side A) to offer financial products by connecting them with licensed banks (Side B) via API. This separates the customer relationship from the banking license requirement.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 9,
+                    "question": "The key separation that BaaS enables is:",
+                    "options": {
+                        "A": "Physical branches from digital channels",
+                        "B": "Customer relationship from banking license",
+                        "C": "Investment products from savings products",
+                        "D": "Domestic banking from international banking"
+                    },
+                    "correct": "B",
+                    "explanation": "BaaS separates the customer relationship (owned by the FinTech) from the banking license (held by the partner bank). This allows non-banks to offer banking services via API without years of regulatory preparation.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 10,
+                    "question": "The emerging risk in BaaS partnerships centers on:",
+                    "options": {
+                        "A": "Technology integration complexity",
+                        "B": "Who bears the compliance responsibility when a FinTech offers bank accounts via BaaS",
+                        "C": "Competition from traditional banks",
+                        "D": "Currency exchange rate fluctuations"
+                    },
+                    "correct": "B",
+                    "explanation": "Regulatory scrutiny is increasing on BaaS partnerships. The key question: when a FinTech offers a bank account via BaaS, who bears the compliance responsibility — the FinTech, the bank, or both? This remains an area of regulatory uncertainty.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 11,
+                    "question": "In the Payment for Order Flow (PFOF) model, the revenue flow works as follows:",
+                    "options": {
+                        "A": "Retail investors pay commissions directly to the broker",
+                        "B": "Market makers pay the broker for routing retail orders to them, while investors pay zero commission",
+                        "C": "The stock exchange pays both the broker and the investor",
+                        "D": "Investors receive payment from market makers for placing orders"
+                    },
+                    "correct": "B",
+                    "explanation": "In PFOF, retail investors pay zero commissions, but the broker routes their orders to market makers who pay for that order flow. The revenue model subsidizes one side (investors) by charging the other (market makers).",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 12,
+                    "question": "Critics of Payment for Order Flow argue that:",
+                    "options": {
+                        "A": "It creates hidden costs in execution quality and a conflict of interest for the broker",
+                        "B": "It prevents small investors from accessing markets",
+                        "C": "It increases trading commissions for retail investors",
+                        "D": "It reduces market liquidity"
+                    },
+                    "correct": "A",
+                    "explanation": "Arguments against PFOF include: (1) hidden costs in execution quality (investors may not get best price), (2) conflict of interest for broker (incentive to route to highest payer, not best execution), and (3) some jurisdictions have banned PFOF. The insight: 'When you're not paying, you are the product — or your order flow is.'",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 13,
+                    "question": "The six-question framework for evaluating FinTech platforms includes all of the following EXCEPT:",
+                    "options": {
+                        "A": "Does it have real network effects, or just subsidized growth?",
+                        "B": "Are unit economics healthy (LTV significantly exceeds CAC)?",
+                        "C": "How many employees does the company have?",
+                        "D": "Are switching costs high enough to retain users at sustainable prices?"
+                    },
+                    "correct": "C",
+                    "explanation": "The six evaluation questions are: (1) real network effects? (2) healthy unit economics? (3) high switching costs? (4) compounding data advantage? (5) can incumbents copy? (6) will regulation help or hurt? Employee count is not part of this strategic evaluation framework.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 14,
+                    "question": "The distinction between centralized and decentralized platforms primarily involves:",
+                    "options": {
+                        "A": "The speed of transaction processing",
+                        "B": "Whether there is centralized ownership and governance vs. community ownership and DAO governance",
+                        "C": "The number of users on the platform",
+                        "D": "The geographical distribution of servers"
+                    },
+                    "correct": "B",
+                    "explanation": "Centralized platforms have centralized ownership, governance, and value capture by the operator, with users as participants. Decentralized platforms have no single owner, community governance (DAOs), value distributed to participants, and users can become owners.",
+                    "difficulty": "easy"
+                },
+                {
+                    "id": 15,
+                    "question": "In decentralized platforms, tokens help solve the chicken-and-egg problem by:",
+                    "options": {
+                        "A": "Eliminating the need for any users on the platform",
+                        "B": "Rewarding early users with ownership stakes, giving them both usage value and financial incentive",
+                        "C": "Making all transactions free of charge",
+                        "D": "Guaranteeing profits to all participants"
+                    },
+                    "correct": "B",
+                    "explanation": "Tokens given to early users act like equity for early employees: they provide both a usage incentive and financial alignment. Token holders benefit when the protocol succeeds, combining network effects with financial incentive to bootstrap participation.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 16,
+                    "question": "Protocol economics in decentralized platforms differs from centralized platforms in that:",
+                    "options": {
+                        "A": "Ownership is open to token holders, fees are distributed to them, and governance is via DAO voting",
+                        "B": "All transactions are processed faster",
+                        "C": "There are no revenue models",
+                        "D": "Regulatory frameworks are clearer"
+                    },
+                    "correct": "A",
+                    "explanation": "Protocol platforms differ across three dimensions: (1) Ownership: token holders (open) vs. shareholders (private/public), (2) Revenue: fees distributed to token holders vs. platform captures fees, (3) Governance: DAO (token-weighted voting) vs. corporate board, and (4) Launch: token airdrops to early users vs. VC + subsidies.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 17,
+                    "question": "The 'convergence hypothesis' in platform economics suggests that:",
+                    "options": {
+                        "A": "All platforms will eventually be regulated the same way",
+                        "B": "Centralized platforms are adopting blockchain features while decentralized protocols learn UX from centralized platforms",
+                        "C": "All financial services will merge into a single mega-platform",
+                        "D": "Platform economics theory will converge with traditional economics"
+                    },
+                    "correct": "B",
+                    "explanation": "The convergence hypothesis predicts the best of both worlds: centralized platforms adopting blockchain features (transparency, interoperability, programmability) while decentralized protocols adopt UX lessons from centralized platforms (simplicity, speed, support). Hybrid models combine centralized operation with decentralized settlement.",
+                    "difficulty": "hard"
+                },
+                {
+                    "id": 18,
+                    "question": "Three predictions for platform evolution include all of the following EXCEPT:",
+                    "options": {
+                        "A": "Interoperability will increase due to regulatory mandates and competitive pressure",
+                        "B": "Data portability will empower users to switch platforms more easily",
+                        "C": "All platforms will become completely decentralized within five years",
+                        "D": "AI will amplify data network effects, potentially increasing concentration"
+                    },
+                    "correct": "C",
+                    "explanation": "The three predictions are: (1) interoperability will increase (Open Banking, data portability mandates), (2) data portability will empower users to switch platforms with their data and history, and (3) AI will amplify data network effects (models improve with more data, giving large platforms even larger advantages). Complete decentralization within five years is not a prediction; hybrid models are more likely.",
+                    "difficulty": "hard"
+                },
+                {
+                    "id": 19,
+                    "question": "The seven key takeaways synthesis includes the principle that:",
+                    "options": {
+                        "A": "All platforms eventually achieve winner-take-most dominance",
+                        "B": "Winner-take-most requires ALL conditions: strong network effects + high switching costs + low multi-homing",
+                        "C": "Platform businesses are always more profitable than pipeline businesses",
+                        "D": "Data flywheels can be easily replicated by new entrants"
+                    },
+                    "correct": "B",
+                    "explanation": "A key takeaway is that winner-take-most requires ALL three conditions simultaneously: (1) strong network effects where each new user significantly increases value, (2) high switching costs making it costly to leave, and (3) low multi-homing making it difficult to use multiple platforms. Missing any one condition prevents market tipping.",
+                    "difficulty": "medium"
+                },
+                {
+                    "id": 20,
+                    "question": "The core skill emphasized in evaluating platforms is:",
+                    "options": {
+                        "A": "Understanding blockchain technology",
+                        "B": "Always asking: 'Would this platform work at sustainable prices without subsidies?'",
+                        "C": "Calculating the exact market capitalization potential",
+                        "D": "Predicting which platform will dominate each market"
+                    },
+                    "correct": "B",
+                    "explanation": "The core skill is to always ask: 'Would this platform work at sustainable prices without subsidies?' This distinguishes real network effects from artificially subsidized growth that collapses when funding ends. Platforms with genuine network effects can raise prices after reaching critical mass; those without cannot.",
+                    "difficulty": "hard"
+                }
+            ]
+        };
+
+        const state = {
+            currentIndex: 0,
+            answers: {},
+            score: 0,
+            displayedQuestions: [],
+            pendingSlots: []
+        };
+
+        const questionsRow = document.getElementById('questionsRow');
+        const progressBar = document.getElementById('progressBar');
+        const progressBadge = document.getElementById('progressBadge');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const resultsCard = document.getElementById('resultsCard');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function initQuiz() {
+            state.currentIndex = 0;
+            state.answers = {};
+            state.score = 0;
+            state.displayedQuestions = [];
+            state.pendingSlots = [];
+
+            resultsCard.classList.remove('show');
+            questionsRow.style.display = 'grid';
+            nextBtn.classList.remove('show');
+
+            // Show first 3 questions
+            for (let i = 0; i < 3 && i < quizData.questions.length; i++) {
+                state.displayedQuestions.push(i);
+            }
+            state.currentIndex = Math.min(3, quizData.questions.length);
+
+            renderQuestions();
+            updateStats();
+        }
+
+        function renderQuestions() {
+            questionsRow.innerHTML = '';
+
+            state.displayedQuestions.forEach((qIdx, slot) => {
+                const q = quizData.questions[qIdx];
+                const answered = state.answers[q.id] !== undefined;
+                const isCorrect = answered && state.answers[q.id] === q.correct;
+                const isIncorrect = answered && state.answers[q.id] !== q.correct;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                if (isCorrect) card.classList.add('correct-card', 'answered');
+                if (isIncorrect) card.classList.add('incorrect-card', 'answered');
+
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-number">Q${qIdx + 1}</span>
+                        ${answered ? `<span class="q-status">${isCorrect ? '&#10004;' : '&#10008;'}</span>` : ''}
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options" data-qid="${q.id}" data-slot="${slot}">
+                        ${['A','B','C','D'].map(letter => {
+                            let optClass = 'option-btn';
+                            if (answered) {
+                                optClass += ' disabled';
+                                if (letter === q.correct) optClass += ' correct';
+                                else if (letter === state.answers[q.id]) optClass += ' incorrect';
+                            }
+                            return `
+                                <button class="${optClass}" data-letter="${letter}" ${answered ? 'disabled' : ''}>
+                                    <span class="option-letter">${letter}</span>
+                                    <span class="option-text">${q.options[letter]}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback ${answered ? 'show' : ''} ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${answered ? (isCorrect ? '&#10004; ' : `&#10008; Answer: ${q.correct}. `) + q.explanation : ''}
+                    </div>
+                `;
+
+                // Add click handlers
+                if (!answered) {
+                    card.querySelectorAll('.option-btn').forEach(btn => {
+                        btn.addEventListener('click', () => handleAnswer(qIdx, slot, btn.dataset.letter));
+                    });
+                }
+
+                questionsRow.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleAnswer(qIdx, slot, letter) {
+            const q = quizData.questions[qIdx];
+            state.answers[q.id] = letter;
+
+            if (letter === q.correct) state.score++;
+
+            // Track this slot as pending replacement
+            if (!state.pendingSlots.includes(slot)) {
+                state.pendingSlots.push(slot);
+            }
+
+            updateStats();
+            renderQuestions();
+
+            // Check if all questions answered
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                // Short delay then show results
+                setTimeout(showResults, 800);
+            } else if (state.currentIndex < quizData.questions.length && state.pendingSlots.length > 0) {
+                // Show Next button if there are more questions and pending slots
+                nextBtn.classList.add('show');
+            }
+        }
+
+        function loadNextQuestions() {
+            // Replace pending slots with new questions
+            while (state.pendingSlots.length > 0 && state.currentIndex < quizData.questions.length) {
+                const slot = state.pendingSlots.shift();
+                state.displayedQuestions[slot] = state.currentIndex;
+                state.currentIndex++;
+            }
+
+            // Hide Next button
+            nextBtn.classList.remove('show');
+
+            renderQuestions();
+
+            // Check if quiz is complete (all displayed questions answered)
+            const answered = Object.keys(state.answers).length;
+            if (answered >= quizData.questions.length) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        function updateStats() {
+            const answered = Object.keys(state.answers).length;
+            const total = quizData.questions.length;
+
+            progressBar.style.width = `${(answered / total) * 100}%`;
+            progressBadge.textContent = `${answered}/${total}`;
+            scoreBadge.textContent = `Score: ${state.score}`;
+        }
+
+        function showResults() {
+            questionsRow.style.display = 'none';
+            nextBtn.classList.remove('show');
+            resultsCard.classList.add('show');
+
+            const total = quizData.questions.length;
+            const percentage = Math.round((state.score / total) * 100);
+
+            document.getElementById('resultsScore').textContent = `${state.score}/${total}`;
+
+            let grade, gradeClass, icon;
+            if (percentage >= 90) { grade = 'Excellent! A'; gradeClass = 'grade-a'; icon = '&#127942;'; }
+            else if (percentage >= 80) { grade = 'Great! B'; gradeClass = 'grade-b'; icon = '&#11088;'; }
+            else if (percentage >= 70) { grade = 'Good! C'; gradeClass = 'grade-c'; icon = '&#128077;'; }
+            else if (percentage >= 60) { grade = 'Pass - D'; gradeClass = 'grade-d'; icon = '&#128221;'; }
+            else { grade = 'Keep practicing'; gradeClass = 'grade-f'; icon = '&#128218;'; }
+
+            document.getElementById('resultsIcon').innerHTML = icon;
+            const gradeEl = document.getElementById('resultsGrade');
+            gradeEl.textContent = `${grade} (${percentage}%)`;
+            gradeEl.className = `results-grade ${gradeClass}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        function renderMath() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            setTimeout(renderMath, 100);
+        });
+    </script>
+</body>
+</html>
