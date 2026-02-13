@@ -12,46 +12,47 @@
 \begin{document}
 
 % =======================================================================
-% SLIDE 1: Pipeline vs Platform — The Core Distinction
+% SLIDE 1: Opening question — Pipeline vs Platform
 % =======================================================================
-\begin{frame}{The Core Distinction: Pipeline vs Platform}
+\begin{frame}{Why Do Some Businesses Connect Instead of Produce?}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \footnotesize
-A \textbf{pipeline} creates value by producing and selling.\\
-A \textbf{platform} creates value by connecting participants.
+A bakery bakes bread and sells it. A ride-sharing app bakes nothing --- it connects a rider with a driver. Both are businesses, but they follow entirely different economic logic.
 
-\vspace{3mm}
+\vspace{2mm}
 \begin{center}
 \begin{tabular}{l l l}
 \toprule
 & \textbf{Pipeline} & \textbf{Platform} \\
 \midrule
-Value from & Production & Interaction \\
-Growth & Linear & Non-linear \\
-Key asset & Inventory, IP & User base, data \\
-Moat & Cost, brand & Network effects \\
+Does what? & Produces \& sells & Connects groups \\
+Grows how? & Linear & Non-linear \\
+Owns what? & Inventory, IP & User base, data \\
+Protected by? & Cost, brand & Network effects \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \vspace{2mm}
 \scriptsize
-This lecture covers the economics behind that difference: why platforms scale differently, price differently, and fail differently than traditional firms.
+This distinction matters because it changes how businesses scale, price, compete, and fail. The lecture works through the economics behind each row of this table.
 \end{column}
 \begin{column}{0.42\textwidth}
-% COMIC 1: Pipeline vs Platform stick figures
+% COMIC 1: Pipeline vs Platform — with personality
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
 % --- Pipeline scene ---
 \node[font=\tiny\bfseries, mlpurple] at (1.5,4.3) {Pipeline};
-% Factory
+% Factory with chimney
 \draw[thick, mlgray] (0,2.8) rectangle (1.2,3.6);
 \node[font=\tiny] at (0.6,3.2) {Factory};
 \draw[thick, mlgray] (0.4,3.6) -- (0.4,3.9) -- (0.8,3.9) -- (0.8,3.6);
+% Smoke puffs
+\draw[mlgray, thick] (0.6,3.9) .. controls (0.5,4.1) and (0.7,4.15) .. (0.6,4.3);
 % Arrow
 \draw[->, thick, mlpurple] (1.4,3.2) -- (2.0,3.2);
-% Box
+% Box product
 \draw[thick, mlgray] (2.1,2.9) rectangle (2.9,3.5);
 \node[font=\tiny] at (2.5,3.2) {Product};
 % Arrow
@@ -66,36 +67,37 @@ This lecture covers the economics behind that difference: why platforms scale di
 
 % --- Platform scene ---
 \node[font=\tiny\bfseries, mlpurple] at (1.5,2.0) {Platform};
-% Stick figure A
+% Stick figure A (rider)
 \draw[thick, dfteal] (0.3,1.5) circle (0.15);
 \draw[thick, dfteal] (0.3,1.35) -- (0.3,0.9);
 \draw[thick, dfteal] (0.3,1.2) -- (0.05,1.0);
 \draw[thick, dfteal] (0.3,1.2) -- (0.55,1.0);
 \draw[thick, dfteal] (0.3,0.9) -- (0.1,0.6);
 \draw[thick, dfteal] (0.3,0.9) -- (0.5,0.6);
-% Speech bubble A
-\draw[thick, mlgray, rounded corners=2pt] (0.6,1.5) rectangle (1.5,1.8);
-\node[font=\tiny] at (1.05,1.65) {I need X};
-\draw[thick, mlgray] (0.55,1.55) -- (0.6,1.6);
+% Speech bubble
+\draw[thick, mlgray, rounded corners=2pt] (0.55,1.45) rectangle (1.55,1.8);
+\node[font=\tiny] at (1.05,1.63) {I need a ride};
+\draw[thick, mlgray] (0.5,1.55) -- (0.55,1.6);
 
-% Platform box
+% Platform box — glowing
 \draw[thick, mlpurple, fill=mllavender4, rounded corners=3pt] (1.7,0.8) rectangle (2.8,1.6);
-\node[font=\tiny\bfseries, mlpurple] at (2.25,1.2) {Platform};
-% Arrows
+\node[font=\tiny\bfseries, mlpurple] at (2.25,1.25) {App};
+\node[font=\tiny, mlgray] at (2.25,1.05) {\textit{match!}};
+% Arrows with labels
 \draw[->, thick, dfteal] (0.7,1.1) -- (1.7,1.1);
 \draw[->, thick, dfteal] (2.8,1.1) -- (3.4,1.1);
 
-% Stick figure B
+% Stick figure B (driver)
 \draw[thick, dfteal] (3.7,1.5) circle (0.15);
 \draw[thick, dfteal] (3.7,1.35) -- (3.7,0.9);
 \draw[thick, dfteal] (3.7,1.2) -- (3.45,1.0);
 \draw[thick, dfteal] (3.7,1.2) -- (3.95,1.0);
 \draw[thick, dfteal] (3.7,0.9) -- (3.5,0.6);
 \draw[thick, dfteal] (3.7,0.9) -- (3.9,0.6);
-% Speech bubble B
-\draw[thick, mlgray, rounded corners=2pt] (2.6,1.5) rectangle (3.5,1.8);
-\node[font=\tiny] at (3.05,1.65) {I have X};
-\draw[thick, mlgray] (3.55,1.55) -- (3.5,1.6);
+% Speech bubble
+\draw[thick, mlgray, rounded corners=2pt] (2.55,1.45) rectangle (3.55,1.8);
+\node[font=\tiny] at (3.05,1.63) {I have a car};
+\draw[thick, mlgray] (3.6,1.55) -- (3.55,1.6);
 \end{tikzpicture}
 \end{center}
 \end{column}
@@ -103,9 +105,9 @@ This lecture covers the economics behind that difference: why platforms scale di
 \end{frame}
 
 % =======================================================================
-% SLIDE 2: Network Effects — Linear vs Non-Linear Growth
+% SLIDE 2: Network Effects — why your group chat proves a point
 % =======================================================================
-\begin{frame}{Network Effects: Why Platforms Grow Differently}
+\begin{frame}{Your Group Chat Proves a Point About Network Effects}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 % CHART 1: Linear vs non-linear value growth
@@ -130,13 +132,13 @@ This lecture covers the economics behind that difference: why platforms scale di
 
 \vspace{1mm}
 \scriptsize
-In a network, value grows faster than user count because each new user can interact with every existing user. A pipeline's value grows proportionally to output.
+A group chat with 3 friends has 3 possible one-on-one conversations. Add a fourth friend and it jumps to 6. Add a fifth: 10. Each new person adds more connections than the last. This is the same force that drives platform growth.
 \end{column}
 \begin{column}{0.42\textwidth}
-% COMIC 2: Network effects — stick figure scene
+% COMIC 2: Group chat growing
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
-% Scene: three people, one joining
+% Scene: three people connected
 % Person 1
 \draw[thick, dfteal] (0.5,3.6) circle (0.15);
 \draw[thick, dfteal] (0.5,3.45) -- (0.5,3.0);
@@ -158,28 +160,37 @@ In a network, value grows faster than user count because each new user can inter
 \draw[thick, dfteal] (3.5,3.3) -- (3.75,3.1);
 \draw[thick, dfteal] (3.5,3.0) -- (3.3,2.7);
 \draw[thick, dfteal] (3.5,3.0) -- (3.7,2.7);
-% Connection lines
-\draw[thick, mlpurple, dashed] (0.5,3.2) -- (2.0,3.2);
-\draw[thick, mlpurple, dashed] (2.0,3.2) -- (3.5,3.2);
-\draw[thick, mlpurple, dashed] (0.5,3.1) -- (3.5,3.1);
-\node[font=\tiny, mlgray] at (2.0,2.4) {3 users = 3 connections};
+% Connection lines — triangle
+\draw[thick, mlpurple] (0.5,3.2) -- (2.0,3.2);
+\draw[thick, mlpurple] (2.0,3.2) -- (3.5,3.2);
+\draw[thick, mlpurple] (0.5,3.05) -- (3.5,3.05);
+\node[font=\tiny\bfseries, mlpurple] at (2.0,2.45) {3 connections};
 
-% New person arriving
-\draw[thick, mlorange] (2.0,1.8) circle (0.15);
-\draw[thick, mlorange] (2.0,1.65) -- (2.0,1.2);
-\draw[thick, mlorange] (2.0,1.5) -- (1.75,1.3);
-\draw[thick, mlorange] (2.0,1.5) -- (2.25,1.3);
-\draw[thick, mlorange] (2.0,1.2) -- (1.8,0.9);
-\draw[thick, mlorange] (2.0,1.2) -- (2.2,0.9);
-% Arrow pointing up
-\draw[->, thick, mlorange] (2.0,1.95) -- (2.0,2.15);
-% Speech bubble
-\draw[thick, mlgray, rounded corners=2pt] (2.4,1.5) rectangle (4.2,1.9);
-\node[font=\tiny, align=left] at (3.3,1.7) {+1 user =};
-\node[font=\tiny, align=left] at (3.3,1.5) {+3 connections};
-\draw[thick, mlgray] (2.35,1.6) -- (2.4,1.65);
-% New total
-\node[font=\tiny, mlpurple] at (2.0,0.6) {4 users = 6 connections};
+% Divider
+\draw[dashed, mlgray] (0,2.2) -- (4.2,2.2);
+
+% New person joining — 4 people, 6 connections
+\draw[thick, dfteal] (0.3,1.8) circle (0.12);
+\draw[thick, dfteal] (0.3,1.68) -- (0.3,1.35);
+\draw[thick, dfteal] (1.4,1.8) circle (0.12);
+\draw[thick, dfteal] (1.4,1.68) -- (1.4,1.35);
+\draw[thick, dfteal] (2.6,1.8) circle (0.12);
+\draw[thick, dfteal] (2.6,1.68) -- (2.6,1.35);
+\draw[thick, mlorange] (3.7,1.8) circle (0.12);
+\draw[thick, mlorange] (3.7,1.68) -- (3.7,1.35);
+\node[font=\tiny\bfseries, mlorange] at (3.7,1.15) {new!};
+% All 6 connections
+\draw[thick, mlpurple!50] (0.3,1.65) -- (1.4,1.65);
+\draw[thick, mlpurple!50] (0.3,1.6) -- (2.6,1.6);
+\draw[thick, mlpurple!50] (0.3,1.55) -- (3.7,1.55);
+\draw[thick, mlpurple!50] (1.4,1.6) -- (2.6,1.6);
+\draw[thick, mlpurple!50] (1.4,1.55) -- (3.7,1.55);
+\draw[thick, mlpurple!50] (2.6,1.55) -- (3.7,1.55);
+\node[font=\tiny\bfseries, mlpurple] at (2.0,0.95) {6 connections};
+
+% Arrow between scenes
+\draw[->, ultra thick, mlorange] (4.0,2.95) -- (4.0,2.35);
+\node[font=\tiny, mlorange, rotate=-90] at (4.3,2.65) {+1 user};
 \end{tikzpicture}
 \end{center}
 \end{column}
@@ -187,84 +198,86 @@ In a network, value grows faster than user count because each new user can inter
 
 \vspace{1mm}
 \begin{block}{}
-\scriptsize \textbf{Four types covered in the lecture:} direct (same-side), indirect (cross-side), data (usage-driven), and negative (value-reducing).
+\scriptsize \textbf{Four types in the lecture:} direct (same-side, like your group chat), indirect (cross-side, like cardholders and merchants), data (usage improves algorithms), and negative (congestion, spam, fraud).
 \end{block}
 \end{frame}
 
 % =======================================================================
 % SLIDE 3: The Chicken-and-Egg Problem
 % =======================================================================
-\begin{frame}{The Launch Problem Every Platform Faces}
+\begin{frame}{Day One: Nobody Shows Up --- Now What?}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \footnotesize
-Every two-sided platform faces a \textbf{chicken-and-egg problem} at launch: each side needs the other to exist first.
+You launch a marketplace. On day one you have zero sellers and zero buyers. Sellers will not list if nobody is browsing. Buyers will not browse if nothing is listed. This \textbf{chicken-and-egg problem} faces every two-sided platform at launch.
 
 \vspace{2mm}
 \scriptsize
-\textbf{Six launch strategies covered in the lecture:}
+\textbf{Six strategies the lecture works through:}
 \begin{enumerate}\compactlist
-\item Subsidize one side
-\item Single-player mode (useful without a network)
-\item Seed supply yourself
-\item Piggyback on an existing network
-\item Attract a marquee user
-\item Dominate a micro-market first
+\item \textbf{Subsidize one side} --- pay people to show up
+\item \textbf{Single-player mode} --- be useful alone first
+\item \textbf{Seed supply} --- create the first listings yourself
+\item \textbf{Piggyback} --- launch inside an existing community
+\item \textbf{Marquee user} --- attract one big name that draws the rest
+\item \textbf{Micro-market} --- dominate one small niche, then expand
 \end{enumerate}
 
-\vspace{2mm}
-The lecture examines when each strategy works, when it fails, and what it costs.
+\vspace{1mm}
+Each has trade-offs. The lecture covers when each works, when it backfires, and real cases of both.
 \end{column}
 \begin{column}{0.42\textwidth}
-% COMIC 3: Chicken-and-egg — two groups looking at empty platform
+% COMIC 3: Chicken-and-egg — more expressive
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
-% Empty platform in middle
+% Empty platform — with cobwebs
 \draw[thick, mlpurple, fill=mllavender4, rounded corners=3pt] (1.2,2.0) rectangle (2.8,2.8);
-\node[font=\tiny\bfseries, mlpurple] at (2.0,2.4) {Platform};
-\node[font=\tiny, mlgray] at (2.0,2.15) {\textit{(empty)}};
+\node[font=\tiny\bfseries, mlpurple] at (2.0,2.5) {Marketplace};
+\node[font=\tiny, mlgray] at (2.0,2.2) {\textit{0 listings}};
+% Cobweb detail
+\draw[thin, mlgray!50] (1.2,2.8) -- (1.5,2.55);
+\draw[thin, mlgray!50] (1.2,2.65) -- (1.4,2.55);
 
-% Seller on left looking skeptical
+% Seller on left — turning away
 \draw[thick, dfteal] (0.3,3.4) circle (0.15);
 \draw[thick, dfteal] (0.3,3.25) -- (0.3,2.8);
 \draw[thick, dfteal] (0.3,3.1) -- (0.05,2.9);
 \draw[thick, dfteal] (0.3,3.1) -- (0.55,2.9);
 \draw[thick, dfteal] (0.3,2.8) -- (0.1,2.5);
 \draw[thick, dfteal] (0.3,2.8) -- (0.5,2.5);
-% Thought bubble seller
-\draw[thick, mlgray, rounded corners=2pt] (-0.3,3.7) rectangle (1.5,4.1);
-\node[font=\tiny] at (0.6,3.9) {No buyers here...};
-\node[font=\tiny] at (0.6,3.7) {why list?};
-% Thought dots
-\fill[mlgray] (0.4,3.6) circle (0.04);
-\fill[mlgray] (0.45,3.65) circle (0.03);
+% Thought bubble
+\draw[thick, mlgray, rounded corners=2pt] (-0.4,3.65) rectangle (1.4,4.15);
+\node[font=\tiny] at (0.5,3.97) {Zero buyers?};
+\node[font=\tiny] at (0.5,3.77) {I'm not listing.};
+\fill[mlgray] (0.35,3.58) circle (0.04);
+\fill[mlgray] (0.38,3.62) circle (0.03);
+% Leaving arrow
+\draw[->, ultra thick, dfred] (0.15,2.4) -- (-0.2,1.8);
+\node[font=\tiny\bfseries, dfred] at (-0.1,1.65) {gone};
 
-% Arrow showing leaving
-\draw[->, thick, dfred] (0.3,2.4) -- (0.3,1.8);
-\node[font=\tiny, dfred] at (0.3,1.6) {leaves};
-
-% Buyer on right looking skeptical
+% Buyer on right — turning away
 \draw[thick, dfteal] (3.7,3.4) circle (0.15);
 \draw[thick, dfteal] (3.7,3.25) -- (3.7,2.8);
 \draw[thick, dfteal] (3.7,3.1) -- (3.45,2.9);
 \draw[thick, dfteal] (3.7,3.1) -- (3.95,2.9);
 \draw[thick, dfteal] (3.7,2.8) -- (3.5,2.5);
 \draw[thick, dfteal] (3.7,2.8) -- (3.9,2.5);
-% Thought bubble buyer
-\draw[thick, mlgray, rounded corners=2pt] (2.6,3.7) rectangle (4.4,4.1);
-\node[font=\tiny] at (3.5,3.9) {Nothing listed...};
-\node[font=\tiny] at (3.5,3.7) {why browse?};
-% Thought dots
-\fill[mlgray] (3.6,3.6) circle (0.04);
-\fill[mlgray] (3.55,3.65) circle (0.03);
-
-% Arrow showing leaving
-\draw[->, thick, dfred] (3.7,2.4) -- (3.7,1.8);
-\node[font=\tiny, dfred] at (3.7,1.6) {leaves};
+% Thought bubble
+\draw[thick, mlgray, rounded corners=2pt] (2.7,3.65) rectangle (4.5,4.15);
+\node[font=\tiny] at (3.6,3.97) {Nothing here?};
+\node[font=\tiny] at (3.6,3.77) {Waste of time.};
+\fill[mlgray] (3.6,3.58) circle (0.04);
+\fill[mlgray] (3.57,3.62) circle (0.03);
+% Leaving arrow
+\draw[->, ultra thick, dfred] (3.85,2.4) -- (4.2,1.8);
+\node[font=\tiny\bfseries, dfred] at (4.15,1.65) {gone};
 
 % Labels
-\node[font=\tiny\bfseries, dfteal] at (0.3,2.3) {Seller};
-\node[font=\tiny\bfseries, dfteal] at (3.7,2.3) {Buyer};
+\node[font=\tiny\bfseries, dfteal] at (0.3,2.35) {Seller};
+\node[font=\tiny\bfseries, dfteal] at (3.7,2.35) {Buyer};
+
+% Bottom punchline
+\node[font=\tiny\bfseries, dfred] at (2.0,1.3) {Both sides wait. Nobody moves first.};
 \end{tikzpicture}
 \end{center}
 \end{column}
@@ -274,7 +287,7 @@ The lecture examines when each strategy works, when it fails, and what it costs.
 % =======================================================================
 % SLIDE 4: Critical Mass and Market Tipping
 % =======================================================================
-\begin{frame}{Critical Mass: The S-Curve of Platform Growth}
+\begin{frame}{The Moment a Platform Becomes Unstoppable}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 % CHART 2: S-curve with critical mass
@@ -291,50 +304,47 @@ The lecture examines when each strategy works, when it fails, and what it costs.
 \addplot[mlpurple, ultra thick, smooth, domain=0:10, samples=50] {100/(1+exp(-1.5*(x-4)))};
 % Critical mass line
 \draw[dashed, dfred, thick] (axis cs:4,0) -- (axis cs:4,100);
-\node[font=\tiny, dfred] at (axis cs:4.3,90) {Critical mass};
-% Zone labels
-\node[font=\tiny, mlgray] at (axis cs:2,15) {Below: subsidies};
-\node[font=\tiny, mlgray] at (axis cs:2,8) {needed, high churn};
-\node[font=\tiny, mlpurple] at (axis cs:7,80) {Above: organic};
-\node[font=\tiny, mlpurple] at (axis cs:7,73) {growth dominates};
+\node[font=\tiny\bfseries, dfred] at (axis cs:4.5,92) {Critical mass};
+% Zone labels with more detail
+\node[font=\tiny, mlgray] at (axis cs:1.8,20) {Burning cash.};
+\node[font=\tiny, mlgray] at (axis cs:1.8,12) {Users leaving.};
+\node[font=\tiny, mlgray] at (axis cs:1.8,4) {``Will this work?''};
+\node[font=\tiny, mlpurple] at (axis cs:7.2,82) {Self-sustaining.};
+\node[font=\tiny, mlpurple] at (axis cs:7.2,74) {Growth feeds growth.};
+\node[font=\tiny, mlpurple] at (axis cs:7.2,66) {``Hard to stop.''};
 \end{axis}
 \end{tikzpicture}
 \end{center}
 \end{column}
 \begin{column}{0.42\textwidth}
 \footnotesize
-\textbf{Critical mass} is the minimum number of users needed for a platform to become self-sustaining.
-
-\vspace{3mm}
-\scriptsize
-\textbf{Below it:}
-\begin{itemize}\compactlist
-\item Users leave faster than they join
-\item Requires external funding
-\end{itemize}
+\textbf{Critical mass}: the point where organic growth exceeds churn without subsidies.
 
 \vspace{2mm}
-\textbf{Above it:}
-\begin{itemize}\compactlist
-\item Growth feeds itself
-\item Network effects compound
-\end{itemize}
+\scriptsize
+Before this point, the platform is fragile --- one bad quarter can trigger a death spiral. After it, network effects compound and growth becomes self-reinforcing.
 
 \vspace{3mm}
-\textbf{Three conditions for winner-take-most:}
+\textbf{When does a market ``tip'' to one winner?}
+
+\vspace{1mm}
+All three conditions must hold:
 \begin{enumerate}\compactlist
-\item Strong network effects
-\item High switching costs
-\item Difficult multi-homing
+\item \textbf{Strong network effects} --- each new user meaningfully increases value
+\item \textbf{High switching costs} --- leaving is painful
+\item \textbf{Hard to multi-home} --- using two platforms at once is difficult
 \end{enumerate}
+
+\vspace{2mm}
+If any condition is weak, competition survives. The lecture covers how to diagnose each.
 \end{column}
 \end{columns}
 \end{frame}
 
 % =======================================================================
-% SLIDE 5: Business Models and Unit Economics
+% SLIDE 5: Business Models — follow the money
 % =======================================================================
-\begin{frame}{How Platforms Make Money --- and How They Fail}
+\begin{frame}{Follow the Money: How Platforms Actually Get Paid}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 % CHART 3: Stacked bar — revenue model types
@@ -374,51 +384,52 @@ The lecture examines when each strategy works, when it fails, and what it costs.
 
 \vspace{-1mm}
 \scriptsize
-\textit{Illustrative revenue mix by FinTech platform type.}
+\textit{Illustrative revenue mix by FinTech platform type.}\\
+Notice: trading platforms earn most of their revenue from data and float --- not commissions. If you pay zero commission, someone else is paying.
 \end{column}
 \begin{column}{0.42\textwidth}
 \footnotesize
 \textbf{Four revenue models:}
 \begin{description}\compactlist
-\item[\scriptsize Commission] \% per transaction
-\item[\scriptsize Subscription] Recurring access fee
-\item[\scriptsize Freemium] Free basic, paid premium
-\item[\scriptsize Data/Float] PFOF, interest on held funds
+\item[\scriptsize Commission] \% of each transaction
+\item[\scriptsize Subscription] Monthly or annual access fee
+\item[\scriptsize Freemium] Free basic tier, paid premium
+\item[\scriptsize Data/Float] Selling order flow, earning interest on held funds
 \end{description}
 
 \vspace{3mm}
 \scriptsize
-\textbf{Unit economics health check:}
+\textbf{The health check --- three numbers:}
 \begin{itemize}\compactlist
-\item \textbf{LTV} $>$ 3$\times$ \textbf{CAC}
-\item Payback $<$ 18 months
-\item Monthly churn $<$ 5\%
+\item Does each customer pay back more than it cost to get them? (\textbf{LTV} $>$ 3$\times$ \textbf{CAC})
+\item How long until they do? (payback $<$ 18 months)
+\item How many leave each month? (churn $<$ 5\%)
 \end{itemize}
 
 \vspace{2mm}
-The lecture covers how to distinguish real growth from venture-subsidized growth using these metrics.
+The lecture uses these metrics to separate real businesses from venture-subsidized ones.
 \end{column}
 \end{columns}
 \end{frame}
 
 % =======================================================================
-% SLIDE 6: Lecture Structure
+% SLIDE 6: Lecture roadmap
 % =======================================================================
-\begin{frame}{Lecture Structure: Eight Sections}
+\begin{frame}{What the Lecture Covers: Eight Sections}
 \footnotesize
 \begin{center}
 \begin{tabular}{c l l}
 \toprule
-\textbf{\#} & \textbf{Section} & \textbf{Key Concepts} \\
+\textbf{\#} & \textbf{Section} & \textbf{Central Question} \\
 \midrule
-1 & What is a Platform? & Pipeline vs platform, taxonomy, four characteristics \\
-2 & Two-Sided Markets & Network effects (4 types), critical mass, tipping \\
-3 & Strategy \& Competition & Chicken-and-egg, launch strategies, envelopment \\
-4 & Business Models & Revenue models, unit economics, blitzscaling \\
-5 & Data, Trust, Governance & Data flywheel, trust layers, governance models \\
-6 & Regulation \& Failures & Regulator's dilemma, death spiral, case studies \\
-7 & Platforms in Finance & Payments, lending, BaaS, PFOF, evaluation framework \\
-8 & Synthesis & Decentralized platforms, tokens, convergence \\
+1 & What is a Platform? & What makes a platform different from a regular business? \\
+2 & Two-Sided Markets & Why do networks grow explosively --- or collapse? \\
+3 & Strategy \& Competition & How do you launch when nobody is there yet? \\
+4 & Business Models & Where does the money actually come from? \\
+5 & Data, Trust, Governance & Who controls the platform, and why does it matter? \\
+6 & Regulation \& Failures & What kills a platform, and can regulation prevent it? \\
+7 & Platforms in Finance & How does this apply to payments, lending, and trading? \\
+8 & Synthesis & What happens when platforms decentralize? \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -426,17 +437,17 @@ The lecture covers how to distinguish real growth from venture-subsidized growth
 \vspace{3mm}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\begin{block}{Lecture includes}
+\begin{block}{Lecture format}
 \begin{itemize}\compactlist
 \item 59 content frames, 13 diagrams
-\item 4 discussion exercises
+\item 4 in-class discussion exercises
 \item 2 self-assessment quizzes
-\item 1 group workshop
+\item 1 group workshop (you present)
 \end{itemize}
 \end{block}
 \end{column}
 \begin{column}{0.48\textwidth}
-\begin{block}{References}
+\begin{block}{Academic references}
 \scriptsize
 \begin{itemize}\compactlist
 \item Rochet-Tirole (2003/2006)
