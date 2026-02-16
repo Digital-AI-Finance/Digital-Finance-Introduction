@@ -1,0 +1,684 @@
+% Automated Market Makers: 10-Slide Mini-Lecture
+% Standalone introduction following the 10-slide arc
+\input{../template_beamer.tex}
+
+% Additional TikZ libraries
+\usetikzlibrary{calc,decorations.pathreplacing}
+
+% ======================= DOCUMENT INFO =======================
+\title[AMM Intro]{Automated Market Makers}
+\subtitle{Trading Without Traders --- A 10-Slide Introduction}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{}
+
+\begin{document}
+
+% =======================================================================
+% SLIDE 1: WHY --- TikZ Comic (Dilemma, dfteal-dominant)
+% =======================================================================
+\begin{frame}[t]{What If You Could Trade Any Token, Anywhere, at Any Time --- With No Exchange?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+You want to swap one digital asset for another. On a traditional exchange, you wait for someone willing to take the other side. No counterparty, no trade. What if a pool of tokens could serve as your counterparty --- always available, always willing?
+
+\vspace{2mm}
+\footnotesize
+\textbf{Three problems with traditional exchanges:}
+\begin{enumerate}\compactlist
+\item \textbf{Counterparty risk} --- you need someone on the other side
+\item \textbf{Availability} --- markets close, liquidity dries up
+\item \textbf{Access} --- not everyone can reach an exchange
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+These barriers mean that many assets sit idle, many trades never happen, and many participants are excluded.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Left figure (holder of Token A) ---
+\draw[thick, dfteal] (1.0,3.4) circle (0.15); % head
+\draw[thick, dfteal] (1.0,3.25) -- (1.0,2.7); % body
+\draw[thick, dfteal] (1.0,3.0) -- (0.7,2.8); % left arm
+\draw[thick, dfteal] (1.0,3.0) -- (1.3,2.8); % right arm
+\draw[thick, dfteal] (1.0,2.7) -- (0.8,2.4); % left leg
+\draw[thick, dfteal] (1.0,2.7) -- (1.2,2.4); % right leg
+
+% Token A held by left figure
+\draw[thick, dfteal, fill=dfteal!20, rounded corners=1pt] (0.5,2.9) rectangle (0.8,3.15);
+\node[font=\tiny, dfteal] at (0.65,3.02) {A};
+
+% --- Right figure (holder of Token B) ---
+\draw[thick, dfteal] (3.0,3.4) circle (0.15); % head
+\draw[thick, dfteal] (3.0,3.25) -- (3.0,2.7); % body
+\draw[thick, dfteal] (3.0,3.0) -- (2.7,2.8); % left arm
+\draw[thick, dfteal] (3.0,3.0) -- (3.3,2.8); % right arm
+\draw[thick, dfteal] (3.0,2.7) -- (2.8,2.4); % left leg
+\draw[thick, dfteal] (3.0,2.7) -- (3.2,2.4); % right leg
+
+% Token B held by right figure
+\draw[thick, dfteal, fill=dfteal!20, rounded corners=1pt] (3.2,2.9) rectangle (3.5,3.15);
+\node[font=\tiny, dfteal] at (3.35,3.02) {B};
+
+% --- Thought bubble left: "Who will trade with me?" ---
+\draw[thick, mlgray, rounded corners=2pt] (-0.5,3.7) rectangle (1.2,4.1);
+\node[font=\tiny] at (0.35,3.9) {Who will trade?};
+\fill[mlgray] (0.85,3.6) circle (0.04);
+\fill[mlgray] (0.9,3.65) circle (0.03);
+
+% --- Thought bubble right: "When will someone show up?" ---
+\draw[thick, mlgray, rounded corners=2pt] (2.5,3.7) rectangle (4.3,4.1);
+\node[font=\tiny] at (3.4,3.9) {When will they come?};
+\fill[mlgray] (3.05,3.6) circle (0.04);
+\fill[mlgray] (3.0,3.65) circle (0.03);
+
+% --- Gap: dashed line (empty order book) ---
+\draw[dashed, thick, mlgray] (1.5,2.5) -- (2.5,2.5);
+\node[font=\tiny, mlgray] at (2.0,2.7) {Order book? Empty.};
+
+% --- Glowing pool below ---
+\draw[thick, dfteal, fill=dfteal!15, rounded corners=3pt] (0.8,0.5) rectangle (3.2,1.3);
+\node[font=\tiny\bfseries, dfteal] at (2.0,1.05) {Liquidity Pool};
+\node[font=\tiny, dfteal] at (2.0,0.75) {Always open. No counterparty needed.};
+
+% --- Arrow from pool up to gap ---
+\draw[->, ultra thick, dfteal] (2.0,1.3) -- (2.0,2.3);
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, mlpurple] at (2.0,0.15) {A formula replaces the market maker.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize An AMM replaces the traditional order book with a pool of tokens and a pricing formula. Anyone can trade against the pool at any time --- no counterparty search, no waiting, no permission needed.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 2: FEEL --- Text-Only Prompt (Full-width)
+% =======================================================================
+\begin{frame}[t]{Think About the Last Time You Bought or Sold Something --- Who Set the Price?}
+\small
+You walk into a shop. The price tag says what you pay. You do not negotiate. You do not wait for another buyer to appear. The shop always has stock and always quotes a price.
+
+\vspace{3mm}
+\small
+Now imagine a different version:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The pool:] Instead of a shop owner, a shared fund of two assets sits in a smart contract. Anyone can deposit, anyone can trade.
+\item[\scriptsize The formula:] Instead of a price tag set by a person, a mathematical rule calculates the price based on how much of each asset remains in the pool.
+\item[\scriptsize The guarantee:] The pool is always open. It never refuses a trade. But the price you get depends on how much you want.
+\end{description}
+
+\vspace{3mm}
+\small
+No negotiation. No counterparty search. No closing hours. The formula handled it.
+
+\vspace{3mm}
+\begin{exampleblock}{The Core Idea}
+\footnotesize This is the core idea behind automated market makers: a pool of tokens and a pricing rule replace the entire infrastructure of a traditional exchange. The pool does not think, negotiate, or discriminate --- it simply follows the formula.
+\end{exampleblock}
+\end{frame}
+
+% =======================================================================
+% SLIDE 3: WHAT --- Comparison Table (adjustbox)
+% =======================================================================
+\begin{frame}[t]{What Makes an Automated Market Maker Different from a Traditional Exchange?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\scriptsize
+\begin{tabular}{l c c}
+\toprule
+\textbf{Aspect} & \textbf{Traditional Exchange} & \textbf{AMM} \\
+\midrule
+Price setting & Order book with bids/asks & Formula based on reserves \\
+Counterparty & Must find matching buyer/seller & Trade against the pool \\
+Liquidity from & Professional market makers & Anyone who deposits \\
+Availability & Business hours, can halt & Always open, never paused \\
+Transparency & Private order flow & All trades and reserves public \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{center}
+
+\vspace{2mm}
+\footnotesize
+The shift from order books to pools eliminates the counterparty search but introduces a new cost --- price impact. The more you buy relative to the pool, the worse your price.
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Key properties that distinguish AMMs:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Permissionless} --- anyone can trade or provide liquidity
+\item \textbf{Algorithmic} --- prices adjust automatically with every trade
+\item \textbf{Non-custodial} --- the smart contract holds assets, not a company
+\item \textbf{Composable} --- other protocols can build on top
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+These properties taken together create a fundamentally new kind of exchange: one where the marketplace itself is a program that anyone can use or extend.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize The removal of the order book is both the greatest innovation and the source of new risks. Algorithmic pricing is predictable and transparent, but it can be exploited by anyone who understands the formula.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 4: CASE --- Step Diagram (6 steps + 1 branch)
+% =======================================================================
+\begin{frame}[t]{Follow One Swap from Click to Settlement --- No Humans Involved}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.65,
+    stepbox/.style={rectangle, rounded corners=3pt, minimum width=2.8cm, minimum height=0.5cm, text centered, thick, font=\tiny},
+    rejectbox/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.4cm, text centered, thick, font=\tiny}
+]
+% Step 1
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s1) at (0,0) {1. Submit swap request};
+% Step 2
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s2) at (0,-1.0) {2. Pool checks reserves};
+% Step 3
+\node[stepbox, draw=dfteal, fill=dfteal!20] (s3) at (0,-2.0) {3. Formula calculates output};
+% Step 4
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s4) at (0,-3.0) {4. Tokens leave pool};
+% Step 5
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s5) at (0,-4.0) {5. New tokens enter pool};
+% Step 6
+\node[stepbox, draw=dfgreen, fill=dfgreen!20] (s6) at (0,-5.0) {6. Price updates automatically};
+
+% Arrows between steps
+\draw[->, thick, mlpurple] (s1) -- (s2);
+\draw[->, thick, mlpurple] (s2) -- (s3);
+\draw[->, thick, mlpurple] (s3) -- (s4);
+\draw[->, thick, mlpurple] (s4) -- (s5);
+\draw[->, thick, mlpurple] (s5) -- (s6);
+
+% Branch from step 3: slippage warning
+\node[rejectbox, draw=dfred, fill=dfred!20] (r1) at (3.2,-2.0) {Slippage warning};
+\draw[->, thick, dfred] (s3.east) -- (r1.west) node[midway, above, font=\tiny, dfred] {trade too large};
+
+% Numbered circles
+\foreach \i/\y in {1/0, 2/-1.0, 3/-2.0, 4/-3.0, 5/-4.0, 6/-5.0} {
+    \node[circle, fill=mlpurple, text=white, font=\tiny, inner sep=1pt, minimum size=0.3cm] at (-1.8,\y) {\i};
+}
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What happened in those six steps:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item No broker matched your order --- the pool was your counterparty
+\item No price was negotiated --- the formula determined it
+\item No settlement delay --- tokens moved in the same transaction
+\item No minimum trade size --- anyone can swap any amount
+\end{itemize}
+
+\vspace{2mm}
+\footnotesize
+The entire process --- from request to settlement --- ran as code. Every step was deterministic: given the same pool state and trade size, the same output is guaranteed.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Every step that removes a human also removes a point of discretion. The swap is faster, cheaper, and more predictable --- but the pool cannot exercise judgment about whether a trade is wise, fair, or manipulative.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 5: HOW --- Side-by-Side Architecture
+% =======================================================================
+\begin{frame}[t]{How Does a Pool of Tokens Replace an Order Book?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    archbox/.style={rectangle, rounded corners=2pt, minimum width=2.0cm, minimum height=0.5cm, text centered, thick, font=\tiny}
+]
+% ===== LEFT STACK: Order Book =====
+\node[font=\tiny\bfseries, mlpurple] at (1.2,4.5) {Traditional};
+
+% User (stick figure)
+\draw[thick, mlgray] (1.2,4.1) circle (0.12);
+\draw[thick, mlgray] (1.2,3.98) -- (1.2,3.6);
+\node[font=\tiny, mlgray] at (1.2,4.3) {User};
+
+% Submit Order
+\node[archbox, draw=mlgray, fill=mlgray!15] (order) at (1.2,3.0) {Submit Order};
+\draw[->, thick, mlgray] (1.2,3.55) -- (1.2,3.25);
+
+% Matching Engine
+\node[archbox, draw=mlgray, fill=mlgray!15, minimum width=2.2cm] (engine) at (1.2,2.2) {Matching Engine};
+\draw[->, thick, mlgray] (1.2,2.75) -- (1.2,2.45);
+
+% Counterparty Found?
+\node[archbox, draw=mlgray, fill=mlgray!15] (counter) at (1.2,1.4) {Counterparty?};
+\draw[->, thick, mlgray] (1.2,1.95) -- (1.2,1.65);
+
+% Label
+\node[font=\tiny, mlgray, align=center] at (1.2,0.7) {\textit{Needs a buyer}\\\textit{AND a seller}};
+
+% ===== DASHED SEPARATOR =====
+\draw[dashed, thick, mlgray] (2.7,0.4) -- (2.7,4.6);
+
+% ===== RIGHT STACK: AMM Pool =====
+\node[font=\tiny\bfseries, mlpurple] at (4.3,4.5) {AMM Pool};
+
+% User (stick figure)
+\draw[thick, dfteal] (4.3,4.1) circle (0.12);
+\draw[thick, dfteal] (4.3,3.98) -- (4.3,3.6);
+\node[font=\tiny, dfteal] at (4.3,4.3) {User};
+
+% Send tokens
+\node[archbox, draw=mlpurple, fill=mllavender4] (send) at (4.3,3.0) {Send tokens};
+\draw[->, thick, dfteal] (4.3,3.55) -- (4.3,3.25);
+
+% Pool + Formula (key element)
+\node[archbox, draw=mlpurple, fill=mlpurple!20, minimum width=2.2cm] (pool) at (4.3,2.2) {Pool + Formula};
+\draw[->, thick, mlpurple] (4.3,2.75) -- (4.3,2.45);
+\node[font=\tiny, mlpurple, align=center] at (6.0,2.2) {\textit{x $\cdot$ y = k}};
+
+% Receive tokens
+\node[archbox, draw=dfgreen, fill=dfgreen!20] (receive) at (4.3,1.4) {Receive tokens};
+\draw[->, thick, mlpurple] (4.3,1.95) -- (4.3,1.65);
+
+% Label
+\node[font=\tiny, dfteal, align=center] at (4.3,0.7) {\textit{Only needs}\\\textit{the pool}};
+
+% Bottom comparison label
+\node[font=\tiny\bfseries, mlpurple] at (2.7,0.0) {Matching orders vs.\ Mathematical certainty};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The seesaw principle:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The rule:] The pool maintains a balance between its two tokens. When you buy one, it becomes scarcer and more expensive.
+\item[\scriptsize The curve:] Think of a seesaw --- when one side goes up, the other must go down. The total ``weight'' stays constant.
+\item[\scriptsize Price impact:] Small trades barely move the seesaw. Large trades push it far, resulting in a worse price.
+\item[\scriptsize Self-correcting:] If the pool price drifts from the market price, arbitrageurs trade until it realigns.
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The pricing formula is simple but powerful: it guarantees that the pool can always quote a price for any trade size, but larger trades pay progressively more.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize An order book needs participants on both sides. A pool needs only liquidity. This means an AMM can operate for any token pair, no matter how obscure --- as long as someone has deposited funds.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 6: RISK --- TikZ Failure Comic (dfred-dominant)
+% =======================================================================
+\begin{frame}[t]{You Provided Liquidity and Made Fees --- So Why Do You Have Less Than When You Started?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+A liquidity provider deposits equal value of two tokens into a pool. Traders swap, fees accumulate, everything looks profitable. Then the price of one token changes significantly.
+
+\vspace{2mm}
+\footnotesize
+\textbf{The impermanent loss pattern:}
+\begin{enumerate}\compactlist
+\item You deposit equal value of Token A and Token B into a pool
+\item Token A price rises significantly outside the pool
+\item Arbitrageurs buy cheap Token A from your pool, depositing Token B
+\item Your pool share now has less of the rising token and more of the stable one
+\item Your total value is less than if you had simply held both tokens
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+The pool made fees on every trade. But the rebalancing cost exceeded the fee income. You would have been better off doing nothing.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- LP figure at top ---
+\draw[thick, dfteal] (2.0,4.3) circle (0.15); % head
+\draw[thick, dfteal] (2.0,4.15) -- (2.0,3.6); % body
+\draw[thick, dfteal] (2.0,3.9) -- (1.7,3.7); % left arm
+\draw[thick, dfteal] (2.0,3.9) -- (2.3,3.7); % right arm
+\draw[thick, dfteal] (2.0,3.6) -- (1.8,3.35); % left leg
+\draw[thick, dfteal] (2.0,3.6) -- (2.2,3.35); % right leg
+
+% Speech bubble from LP
+\draw[thick, mlgray, rounded corners=2pt] (2.5,4.2) rectangle (4.0,4.6);
+\node[font=\tiny] at (3.25,4.4) {I'm earning fees!};
+\fill[mlgray] (2.4,4.3) circle (0.03);
+
+% --- Pool in middle (dfred border) ---
+\draw[ultra thick, dfred, fill=dfred!8, rounded corners=3pt] (0.5,2.0) rectangle (3.5,3.2);
+\node[font=\tiny\bfseries, dfred] at (2.0,2.95) {Your Pool Share};
+
+% Token A shrinking (small)
+\draw[thick, dfteal, fill=dfteal!20] (1.0,2.3) rectangle (1.3,2.6);
+\node[font=\tiny, dfteal] at (1.15,2.45) {A};
+\node[font=\tiny, dfred] at (1.15,2.15) {\textit{less}};
+
+% Token B growing (larger)
+\draw[thick, mlgray, fill=mlgray!20] (2.5,2.2) rectangle (3.1,2.7);
+\node[font=\tiny, mlgray] at (2.8,2.45) {B};
+\node[font=\tiny, dfred] at (2.8,2.15) {\textit{more}};
+
+% Arrows: A leaving, B entering
+\draw[->, thick, dfred] (1.15,2.0) -- (1.15,1.7);
+\draw[->, thick, mlgray] (2.8,1.7) -- (2.8,2.0);
+
+% --- Arbitrageur figure (right side) ---
+\draw[thick, dfred] (4.3,2.8) circle (0.12); % head
+\draw[thick, dfred] (4.3,2.68) -- (4.3,2.3); % body
+\draw[thick, dfred] (4.3,2.5) -- (4.1,2.3); % arm
+\draw[thick, dfred] (4.3,2.5) -- (4.5,2.3); % arm
+\draw[thick, dfred] (4.3,2.3) -- (4.15,2.1); % leg
+\draw[thick, dfred] (4.3,2.3) -- (4.45,2.1); % leg
+
+% Loop arrow from pool to arb
+\draw[->, thick, dfred, rounded corners=3pt] (3.5,2.6) -- (4.0,2.6);
+\node[font=\tiny, dfred] at (3.75,2.8) {cheap A};
+
+% --- Bottom: Before/After comparison ---
+\draw[thick, dfteal, fill=dfteal!15, rounded corners=2pt] (0.2,0.5) rectangle (1.8,1.2);
+\node[font=\tiny\bfseries, dfteal, align=center] at (1.0,0.85) {Just held:\\More value};
+
+\draw[thick, dfred, fill=dfred!15, rounded corners=2pt] (2.2,0.5) rectangle (3.8,1.2);
+\node[font=\tiny\bfseries, dfred, align=center] at (3.0,0.85) {In pool:\\Less value};
+
+% Gap arrow
+\draw[<->, thick, mlpurple] (1.85,0.85) -- (2.15,0.85);
+\node[font=\tiny, mlpurple, align=center] at (2.0,0.3) {The gap = IL};
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, dfred] at (2.0,-0.1) {The fees were real. The loss was bigger.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Impermanent loss is the hidden cost of providing liquidity. It occurs whenever the relative price of the two tokens changes. The larger the price movement, the greater the loss --- regardless of direction.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 7: WHERE --- pgfplots Stacked Bar Chart
+% =======================================================================
+\begin{frame}[t]{How Much Trading Already Happens Without a Traditional Exchange?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tikzpicture}
+\begin{axis}[
+    width=7cm, height=4.5cm,
+    ybar stacked,
+    bar width=14pt,
+    symbolic x coords={Stablecoin Pairs,Blue-Chip Pairs,Long-Tail Pairs,Cross-Chain,Derivatives},
+    xtick=data,
+    x tick label style={font=\tiny, rotate=25, anchor=east},
+    ylabel={\scriptsize Share of DEX volume (\%)},
+    y tick label style={font=\tiny},
+    ymin=0, ymax=105,
+    ytick={0,25,50,75,100},
+    legend style={at={(1.02,1.0)}, anchor=north west, font=\tiny},
+    legend cell align={left},
+    grid=none,
+    enlarge x limits=0.15,
+    area style
+]
+% Top AMM protocols
+\addplot[fill=mlpurple, draw=mlpurple!80!black] coordinates
+    {(Stablecoin Pairs,50) (Blue-Chip Pairs,40) (Long-Tail Pairs,25) (Cross-Chain,35) (Derivatives,30)};
+% Mid-tier AMMs
+\addplot[fill=dfteal!60, draw=dfteal] coordinates
+    {(Stablecoin Pairs,30) (Blue-Chip Pairs,35) (Long-Tail Pairs,30) (Cross-Chain,30) (Derivatives,25)};
+% Emerging AMMs
+\addplot[fill=mlorange!60, draw=mlorange] coordinates
+    {(Stablecoin Pairs,20) (Blue-Chip Pairs,25) (Long-Tail Pairs,45) (Cross-Chain,35) (Derivatives,45)};
+\legend{Top AMM protocols, Mid-tier AMMs, Emerging AMMs}
+\end{axis}
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\vspace{1mm}
+\tiny\textit{Illustrative distribution based on public DEX data patterns. Not actual protocol data.}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What these trading categories reveal:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Stablecoin pairs:] High volume, low slippage --- the bread and butter of AMMs
+\item[\scriptsize Blue-chip pairs:] Major token pairs with deep liquidity
+\item[\scriptsize Long-tail pairs:] Obscure tokens that would have no market on a traditional exchange
+\item[\scriptsize Cross-chain:] Swaps across different blockchains using bridge AMMs
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The long-tail category is where AMMs shine most: they create markets for assets that no traditional exchange would list. This is permissionless finance in action.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize AMMs have captured a significant share of token trading. Their greatest contribution is not competing with traditional exchanges on popular pairs --- it is creating markets that could not exist otherwise.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 8: IMPACT --- Stakeholder Map (5 actors)
+% =======================================================================
+\begin{frame}[t]{Who Wins and Who Loses When Anyone Can Be a Market Maker?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    actor/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.5cm, text centered, thick, font=\tiny, draw=mlgray, fill=mllavender4}
+]
+% Central node
+\node[rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=0.6cm, text centered, thick, draw=mlpurple, fill=mlpurple!80, font=\tiny\bfseries, text=white] (center) at (2.5,2.5) {\shortstack{Automated\\Market Makers}};
+
+% Actor 1: Top-left --- Retail traders (benefit)
+\node[actor] (a1) at (0.2,4.5) {\shortstack{Retail\\traders}};
+\draw[->, thick, dfgreen] (center) -- (a1) node[midway, left, font=\tiny, dfgreen] {access};
+
+% Actor 2: Top-right --- Liquidity providers (benefit)
+\node[actor] (a2) at (4.8,4.5) {\shortstack{Liquidity\\providers}};
+\draw[->, thick, dfgreen] (center) -- (a2) node[midway, right, font=\tiny, dfgreen] {yield};
+
+% Actor 3: Right --- Traditional exchanges (harm)
+\node[actor] (a3) at (5.5,2.0) {\shortstack{Traditional\\exchanges}};
+\draw[->, thick, dfred] (center) -- (a3) node[midway, below, font=\tiny, dfred] {displace};
+
+% Actor 4: Bottom-right --- Arbitrageurs (ambiguous)
+\node[actor] (a4) at (4.5,0.3) {\shortstack{Arbitrageurs}};
+\draw[->, thick, mlorange] (center) -- (a4) node[midway, right, font=\tiny, mlorange] {profit};
+
+% Actor 5: Bottom-left --- Unsophisticated LPs (harm)
+\node[actor] (a5) at (0.5,0.3) {\shortstack{Unsophisticated\\LPs}};
+\draw[->, thick, dfred] (center) -- (a5) node[midway, left, font=\tiny, dfred] {IL risk};
+
+% Legend
+\node[font=\tiny, dfgreen] at (1.0,-0.4) {Green = benefit};
+\node[font=\tiny, dfred] at (2.5,-0.4) {Red = harm};
+\node[font=\tiny, mlorange] at (4.0,-0.4) {Orange = ambiguous};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The distribution of impact is uneven:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Winners:} Retail traders gain access to any token pair at any time. Liquidity providers earn fees on idle assets.
+\item \textbf{Losers:} Traditional exchanges face competition for token trading. Unsophisticated LPs may suffer impermanent loss that exceeds their fee income.
+\item \textbf{Ambiguous:} Arbitrageurs profit from price misalignment but also keep prices accurate. Their role is essential but extractive.
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+The same openness that enables new participation also enables new forms of value extraction.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize AMMs democratize market making but do not eliminate information asymmetry. Sophisticated participants consistently extract value from less informed ones --- a pattern familiar from traditional finance.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 9: SO WHAT --- Balance Scale
+% =======================================================================
+\begin{frame}[t]{Three Questions That Reveal Whether a Liquidity Pool Is Worth Joining}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Before providing liquidity to any pool, ask three questions. The answers will not tell you what to do --- but they will tell you what you are risking.
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{How correlated are the two tokens?}\\
+\scriptsize Pools with highly correlated tokens (like two stablecoins) have minimal impermanent loss. Pools with uncorrelated tokens face much higher IL risk.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{Is the trading volume high enough to offset impermanent loss?}\\
+\scriptsize Fee income must exceed IL for the position to be profitable. Low-volume pools generate little fee income but still expose you to the same IL.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{How deep is the pool relative to typical trade sizes?}\\
+\scriptsize Shallow pools suffer more from large trades and are more vulnerable to manipulation. Deep pools offer more stable returns.
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% Fulcrum triangle
+\fill[mlgray!30] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+\draw[thick, mlgray] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+
+% Beam (slightly tilted to show tension)
+\draw[ultra thick, mlpurple] (0.2,1.8) -- (3.8,1.2);
+
+% Pivot
+\fill[mlpurple] (2.0,1.5) circle (0.08);
+
+% Left pan --- Fee Income + Access
+\draw[thick, dfteal] (0.0,1.4) -- (0.4,1.4);
+\draw[thick, dfteal] (0.0,1.4) -- (0.2,1.8);
+\draw[thick, dfteal] (0.4,1.4) -- (0.2,1.8);
+\node[font=\tiny\bfseries, dfteal, align=center] at (0.2,1.05) {Fee Income\\+ Access};
+
+% Items on left pan
+\node[font=\tiny, dfteal] at (0.2,0.65) {Trading fees};
+\node[font=\tiny, dfteal] at (0.2,0.4) {Composable yield};
+\node[font=\tiny, dfteal] at (0.2,0.15) {Passive income};
+
+% Right pan --- IL + Risk
+\draw[thick, dfred] (3.6,0.8) -- (4.0,0.8);
+\draw[thick, dfred] (3.6,0.8) -- (3.8,1.2);
+\draw[thick, dfred] (4.0,0.8) -- (3.8,1.2);
+\node[font=\tiny\bfseries, dfred, align=center] at (3.8,0.45) {IL\\+ Risk};
+
+% Items on right pan
+\node[font=\tiny, dfred] at (3.8,0.05) {Impermanent loss};
+\node[font=\tiny, dfred] at (3.8,-0.2) {Smart contract risk};
+\node[font=\tiny, dfred] at (3.8,-0.45) {Pool depletion};
+
+% Question mark at top center
+\node[font=\small\bfseries, mlpurple] at (2.0,2.6) {?};
+
+% Annotation arrows
+\draw[->, thick, dfteal] (0.2,2.4) -- (0.2,2.0);
+\node[font=\tiny, dfteal, align=center] at (0.2,2.7) {More\\yield};
+\draw[->, thick, dfred] (3.8,2.4) -- (3.8,1.6);
+\node[font=\tiny, dfred, align=center] at (3.8,2.7) {More\\risk};
+
+% Bottom annotation
+\node[font=\tiny, mlgray] at (2.0,-0.7) {\textit{Every pool tips the balance differently.}};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Providing liquidity is not passive income --- it is active risk-taking. The three questions above form a simple framework for evaluating whether the expected fee income justifies the impermanent loss and smart contract risk.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 10: ACT --- Activity Frame (Full-width)
+% =======================================================================
+\begin{frame}[t]{Your Challenge: Evaluate This Pool}
+\small
+A new AMM pool has launched with the following characteristics:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The pair:] Token A is a volatile asset whose price has doubled in the past period. Token B is a stablecoin that maintains a steady value.
+\item[\scriptsize The volume:] The pool processes a moderate number of trades per day, generating fees at the standard rate.
+\item[\scriptsize The depth:] The pool is relatively shallow --- a few large trades could move the price significantly.
+\end{description}
+
+\vspace{3mm}
+\small
+Apply the three questions from the previous slide:
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Correlation question:} How correlated are Token A and Token B? What does this tell you about impermanent loss risk?
+\item \textbf{Volume question:} Given the pool's trading volume and fee rate, do you expect fee income to exceed impermanent loss? What additional information would you need?
+\item \textbf{Depth question:} What risks does the shallow pool depth create? Who benefits from a shallow pool, and who is harmed?
+\end{enumerate}
+
+\vspace{3mm}
+\begin{exampleblock}{No Single Right Answer}
+\footnotesize There is no single right answer. The point is to practice evaluating trade-offs: a volatile-stable pair maximizes impermanent loss risk, but volatile pairs also tend to generate more trading volume. Every liquidity provision decision involves this tension between yield and risk.
+\end{exampleblock}
+\end{frame}
+
+\end{document}

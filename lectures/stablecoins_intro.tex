@@ -1,0 +1,647 @@
+% Stablecoins: 10-Slide Mini-Lecture
+% Standalone introduction following the 10-slide arc
+\input{../template_beamer.tex}
+
+% Additional TikZ libraries
+\usetikzlibrary{calc,decorations.pathreplacing}
+
+% ======================= DOCUMENT INFO =======================
+\title[Stablecoins Intro]{Stablecoins}
+\subtitle{The Promise of a Stable Token --- A 10-Slide Introduction}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{}
+
+\begin{document}
+
+% =======================================================================
+% SLIDE 1: WHY --- TikZ Comic (Dilemma, dfteal-dominant)
+% =======================================================================
+\begin{frame}[t]{Why Would Anyone Need a Cryptocurrency That Does Not Change in Value?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Crypto is famous for wild price swings. You buy a token today and it could be worth half by tomorrow. But if you want to lend, borrow, or get paid on-chain, you need something that holds its value. Enter stablecoins.
+
+\vspace{2mm}
+\footnotesize
+\textbf{Three problems volatility creates:}
+\begin{enumerate}\compactlist
+\item \textbf{Pricing} --- merchants cannot set stable prices in a volatile token
+\item \textbf{Lending} --- borrowers and lenders cannot agree on fair terms when collateral swings wildly
+\item \textbf{Savings} --- people in unstable economies cannot store value in something that fluctuates more than their own currency
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+These three needs --- pricing, lending, saving --- explain why stablecoins have become the most widely used category of crypto token.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Merchant figure (left) ---
+\draw[thick, dfteal] (1.0,3.4) circle (0.15); % head
+\draw[thick, dfteal] (1.0,3.25) -- (1.0,2.7); % body
+\draw[thick, dfteal] (1.0,3.0) -- (0.7,2.8); % left arm
+\draw[thick, dfteal] (1.0,3.0) -- (1.3,2.8); % right arm
+\draw[thick, dfteal] (1.0,2.7) -- (0.8,2.4); % left leg
+\draw[thick, dfteal] (1.0,2.7) -- (1.2,2.4); % right leg
+
+% --- Saver figure (right) ---
+\draw[thick, dfteal] (3.0,3.4) circle (0.15); % head
+\draw[thick, dfteal] (3.0,3.25) -- (3.0,2.7); % body
+\draw[thick, dfteal] (3.0,3.0) -- (2.7,2.8); % left arm
+\draw[thick, dfteal] (3.0,3.0) -- (3.3,2.8); % right arm
+\draw[thick, dfteal] (3.0,2.7) -- (2.8,2.4); % left leg
+\draw[thick, dfteal] (3.0,2.7) -- (3.2,2.4); % right leg
+
+% --- Volatile token in center (jagged price line) ---
+\draw[ultra thick, dfred] (1.6,3.6) -- (1.8,4.0) -- (2.0,3.3) -- (2.2,3.9) -- (2.4,3.1);
+\node[font=\tiny, dfred] at (2.0,2.9) {Volatile token};
+
+% --- Speech bubble left: "How do I price lunch?" ---
+\draw[thick, mlgray, rounded corners=2pt] (-0.4,3.7) rectangle (1.1,4.1);
+\node[font=\tiny] at (0.35,3.9) {How do I price lunch?};
+\fill[mlgray] (0.85,3.6) circle (0.04);
+\fill[mlgray] (0.9,3.65) circle (0.03);
+
+% --- Thought bubble right: "Is my deposit safe?" ---
+\draw[thick, mlgray, rounded corners=2pt] (2.6,3.7) rectangle (4.2,4.1);
+\node[font=\tiny] at (3.4,3.9) {Is my deposit safe?};
+\fill[mlgray] (3.05,3.6) circle (0.04);
+\fill[mlgray] (3.0,3.65) circle (0.03);
+
+% --- Stable coin below (flat line with coin) ---
+\draw[thick, dfteal] (0.8,1.6) -- (3.2,1.6);
+\draw[thick, dfteal, fill=dfteal!20] (1.8,1.35) rectangle (2.2,1.85);
+\node[font=\tiny\bfseries, dfteal] at (2.0,1.6) {Stable};
+
+% --- Arrow from stable coin up to gap ---
+\draw[->, ultra thick, dfteal] (2.0,1.85) -- (2.0,2.35);
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, mlpurple] at (2.0,1.0) {Stable value makes everything else possible.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A stablecoin does not try to make you rich. It tries to be boring --- and that boring reliability is what makes lending, trading, and saving on-chain possible.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 2: FEEL --- Text-Only Prompt (Full-width)
+% =======================================================================
+\begin{frame}[t]{Think About the Last Time You Sent Money Abroad --- Did You Worry About the Exchange Rate?}
+\small
+You send money to family in another country. Between the moment you send and the moment they receive, the exchange rate might shift. They get less than you intended. Now imagine sending crypto instead --- the same amount, but the value drops by several percent in transit.
+
+\vspace{3mm}
+\small
+Now imagine a different version:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The token:] A digital coin that always represents the same purchasing power as one unit of a major currency.
+\item[\scriptsize The promise:] Whether you send it in the morning or receive it at night, it buys the same amount.
+\item[\scriptsize The question:] Who or what guarantees that promise? And what happens if the guarantee fails?
+\end{description}
+
+\vspace{3mm}
+\small
+No conversion fees. No waiting. No exchange rate surprise. But the stability is only as strong as the mechanism behind it.
+
+\vspace{3mm}
+\begin{exampleblock}{The Core Idea}
+\footnotesize This is the core idea behind stablecoins: digital tokens designed to maintain a constant value. The question is not whether they work --- many do, most of the time. The question is what they depend on, and what breaks when that dependency fails.
+\end{exampleblock}
+\end{frame}
+
+% =======================================================================
+% SLIDE 3: WHAT --- Comparison Table (adjustbox)
+% =======================================================================
+\begin{frame}[t]{What Are the Three Ways to Keep a Token Worth One Dollar?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\scriptsize
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Aspect} & \textbf{Fiat-Backed} & \textbf{Crypto-Collateral} & \textbf{Algorithmic} \\
+\midrule
+Backed by & Cash in a bank & Crypto locked on-chain & Nothing (or partial) \\
+Trust required & Issuer honesty & Smart contract code & Market confidence \\
+Capital needed & One-to-one & Over-collateralized & None \\
+Centralization & High & Medium & Low \\
+Stability record & Strong & Strong & Fragile \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{center}
+
+\vspace{2mm}
+\footnotesize
+Read the first and last columns together. The safest design requires the most trust in a central party. The most decentralized design has the weakest stability record. No column dominates.
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Key distinctions:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Fiat-backed} --- a company holds real currency in a bank and issues one token per unit deposited
+\item \textbf{Crypto-collateralized} --- a smart contract locks cryptocurrency worth more than the tokens it mints
+\item \textbf{Algorithmic} --- software expands or contracts the token supply to push the price toward the target
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+Each approach answers the stability question differently, and each carries a different risk profile.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize The three designs represent three different answers to the same question: who or what guarantees the value? A bank, a smart contract, or an algorithm --- each with its own failure mode.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 4: CASE --- Step Diagram (6 steps + 2 branches)
+% =======================================================================
+\begin{frame}[t]{Follow One Stablecoin from Minting to Redemption --- Who Holds What?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.65,
+    stepbox/.style={rectangle, rounded corners=3pt, minimum width=2.8cm, minimum height=0.5cm, text centered, thick, font=\tiny},
+    rejectbox/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.4cm, text centered, thick, font=\tiny}
+]
+% Step 1
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s1) at (0,0) {1. Deposit currency};
+% Step 2
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s2) at (0,-1.0) {2. Issuer verifies deposit};
+% Step 3
+\node[stepbox, draw=dfteal, fill=dfteal!20] (s3) at (0,-2.0) {3. Token minted to user};
+% Step 4
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s4) at (0,-3.0) {4. Token circulates in DeFi};
+% Step 5
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s5) at (0,-4.0) {5. User requests redemption};
+% Step 6
+\node[stepbox, draw=dfgreen, fill=dfgreen!20] (s6) at (0,-5.0) {6. Token burned, fiat returned};
+
+% Arrows between steps
+\draw[->, thick, mlpurple] (s1) -- (s2);
+\draw[->, thick, mlpurple] (s2) -- (s3);
+\draw[->, thick, mlpurple] (s3) -- (s4);
+\draw[->, thick, mlpurple] (s4) -- (s5);
+\draw[->, thick, mlpurple] (s5) -- (s6);
+
+% Branch from step 2: reserves opaque
+\node[rejectbox, draw=dfred, fill=dfred!20] (r1) at (3.2,-1.0) {Trust question};
+\draw[->, thick, dfred] (s2.east) -- (r1.west) node[midway, above, font=\tiny, dfred] {reserves opaque};
+
+% Branch from step 4: peg pressure
+\node[rejectbox, draw=dfred, fill=dfred!20] (r2) at (3.2,-3.0) {Peg pressure};
+\draw[->, thick, dfred] (s4.east) -- (r2.west) node[midway, above, font=\tiny, dfred] {confidence shaken};
+
+% Numbered circles
+\foreach \i/\y in {1/0, 2/-1.0, 3/-2.0, 4/-3.0, 5/-4.0, 6/-5.0} {
+    \node[circle, fill=mlpurple, text=white, font=\tiny, inner sep=1pt, minimum size=0.3cm] at (-1.8,\y) {\i};
+}
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What happened in those six steps:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item No central bank was involved --- a private issuer created the token
+\item No blockchain was needed for the reserves --- real currency sits in a traditional bank
+\item The peg held because arbitrageurs could always mint or redeem at the target price
+\item The trust shifted from ``do I trust this currency?'' to ``do I trust this issuer?''
+\end{itemize}
+
+\vspace{2mm}
+\footnotesize
+The entire lifecycle depends on one assumption: that the reserves actually exist and can be accessed on demand.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Every step in the stablecoin lifecycle that relies on a centralized party reintroduces the trust assumptions that blockchain was designed to remove. The stability is real, but so is the dependence.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 5: HOW --- Side-by-Side Architecture
+% =======================================================================
+\begin{frame}[t]{What Backs a Stablecoin --- a Bank Account or a Smart Contract?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    archbox/.style={rectangle, rounded corners=2pt, minimum width=2.0cm, minimum height=0.5cm, text centered, thick, font=\tiny}
+]
+% ===== LEFT STACK: Fiat-Backed =====
+\node[font=\tiny\bfseries, mlpurple] at (1.2,4.5) {Fiat-Backed};
+
+% User (stick figure)
+\draw[thick, mlgray] (1.2,4.1) circle (0.12);
+\draw[thick, mlgray] (1.2,3.98) -- (1.2,3.6);
+\node[font=\tiny, mlgray] at (1.2,4.3) {User};
+
+% Issuer
+\node[archbox, draw=mlgray, fill=mlgray!15] (issuer) at (1.2,3.0) {Issuer Verifies};
+\draw[->, thick, mlgray] (1.2,3.55) -- (1.2,3.25);
+
+% Bank Reserve (cylinder-like)
+\draw[thick, mlgray, fill=mlgray!15] (0.5,1.8) rectangle (1.9,2.3);
+\draw[thick, mlgray, fill=mlgray!15] (0.5,2.3) ellipse (0.7 and 0.15);
+\node[font=\tiny, mlgray] at (1.2,2.0) {Bank Reserve};
+\draw[->, thick, mlgray] (1.2,2.75) -- (1.2,2.45);
+
+% Label
+\node[font=\tiny, mlgray, align=center] at (1.2,1.3) {\textit{One company}\\\textit{holds your dollars}};
+
+% ===== DASHED SEPARATOR =====
+\draw[dashed, thick, mlgray] (2.7,1.0) -- (2.7,4.6);
+
+% ===== RIGHT STACK: Crypto-Collateralized =====
+\node[font=\tiny\bfseries, mlpurple] at (4.3,4.5) {Crypto-Collateral};
+
+% User (stick figure)
+\draw[thick, dfteal] (4.3,4.1) circle (0.12);
+\draw[thick, dfteal] (4.3,3.98) -- (4.3,3.6);
+\node[font=\tiny, dfteal] at (4.3,4.3) {User};
+
+% Lock collateral
+\node[archbox, draw=mlpurple, fill=mllavender4] (lock) at (4.3,3.0) {Lock Collateral};
+\draw[->, thick, dfteal] (4.3,3.55) -- (4.3,3.25);
+
+% Smart contract vault
+\node[archbox, draw=mlpurple, fill=mlpurple!20, minimum width=2.2cm] (vault) at (4.3,2.2) {Smart Contract Vault};
+\draw[->, thick, mlpurple] (4.3,2.75) -- (4.3,2.45);
+\node[font=\tiny, mlpurple, align=center] at (6.0,2.2) {\textit{on-chain,}\\\textit{auditable}};
+
+% Stablecoin minted
+\node[archbox, draw=dfgreen, fill=dfgreen!20] (mint) at (4.3,1.4) {Stablecoin Minted};
+\draw[->, thick, mlpurple] (4.3,1.95) -- (4.3,1.65);
+
+% Label
+\node[font=\tiny, dfteal, align=center] at (4.3,0.7) {\textit{Over-collateralized,}\\\textit{transparent}};
+
+% Bottom comparison label
+\node[font=\tiny\bfseries, mlpurple] at (2.7,0.2) {Trust in an institution vs.\ Trust in code};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The trade-off at the core:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Fiat-backed:] simple, stable, capital-efficient --- but you must trust the issuer to hold real reserves, not lend them out, and honor redemptions
+\item[\scriptsize Crypto-collateral:] transparent, decentralized, censorship-resistant --- but requires locking up more value than you mint, and collateral can lose value in a crash
+\item[\scriptsize Why not both?] Some designs blend approaches --- partial reserves plus algorithmic adjustments --- but hybrid designs carry hybrid risks
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The architecture determines who bears the risk. In fiat-backed, the issuer. In crypto-backed, the depositor.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A fiat-backed stablecoin is as safe as the bank that holds its reserves. A crypto-collateralized stablecoin is as safe as the smart contract that manages its vaults. Neither is trustless --- they just trust different things.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 6: RISK --- TikZ Failure Comic (dfred-dominant)
+% =======================================================================
+\begin{frame}[t]{The Algorithm Promised Stability --- So Why Did the Token Go to Zero?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+An algorithmic stablecoin maintained its peg for over a year. Billions in value flowed in. Then one large sell triggered a feedback loop that destroyed the entire system in three days.
+
+\vspace{2mm}
+\footnotesize
+\textbf{The death spiral --- step by step:}
+\begin{enumerate}\compactlist
+\item Token price drops below the target
+\item Holders rush to redeem, minting governance tokens
+\item Governance token supply floods the market
+\item Governance token price crashes
+\item The mechanism that was supposed to restore the peg now accelerates the collapse
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+The code executed exactly as designed. Every redemption followed the rules. The flaw was not in the execution --- it was in the assumption that confidence would hold.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Token with downward price arrow at top ---
+\draw[thick, dfred, fill=dfred!15, rounded corners=2pt] (1.6,4.3) rectangle (2.4,4.7);
+\node[font=\tiny\bfseries, dfred] at (2.0,4.5) {Token};
+\draw[->, ultra thick, dfred] (2.0,4.3) -- (2.0,3.9);
+
+% --- Circular feedback loop (4 nodes clockwise) ---
+\node[rectangle, rounded corners=3pt, minimum width=1.4cm, minimum height=0.4cm, text centered, thick, draw=dfred, fill=dfred!20, font=\tiny] (n1) at (2.0,3.5) {Price drops};
+\node[rectangle, rounded corners=3pt, minimum width=1.4cm, minimum height=0.4cm, text centered, thick, draw=dfred, fill=dfred!20, font=\tiny] (n2) at (3.8,2.5) {Holders redeem};
+\node[rectangle, rounded corners=3pt, minimum width=1.4cm, minimum height=0.4cm, text centered, thick, draw=dfred, fill=dfred!20, font=\tiny] (n3) at (2.0,1.5) {Supply floods};
+\node[rectangle, rounded corners=3pt, minimum width=1.4cm, minimum height=0.4cm, text centered, thick, draw=dfred, fill=dfred!20, font=\tiny] (n4) at (0.2,2.5) {Confidence gone};
+
+% Thick dfred arrows between nodes (forming cycle)
+\draw[->, ultra thick, dfred] (n1.east) to[bend left=25] (n2.north);
+\draw[->, ultra thick, dfred] (n2.south) to[bend left=25] (n3.east);
+\draw[->, ultra thick, dfred] (n3.west) to[bend left=25] (n4.south);
+\draw[->, ultra thick, dfred] (n4.north) to[bend left=25] (n1.west);
+
+% Center label: DEATH SPIRAL
+\node[font=\tiny\bfseries, dfred] at (2.0,2.5) {DEATH SPIRAL};
+
+% --- Crowd below watching ---
+\draw[thick, dfteal] (0.8,0.5) circle (0.08);
+\draw[thick, dfteal] (1.2,0.5) circle (0.08);
+\draw[thick, dfteal] (1.6,0.5) circle (0.08);
+\draw[thick, dfteal] (2.0,0.5) circle (0.08);
+\draw[thick, dfteal] (2.4,0.5) circle (0.08);
+\draw[thick, dfteal] (2.8,0.5) circle (0.08);
+
+% Crowd speech bubble
+\draw[thick, mlgray, rounded corners=2pt] (0.5,0.0) rectangle (2.8,0.3);
+\node[font=\tiny] at (1.65,0.15) {Where did it go?};
+\draw[thick, mlgray] (1.6,0.3) -- (1.6,0.42);
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, dfred] at (2.0,-0.3) {The code worked. The faith did not.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize When the mechanism that restores the peg depends on the same confidence that the peg creates, you get a circular dependency. Break the circle at any point and the entire system unravels.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 7: WHERE --- pgfplots Stacked Bar Chart
+% =======================================================================
+\begin{frame}[t]{Where Do Stablecoins Actually Get Used --- And How Much Depends on Them?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tikzpicture}
+\begin{axis}[
+    width=7cm, height=4.5cm,
+    ybar stacked,
+    bar width=14pt,
+    symbolic x coords={Trading Pairs,DeFi Lending,Cross-Border,Savings,Settlement},
+    xtick=data,
+    x tick label style={font=\tiny, rotate=25, anchor=east},
+    ylabel={\scriptsize Share of stablecoin usage (\%)},
+    y tick label style={font=\tiny},
+    ymin=0, ymax=105,
+    ytick={0,25,50,75,100},
+    legend style={at={(1.02,1.0)}, anchor=north west, font=\tiny},
+    legend cell align={left},
+    grid=none,
+    enlarge x limits=0.15,
+    area style
+]
+% Fiat-backed tokens (dominant)
+\addplot[fill=mlpurple, draw=mlpurple!80!black] coordinates
+    {(Trading Pairs,55) (DeFi Lending,50) (Cross-Border,60) (Savings,65) (Settlement,55)};
+% Crypto-backed tokens
+\addplot[fill=dfteal!60, draw=dfteal] coordinates
+    {(Trading Pairs,25) (DeFi Lending,35) (Cross-Border,15) (Savings,20) (Settlement,25)};
+% Other/Emerging designs
+\addplot[fill=mlorange!60, draw=mlorange] coordinates
+    {(Trading Pairs,20) (DeFi Lending,15) (Cross-Border,25) (Savings,15) (Settlement,20)};
+\legend{Fiat-backed tokens, Crypto-backed tokens, Other designs}
+\end{axis}
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\vspace{1mm}
+\tiny\textit{Illustrative distribution based on public market data patterns. Not actual protocol data.}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What these use cases reveal:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Trading pairs:] The largest use --- stablecoins serve as the base currency for most token trades
+\item[\scriptsize DeFi lending:] Borrowers and lenders use stablecoins to avoid exposure to price swings
+\item[\scriptsize Cross-border:] Faster and cheaper than traditional remittance channels, available around the clock
+\item[\scriptsize Savings:] In economies with high inflation, a dollar-denominated stablecoin preserves purchasing power
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The dominance of fiat-backed tokens in most categories reveals a market preference: when stability matters most, users choose the simplest mechanism.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Stablecoins are not a niche experiment. They are the infrastructure layer that makes decentralized finance functional --- the plumbing that lets everything else flow.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 8: IMPACT --- Stakeholder Map (5 actors)
+% =======================================================================
+\begin{frame}[t]{Who Wins and Who Loses When a Token Promises to Be Worth One Dollar?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    actor/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.5cm, text centered, thick, font=\tiny, draw=mlgray, fill=mllavender4}
+]
+% Central node
+\node[rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=0.6cm, text centered, thick, draw=mlpurple, fill=mlpurple!80, font=\tiny\bfseries, text=white] (center) at (2.5,2.5) {Stablecoins};
+
+% Actor 1: Top-left --- Savers in unstable economies (benefit)
+\node[actor] (a1) at (0.2,4.5) {\shortstack{Savers in unstable\\economies}};
+\draw[->, thick, dfgreen] (center) -- (a1) node[midway, left, font=\tiny, dfgreen] {access};
+
+% Actor 2: Top-right --- DeFi protocols (benefit)
+\node[actor] (a2) at (4.8,4.5) {\shortstack{DeFi\\protocols}};
+\draw[->, thick, dfgreen] (center) -- (a2) node[midway, right, font=\tiny, dfgreen] {liquidity};
+
+% Actor 3: Right --- Traditional banks (harm)
+\node[actor] (a3) at (5.5,2.0) {\shortstack{Traditional\\banks}};
+\draw[->, thick, dfred] (center) -- (a3) node[midway, below, font=\tiny, dfred] {displace};
+
+% Actor 4: Bottom-right --- Regulators (ambiguous)
+\node[actor] (a4) at (4.5,0.3) {\shortstack{Regulators}};
+\draw[->, thick, mlorange] (center) -- (a4) node[midway, right, font=\tiny, mlorange] {challenge};
+
+% Actor 5: Bottom-left --- Users during de-peg (harm)
+\node[actor] (a5) at (0.5,0.3) {\shortstack{Users during\\de-peg}};
+\draw[->, thick, dfred] (center) -- (a5) node[midway, left, font=\tiny, dfred] {loss};
+
+% Legend
+\node[font=\tiny, dfgreen] at (1.0,-0.4) {Green = benefit};
+\node[font=\tiny, dfred] at (2.5,-0.4) {Red = harm};
+\node[font=\tiny, mlorange] at (4.0,-0.4) {Orange = ambiguous};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The distribution of impact is uneven:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Winners:} Savers in high-inflation countries gain access to dollar-denominated stability. DeFi protocols gain reliable base assets for lending and trading.
+\item \textbf{Losers:} Traditional banks face competition for deposit-like products. Users caught in a de-peg event may lose significant value with no recourse or insurance.
+\item \textbf{Ambiguous:} Regulators see both promise (financial inclusion, faster payments) and threat (shadow banking, money laundering, systemic risk).
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+The same token that protects savings in one country may undermine monetary policy in another.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A stablecoin is not neutral infrastructure. It shifts power --- from central banks to private issuers, from domestic currencies to the dollar, from regulated banks to programmable contracts. Who benefits depends on where you stand.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 9: SO WHAT --- Balance Scale
+% =======================================================================
+\begin{frame}[t]{Three Questions That Reveal Any Stablecoin's True Design}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Before trusting value to any stablecoin, ask three questions. The answers will not tell you which to choose --- but they will tell you what you are depending on.
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{What backs the value --- and can you verify it?}\\
+\scriptsize Fiat-backed tokens point to bank accounts. Crypto-collateralized tokens point to on-chain vaults. Algorithmic tokens point to an assumption. The strength of the answer determines the strength of the peg.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{Who can freeze, block, or change the rules?}\\
+\scriptsize Centralized issuers can blacklist addresses. Smart contract admins can upgrade code. Pure algorithms have no override --- which is a strength until something goes wrong.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{What happens when confidence breaks?}\\
+\scriptsize Fiat-backed tokens have redemption guarantees (if reserves exist). Crypto-backed tokens have liquidation mechanisms (if markets function). Algorithmic tokens have nothing but faith.
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% Fulcrum triangle
+\fill[mlgray!30] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+\draw[thick, mlgray] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+
+% Beam (slightly tilted to show tension)
+\draw[ultra thick, mlpurple] (0.2,1.8) -- (3.8,1.2);
+
+% Pivot
+\fill[mlpurple] (2.0,1.5) circle (0.08);
+
+% Left pan --- Stability + Simplicity
+\draw[thick, dfteal] (0.0,1.4) -- (0.4,1.4);
+\draw[thick, dfteal] (0.0,1.4) -- (0.2,1.8);
+\draw[thick, dfteal] (0.4,1.4) -- (0.2,1.8);
+\node[font=\tiny\bfseries, dfteal, align=center] at (0.2,1.05) {Stability\\+ Simplicity};
+
+% Items on left pan
+\node[font=\tiny, dfteal] at (0.2,0.65) {Trusted issuer};
+\node[font=\tiny, dfteal] at (0.2,0.4) {Easy to use};
+\node[font=\tiny, dfteal] at (0.2,0.15) {Deep liquidity};
+
+% Right pan --- Decentralization + Freedom
+\draw[thick, dfred] (3.6,0.8) -- (4.0,0.8);
+\draw[thick, dfred] (3.6,0.8) -- (3.8,1.2);
+\draw[thick, dfred] (4.0,0.8) -- (3.8,1.2);
+\node[font=\tiny\bfseries, dfred, align=center] at (3.8,0.45) {Decentralization\\+ Freedom};
+
+% Items on right pan
+\node[font=\tiny, dfred] at (3.8,0.05) {No central control};
+\node[font=\tiny, dfred] at (3.8,-0.2) {Censorship-resistant};
+\node[font=\tiny, dfred] at (3.8,-0.45) {Transparent rules};
+
+% Question mark at top center
+\node[font=\small\bfseries, mlpurple] at (2.0,2.6) {?};
+
+% Annotation arrows
+\draw[->, thick, dfteal] (0.2,2.4) -- (0.2,2.0);
+\node[font=\tiny, dfteal, align=center] at (0.2,2.7) {More\\trust};
+\draw[->, thick, dfred] (3.8,2.4) -- (3.8,1.6);
+\node[font=\tiny, dfred, align=center] at (3.8,2.7) {More\\risk};
+
+% Bottom annotation
+\node[font=\tiny, mlgray] at (2.0,-0.7) {\textit{Every stablecoin design tips the balance.}};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize The Stablecoin Trilemma says you can optimize for two of three: stability, decentralization, and capital efficiency. These three questions help you identify which two a given stablecoin has chosen --- and what it sacrificed.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 10: ACT --- Activity Frame (Full-width)
+% =======================================================================
+\begin{frame}[t]{Your Challenge: Evaluate a Stablecoin Scenario}
+\small
+A new stablecoin launches with the following design: it is partially backed by government bonds held by a licensed company, and partially stabilized by an algorithm that adjusts supply when the price drifts. The issuer publishes monthly reports but has not completed an independent audit. The token has gained rapid adoption for cross-border payments.
+
+\vspace{3mm}
+\small
+Apply the three questions from the previous slide:
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Backing question:} What backs this stablecoin? Is the backing fully verifiable? What happens if the government bonds lose value?
+\item \textbf{Control question:} Who controls this stablecoin? Can the issuer freeze accounts? What does ``partially algorithmic'' mean for the override mechanism?
+\item \textbf{Confidence question:} What happens if a major user redeems a large amount at once? Does the hybrid design make the system more resilient or more fragile?
+\end{enumerate}
+
+\vspace{3mm}
+\begin{exampleblock}{No Single Right Answer}
+\footnotesize There is no single right answer. The hybrid design offers partial solutions to multiple problems --- but partial solutions also mean partial vulnerabilities. The point is to practice identifying what each design choice gains and what it gives up.
+\end{exampleblock}
+\end{frame}
+
+\end{document}

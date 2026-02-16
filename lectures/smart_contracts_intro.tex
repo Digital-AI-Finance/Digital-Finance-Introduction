@@ -1,0 +1,681 @@
+% Smart Contracts: 10-Slide Mini-Lecture
+% Standalone introduction following the 10-slide arc
+\input{../template_beamer.tex}
+
+% Additional TikZ libraries
+\usetikzlibrary{calc,decorations.pathreplacing}
+
+% ======================= DOCUMENT INFO =======================
+\title[Smart Contracts Intro]{Smart Contracts}
+\subtitle{Code as Agreement --- A 10-Slide Introduction}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{}
+
+\begin{document}
+
+% =======================================================================
+% SLIDE 1: WHY --- TikZ Comic (Dilemma, dfteal-dominant)
+% =======================================================================
+\begin{frame}[t]{What If a Contract Could Enforce Itself --- With No Lawyer, No Court, No Appeal?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Two parties make a deal. One side must trust the other to follow through. Lawyers cost money, courts take time, enforcement is uncertain. What if the agreement itself could guarantee compliance?
+
+\vspace{2mm}
+\footnotesize
+\textbf{Three problems with traditional enforcement:}
+\begin{enumerate}\compactlist
+\item \textbf{Cost} --- intermediaries extract fees at every step
+\item \textbf{Speed} --- resolution takes weeks to years
+\item \textbf{Access} --- not everyone can afford legal representation
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+These barriers mean that for small transactions, enforcement is not worth the cost. For large ones, it favors whoever has more resources.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Table ---
+\draw[thick, mlgray, fill=mllavender4, rounded corners=2pt] (0.3,2.0) rectangle (3.7,2.4);
+
+% --- Left figure (seller) ---
+\draw[thick, dfteal] (1.0,3.4) circle (0.15); % head
+\draw[thick, dfteal] (1.0,3.25) -- (1.0,2.7); % body
+\draw[thick, dfteal] (1.0,3.0) -- (0.7,2.8); % left arm
+\draw[thick, dfteal] (1.0,3.0) -- (1.3,2.8); % right arm
+\draw[thick, dfteal] (1.0,2.7) -- (0.8,2.4); % left leg
+\draw[thick, dfteal] (1.0,2.7) -- (1.2,2.4); % right leg
+
+% --- Right figure (buyer) ---
+\draw[thick, dfteal] (3.0,3.4) circle (0.15); % head
+\draw[thick, dfteal] (3.0,3.25) -- (3.0,2.7); % body
+\draw[thick, dfteal] (3.0,3.0) -- (2.7,2.8); % left arm
+\draw[thick, dfteal] (3.0,3.0) -- (3.3,2.8); % right arm
+\draw[thick, dfteal] (3.0,2.7) -- (2.8,2.4); % left leg
+\draw[thick, dfteal] (3.0,2.7) -- (3.2,2.4); % right leg
+
+% --- Contract on table ---
+\draw[thick, mlgray, fill=white] (1.7,2.15) rectangle (2.3,2.55);
+\node[font=\tiny, mlgray] at (2.0,2.35) {Deal};
+
+% --- Thought bubble left: "Will they pay?" ---
+\draw[thick, mlgray, rounded corners=2pt] (-0.4,3.7) rectangle (1.1,4.1);
+\node[font=\tiny] at (0.35,3.9) {Will they pay?};
+\fill[mlgray] (0.85,3.6) circle (0.04);
+\fill[mlgray] (0.9,3.65) circle (0.03);
+
+% --- Thought bubble right: "Will they deliver?" ---
+\draw[thick, mlgray, rounded corners=2pt] (2.6,3.7) rectangle (4.3,4.1);
+\node[font=\tiny] at (3.45,3.9) {Will they deliver?};
+\fill[mlgray] (3.05,3.6) circle (0.04);
+\fill[mlgray] (3.0,3.65) circle (0.03);
+
+% --- Glowing smart contract box below ---
+\draw[thick, dfteal, fill=dfteal!15, rounded corners=3pt] (0.8,0.5) rectangle (3.2,1.3);
+\node[font=\tiny\bfseries, dfteal] at (2.0,1.05) {Smart Contract};
+\node[font=\tiny, dfteal] at (2.0,0.75) {Self-enforcing code};
+
+% --- Arrow from box up to table ---
+\draw[->, ultra thick, dfteal] (2.0,1.3) -- (2.0,2.0);
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, mlpurple] at (2.0,0.15) {No judge. No delay. No escape.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A smart contract replaces the enforcer with code --- the agreement executes automatically when conditions are met, removing the need for trust in any third party.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 2: FEEL --- Text-Only Prompt (Full-width)
+% =======================================================================
+\begin{frame}[t]{Think About a Promise Someone Broke --- What Would Change If a Machine Enforced It?}
+\small
+A friend borrows money and promises to pay you back by Friday. Friday comes. Nothing happens. You ask. They say next week. Next week becomes next month.
+
+\vspace{3mm}
+\small
+Now imagine a different version:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The promise:] Your friend deposits the amount into a shared digital lockbox at the moment of borrowing.
+\item[\scriptsize The rule:] If they do not send the payment by Friday, the lockbox automatically returns your original deposit.
+\item[\scriptsize The guarantee:] Neither of you can change the rules after agreeing.
+\end{description}
+
+\vspace{3mm}
+\small
+No awkward conversation. No broken friendship. No court. The mechanism handled it.
+
+\vspace{3mm}
+\begin{exampleblock}{The Core Idea}
+\footnotesize This is the core idea behind smart contracts: agreements where the enforcement mechanism is built into the agreement itself. The code does not forget, delay, or make exceptions.
+\end{exampleblock}
+\end{frame}
+
+% =======================================================================
+% SLIDE 3: WHAT --- Comparison Table (adjustbox)
+% =======================================================================
+\begin{frame}[t]{What Makes a Smart Contract Different from a Regular One?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\scriptsize
+\begin{tabular}{l c c}
+\toprule
+\textbf{Aspect} & \textbf{Traditional Contract} & \textbf{Smart Contract} \\
+\midrule
+Written in & Natural language & Programming code \\
+Enforced by & Courts, lawyers & Automatic execution \\
+Ambiguity & Possible, needs interpretation & Impossible, deterministic \\
+Amendment & Renegotiation & New deployment required \\
+Transparency & Private document & Public, auditable \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{center}
+
+\vspace{2mm}
+\footnotesize
+The shift from language to code eliminates ambiguity but also eliminates flexibility --- you cannot plead extenuating circumstances to a program. What the code says is what the code does, regardless of intent or context.
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Key properties that distinguish smart contracts:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Deterministic} --- same input always produces same output
+\item \textbf{Immutable} --- once deployed, code cannot be changed
+\item \textbf{Transparent} --- anyone can read and verify the code
+\item \textbf{Self-executing} --- no intermediary triggers execution
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+These properties taken together create a fundamentally new kind of agreement: one where compliance is not optional, and enforcement costs nothing.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize The removal of ambiguity is both the greatest strength and the greatest risk. Code cannot exercise judgment --- it can only follow rules.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 4: CASE --- Step Diagram (6 steps + 2 branches)
+% =======================================================================
+\begin{frame}[t]{Follow One Loan from Request to Repayment --- No Humans Involved}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.65,
+    stepbox/.style={rectangle, rounded corners=3pt, minimum width=2.8cm, minimum height=0.5cm, text centered, thick, font=\tiny},
+    rejectbox/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.4cm, text centered, thick, font=\tiny}
+]
+% Step 1
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s1) at (0,0) {1. Deposit collateral};
+% Step 2
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s2) at (0,-1.0) {2. Verify ratio};
+% Step 3
+\node[stepbox, draw=dfteal, fill=dfteal!20] (s3) at (0,-2.0) {3. Release loan};
+% Step 4
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s4) at (0,-3.0) {4. Accrue interest};
+% Step 5
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s5) at (0,-4.0) {5. Repay loan};
+% Step 6
+\node[stepbox, draw=dfgreen, fill=dfgreen!20] (s6) at (0,-5.0) {6. Return collateral};
+
+% Arrows between steps
+\draw[->, thick, mlpurple] (s1) -- (s2);
+\draw[->, thick, mlpurple] (s2) -- (s3);
+\draw[->, thick, mlpurple] (s3) -- (s4);
+\draw[->, thick, mlpurple] (s4) -- (s5);
+\draw[->, thick, mlpurple] (s5) -- (s6);
+
+% Branch from step 2: rejection
+\node[rejectbox, draw=dfred, fill=dfred!20] (r1) at (3.2,-1.0) {Loan rejected};
+\draw[->, thick, dfred] (s2.east) -- (r1.west) node[midway, above, font=\tiny, dfred] {ratio low};
+
+% Branch from step 4: liquidation
+\node[rejectbox, draw=dfred, fill=dfred!20] (r2) at (3.2,-3.0) {Liquidation};
+\draw[->, thick, dfred] (s4.east) -- (r2.west) node[midway, above, font=\tiny, dfred] {price drops};
+
+% Numbered circles
+\foreach \i/\y in {1/0, 2/-1.0, 3/-2.0, 4/-3.0, 5/-4.0, 6/-5.0} {
+    \node[circle, fill=mlpurple, text=white, font=\tiny, inner sep=1pt, minimum size=0.3cm] at (-1.8,\y) {\i};
+}
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What happened in those six steps:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item No loan officer reviewed the application
+\item No credit score was checked --- only collateral value
+\item No bank held the funds --- the contract did
+\item No collection agency was needed --- the code liquidated automatically
+\end{itemize}
+
+\vspace{2mm}
+\footnotesize
+The entire process --- from application to repayment --- ran as code. Every decision point had a clear rule and an automatic outcome.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Every step that removes a human also removes a point of judgment. The loan is faster, cheaper, and more predictable --- but it cannot consider context, hardship, or exceptional circumstances.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 5: HOW --- Side-by-Side Architecture
+% =======================================================================
+\begin{frame}[t]{Where Does a Smart Contract Actually Run --- And Who Pays for It?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    archbox/.style={rectangle, rounded corners=2pt, minimum width=2.0cm, minimum height=0.5cm, text centered, thick, font=\tiny}
+]
+% ===== LEFT STACK: Traditional =====
+\node[font=\tiny\bfseries, mlpurple] at (1.2,4.5) {Traditional};
+
+% User (stick figure)
+\draw[thick, mlgray] (1.2,4.1) circle (0.12);
+\draw[thick, mlgray] (1.2,3.98) -- (1.2,3.6);
+\node[font=\tiny, mlgray] at (1.2,4.3) {User};
+
+% Bank server
+\node[archbox, draw=mlgray, fill=mlgray!15] (bank) at (1.2,3.0) {Bank Server};
+\draw[->, thick, mlgray] (1.2,3.55) -- (1.2,3.25);
+
+% Database (cylinder-like)
+\draw[thick, mlgray, fill=mlgray!15] (0.5,1.8) rectangle (1.9,2.3);
+\draw[thick, mlgray, fill=mlgray!15] (0.5,2.3) ellipse (0.7 and 0.15);
+\node[font=\tiny, mlgray] at (1.2,2.0) {Database};
+\draw[->, thick, mlgray] (1.2,2.75) -- (1.2,2.45);
+
+% Label
+\node[font=\tiny, mlgray, align=center] at (1.2,1.3) {\textit{One company}\\\textit{controls everything}};
+
+% ===== DASHED SEPARATOR =====
+\draw[dashed, thick, mlgray] (2.7,1.0) -- (2.7,4.6);
+
+% ===== RIGHT STACK: Smart Contract =====
+\node[font=\tiny\bfseries, mlpurple] at (4.3,4.5) {Smart Contract};
+
+% User (stick figure)
+\draw[thick, dfteal] (4.3,4.1) circle (0.12);
+\draw[thick, dfteal] (4.3,3.98) -- (4.3,3.6);
+\node[font=\tiny, dfteal] at (4.3,4.3) {User};
+
+% Transaction
+\node[archbox, draw=mlpurple, fill=mllavender4] (tx) at (4.3,3.0) {Transaction};
+\draw[->, thick, dfteal] (4.3,3.55) -- (4.3,3.25);
+
+% Virtual machine
+\node[archbox, draw=mlpurple, fill=mlpurple!20, minimum width=2.2cm] (vm) at (4.3,2.2) {Virtual Machine};
+\draw[->, thick, mlpurple] (4.3,2.75) -- (4.3,2.45);
+\node[font=\tiny, mlpurple, align=center] at (6.0,2.2) {\textit{runs on}\\\textit{every node}};
+
+% Blockchain state
+\node[archbox, draw=dfgreen, fill=dfgreen!20] (state) at (4.3,1.4) {Blockchain State};
+\draw[->, thick, mlpurple] (4.3,1.95) -- (4.3,1.65);
+
+% Label
+\node[font=\tiny, dfteal, align=center] at (4.3,0.7) {\textit{Thousands of nodes}\\\textit{agree on result}};
+
+% Bottom comparison label
+\node[font=\tiny\bfseries, mlpurple] at (2.7,0.2) {Single server vs.\ Global consensus};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Who pays for execution?}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Gas:] a fee measured in computation steps --- like paying postage by weight
+\item[\scriptsize Simple operations:] cost very little, such as adding two numbers
+\item[\scriptsize Storage writes:] cost thousands of times more, because data is saved permanently
+\item[\scriptsize Failed transactions:] still cost gas --- you pay for the attempt even if it fails
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The fee structure incentivizes efficient code and prevents spam --- no one can run an infinite loop because they would run out of gas.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A smart contract trades cheap centralized execution for expensive decentralized consensus. The cost buys something specific: no single party can alter, censor, or shut down the program.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 6: RISK --- TikZ Failure Comic (dfred-dominant)
+% =======================================================================
+\begin{frame}[t]{The Code Worked Perfectly --- So Why Did Everyone Lose Their Money?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+A community pooled funds into a shared investment contract. The code was public. The rules were clear. Then someone found a loophole.
+
+\vspace{2mm}
+\footnotesize
+\textbf{The attack pattern --- reentrancy:}
+\begin{enumerate}\compactlist
+\item Attacker calls the ``withdraw'' function
+\item Contract sends funds to attacker
+\item Before updating the balance, attacker's code calls ``withdraw'' again
+\item Contract still shows the old balance --- sends funds again
+\item Repeat until drained
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+The code executed exactly as written. Every step was valid according to the rules. The problem was not a bug in execution --- it was a flaw in logic.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Vault ---
+\draw[ultra thick, dfred, fill=dfred!8, rounded corners=3pt] (0.3,2.0) rectangle (3.7,4.2);
+\node[font=\tiny\bfseries, dfred] at (2.0,3.95) {Community Vault};
+
+% Money symbols inside vault
+\node[font=\scriptsize, dfteal] at (1.0,3.4) {\$};
+\node[font=\scriptsize, dfteal] at (1.5,3.0) {\$};
+\node[font=\scriptsize, dfteal] at (2.5,3.4) {\$};
+\node[font=\scriptsize, dfteal] at (3.0,3.0) {\$};
+\node[font=\scriptsize, dfteal] at (2.0,3.2) {\$};
+
+% Speech bubble from vault
+\draw[thick, mlgray, rounded corners=2pt] (3.8,3.5) rectangle (5.6,4.1);
+\node[font=\tiny, align=center] at (4.7,3.9) {Balance: OK!};
+\node[font=\tiny, align=center] at (4.7,3.65) {Sending funds...};
+\draw[thick, mlgray] (3.7,3.8) -- (3.8,3.75);
+
+% --- Attacker figure (right side) ---
+\draw[thick, dfred] (4.5,3.0) circle (0.15); % head
+\draw[thick, dfred] (4.5,2.85) -- (4.5,2.3); % body
+\draw[thick, dfred] (4.5,2.65) -- (4.2,2.4); % left arm
+\draw[thick, dfred] (4.5,2.65) -- (4.8,2.4); % right arm
+\draw[thick, dfred] (4.5,2.3) -- (4.3,2.0); % left leg
+\draw[thick, dfred] (4.5,2.3) -- (4.7,2.0); % right leg
+
+% Loop arrow from attacker back to vault
+\draw[->, ultra thick, dfred, rounded corners=5pt] (4.2,2.5) -- (3.7,2.5) -- (3.7,3.2) -- (4.0,3.2);
+\node[font=\tiny, dfred, rotate=90] at (3.9,2.85) {again!};
+
+% Thought bubble attacker
+\draw[thick, mlgray, rounded corners=2pt] (4.8,1.6) rectangle (6.0,2.0);
+\node[font=\tiny] at (5.4,1.8) {Ask again...};
+\fill[mlgray] (4.7,2.05) circle (0.03);
+
+% --- Money flowing out ---
+\draw[thick, dfred, fill=dfred!20] (1.5,1.5) rectangle (1.8,1.7);
+\node[font=\tiny, dfred] at (1.65,1.6) {\$};
+\draw[thick, dfred, fill=dfred!20] (2.0,1.2) rectangle (2.3,1.4);
+\node[font=\tiny, dfred] at (2.15,1.3) {\$};
+\draw[thick, dfred, fill=dfred!20] (2.5,0.9) rectangle (2.8,1.1);
+\node[font=\tiny, dfred] at (2.65,1.0) {\$};
+
+% --- Crowd below ---
+\draw[thick, dfteal] (0.5,0.5) circle (0.08);
+\draw[thick, dfteal] (0.9,0.5) circle (0.08);
+\draw[thick, dfteal] (1.3,0.5) circle (0.08);
+\draw[thick, dfteal] (1.7,0.5) circle (0.08);
+
+% Crowd speech bubble
+\draw[thick, mlgray, rounded corners=2pt] (0.2,0.0) rectangle (2.2,0.3);
+\node[font=\tiny] at (1.2,0.15) {Where did it go?};
+\draw[thick, mlgray] (1.1,0.3) -- (1.1,0.42);
+
+% --- Bottom label ---
+\node[font=\tiny\bfseries, dfred] at (2.5,-0.2) {The code did exactly what it was told.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Immutability is a double-edged sword. It guarantees that no one can tamper with the rules --- but it also guarantees that a flaw in those rules cannot be fixed after deployment.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 7: WHERE --- pgfplots Stacked Bar Chart
+% =======================================================================
+\begin{frame}[t]{How Much Value Is Already Locked in Smart Contracts?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tikzpicture}
+\begin{axis}[
+    width=7cm, height=4.5cm,
+    ybar stacked,
+    bar width=14pt,
+    symbolic x coords={Lending,Trading,Staking,Bridges,Other},
+    xtick=data,
+    x tick label style={font=\tiny},
+    ylabel={\scriptsize Share of total value (\%)},
+    y tick label style={font=\tiny},
+    ymin=0, ymax=105,
+    ytick={0,25,50,75,100},
+    legend style={at={(1.02,1.0)}, anchor=north west, font=\tiny},
+    legend cell align={left},
+    grid=none,
+    enlarge x limits=0.15,
+    area style
+]
+% Largest protocols
+\addplot[fill=mlpurple, draw=mlpurple!80!black] coordinates
+    {(Lending,45) (Trading,35) (Staking,55) (Bridges,40) (Other,30)};
+% Mid-tier protocols
+\addplot[fill=dfteal!60, draw=dfteal] coordinates
+    {(Lending,30) (Trading,35) (Staking,25) (Bridges,30) (Other,35)};
+% Long tail
+\addplot[fill=mlorange!60, draw=mlorange] coordinates
+    {(Lending,25) (Trading,30) (Staking,20) (Bridges,30) (Other,35)};
+\legend{Largest protocols, Mid-tier protocols, Long tail}
+\end{axis}
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\vspace{1mm}
+\tiny\textit{Illustrative distribution based on public DeFi data patterns. Not actual protocol data.}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What these contracts actually do:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Lending:] Deposit collateral, borrow assets, earn interest --- all without a bank
+\item[\scriptsize Trading:] Swap tokens directly through automated market makers --- no broker
+\item[\scriptsize Staking:] Lock tokens to secure a network and earn rewards
+\item[\scriptsize Bridges:] Move assets between different blockchains
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The concentration pattern matters: in most categories, a small number of protocols hold the majority of value. Smart contracts create winner-take-most dynamics.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Billions in value are already managed by code, not institutions. The question is no longer whether smart contracts work --- it is whether they work safely enough at this scale.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 8: IMPACT --- Stakeholder Map (5 actors)
+% =======================================================================
+\begin{frame}[t]{Who Benefits from Unstoppable Code --- And Who Gets Hurt?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    actor/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.5cm, text centered, thick, font=\tiny, draw=mlgray, fill=mllavender4}
+]
+% Central node
+\node[rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=0.6cm, text centered, thick, draw=mlpurple, fill=mlpurple!80, font=\tiny\bfseries, text=white] (center) at (2.5,2.5) {Smart Contracts};
+
+% Actor 1: Top-left --- Borrowers without bank access (benefit)
+\node[actor] (a1) at (0.2,4.5) {\shortstack{Unbanked\\borrowers}};
+\draw[->, thick, dfgreen] (center) -- (a1) node[midway, left, font=\tiny, dfgreen] {access};
+
+% Actor 2: Top-right --- Developers / Auditors (benefit)
+\node[actor] (a2) at (4.8,4.5) {\shortstack{Developers \&\\auditors}};
+\draw[->, thick, dfgreen] (center) -- (a2) node[midway, right, font=\tiny, dfgreen] {demand};
+
+% Actor 3: Right --- Traditional intermediaries (harm)
+\node[actor] (a3) at (5.5,2.0) {\shortstack{Traditional\\intermediaries}};
+\draw[->, thick, dfred] (center) -- (a3) node[midway, below, font=\tiny, dfred] {displace};
+
+% Actor 4: Bottom-right --- Regulators (ambiguous)
+\node[actor] (a4) at (4.5,0.3) {\shortstack{Regulators}};
+\draw[->, thick, mlorange] (center) -- (a4) node[midway, right, font=\tiny, mlorange] {challenge};
+
+% Actor 5: Bottom-left --- Victims of exploits (harm)
+\node[actor] (a5) at (0.5,0.3) {\shortstack{Exploit\\victims}};
+\draw[->, thick, dfred] (center) -- (a5) node[midway, left, font=\tiny, dfred] {harm};
+
+% Legend
+\node[font=\tiny, dfgreen] at (1.0,-0.4) {Green = benefit};
+\node[font=\tiny, dfred] at (2.5,-0.4) {Red = harm};
+\node[font=\tiny, mlorange] at (4.0,-0.4) {Orange = ambiguous};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The distribution of impact is uneven:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Winners:} Those previously excluded from financial services gain access. Developers and auditors face growing demand for their skills.
+\item \textbf{Losers:} Traditional intermediaries lose revenue streams. Exploit victims have no recourse --- no insurance, no refund, no appeal.
+\item \textbf{Ambiguous:} Regulators face a technology that operates across borders, resists censorship, and moves faster than legislation.
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+The same properties that empower the unbanked also empower the attacker.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Unstoppable code is neutral. It serves whoever invokes it. Whether that is a net positive depends on the balance between new access created and new harm enabled.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 9: SO WHAT --- Balance Scale
+% =======================================================================
+\begin{frame}[t]{Three Questions That Reveal Whether a Smart Contract Is Safe}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Before trusting value to any smart contract, ask three questions. The answers will not tell you what to do --- but they will tell you what you are trusting.
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Has the code been audited --- and by whom?}\\
+\scriptsize An audit reduces risk but does not eliminate it. Many exploited contracts had multiple audits. Ask who audited it, when, and what scope was covered.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{Can the contract be upgraded --- and by whom?}\\
+\scriptsize Upgradeable contracts can fix bugs, but they reintroduce the trust you were trying to remove. Whoever holds the upgrade key holds the power.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{What happens if something goes wrong?}\\
+\scriptsize Immutable contracts have no rollback. If there is no emergency pause, no insurance fund, and no governance process, then a flaw means total loss.
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+% Balance scale (modeled on cbdc_intro.tex slide 5 pattern)
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% Fulcrum triangle
+\fill[mlgray!30] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+\draw[thick, mlgray] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+
+% Beam (slightly tilted to show tension)
+\draw[ultra thick, mlpurple] (0.2,1.8) -- (3.8,1.2);
+
+% Pivot
+\fill[mlpurple] (2.0,1.5) circle (0.08);
+
+% Left pan --- Automation + Access
+\draw[thick, dfteal] (0.0,1.4) -- (0.4,1.4);
+\draw[thick, dfteal] (0.0,1.4) -- (0.2,1.8);
+\draw[thick, dfteal] (0.4,1.4) -- (0.2,1.8);
+\node[font=\tiny\bfseries, dfteal, align=center] at (0.2,1.05) {Automation\\+ Access};
+
+% Items on left pan
+\node[font=\tiny, dfteal] at (0.2,0.65) {No gatekeepers};
+\node[font=\tiny, dfteal] at (0.2,0.4) {Always available};
+\node[font=\tiny, dfteal] at (0.2,0.15) {Transparent rules};
+
+% Right pan --- Risk + Rigidity
+\draw[thick, dfred] (3.6,0.8) -- (4.0,0.8);
+\draw[thick, dfred] (3.6,0.8) -- (3.8,1.2);
+\draw[thick, dfred] (4.0,0.8) -- (3.8,1.2);
+\node[font=\tiny\bfseries, dfred, align=center] at (3.8,0.45) {Risk\\+ Rigidity};
+
+% Items on right pan
+\node[font=\tiny, dfred] at (3.8,0.05) {Bugs are permanent};
+\node[font=\tiny, dfred] at (3.8,-0.2) {No appeals};
+\node[font=\tiny, dfred] at (3.8,-0.45) {Code is final};
+
+% Question mark at top center
+\node[font=\small\bfseries, mlpurple] at (2.0,2.6) {?};
+
+% Annotation arrows
+\draw[->, thick, dfteal] (0.2,2.4) -- (0.2,2.0);
+\node[font=\tiny, dfteal, align=center] at (0.2,2.7) {More\\access};
+\draw[->, thick, dfred] (3.8,2.4) -- (3.8,1.6);
+\node[font=\tiny, dfred, align=center] at (3.8,2.7) {More\\risk};
+
+% Bottom annotation
+\node[font=\tiny, mlgray] at (2.0,-0.7) {\textit{Every design choice tips the balance.}};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Trustless does not mean risk-free. It means the risk has shifted from trusting people to trusting code. Whether that is an improvement depends on the quality of the code and the design of the system.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 10: ACT --- Activity Frame (Full-width)
+% =======================================================================
+\begin{frame}[t]{Your Challenge: Audit This Contract Design}
+\small
+A startup proposes the following smart contract system for freelance payments:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The promise:] Clients deposit payment when hiring a freelancer. The contract releases funds when the work is marked complete.
+\item[\scriptsize The rule:] The client marks work as complete, OR a deadline passes and the freelancer can claim the funds.
+\item[\scriptsize The upgrade:] The startup holds an admin key that can pause the contract and redirect funds in case of disputes.
+\end{description}
+
+\vspace{3mm}
+\small
+Apply the three questions from the previous slide:
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Audit question:} What parts of this design could contain hidden risks? Where would you want an auditor to focus?
+\item \textbf{Upgrade question:} The startup holds an admin key. What does this mean for the ``trustless'' claim? What could the startup do with this power?
+\item \textbf{Failure question:} If the startup disappears, what happens to funds locked in the contract? Is there a recovery path?
+\end{enumerate}
+
+\vspace{3mm}
+\begin{exampleblock}{No Single Right Answer}
+\footnotesize There is no single right answer. The point is to practice evaluating trade-offs: the admin key solves the dispute problem but reintroduces centralized control. Every smart contract design involves this tension between safety and autonomy.
+\end{exampleblock}
+\end{frame}
+
+\end{document}

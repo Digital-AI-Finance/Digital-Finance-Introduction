@@ -1,0 +1,672 @@
+% Tokenization: 10-Slide Mini-Lecture
+% Standalone introduction following the 10-slide arc
+\input{../template_beamer.tex}
+
+% Additional TikZ libraries
+\usetikzlibrary{calc,decorations.pathreplacing}
+
+% ======================= DOCUMENT INFO =======================
+\title[Tokenization Intro]{Tokenization}
+\subtitle{Owning a Piece of Anything --- A 10-Slide Introduction}
+\author{Joerg Osterrieder}
+\institute{Digital Finance}
+\date{}
+
+\begin{document}
+
+% =======================================================================
+% SLIDE 1: WHY --- TikZ Comic (Dilemma, dfteal-dominant)
+% =======================================================================
+\begin{frame}[t]{What If You Want to Invest in a Building --- But the Smallest Share Costs More Than You Earn in a Year?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Someone wants to invest in a valuable asset --- a building, a bond, a piece of art. The asset generates income every year. But the minimum buy-in is enormous. Traditional ownership is all-or-nothing: you either own the whole thing, or you own nothing.
+
+\vspace{2mm}
+\footnotesize
+\textbf{Three barriers traditional ownership creates:}
+\begin{enumerate}\compactlist
+\item \textbf{Minimum investment} --- high-value assets require large capital that most people do not have
+\item \textbf{Illiquidity} --- selling requires finding a buyer for the whole asset, which can take months or years
+\item \textbf{Access} --- most people are excluded from the best-performing asset classes entirely
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+These barriers mean that the wealthiest investors have access to the best assets, while everyone else is locked out --- not because the assets are scarce, but because the ownership structure is inflexible.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Building (asset block) ---
+\draw[thick, mlgray, fill=mllavender4, rounded corners=2pt] (2.0,2.0) rectangle (4.2,4.4);
+\node[font=\tiny\bfseries, mlgray] at (3.1,4.1) {Premium Asset};
+\draw[thick, mlgray] (2.5,2.5) rectangle (3.0,3.2);
+\draw[thick, mlgray] (3.2,2.5) rectangle (3.7,3.2);
+\draw[thick, mlgray] (2.5,3.4) rectangle (3.0,3.8);
+\draw[thick, mlgray] (3.2,3.4) rectangle (3.7,3.8);
+
+% --- Barrier (thick dashed wall) ---
+\draw[ultra thick, dashed, dfred!60] (1.6,1.8) -- (1.6,4.6);
+\node[font=\tiny, dfred!60, rotate=90] at (1.35,3.2) {Barrier};
+
+% --- Stick figure (investor) ---
+\draw[thick, dfteal] (0.6,3.6) circle (0.15); % head
+\draw[thick, dfteal] (0.6,3.45) -- (0.6,2.9); % body
+\draw[thick, dfteal] (0.6,3.2) -- (0.3,3.0); % left arm
+\draw[thick, dfteal] (0.6,3.2) -- (0.9,3.0); % right arm reaching
+\draw[thick, dfteal] (0.6,2.9) -- (0.4,2.6); % left leg
+\draw[thick, dfteal] (0.6,2.9) -- (0.8,2.6); % right leg
+
+% --- Thought bubble ---
+\draw[thick, mlgray, rounded corners=2pt] (-0.6,4.0) rectangle (1.4,4.4);
+\node[font=\tiny] at (0.4,4.2) {I can only afford};
+\node[font=\tiny] at (0.4,4.0) {};
+\fill[mlgray] (0.5,3.85) circle (0.04);
+\fill[mlgray] (0.55,3.9) circle (0.03);
+
+% --- Glowing token below ---
+\draw[thick, dfteal, fill=dfteal!15, rounded corners=3pt] (0.8,0.8) rectangle (3.2,1.6);
+\node[font=\tiny\bfseries, dfteal] at (2.0,1.35) {Token};
+\node[font=\tiny, dfteal] at (2.0,1.05) {A fractional share};
+
+% --- Arrow from token up toward building ---
+\draw[->, ultra thick, dfteal] (2.0,1.6) -- (2.0,2.0);
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, mlpurple] at (2.0,0.4) {A token turns a locked door};
+\node[font=\tiny\bfseries, mlpurple] at (2.0,0.1) {into an open market.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Tokenization creates digital representations of real-world assets on a blockchain, allowing ownership to be divided into small, tradeable pieces --- turning exclusive assets into inclusive markets.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 2: FEEL --- Text-Only Prompt (Full-width)
+% =======================================================================
+\begin{frame}[t]{Think About the Most Expensive Thing You Would Like to Own --- What If You Could Buy Just One Percent of It?}
+\small
+You walk past a building in the city center. It generates rental income every month. You check the price --- it would take decades of savings. You walk on. The building keeps earning, and you keep walking.
+
+\vspace{3mm}
+\small
+Now imagine a different version:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The token:] A digital certificate that represents a tiny fraction of that building, recorded on a shared ledger that anyone can verify.
+\item[\scriptsize The income:] Each month, rental payments are distributed automatically to every token holder, proportional to their share.
+\item[\scriptsize The exit:] When you want to sell, you list your tokens on a marketplace that operates around the clock --- no agent, no paperwork, no waiting.
+\end{description}
+
+\vspace{3mm}
+\small
+No minimum wealth. No exclusive club. No waiting list. The token handled it.
+
+\vspace{3mm}
+\begin{exampleblock}{The Core Idea}
+\footnotesize This is the core idea behind tokenization: dividing ownership of real-world assets into small digital pieces that anyone can buy, hold, and trade. The question is not whether the technology works --- it is whether the token truly connects you to the asset it claims to represent.
+\end{exampleblock}
+\end{frame}
+
+% =======================================================================
+% SLIDE 3: WHAT --- Comparison Table (adjustbox)
+% =======================================================================
+\begin{frame}[t]{What Changes When Ownership Lives on a Blockchain Instead of in a Filing Cabinet?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\scriptsize
+\begin{tabular}{l c c}
+\toprule
+\textbf{Aspect} & \textbf{Traditional} & \textbf{Tokenized} \\
+\midrule
+Minimum investment & Large capital required & A small fraction \\
+Trading hours & Business days only & Around the clock \\
+Settlement & Days to weeks & Near-instant \\
+Geographic access & Local jurisdiction & Global, borderless \\
+Intermediaries & Brokers, agents, notaries & Smart contract \\
+Divisibility & Whole units or large lots & Any fraction defined \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{center}
+
+\vspace{2mm}
+\footnotesize
+Read the table left to right. Every improvement in the tokenized column comes with a hidden assumption: that the digital token is legally and practically connected to the physical asset. Remove that connection, and the token is just a number.
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{Key properties of tokenized assets:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Fractional} --- ownership can be divided into arbitrarily small pieces
+\item \textbf{Programmable} --- smart contracts automate income distribution and compliance
+\item \textbf{Transferable} --- tokens move between wallets without intermediary approval
+\item \textbf{Transparent} --- ownership records are public and auditable on-chain
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+These properties unlock new possibilities but also create new risks: transparent ownership means anyone can see your holdings, and programmable rules can enforce restrictions you did not expect.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize The table reveals a pattern: tokenization improves speed, access, and divisibility --- but each improvement depends on a legal bridge between the digital token and the physical asset that no blockchain can build on its own.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 4: CASE --- Step Diagram (6 steps + 2 branches)
+% =======================================================================
+\begin{frame}[t]{Follow One Rental Property from Physical Asset to Monthly Income in Your Wallet}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.65,
+    stepbox/.style={rectangle, rounded corners=3pt, minimum width=2.8cm, minimum height=0.5cm, text centered, thick, font=\tiny},
+    rejectbox/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.4cm, text centered, thick, font=\tiny}
+]
+% Step 1
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s1) at (0,0) {1. Asset appraised};
+% Step 2
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s2) at (0,-1.0) {2. Legal entity wraps};
+% Step 3
+\node[stepbox, draw=dfteal, fill=dfteal!20] (s3) at (0,-2.0) {3. Tokens minted};
+% Step 4
+\node[stepbox, draw=mlpurple, fill=mllavender4] (s4) at (0,-3.0) {4. Investors purchase};
+% Step 5
+\node[stepbox, draw=mlpurple, fill=mllavender3] (s5) at (0,-4.0) {5. Income distributed};
+% Step 6
+\node[stepbox, draw=dfgreen, fill=dfgreen!20] (s6) at (0,-5.0) {6. Tokens traded};
+
+% Arrows between steps
+\draw[->, thick, mlpurple] (s1) -- (s2);
+\draw[->, thick, mlpurple] (s2) -- (s3);
+\draw[->, thick, mlpurple] (s3) -- (s4);
+\draw[->, thick, mlpurple] (s4) -- (s5);
+\draw[->, thick, mlpurple] (s5) -- (s6);
+
+% Branch from step 2: legal dispute
+\node[rejectbox, draw=dfred, fill=dfred!20] (r1) at (3.2,-1.0) {Legal dispute};
+\draw[->, thick, dfred] (s2.east) -- (r1.west) node[midway, above, font=\tiny, dfred] {challenged};
+
+% Branch from step 4: illiquid market
+\node[rejectbox, draw=dfred, fill=dfred!20] (r2) at (3.2,-3.0) {Illiquid market};
+\draw[->, thick, dfred] (s4.east) -- (r2.west) node[midway, above, font=\tiny, dfred] {no buyers};
+
+% Numbered circles
+\foreach \i/\y in {1/0, 2/-1.0, 3/-2.0, 4/-3.0, 5/-4.0, 6/-5.0} {
+    \node[circle, fill=mlpurple, text=white, font=\tiny, inner sep=1pt, minimum size=0.3cm] at (-1.8,\y) {\i};
+}
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What happened in those six steps:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item No bank managed the investment --- a smart contract handled distributions
+\item No broker listed the shares --- tokens traded on a global marketplace
+\item No minimum wealth was required --- any amount could participate
+\item No paperwork changed hands --- the blockchain recorded every transfer
+\end{itemize}
+
+\vspace{2mm}
+\footnotesize
+The entire process --- from asset to income --- combined physical property with digital infrastructure. Every step that touches the real world still requires trust in people and institutions.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Every step that digitizes ownership also creates a dependency: on the appraiser's honesty, the legal wrapper's enforceability, the platform's continued operation, and the market's willingness to trade.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 5: HOW --- Side-by-Side Architecture
+% =======================================================================
+\begin{frame}[t]{How Does a Token Connect to the Asset It Claims to Represent?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    archbox/.style={rectangle, rounded corners=2pt, minimum width=2.0cm, minimum height=0.5cm, text centered, thick, font=\tiny}
+]
+% ===== LEFT STACK: Traditional Transfer =====
+\node[font=\tiny\bfseries, mlpurple] at (1.2,4.5) {Traditional Transfer};
+
+% Seller (stick figure)
+\draw[thick, mlgray] (1.2,4.1) circle (0.12);
+\draw[thick, mlgray] (1.2,3.98) -- (1.2,3.6);
+\node[font=\tiny, mlgray] at (1.2,4.3) {Seller};
+
+% Broker / Agent
+\node[archbox, draw=mlgray, fill=mlgray!15] (broker) at (1.2,3.0) {Broker / Agent};
+\draw[->, thick, mlgray] (1.2,3.55) -- (1.2,3.25);
+
+% Title Registry
+\draw[thick, mlgray, fill=mlgray!15] (0.5,1.8) rectangle (1.9,2.3);
+\draw[thick, mlgray, fill=mlgray!15] (0.5,2.3) ellipse (0.7 and 0.15);
+\node[font=\tiny, mlgray] at (1.2,2.0) {Title Registry};
+\draw[->, thick, mlgray] (1.2,2.75) -- (1.2,2.45);
+
+% Buyer Verified
+\node[archbox, draw=mlgray, fill=mlgray!15] (buyer1) at (1.2,1.2) {Buyer Verified};
+\draw[->, thick, mlgray] (1.2,1.75) -- (1.2,1.45);
+
+% Label
+\node[font=\tiny, mlgray, align=center] at (1.2,0.5) {\textit{Multiple parties,}\\\textit{days to settle}};
+
+% ===== DASHED SEPARATOR =====
+\draw[dashed, thick, mlgray] (2.7,0.2) -- (2.7,4.6);
+
+% ===== RIGHT STACK: Tokenized Transfer =====
+\node[font=\tiny\bfseries, mlpurple] at (4.3,4.5) {Tokenized Transfer};
+
+% Seller (stick figure)
+\draw[thick, dfteal] (4.3,4.1) circle (0.12);
+\draw[thick, dfteal] (4.3,3.98) -- (4.3,3.6);
+\node[font=\tiny, dfteal] at (4.3,4.3) {Seller};
+
+% Smart Contract
+\node[archbox, draw=mlpurple, fill=mllavender4] (sc) at (4.3,3.0) {Smart Contract};
+\draw[->, thick, dfteal] (4.3,3.55) -- (4.3,3.25);
+
+% Legal Wrapper
+\node[archbox, draw=mlpurple, fill=mlpurple!20, minimum width=2.2cm] (lw) at (4.3,2.2) {Legal Wrapper};
+\draw[->, thick, mlpurple] (4.3,2.75) -- (4.3,2.45);
+\node[font=\tiny, mlpurple, align=center] at (6.0,2.2) {\textit{bridges digital}\\\textit{+ physical}};
+
+% Buyer Receives Token
+\node[archbox, draw=dfgreen, fill=dfgreen!20] (buyer2) at (4.3,1.4) {Buyer Gets Token};
+\draw[->, thick, mlpurple] (4.3,1.95) -- (4.3,1.65);
+
+% Label
+\node[font=\tiny, dfteal, align=center] at (4.3,0.5) {\textit{Fewer parties,}\\\textit{near-instant}};
+
+% Bottom comparison label
+\node[font=\tiny\bfseries, mlpurple] at (2.7,-0.1) {Chain of intermediaries vs.\ Code + legal bridge};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The legal wrapper is the key:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Entity:] The real-world asset is held by a legal entity whose ownership is represented by the tokens
+\item[\scriptsize Compliance:] The smart contract enforces rules about who can buy, sell, or hold tokens --- automating regulatory requirements
+\item[\scriptsize Custody:] A licensed custodian holds the physical asset or its legal title, separate from the token issuer
+\item[\scriptsize Enforcement:] If a dispute arises, courts enforce the legal wrapper --- not the blockchain
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The architecture works only when the legal layer and the digital layer stay synchronized. A token without a legal wrapper is a claim without enforcement.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Tokenization does not replace the legal system --- it builds a digital layer on top of it. The smart contract handles transfers and distributions, but the legal wrapper is what makes the token worth anything in the real world.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 6: RISK --- TikZ Failure Comic (dfred-dominant)
+% =======================================================================
+\begin{frame}[t]{The Blockchain Says You Own Tokens --- But the Building Burned Down}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+An investor buys tokens representing a share of a commercial property. The tokens are on the blockchain. The ownership record is immutable. Then the issuer goes bankrupt, the legal entity is dissolved, and the building is sold to pay creditors.
+
+\vspace{2mm}
+\footnotesize
+\textbf{The dual reality problem --- what can go wrong:}
+\begin{enumerate}\compactlist
+\item The physical asset is damaged or destroyed
+\item The legal entity that wraps the asset is dissolved
+\item The issuer platform shuts down or is hacked
+\item A court in the asset's jurisdiction does not recognize the token
+\item The custodian mismanages or misappropriates the asset
+\end{enumerate}
+
+\vspace{2mm}
+\footnotesize
+The blockchain recorded every transaction faithfully. The tokens still exist. But the asset they were supposed to represent is gone --- and no smart contract can bring it back.
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% --- Token holder (left) ---
+\draw[thick, dfteal] (0.6,3.6) circle (0.15); % head
+\draw[thick, dfteal] (0.6,3.45) -- (0.6,2.9); % body
+\draw[thick, dfteal] (0.6,3.2) -- (0.3,3.0); % left arm
+\draw[thick, dfteal] (0.6,3.2) -- (0.9,3.0); % right arm
+\draw[thick, dfteal] (0.6,2.9) -- (0.4,2.6); % left leg
+\draw[thick, dfteal] (0.6,2.9) -- (0.8,2.6); % right leg
+
+% --- Token in hand ---
+\draw[thick, dfteal, fill=dfteal!15, rounded corners=2pt] (0.9,2.8) rectangle (1.5,3.1);
+\node[font=\tiny, dfteal] at (1.2,2.95) {Token};
+
+% --- Building with X (crumbling, dfred) ---
+\draw[ultra thick, dfred, fill=dfred!8, rounded corners=3pt] (3.0,2.0) rectangle (5.0,4.2);
+\node[font=\tiny\bfseries, dfred] at (4.0,3.9) {Building};
+\draw[ultra thick, dfred] (3.2,2.2) -- (4.8,4.0);
+\draw[ultra thick, dfred] (4.8,2.2) -- (3.2,4.0);
+
+% --- Broken chain between ---
+\draw[ultra thick, dashed, dfred] (1.6,3.2) -- (2.8,3.2);
+\node[font=\tiny\bfseries, dfred] at (2.2,3.5) {Link broken};
+
+% --- Speech bubble from token holder ---
+\draw[thick, mlgray, rounded corners=2pt] (-0.6,4.0) rectangle (1.5,4.4);
+\node[font=\tiny] at (0.45,4.2) {But I own the token!};
+\fill[mlgray] (0.5,3.85) circle (0.04);
+\fill[mlgray] (0.55,3.9) circle (0.03);
+
+% --- Crowd below ---
+\draw[thick, dfteal] (0.5,1.5) circle (0.08);
+\draw[thick, dfteal] (0.9,1.5) circle (0.08);
+\draw[thick, dfteal] (1.3,1.5) circle (0.08);
+\draw[thick, dfteal] (1.7,1.5) circle (0.08);
+
+% Crowd speech bubble
+\draw[thick, mlgray, rounded corners=2pt] (0.2,0.9) rectangle (2.5,1.25);
+\node[font=\tiny] at (1.35,1.075) {Who enforces the claim?};
+\draw[thick, mlgray] (1.1,1.25) -- (1.1,1.42);
+
+% --- Bottom punchline ---
+\node[font=\tiny\bfseries, dfred] at (2.5,0.4) {The ledger is immutable.};
+\node[font=\tiny\bfseries, dfred] at (2.5,0.1) {The world is not.};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize A token is only as valuable as the legal and physical reality it represents. When the digital record and the real world diverge, the blockchain cannot resolve the difference --- only courts, insurers, and custodians can.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 7: WHERE --- pgfplots Stacked Bar Chart
+% =======================================================================
+\begin{frame}[t]{Which Asset Classes Are Being Tokenized --- And How Fast Is It Growing?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tikzpicture}
+\begin{axis}[
+    width=7cm, height=4.5cm,
+    ybar stacked,
+    bar width=14pt,
+    symbolic x coords={Gov.\ Bonds,Real Estate,Commodities,Private Credit,Art},
+    xtick=data,
+    x tick label style={font=\tiny, rotate=25, anchor=east},
+    ylabel={\scriptsize Share of tokenized assets (\%)},
+    y tick label style={font=\tiny},
+    ymin=0, ymax=105,
+    ytick={0,25,50,75,100},
+    legend style={at={(1.02,1.0)}, anchor=north west, font=\tiny},
+    legend cell align={left},
+    grid=none,
+    enlarge x limits=0.15,
+    area style
+]
+% Institutional platforms
+\addplot[fill=mlpurple, draw=mlpurple!80!black] coordinates
+    {(Gov.\ Bonds,55) (Real Estate,35) (Commodities,40) (Private Credit,45) (Art,25)};
+% DeFi protocols
+\addplot[fill=dfteal!60, draw=dfteal] coordinates
+    {(Gov.\ Bonds,25) (Real Estate,30) (Commodities,30) (Private Credit,35) (Art,35)};
+% Emerging platforms
+\addplot[fill=mlorange!60, draw=mlorange] coordinates
+    {(Gov.\ Bonds,20) (Real Estate,35) (Commodities,30) (Private Credit,20) (Art,40)};
+\legend{Institutional, DeFi protocols, Emerging}
+\end{axis}
+\end{tikzpicture}
+\end{adjustbox}
+\end{center}
+
+\vspace{1mm}
+\tiny\textit{Illustrative distribution based on public tokenization data patterns. Not actual protocol data.}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{What these asset classes reveal:}
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize Government bonds:] The largest and fastest-growing category --- institutional investors tokenize sovereign debt for faster settlement
+\item[\scriptsize Real estate:] Fractional ownership of properties, from commercial buildings to rental homes
+\item[\scriptsize Commodities:] Tokens backed by physical reserves of precious metals or energy products
+\item[\scriptsize Art and collectibles:] The most fragmented market --- high potential but highest counterparty risk
+\end{description}
+
+\vspace{2mm}
+\scriptsize
+The pattern is clear: asset classes with strong legal frameworks and institutional demand tokenize fastest. Those without clear regulation remain experimental.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize The tokenization wave is not evenly distributed. Regulated, institutional-grade assets lead because they already have the legal infrastructure that tokenization depends on. The long tail of exotic assets remains a frontier.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 8: IMPACT --- Stakeholder Map (5 actors)
+% =======================================================================
+\begin{frame}[t]{Who Benefits from Tokenized Assets --- And Who Gets Disrupted?}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.75,
+    actor/.style={rectangle, rounded corners=3pt, minimum width=1.6cm, minimum height=0.5cm, text centered, thick, font=\tiny, draw=mlgray, fill=mllavender4}
+]
+% Central node
+\node[rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=0.6cm, text centered, thick, draw=mlpurple, fill=mlpurple!80, font=\tiny\bfseries, text=white] (center) at (2.5,2.5) {Tokenized Assets};
+
+% Actor 1: Top-left --- Small investors (benefit)
+\node[actor] (a1) at (0.2,4.5) {\shortstack{Small\\investors}};
+\draw[->, thick, dfgreen] (center) -- (a1) node[midway, left, font=\tiny, dfgreen] {access};
+
+% Actor 2: Top-right --- Asset owners (benefit)
+\node[actor] (a2) at (4.8,4.5) {\shortstack{Asset\\owners}};
+\draw[->, thick, dfgreen] (center) -- (a2) node[midway, right, font=\tiny, dfgreen] {liquidity};
+
+% Actor 3: Right --- Banks & brokers (harm)
+\node[actor] (a3) at (5.5,2.0) {\shortstack{Banks \&\\brokers}};
+\draw[->, thick, dfred] (center) -- (a3) node[midway, below, font=\tiny, dfred] {displace};
+
+% Actor 4: Bottom-right --- Regulators (ambiguous)
+\node[actor] (a4) at (4.5,0.3) {\shortstack{Regulators}};
+\draw[->, thick, mlorange] (center) -- (a4) node[midway, right, font=\tiny, mlorange] {challenge};
+
+% Actor 5: Bottom-left --- Token holders during failure (harm)
+\node[actor] (a5) at (0.5,0.3) {\shortstack{Token holders\\during failure}};
+\draw[->, thick, dfred] (center) -- (a5) node[midway, left, font=\tiny, dfred] {exposure};
+
+% Legend
+\node[font=\tiny, dfgreen] at (1.0,-0.4) {Green = benefit};
+\node[font=\tiny, dfred] at (2.5,-0.4) {Red = harm};
+\node[font=\tiny, mlorange] at (4.0,-0.4) {Orange = ambiguous};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\begin{column}{0.42\textwidth}
+\small
+\textbf{The distribution of impact is uneven:}
+
+\vspace{2mm}
+\footnotesize
+\begin{itemize}\compactlist
+\item \textbf{Winners:} Small investors gain access to asset classes previously reserved for the wealthy. Asset owners gain liquidity by selling fractional stakes without selling the whole asset.
+\item \textbf{Losers:} Banks and brokers lose intermediation fees as smart contracts automate transfers. Token holders in failed projects bear losses with limited recourse.
+\item \textbf{Ambiguous:} Regulators face a technology that crosses jurisdictions, blurs securities definitions, and moves faster than rulemaking.
+\end{itemize}
+
+\vspace{2mm}
+\scriptsize
+The same technology that opens markets to new participants also creates new ways to lose money without traditional investor protections.
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Tokenization redistributes access but does not redistribute risk. New participants gain entry to asset classes they could not previously reach --- but they also inherit risks that established investors manage through legal teams and institutional protections.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 9: SO WHAT --- Balance Scale
+% =======================================================================
+\begin{frame}[t]{Four Questions That Reveal Whether a Token Is Worth Owning}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+Before investing in any tokenized asset, ask four questions. The answers will not tell you whether to invest --- but they will reveal what you are actually buying and what you are trusting.
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Is the token legally connected to the asset?}\\
+\scriptsize A token without a legal wrapper is a claim without enforcement. Ask for the legal structure, the jurisdiction, and the custodian.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{What happens if the platform disappears?}\\
+\scriptsize If the platform shuts down, can you still prove ownership? Is the legal entity independent of the platform?
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{Can you actually sell when you need to?}\\
+\scriptsize Liquidity on paper means nothing if the secondary market is thin. Ask about trading volume and buyer depth.
+
+\vspace{1.5mm}
+\footnotesize
+\item \textbf{Who audits the underlying asset?}\\
+\scriptsize A tokenized asset is only worth what the underlying is worth. Independent, recent audits are the minimum standard.
+\end{enumerate}
+\end{column}
+\begin{column}{0.42\textwidth}
+% Balance scale (COPY from smart_contracts_intro.tex lines 593-637)
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+% Fulcrum triangle
+\fill[mlgray!30] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+\draw[thick, mlgray] (2.0,1.5) -- (1.6,0.8) -- (2.4,0.8) -- cycle;
+
+% Beam (slightly tilted to show tension)
+\draw[ultra thick, mlpurple] (0.2,1.8) -- (3.8,1.2);
+
+% Pivot
+\fill[mlpurple] (2.0,1.5) circle (0.08);
+
+% Left pan --- Accessibility + Liquidity
+\draw[thick, dfteal] (0.0,1.4) -- (0.4,1.4);
+\draw[thick, dfteal] (0.0,1.4) -- (0.2,1.8);
+\draw[thick, dfteal] (0.4,1.4) -- (0.2,1.8);
+\node[font=\tiny\bfseries, dfteal, align=center] at (0.2,1.05) {Accessibility\\+ Liquidity};
+
+% Items on left pan
+\node[font=\tiny, dfteal] at (0.2,0.65) {Fractional ownership};
+\node[font=\tiny, dfteal] at (0.2,0.4) {Global market};
+\node[font=\tiny, dfteal] at (0.2,0.15) {Automated income};
+
+% Right pan --- Legal Risk + Asset Quality
+\draw[thick, dfred] (3.6,0.8) -- (4.0,0.8);
+\draw[thick, dfred] (3.6,0.8) -- (3.8,1.2);
+\draw[thick, dfred] (4.0,0.8) -- (3.8,1.2);
+\node[font=\tiny\bfseries, dfred, align=center] at (3.8,0.45) {Legal Risk\\+ Asset Quality};
+
+% Items on right pan
+\node[font=\tiny, dfred] at (3.8,0.05) {Dual reality gap};
+\node[font=\tiny, dfred] at (3.8,-0.2) {Thin markets};
+\node[font=\tiny, dfred] at (3.8,-0.45) {Custodian failure};
+
+% Question mark at top center
+\node[font=\small\bfseries, mlpurple] at (2.0,2.6) {?};
+
+% Annotation arrows
+\draw[->, thick, dfteal] (0.2,2.4) -- (0.2,2.0);
+\node[font=\tiny, dfteal, align=center] at (0.2,2.7) {More\\access};
+\draw[->, thick, dfred] (3.8,2.4) -- (3.8,1.6);
+\node[font=\tiny, dfred, align=center] at (3.8,2.7) {More\\risk};
+
+% Bottom annotation
+\node[font=\tiny, mlgray] at (2.0,-0.7) {\textit{Every tokenized asset tips the balance.}};
+\end{tikzpicture}
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{1mm}
+\begin{block}{}
+\footnotesize Tokenization does not create value --- it changes how value is accessed, divided, and transferred. Whether that change is worth the new risks depends on the quality of the legal bridge, the depth of the market, and the honesty of the people behind the token.
+\end{block}
+\end{frame}
+
+% =======================================================================
+% SLIDE 10: ACT --- Activity Frame (Full-width)
+% =======================================================================
+\begin{frame}[t]{Your Challenge: Evaluate This Tokenized Asset}
+\small
+A startup announces a tokenized investment opportunity. Here is what they claim:
+
+\vspace{2mm}
+\footnotesize
+\begin{description}\compactlist
+\item[\scriptsize The asset:] A portfolio of rental properties in several cities, generating monthly income. The properties are held by a legal entity registered in a single jurisdiction.
+\item[\scriptsize The token:] Each token represents a fractional share of the legal entity. Tokens can be purchased for a small amount and traded on the platform's own marketplace.
+\item[\scriptsize The promise:] Token holders receive monthly distributions proportional to their holdings. The platform publishes quarterly financial reports but has not completed an independent audit.
+\end{description}
+
+\vspace{3mm}
+\small
+Apply the four questions from the previous slide:
+
+\vspace{2mm}
+\footnotesize
+\begin{enumerate}\compactlist
+\item \textbf{Legal connection:} Is the token legally tied to the properties? What happens if the jurisdiction does not recognize token-based ownership? What recourse do you have?
+\item \textbf{Platform risk:} If the startup shuts down, what happens to the legal entity and the properties? Can you prove ownership without the platform?
+\item \textbf{Liquidity:} The tokens trade only on the platform's own marketplace. What does this mean for your ability to sell? What risks does a captive market create?
+\item \textbf{Audit:} The platform self-reports financials without independent verification. What could go wrong? What would give you more confidence?
+\end{enumerate}
+
+\vspace{3mm}
+\begin{exampleblock}{No Single Right Answer}
+\footnotesize There is no single right answer. The point is to practice distinguishing between the technology's promise and the reality of its implementation. A tokenized asset is not automatically better than a traditional one --- it is different, with different risks, different protections, and different failure modes.
+\end{exampleblock}
+\end{frame}
+
+\end{document}
